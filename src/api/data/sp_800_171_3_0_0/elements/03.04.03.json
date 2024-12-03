@@ -1,0 +1,162 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Configuration Change Control",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.04.03",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Configuration change control refers to tracking, reviewing, approving or disapproving, and logging changes to the system. Specifically, it involves the systematic proposal, justification, implementation, testing, review, and disposition of changes to the system, including system upgrades and modifications. Configuration change control includes changes to baseline configurations for system components (e.g., operating systems, applications, firewalls, routers, mobile devices) and configuration items of the system, changes to configuration settings, unscheduled and unauthorized changes, and changes to remediate vulnerabilities. This requirement is related to <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.04.04\">03.04.04</a>."
+                            },
+                            {
+                                "elementIdentifier": "E-03.04.03",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: configuration management policy and procedures; procedures for system configuration change control; configuration management plan; system architecture; configuration settings; change control records; system audit records; change control audit and review reports; agenda, minutes, and documentation from configuration change control oversight meetings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.04.03",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with configuration change control responsibilities; personnel with information security responsibilities; members of change control board or similar; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-124",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Howell G, Franklin JM, Sritapan V, Souppaya M, Scarfone K (2023) Guidelines for Managing the Security of Mobile Devices in the Enterprise. (National Institute of Standards and Technology, Gaithersburg",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-124r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-128",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Johnson LA, Dempsey KL, Ross RS, Gupta S, Bailey D (2011) Guide for Security-Focused Configuration Management of Information Systems. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-128"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.04.03",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.04.03.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Define the types of changes to the system that are configuration-controlled.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the types of changes to the system that are configuration-controlled are defined."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.03.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review proposed configuration-controlled changes to the system, and approve or disapprove such changes with explicit consideration for security impacts.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "proposed configuration-controlled changes to the system are reviewed with explicit consideration for security impacts."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "proposed configuration-controlled changes to the system are approved or disapproved with explicit consideration for security impacts."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.03.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Implement and document approved configuration-controlled changes to the system.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "approved configuration-controlled changes to the system are implemented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "approved configuration-controlled changes to the system are documented."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.03.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Monitor and review activities associated with configuration-controlled changes to the system.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.d[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "activities associated with configuration-controlled changes to the system are monitored."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.03.d[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "activities associated with configuration-controlled changes to the system are reviewed."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.04.03",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for configuration change control; mechanisms that implement configuration change control]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.4.3",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199025,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CM-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "CONFIGURATION CHANGE CONTROL",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

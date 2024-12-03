@@ -1,0 +1,148 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.07",
+                "elementTypeIdentifier": "family",
+                "title": "Maintenance",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.07.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Nonlocal Maintenance",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.07.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Nonlocal maintenance and diagnostic activities are conducted by individuals who communicate through an external or internal network. Local maintenance and diagnostic activities are carried out by individuals who are physically present at the location of the system and not communicating across a network connection. Authentication techniques used to establish nonlocal maintenance and diagnostic sessions reflect the requirements in <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.05.01\">03.05.01</a>."
+                            },
+                            {
+                                "elementIdentifier": "E-03.07.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: maintenance policy and procedures; remote access policy and procedures; procedures for nonlocal system maintenance; records of remote access; maintenance records; diagnostic records; system design documentation; system configuration settings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.07.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with system maintenance responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-63-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Grassi PA, Garcia ME, Fenton JL (2017) Digital Identity Guidelines. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-63-3, Includes updates as of M",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-63-3"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-88",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kissel RL, Regenscheid AR, Scholl MA, Stine KM (2014) Guidelines for Media Sanitization. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-88, Rev. ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-88r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.07.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.07.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Approve and monitor nonlocal maintenance and diagnostic activities.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "nonlocal maintenance and diagnostic activities are approved."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "nonlocal maintenance and diagnostic activities are monitored."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Implement multi-factor authentication and replay resistance in the establishment of nonlocal maintenance and diagnostic sessions.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "multi-factor authentication is implemented in the establishment of nonlocal maintenance and diagnostic sessions."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "replay resistance is implemented in the establishment of nonlocal maintenance and diagnostic sessions."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Terminate session and network connections when nonlocal maintenance is completed.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "session connections are terminated when nonlocal maintenance is completed."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "network connections are terminated when nonlocal maintenance is completed."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.07.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for managing nonlocal maintenance; mechanisms for implementing, supporting, or managing nonlocal maintenance; mechanisms for implementing multi-factor authentication and replay resistance; mechanisms for terminating nonlocal maintenance sessions and network connections]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.7.5",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199047,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "MA-04",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "NONLOCAL MAINTENANCE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

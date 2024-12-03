@@ -1,0 +1,29 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.07",
+                "elementTypeIdentifier": "family",
+                "title": "Maintenance",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.07.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.07.01",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Recategorized as NCO."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

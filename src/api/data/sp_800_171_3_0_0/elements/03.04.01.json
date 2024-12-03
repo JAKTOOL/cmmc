@@ -1,0 +1,174 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Baseline Configuration",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.04.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Baseline configurations for the system and system components include aspects of connectivity, operation, and communications. Baseline configurations are documented, formally reviewed, and agreed-upon specifications for the system or configuration items within the system. Baseline configurations serve as a basis for future builds, releases, or changes to the system and include information about system components, operational procedures, network topology, and the placement of components in the system architecture. Maintaining baseline configurations requires creating new baselines as the system changes over time. Baseline configurations of the system reflect the current enterprise architecture."
+                            },
+                            {
+                                "elementIdentifier": "E-03.04.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: configuration management policy and procedures; procedures for the baseline system configuration; configuration management plan; enterprise architecture; system design documentation; system architecture; system configuration settings; system component inventory; change control records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.04.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with configuration management responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "IR 8011-2",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Dempsey KL, Eavy P, Moore G (2017) Automation Support for Security Control Assessments: Volume 2: Hardware Asset Management. (National Institute of Standards and Technology, Gaithersburg, MD), NIST In",
+                                "text": "https://doi.org/10.6028/NIST.IR.8011-2"
+                            },
+                            {
+                                "elementIdentifier": "IR 8011-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Dempsey KL, Eavy P, Goren N, Moore G (2018) Automation Support for Security Control Assessments: Volume 3: Software Asset Management. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.IR.8011-3"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-124",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Howell G, Franklin JM, Sritapan V, Souppaya M, Scarfone K (2023) Guidelines for Managing the Security of Mobile Devices in the Enterprise. (National Institute of Standards and Technology, Gaithersburg",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-124r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-128",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Johnson LA, Dempsey KL, Ross RS, Gupta S, Bailey D (2011) Guide for Security-Focused Configuration Management of Information Systems. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-128"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.04.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.04.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Develop and maintain under configuration control, a current baseline configuration of the system.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.01.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a current baseline configuration of the system is developed."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.01.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a current baseline configuration of the system is maintained under configuration control."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review and update the baseline configuration of the system [Assignment: organization-defined frequency] and when system components are installed or modified.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.01.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the baseline configuration of the system is reviewed <A.03.04.01.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency of baseline configuration review and update is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.01.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the baseline configuration of the system is updated <A.03.04.01.ODP[01]: frequency>."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.01.b[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the baseline configuration of the system is reviewed when system components are installed or modified."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.01.b[04]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the baseline configuration of the system is updated when system components are installed or modified."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.04.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for managing baseline configurations; mechanisms for supporting configuration control of the baseline configuration]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.4.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199023,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CM-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "BASELINE CONFIGURATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

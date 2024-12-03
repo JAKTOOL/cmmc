@@ -1,0 +1,580 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.12",
+                "elementTypeIdentifier": "family",
+                "title": "Security Assessment and Monitoring",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.12.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Security Assessment",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.12.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "By assessing the security requirements, organizations determine whether the necessary safeguards and countermeasures are implemented correctly, operating as intended, and producing the desired outcome. Security assessments identify weaknesses in the system and provide the essential information needed to make risk-based decisions. Security assessment reports document assessment results in sufficient detail as deemed necessary by the organization to determine the accuracy and completeness of the reports. Security assessment results are provided to the individuals or roles appropriate for the types of assessments being conducted."
+                            },
+                            {
+                                "elementIdentifier": "E-03.12.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: security assessment and monitoring policy and procedures; procedures for security assessment planning; security assessment plan; security assessment report; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.12.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with security assessment responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-115",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Souppaya MP, Cody A, Orebaugh AD (2008) Technical Guide to Information Security Testing and Assessment. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Pu",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-115"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-37",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force (2018) Risk Management Framework for Information Systems and Organizations: A System Life Cycle Approach for Security and Privacy. (National Institute of Standards and Technology, Gai",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-37r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-53",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force (2020) Security and Privacy Controls for Information Systems and Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-5",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-53r5"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-53A",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2022) Assessing Security and Privacy Controls in Information Systems and Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-53Ar5"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.12.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Assess the security requirements for the system and its environment of operation [Assignment: organization-defined frequency] to determine if the requirements have been satisfied.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.12.01",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "the security requirements for the system and its environment of operation are assessed <A.03.12.01.ODP[01]: frequency> to determine if the requirements have been satisfied.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "A.03.12.01.ODP[01]",
+                                                "elementTypeIdentifier": "odp",
+                                                "title": "frequency",
+                                                "text": "the frequency at which to assess the security requirements for the system and its environment of operation is defined.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "OS-a.03.12.01.odp[01]",
+                                                        "elementTypeIdentifier": "odp_statement",
+                                                        "title": "",
+                                                        "text": "organization-defined frequency"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "single_entry",
+                                                        "elementTypeIdentifier": "odp_type",
+                                                        "title": "Assignment",
+                                                        "text": ""
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.12.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting security assessments, processes for security assessment plan development, or security assessment reporting]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.12.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199066,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CA-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "CONTROL ASSESSMENTS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.12.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Plan of Action and Milestones",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.12.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Plans of action and milestones (POAMs) are important documents in organizational security programs. Organizations use POAMs to describe how unsatisfied security requirements will be met and how planned mitigations will be implemented. Organizations can document system security plans and POAMs as separate or combined documents in any format. Federal agencies may consider system security plans and POAMs as inputs to risk-based decisions on whether to process, store, or transmit CUI on a system hosted by a nonfederal organization."
+                            },
+                            {
+                                "elementIdentifier": "E-03.12.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: security assessment and monitoring policy and procedures; procedures for plans of action and milestones; security assessment plan; security assessment report; security assessment evidence; plan of action and milestones; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.12.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with plans of action and milestones development and implementation responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-37",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force (2018) Risk Management Framework for Information Systems and Organizations: A System Life Cycle Approach for Security and Privacy. (National Institute of Standards and Technology, Gai",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-37r2"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.12.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.12.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Develop a plan of action and milestones for the system:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.12.02.a.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "To document the planned remediation actions to correct weaknesses or deficiencies noted during security assessments and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.12.02.a.01",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "a plan of action and milestones for the system is developed to document the planned remediation actions for correcting weaknesses or deficiencies noted during security assessments."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.12.02.a.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "To reduce or eliminate known system vulnerabilities.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.12.02.a.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "a plan of action and milestones for the system is developed to reduce or eliminate known system vulnerabilities."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.12.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Update the existing plan of action and milestones based on the findings from:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.12.02.b.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "Security assessments,",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.12.02.b.01",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "the existing plan of action and milestones is updated based on the findings from security assessments."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.12.02.b.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "Audits or reviews, and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.12.02.b.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "the existing plan of action and milestones is updated based on the findings from audits or reviews."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.12.02.b.03",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "03",
+                                                "text": "Continuous monitoring activities.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.12.02.b.03",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "the existing plan of action and milestones is updated based on the findings from continuous monitoring activities."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.12.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for developing, implementing, and maintaining plans of action and milestones]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.12.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199067,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CA-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PLAN OF ACTION AND MILESTONES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.12.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Continuous Monitoring",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.12.03",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Continuous monitoring at the system level facilitates ongoing awareness of the system security posture to support risk management decisions. The terms continuous and ongoing imply that organizations assess and monitor their systems at a frequency that is sufficient to support risk-based decisions. Different types of security requirements may require different monitoring frequencies."
+                            },
+                            {
+                                "elementIdentifier": "E-03.12.03",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: security assessment and monitoring policy and procedures; organizational continuous monitoring strategy; system-level continuous monitoring strategy; procedures for continuous monitoring of the system; procedures for configuration management; security assessment report; plan of action and milestones; system monitoring records; configuration management records; impact analyses; status reports; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.12.03",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with continuous monitoring responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-115",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Souppaya MP, Cody A, Orebaugh AD (2008) Technical Guide to Information Security Testing and Assessment. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Pu",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-115"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-137",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Dempsey KL, Chawla NS, Johnson LA, Johnston R, Jones AC, Orebaugh AD, Scholl MA, Stine KM (2011) Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations. (N",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-137"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-37",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force (2018) Risk Management Framework for Information Systems and Organizations: A System Life Cycle Approach for Security and Privacy. (National Institute of Standards and Technology, Gai",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-37r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-39",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2011) Managing Information Security Risk: Organization, Mission, and Information System View. (National Institute of Standards and Technology, Gaithersburg,",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-39"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-53A",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2022) Assessing Security and Privacy Controls in Information Systems and Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-53Ar5"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.12.03",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Develop and implement a system-level continuous monitoring strategy that includes ongoing monitoring and security assessments.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.12.03[01]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "a system-level continuous monitoring strategy is developed."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.12.03[02]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "a system-level continuous monitoring strategy is implemented."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.12.03[03]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "ongoing monitoring is included in the continuous monitoring strategy."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.12.03[04]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "security assessments are included in the continuous monitoring strategy."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.12.03",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing continuous monitoring; mechanisms for supporting response actions for assessment and monitoring results; mechanisms for supporting security status reporting]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.12.3",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199068,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CA-07",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "CONTINUOUS MONITORING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.12.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.12.04",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.15.02.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.15.02",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "System Security Plan",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.12.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Information Exchange",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.12.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Information exchange applies to information exchanges between two or more systems, both internal and external to the organization. Organizations consider the risks related to new or increased threats that may be introduced when systems exchange information with other systems that may have different security requirements or policies. The types of agreements selected are based on factors such as the relationship between the organizations exchanging information (e.g., government to government, business to business, government to business, government or business, or government or business to individual) and the level of access to the organizational system by users of the other system. The types of agreements can include information exchange security agreements, interconnection security agreements, memoranda of understanding or agreement, service-level agreements, or other types of agreements. Organizations may incorporate agreement information into formal contracts, especially for information exchanges established between federal agencies and nonfederal organizations (e.g., service providers, contractors, system developers, and system integrators). The types of information contained in exchange agreements include the interface characteristics, security requirements, controls, and responsibilities for each system."
+                            },
+                            {
+                                "elementIdentifier": "E-03.12.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: access control policy and procedures; procedures for system connections; system and communications protection policy and procedures; system interconnection security agreements; information exchange security agreements; service-level agreements; memoranda of understanding or agreements; non-disclosure agreements; system design documentation; enterprise architecture; security architecture; system configuration settings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.12.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with development, implementation, and approval responsibilities for system interconnection agreements; personnel who manage systems to which the exchange agreements apply; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-47",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Dempsey K, Pillitteri V, Regenscheid A (2021) Managing the Security of Information Exchanges. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-47, ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-47r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.12.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.12.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Approve and manage the exchange of CUI between the system and other systems using [Selection (one or more): interconnection security agreements; information exchange security agreements; memoranda of understanding or agreement; service-level agreements; user agreements; non-disclosure agreements; other types of agreements].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the exchange of CUI between the system and other systems is approved using <A.03.12.05.ODP[01]: SELECTED PARAMETER VALUES>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.12.05.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "SELECTED PARAMETER VALUES",
+                                                        "text": "one or more of the following PARAMETER VALUES are selected: {interconnection security agreements; information exchange security agreements; memoranda of understanding or agreement; service-level agreements; user agreements; non-disclosure agreements; other types of agreements}.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "multi_select",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Selection (one or more)",
+                                                                "text": ""
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.12.05.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "interconnection security agreements; information exchange security agreements; memoranda of understanding or agreement; service-level agreements; user agreements; non-disclosure agreements; other types of agreements"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the exchange of CUI between the system and other systems is managed using <A.03.12.05.ODP[01]: SELECTED PARAMETER VALUES>."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.12.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Document interface characteristics, security requirements, and responsibilities for each system as part of the exchange agreements.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "interface characteristics for each system are documented as part of the exchange agreements."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "security requirements for each system are documented as part of the exchange agreements."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.b[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "responsibilities for each system are documented as part of the exchange agreements."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.12.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Review and update the exchange agreements [Assignment: organization-defined frequency].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "exchange agreements are reviewed <A.03.12.05.ODP[02]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.12.05.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to review and update agreements is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.12.05.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.12.05.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "exchange agreements are updated <A.03.12.05.ODP[02]: frequency>."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "CA-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "INFORMATION EXCHANGE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

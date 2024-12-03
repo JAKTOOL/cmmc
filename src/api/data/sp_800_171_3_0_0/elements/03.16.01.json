@@ -1,0 +1,112 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.16",
+                "elementTypeIdentifier": "family",
+                "title": "System and Services Acquisition",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.16.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Security Engineering Principles",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.16.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Organizations apply systems security engineering principles to new development systems. For legacy systems, organizations apply systems security engineering principles to system modifications to the extent feasible, given the current state of hardware, software, and firmware components. The application of systems security engineering principles helps to develop trustworthy, secure, and resilient systems and reduce the susceptibility of organizations to disruptions, hazards, and threats. Examples include developing layered protections; establishing security policies, architectures, and controls as the foundation for system design; incorporating security requirements into the system development life cycle; delineating physical and logical security boundaries; ensuring that developers are trained on how to build trustworthy secure software; and performing threat modeling to identify use cases, threat agents, attack vectors and patterns, design patterns, and compensating controls needed to mitigate risk. Organizations that apply security engineering principles can facilitate the development of trustworthy, secure systems, system components, and system services; reduce risks to acceptable levels; and make informed risk-management decisions."
+                            },
+                            {
+                                "elementIdentifier": "E-03.16.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and services acquisition policy; system and services  acquisition procedures; procedures addressing security engineering principles used in the development and modification of the system; system design documentation; security requirements and specifications for the system; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.16.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with acquisition/contracting responsibilities; personnel with information security responsibilities; personnel with system development and modification responsibilities; system developers]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-160-1",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ross R, Winstead M, McEvilley M (2022) Engineering Trustworthy Secure Systems. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-160, Vol. 1, Rev. 1",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-160v1r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-160-2",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ross RS, Pillitteri VY, Graubart R, Bodeau D, McQuaid R (2021) Developing Cyber-Resilient Systems: A Systems Security Engineering Approach. (National Institute of Standards and Technology, Gaithersbur",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-160v2r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-207",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Rose S, Borchert O, Mitchell S, Connelly S (2017) Zero Trust Architecture. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-207.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-207"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.16.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Apply the following systems security engineering principles to the development or modification of the system and system components: [Assignment: organization-defined systems security engineering principles].",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.16.01",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "<A.03.16.01.ODP[01]: systems security engineering principles> are applied to the development or modification of the system and system components.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "A.03.16.01.ODP[01]",
+                                                "elementTypeIdentifier": "odp",
+                                                "title": "systems security engineering principles",
+                                                "text": "systems security engineering principles to be applied to the development or modification of the system and system components are defined.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "OS-a.03.16.01.odp[01]",
+                                                        "elementTypeIdentifier": "odp_statement",
+                                                        "title": "",
+                                                        "text": "organization-defined systems security engineering principles"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "single_entry",
+                                                        "elementTypeIdentifier": "odp_type",
+                                                        "title": "Assignment",
+                                                        "text": ""
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.16.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for applying security engineering principles in system development and modification; mechanisms supporting the application of security engineering principles in system development and modification]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "SA-08",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "SECURITY AND PRIVACY ENGINEERING PRINCIPLES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

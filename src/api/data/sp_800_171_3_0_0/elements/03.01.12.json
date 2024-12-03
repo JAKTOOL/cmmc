@@ -1,0 +1,216 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.01",
+                "elementTypeIdentifier": "family",
+                "title": "Access Control",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.01.12",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Remote Access",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.01.12",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Remote access is access to systems (or processes acting on behalf of users) that communicate through external networks, such as the internet. Monitoring and controlling remote access methods allows organizations to detect attacks and ensure compliance with remote access policies. Routing remote access through managed access control points enhances explicit control over such connections and reduces susceptibility to unauthorized access to the system, which could result in the unauthorized disclosure of CUI. Remote access to the system represents a significant potential vulnerability that can be exploited by adversaries. Restricting the execution of privileged commands and access to security-relevant information via remote access reduces the exposure of the organization and its susceptibility to threats by adversaries. A privileged command is a human-initiated command executed on a system that involves the control, monitoring, or administration of the system, including security functions and security-relevant information. Security-relevant information is information that can potentially impact the operation of security functions or the provision of security services in a manner that could result in failure to enforce the system security policy or maintain isolation of code and data. Privileged commands give individuals the ability to execute sensitive, security-critical, or security-relevant system functions."
+                            },
+                            {
+                                "elementIdentifier": "E-03.01.12",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: access control policy and procedures; procedures for remote system access; remote system access configuration and connection requirements; configuration management plan; system configuration settings; remote access authorizations; system audit records; system design documentation; procedures for remote access to the system; system monitoring records; list of managed network access control points; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.01.12",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with responsibilities for managing remote access connections; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "IR 7966",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ylonen T, Turner P, Scarfone KA, Souppaya MP (2015) Security of Interactive and Automated Access Management Using Secure Shell (SSH). (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.IR.7966"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-113",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Frankel SE, Hoffman P, Orebaugh AD, Park R (2008) Guide to SSL VPNs. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-113.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-113"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-114",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) User\u2019s Guide to Telework and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 80",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-114r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-121",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Padgette J, Bahr J, Holtmann M, Batra M, Chen L, Smithbey R, Scarfone KA (2017) Guide to Bluetooth Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publicatio",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-121r2-upd1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-46",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) Guide to Enterprise Telework, Remote Access, and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-46r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-77",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Dang QH, Frankel SE, Scarfone KA, Wouters P (2020) Guide to IPsec VPNs. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-77, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-77r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.01.12",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.01.12.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Establish usage restrictions, configuration requirements, and connection requirements for each type of allowable remote system access.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "types of allowable remote system access are defined."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "usage restrictions are established for each type of allowable remote system access."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "configuration requirements are established for each type of allowable remote system access."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.a[04]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "connection requirements are established for each type of allowable remote system access."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.01.12.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Authorize each type of remote system access prior to establishing such connections.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "each type of remote system access is authorized prior to establishing such connections."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.01.12.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Route remote access to the system through authorized and managed access control points.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "remote access to the system is routed through authorized access control points."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "remote access to the system is routed through managed access control points."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.01.12.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Authorize the remote execution of privileged commands and remote access to security-relevant information.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.d[1]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "remote execution of privileged commands is authorized."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.12.d[2]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "remote access to security-relevant information is authorized."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.01.12",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for monitoring and controlling remote access methods; mechanisms for routing remote accesses through managed access control points; remote access management capability for the system]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.1.12",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199008,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AC-17",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "REMOTE ACCESS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AC-17(03)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "MANAGED ACCESS CONTROL POINTS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AC-17(04)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "PRIVILEGED COMMANDS AND ACCESS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

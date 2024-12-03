@@ -1,0 +1,217 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.13",
+                "elementTypeIdentifier": "family",
+                "title": "System and Communications Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.13.08",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Transmission and Storage Confidentiality",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.13.08",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "This requirement applies to internal and external networks and any system components that can transmit CUI, including servers, notebook computers, desktop computers, mobile devices, printers, copiers, scanners, facsimile machines, and radios. Unprotected communication paths are susceptible to interception and modification. Encryption protects CUI from unauthorized disclosure during transmission and while in storage. Cryptographic mechanisms that protect the confidentiality of CUI during transmission include TLS and IPsec. Information in storage (i.e., information at rest) refers to the state of CUI when it is not in process or in transit and resides on internal or external storage devices, storage area network devices, and databases. Protecting CUI in storage does not focus on the type of storage device or the frequency of access to that device but rather on the state of the information. This requirement relates to <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.13.11\">03.13.11</a>."
+                            },
+                            {
+                                "elementIdentifier": "E-03.13.08",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and communications protection policy and procedures; procedures for transmission confidentiality; procedures for the protection of information at rest; system design documentation; system configuration settings; cryptographic mechanisms and associated configuration documentation; information in storage requiring confidentiality protection; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "FIPS 140-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "National Institute of Standards and Technology (2019) Security Requirements for Cryptographic Modules. (U.S. Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publica",
+                                "text": "https://doi.org/10.6028/NIST.FIPS.140-3"
+                            },
+                            {
+                                "elementIdentifier": "FIPS 197",
+                                "elementTypeIdentifier": "reference",
+                                "title": "National Institute of Standards and Technology (2001) Advanced Encryption Standard (AES). (U.S. Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publication (FIPS) 1",
+                                "text": "https://doi.org/10.6028/NIST.FIPS.197-upd1"
+                            },
+                            {
+                                "elementIdentifier": "I-03.13.08",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-111",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Souppaya MP, Sexton M (2007) Guide to Storage Encryption Technologies for End User Devices. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (S",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-111"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-113",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Frankel SE, Hoffman P, Orebaugh AD, Park R (2008) Guide to SSL VPNs. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-113.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-113"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-114",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) User\u2019s Guide to Telework and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 80",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-114r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-121",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Padgette J, Bahr J, Holtmann M, Batra M, Chen L, Smithbey R, Scarfone KA (2017) Guide to Bluetooth Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publicatio",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-121r2-upd1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-124",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Howell G, Franklin JM, Sritapan V, Souppaya M, Scarfone K (2023) Guidelines for Managing the Security of Mobile Devices in the Enterprise. (National Institute of Standards and Technology, Gaithersburg",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-124r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-177",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Rose SW, Nightingale S, Garfinkel SL, Chandramouli R (2019) Trustworthy Email. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-177, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-177r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-46",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) Guide to Enterprise Telework, Remote Access, and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-46r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-52",
+                                "elementTypeIdentifier": "reference",
+                                "title": "McKay KA, Cooper DA (2019) Guidelines for the Selection, Configuration, and Use of Transport Layer Security (TLS) Implementations. (National Institute of Standards and Technology, Gaithersburg, MD), N",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-52r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-56A",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Chen L, Roginsky A, Vassilev A, Davis R (2018) Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography. (National Institute of Standards and Technology,",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-56Ar3"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-56B",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Chen L, Roginsky A, Vassilev A, Davis R, Simon S (2019) Recommendation for Pair-Wise Key-Establishment Using Integer Factorization Cryptography. (National Institute of Standards and Technol",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-56Br2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-56C",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Chen L, Davis R (2020) Recommendation for Key-Derivation Methods in KeyEstablishment Schemes. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-56Cr2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-57-1",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB (2020) Recommendation for Key Management: Part 1 \u2013 General. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-57 Part 1, Rev. 5.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-57pt1r5"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-57-2",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Barker WC (2019) Recommendation for Key Management: Part 2 \u2013 Best Practices for Key Management Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Specia",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-57pt2r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-57-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Dang QH (2015) Recommendation for Key Management, Part 3: Application-Specific Key Management Guidance. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-57pt3r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-77",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Dang QH, Frankel SE, Scarfone KA, Wouters P (2020) Guide to IPsec VPNs. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-77, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-77r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.13.08",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Implement cryptographic mechanisms to prevent the unauthorized disclosure of CUI during transmission and while in storage.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.13.08[01]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "cryptographic mechanisms are implemented to prevent the unauthorized disclosure of CUI during transmission."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.13.08[02]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "cryptographic mechanisms are implemented to prevent the unauthorized disclosure of CUI while in storage."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.13.08",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting or implementing transmission confidentiality; cryptographic mechanisms for supporting or implementing transmission confidentiality; mechanisms for supporting or implementing confidentiality protection for information in storage; cryptographic mechanisms for implementing confidentiality protections for information in storage]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.13.8",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199073,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SC-08",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "TRANSMISSION CONFIDENTIALITY AND INTEGRITY",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "SC-08(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "CRYPTOGRAPHIC PROTECTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "SC-28",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PROTECTION OF INFORMATION AT REST",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "SC-28(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "CRYPTOGRAPHIC PROTECTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

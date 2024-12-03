@@ -1,0 +1,119 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Impact Analyses",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.04.04",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Organizational personnel with security responsibilities conduct impact analyses that include reviewing system security plans, policies, and procedures to understand security requirements; reviewing system design documentation and operational procedures to understand how system changes might affect the security state of the system; reviewing the impacts of system changes on supply chain partners with stakeholders; and determining how potential changes to a system create new risks and the ability to mitigate those risks. Impact analyses also include risk assessments to understand the impacts of changes and determine whether additional security requirements are needed. Changes to the system may affect the safeguards and countermeasures previously implemented. This requirement is related to <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.04.03\">03.04.03</a>. Not all changes to the system are configuration controlled."
+                            },
+                            {
+                                "elementIdentifier": "E-03.04.04",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: configuration management policy and procedures; procedures for security impact analyses for system changes; configuration management plan; security impact analysis documentation; system design documentation; analysis tools and outputs; change control records; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.04.04",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with security impact analysis responsibilities; personnel with information security responsibilities; members of change control board; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-128",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Johnson LA, Dempsey KL, Ross RS, Gupta S, Bailey D (2011) Guide for Security-Focused Configuration Management of Information Systems. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-128"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.04.04",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.04.04.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Analyze changes to the system to determine potential security impacts prior to change implementation.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.04.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "changes to the system are analyzed to determine potential security impacts prior to change implementation."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.04.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Verify that the security requirements for the system continue to be satisfied after the system changes have been implemented.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.04.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the security requirements for the system continue to be satisfied after the system changes have been implemented."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.04.04",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for security impact analyses]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.4.4",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199026,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CM-04",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "IMPACT ANALYSES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "CM-04(02)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "VERIFICATION OF CONTROLS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,309 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Least Functionality",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.04.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Systems can provide a variety of functions and services. Some functions and services that are routinely provided by default may not be necessary to support essential organizational missions, functions, or operations. It may be convenient to provide multiple services from single system components. However, doing so increases risk over limiting the services provided by any one component. Where feasible, organizations limit functionality to a single function per component. Organizations review the functions and services provided by the system or system components to determine which functions and services are candidates for elimination. Organizations disable unused or unnecessary physical and logical ports and protocols to prevent the unauthorized connection of devices, the transfer of information, and tunneling. Organizations can employ network scanning tools, intrusion detection and prevention systems, and endpoint protection systems (e.g., firewalls and host-based intrusion detection systems) to identify and prevent the use of prohibited functions, ports, protocols, system connections, and services. Bluetooth, File Transfer Protocol (FTP), and peer-to-peer networking are examples of the types of protocols that organizations consider eliminating, restricting, or disabling."
+                            },
+                            {
+                                "elementIdentifier": "E-03.04.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: configuration management policy and procedures; procedures for least functionality in the system; configuration management plan; system design documentation; system configuration settings; system component inventory; common secure configuration checklists; documented reviews of functions, ports, protocols, and services; change control records; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.04.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with configuration management responsibilities; personnel with responsibilities for reviewing functions, ports, protocols, and services; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-160-1",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ross R, Winstead M, McEvilley M (2022) Engineering Trustworthy Secure Systems. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-160, Vol. 1, Rev. 1",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-160v1r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-167",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Sedgewick A, Souppaya MP, Scarfone KA (2015) Guide to Application Whitelisting. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-167.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-167"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.04.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.04.06.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Configure the system to provide only mission-essential capabilities.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system is configured to provide only mission-essential capabilities."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.06.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Prohibit or restrict use of the following functions, ports, protocols, connections, and services: [Assignment: organization-defined functions, ports, protocols, connections, and services].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of the following functions is prohibited or restricted: <A.03.04.06.ODP[01]: functions>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.06.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "functions",
+                                                        "text": "functions to be prohibited or restricted are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.06.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined functions, ports, protocols, connections, and services"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of the following ports is prohibited or restricted: <A.03.04.06.ODP[02]: ports>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.06.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "ports",
+                                                        "text": "ports to be prohibited or restricted are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.06.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined functions, ports, protocols, connections, and services"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.b[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of the following protocols is prohibited or restricted: <A.03.04.06.ODP[03]: protocols>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.06.ODP[03]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "protocols",
+                                                        "text": "protocols to be prohibited or restricted are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.06.odp[03]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined functions, ports, protocols, connections, and services"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.b[04]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of the following connections is prohibited or restricted: <A.03.04.06.ODP[04]: connections>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.06.ODP[04]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "connections",
+                                                        "text": "connections to be prohibited or restricted are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.06.odp[04]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined functions, ports, protocols, connections, and services"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.b[05]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of the following services is prohibited or restricted: <A.03.04.06.ODP[05]: services>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.06.ODP[05]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "services",
+                                                        "text": "services to be prohibited or restricted are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.06.odp[05]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined functions, ports, protocols, connections, and services"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.06.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Review the system [Assignment: organization-defined frequency] to identify unnecessary or nonsecure functions, ports, protocols, connections, and services.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system is reviewed <A.03.04.06.ODP[06]: frequency> to identify unnecessary or nonsecure functions, ports, protocols, connections, and services.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.04.06.ODP[06]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to review the system to identify unnecessary or nonsecure functions, ports, protocols, connections, or services is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.04.06.odp[06]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.06.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Disable or remove functions, ports, protocols, connections, and services that are unnecessary or nonsecure.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.06.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "unnecessary or nonsecure functions, ports, protocols, connections, and services are disabled or removed."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.04.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for prohibiting or restricting functions, ports, protocols, and services; processes for reviewing or disabling functions, ports, protocols, and services; mechanisms for implementing the review and disabling of functions, ports, protocols, and services; mechanisms for implementing restrictions on or the prohibition of functions, ports, protocols, and services]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.4.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199028,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CM-07",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "LEAST FUNCTIONALITY",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "CM-07(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "PERIODIC REVIEW",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

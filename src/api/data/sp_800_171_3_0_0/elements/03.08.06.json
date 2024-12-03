@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.08",
+                "elementTypeIdentifier": "family",
+                "title": "Media Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.08.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.08.06",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.13.08.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.13.08",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Transmission and Storage Confidentiality",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

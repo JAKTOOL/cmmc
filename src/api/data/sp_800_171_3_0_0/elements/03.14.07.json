@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.14",
+                "elementTypeIdentifier": "family",
+                "title": "System and Information Integrity",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.14.07",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.14.07",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.14.06.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.14.06",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "System Monitoring",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,166 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.10",
+                "elementTypeIdentifier": "family",
+                "title": "Physical Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.10.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Physical Access Authorizations",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "A facility can include one or more physical locations containing systems or system components that process, store, or transmit CUI. Physical access authorizations apply to employees and visitors. Individuals with permanent physical access authorization credentials are not considered visitors. Authorization credentials include identification badges, identification cards, and smart cards. Organizations determine the strength of the authorization credentials consistent with applicable laws, Executive Orders, directives, regulations, policies, standards, and guidelines. Physical access authorizations may not be necessary to access certain areas within facilities that are designated as publicly accessible."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for physical access authorizations; authorized personnel access list; physical access list reviews; physical access termination records; authorization credentials; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access authorization responsibilities; personnel with physical access to the facility where the system resides; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Develop, approve, and maintain a list of individuals with authorized access to the facility where the system resides.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of individuals with authorized access to the facility where the system resides is developed."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of individuals with authorized access to the facility where the system resides is approved."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of individuals with authorized access to the facility where the system resides is maintained."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Issue authorization credentials for facility access.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "authorization credentials for facility access are issued."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Review the facility access list [Assignment: organization-defined frequency].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the facility access list is reviewed <A.03.10.01.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to review the access list detailing authorized facility access by individuals is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Remove individuals from the facility access list when access is no longer required.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "individuals from the facility access list are removed when access is no longer required."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for physical access authorizations; mechanisms for supporting or implementing physical access authorizations]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.10.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199058,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "PE-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PHYSICAL ACCESS AUTHORIZATIONS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.01",
+                "elementTypeIdentifier": "family",
+                "title": "Access Control",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.01.15",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.01.15",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.01.12.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.01.12",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Remote Access",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

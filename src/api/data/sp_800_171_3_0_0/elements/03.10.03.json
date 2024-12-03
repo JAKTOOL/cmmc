@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.10",
+                "elementTypeIdentifier": "family",
+                "title": "Physical Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.10.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.10.03",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.10.07.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.10.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Physical Access Control",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

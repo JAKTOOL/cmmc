@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.03",
+                "elementTypeIdentifier": "family",
+                "title": "Audit and Accountability",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.03.09",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.03.09",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.03.08.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.03.08",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Protection of Audit Information",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

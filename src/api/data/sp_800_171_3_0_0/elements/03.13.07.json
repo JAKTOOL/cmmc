@@ -1,0 +1,52 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.13",
+                "elementTypeIdentifier": "family",
+                "title": "System and Communications Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.13.07",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.13.07",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Addressed by 03.01.12, 03.04.02 and 03.04.06.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.01.12",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Remote Access",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.04.02",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Configuration Settings",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.04.06",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Least Functionality",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

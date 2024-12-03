@@ -1,0 +1,222 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.05",
+                "elementTypeIdentifier": "family",
+                "title": "Identification and Authentication",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.05.07",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Password Management",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.05.07",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Password-based authentication applies to passwords used in single-factor or multi-factor authentication. Long passwords or passphrases are preferable to shorter passwords. Enforced composition rules provide marginal security benefits while decreasing usability. However, organizations may choose to establish and enforce certain rules for password generation (e.g., minimum character length) under certain circumstances. For example, account recovery can occur when a password is forgotten. Cryptographically protected passwords include salted one-way cryptographic hashes of passwords. The list of commonly used, compromised, or expected passwords includes passwords obtained from previous breach corpuses, dictionary words, and repetitive or sequential characters. The list includes context-specific words, such as the name of the service, username, and derivatives thereof. Changing temporary passwords to permanent passwords immediately after system logon ensures that the necessary strength of the authentication mechanism is implemented at the earliest opportunity and reduces susceptibility to authenticator compromises. Long passwords and passphrases can be used to increase the complexity of passwords."
+                            },
+                            {
+                                "elementIdentifier": "E-03.05.07",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: identification and authentication policy and procedures; password policy; procedures for authenticator management; system design documentation; system configuration settings; password configurations; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.05.07",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with authenticator management responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-63-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Grassi PA, Garcia ME, Fenton JL (2017) Digital Identity Guidelines. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-63-3, Includes updates as of M",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-63-3"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.05.07",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.05.07.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Maintain a list of commonly-used, expected, or compromised passwords, and update the list [Assignment: organization-defined frequency] and when organizational passwords are suspected to have been compromised.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of commonly used, expected, or compromised passwords is maintained."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of commonly used, expected, or compromised passwords is updated <A.03.05.07.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.05.07.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to update the list of commonly used, expected, or compromised passwords is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.05.07.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of commonly used, expected, or compromised passwords is updated when organizational passwords are suspected to have been compromised."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.07.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Verify that passwords are not found on the list of commonly used, expected, or compromised passwords when users create or update passwords.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "passwords are verified not to be found on the list of commonly used, expected, or compromised passwords when they are created or updated by users."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.07.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Transmit passwords only over cryptographically protected channels.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "passwords are only transmitted over cryptographically protected channels."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.07.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Store passwords in a cryptographically protected form.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "passwords are stored in a cryptographically protected form."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.07.e",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "e",
+                                        "text": "Select a new password upon first use after account recovery.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.e",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a new password is selected upon first use after account recovery."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.07.f",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "f",
+                                        "text": "Enforce the following composition and complexity rules for passwords: [Assignment: organization-defined composition and complexity rules].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.07.f",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following composition and complexity rules for passwords are enforced: <A.03.05.07.ODP[02]: rules>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.05.07.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "rules",
+                                                        "text": "password composition and complexity rules are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.05.07.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined composition and complexity rules"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.05.07",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting or implementing a password-based authenticator management capability]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.5.7",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199038,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "IA-05(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "PASSWORD-BASED AUTHENTICATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

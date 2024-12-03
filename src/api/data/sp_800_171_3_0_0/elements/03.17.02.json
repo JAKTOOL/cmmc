@@ -1,0 +1,114 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.17",
+                "elementTypeIdentifier": "family",
+                "title": "Supply Chain Risk Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.17.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Acquisition Strategies, Tools, and Methods",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.17.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "The acquisition process provides an important vehicle for protecting the supply chain. There are many useful tools and techniques available, including obscuring the end use of a system or system component, using blind purchases, requiring tamperevident packaging, or using trusted or controlled distribution. The results from a supply chain risk assessment can inform the strategies, tools, and methods that are most applicable to the situation. Tools and techniques may provide protections against unauthorized production, theft, tampering, the insertion of counterfeits, the insertion of malicious software or backdoors, and poor development practices throughout the system life cycle. Organizations also consider providing incentives for suppliers to implement safeguards, promote transparency in their processes and security practices, provide contract language that addresses the prohibition of tainted or counterfeit components, and restrict purchases from untrustworthy suppliers. Organizations consider providing training, education, and awareness programs for personnel regarding supply chain risks, available mitigation strategies, and when the programs should be employed. Methods for reviewing and protecting development plans, documentation, and evidence are commensurate with the security requirements of the organization. Contracts may specify documentation protection requirements."
+                            },
+                            {
+                                "elementIdentifier": "E-03.17.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: SCRM policy and procedures; SCRM plan; system and services acquisition policy and procedures; procedures for supply chain protection; procedures for the integration of information security requirements into the acquisition process; solicitation documentation; acquisition documentation (including purchase orders); service-level agreements; acquisition contracts for the system, system components, or services; documentation of identified supply chain risks; mitigation plans for supply chain risks; documentation of training, education, and awareness programs for personnel regarding supply chain risk; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.17.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with acquisition responsibilities; personnel with SCRM responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-161",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Boyens JM, Smith A, Bartol N, Winkler K, Holbrook A, Fallon M (2022) Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations. (National Institute of Standards and Technology",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-161r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-30",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2012) Guide for Conducting Risk Assessments. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-30, Rev. ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-30r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.17.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Develop and implement acquisition strategies, contract tools, and procurement methods to identify, protect against, and mitigate supply chain risks.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.17.02[01]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "acquisition strategies, contract tools, and procurement methods are developed to identify supply chain risks."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.17.02[02]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "acquisition strategies, contract tools, and procurement methods are developed to protect against supply chain risks."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.17.02[03]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "acquisition strategies, contract tools, and procurement methods are developed to mitigate supply chain risks."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.17.02[04]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "acquisition strategies, contract tools, and procurement methods are implemented to identify supply chain risks."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.17.02[05]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "acquisition strategies, contract tools, and procurement methods are implemented to protect against supply chain risks."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.17.02[06]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "acquisition strategies, contract tools, and procurement methods are implemented to mitigate supply chain risks."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.17.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for defining and employing tailored acquisition strategies, contract tools, and procurement methods; mechanisms for implementing tailored acquisition strategies, contract tools, and procurement methods]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "SR-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ACQUISITION STRATEGIES, TOOLS, AND METHODS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

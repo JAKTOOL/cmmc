@@ -1,0 +1,212 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.06",
+                "elementTypeIdentifier": "family",
+                "title": "Incident Response",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.06.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Incident Monitoring, Reporting, and Response Assistance",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.06.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Documenting incidents includes maintaining records about each incident, the status of the incident, and other pertinent information necessary for forensics as well as evaluating incident details, trends, and handling. Incident information can be obtained from many sources, including network monitoring, incident reports, incident response teams, user complaints, supply chain partners, audit monitoring, physical access monitoring, and user and administrator reports. <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.06.01\">03.06.01</a> provides information on the types of incidents that are appropriate for monitoring. The types of incidents reported, the content and timeliness of the reports, and the reporting authorities reflect applicable laws, Executive Orders, directives, regulations, policies, standards, and guidelines. Incident information informs risk assessments, the effectiveness of security assessments, the security requirements for acquisitions, and the selection criteria for technology products. Incident response support resources provided by organizations include help desks, assistance groups, automated ticketing systems to open and track incident response tickets, and access to forensic services or consumer redress services, when required."
+                            },
+                            {
+                                "elementIdentifier": "E-03.06.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: incident response policy and procedures; procedures for incident monitoring; procedures for incident response assistance; incident response records and documentation; incident response plan; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.06.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with incident monitoring responsibilities; personnel with incident response assistance and support responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-61",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Cichonski PR, Millar T, Grance T, Scarfone KA (2012) Computer Security Incident Handling Guide. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-61",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-61r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-86",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Chevalier S, Grance T, Dang H (2006) Guide to Integrating Forensic Techniques into Incident Response. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publicati",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-86"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.06.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.06.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Track and document system security incidents.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.02.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system security incidents are tracked."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.02.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system security incidents are documented."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.06.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Report suspected incidents to the organizational incident response capability within [Assignment: organization-defined time period].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.02.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "suspected incidents are reported to the organizational incident response capability within <A.03.06.02.ODP[01]: time period>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.06.02.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "time period",
+                                                        "text": "the time period to report suspected incidents to the organizational incident response capability is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.06.02.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined time period"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.06.02.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Report incident information to [Assignment: organization-defined authorities].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.02.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "incident information is reported to <A.03.06.02.ODP[02]: authorities>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.06.02.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "authorities",
+                                                        "text": "authorities to whom incident information is to be reported are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.06.02.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined authorities"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.06.02.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Provide an incident response support resource that offers advice and assistance to system users on handling and reporting incidents.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.02.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an incident response support resource that offers advice and assistance to system users on handling and reporting incidents is provided."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.06.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for incident reporting; incident monitoring capability; mechanisms for supporting or implementing the tracking and documenting of system security incidents; mechanisms for supporting or implementing incident reporting; mechanisms for supporting or implementing incident response assistance; processes for incident response assistance]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.6.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199042,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "IR-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "INCIDENT MONITORING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "IR-06",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "INCIDENT REPORTING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "IR-07",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "INCIDENT RESPONSE ASSISTANCE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

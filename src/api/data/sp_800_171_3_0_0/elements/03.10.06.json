@@ -1,0 +1,138 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.10",
+                "elementTypeIdentifier": "family",
+                "title": "Physical Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.10.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Alternate Work Site",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Alternate work sites include the private residences of employees or other facilities designated by the organization. Alternate work sites can provide readily available alternate locations during contingency operations. Organizations can define different security requirements for specific alternate work sites or types of sites, depending on the work-related activities conducted at the sites. Assessing the effectiveness of the requirements and providing a means to communicate incidents at alternate work sites supports the contingency planning activities of organizations."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for alternate work sites for personnel; list of security requirements for alternate work sites; assessments of security requirements at alternate work sites; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel approving the use of alternate work sites; personnel using alternate work sites; personnel assessing security requirements at alternate work sites; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-114",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) User\u2019s Guide to Telework and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 80",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-114r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-46",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) Guide to Enterprise Telework, Remote Access, and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-46r2"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.06.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Determine alternate work sites allowed for use by employees.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.06.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "alternate work sites allowed for use by employees are determined."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.06.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Employ the following security requirements at alternate work sites: [Assignment: organization-defined security requirements].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.06.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following security requirements are employed at alternate work sites: <A.03.10.06.ODP[01]: security requirements>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.06.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "security requirements",
+                                                        "text": "security requirements to be employed at alternate work sites are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.06.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined security requirements"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for security at alternate work sites; mechanisms for supporting alternate work sites; security requirements employed at alternate work sites; means of communication between personnel at alternate work sites and security personnel]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.10.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199060,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "PE-17",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ALTERNATE WORK SITE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

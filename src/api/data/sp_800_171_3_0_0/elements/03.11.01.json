@@ -1,0 +1,156 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.11",
+                "elementTypeIdentifier": "family",
+                "title": "Risk Assessment",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.11.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Risk Assessment",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.11.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Establishing the system boundary is a prerequisite to assessing the risk of the unauthorized disclosure of CUI. Risk assessments consider threats, vulnerabilities, likelihood, and adverse impacts to organizational operations and assets based on the operation and use of the system and the unauthorized disclosure of CUI. Risk assessments also consider risks from external parties (e.g., contractors operating systems on behalf of the organization, service providers, individuals accessing systems, and outsourcing entities). Risk assessments can be conducted at the organization level, the mission or business process level, or the system level and at any phase in the system development life cycle. Risk assessments include supply chain-related risks associated with suppliers or contractors and the system, system component, or system service that they provide."
+                            },
+                            {
+                                "elementIdentifier": "E-03.11.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: risk assessment policy and procedures; security planning policy and procedures; procedures for organizational assessments of risk; risk assessment; risk assessment results; risk assessment reviews; risk assessment updates; SCRM policy and procedures; inventory of critical systems, system components, and system services; procedures for organizational assessments of supply chain risk; acquisition policy; SCRM plan; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.11.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with risk assessment responsibilities; personnel with SCRM responsibilities; personnel with security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-161",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Boyens JM, Smith A, Bartol N, Winkler K, Holbrook A, Fallon M (2022) Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations. (National Institute of Standards and Technology",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-161r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-30",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2012) Guide for Conducting Risk Assessments. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-30, Rev. ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-30r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.11.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.11.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Assess the risk (including supply chain risk) of unauthorized disclosure resulting from the processing, storage, or transmission of CUI.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.01.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the risk (including supply chain risk) of unauthorized disclosure resulting from the processing, storage, or transmission of CUI is assessed."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.11.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Update risk assessments [Assignment: organization-defined frequency].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.01.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "risk assessments are updated <A.03.11.01.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.11.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to update the risk assessment is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.11.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.11.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for organizational risk assessments; mechanisms for supporting or conducting, documenting, reviewing, disseminating, and updating risk assessments; mechanisms for supporting or conducting, documenting, reviewing, disseminating, and updating supply chain risk assessments]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.11.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199063,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "RA-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "RISK ASSESSMENT",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "RA-03(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "SUPPLY CHAIN RISK ASSESSMENT",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "SR-06",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "SUPPLIER ASSESSMENTS AND REVIEWS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

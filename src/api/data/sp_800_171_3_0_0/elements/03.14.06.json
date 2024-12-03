@@ -1,0 +1,197 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.14",
+                "elementTypeIdentifier": "family",
+                "title": "System and Information Integrity",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.14.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "System Monitoring",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.14.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "System monitoring involves external and internal monitoring. Internal monitoring includes the observation of events that occur within the system. External monitoring includes the observation of events that occur at the system boundary. Organizations can monitor the system by observing audit record activities in real time or by observing other system aspects, such as access patterns, characteristics of access, and other actions. The monitoring objectives may guide determination of the events. A system monitoring capability is achieved through a variety of tools and techniques (e.g., audit record monitoring software, intrusion detection systems, intrusion prevention systems, malicious code protection software, scanning tools, network monitoring software). Strategic locations for monitoring devices include selected perimeter locations and near server farms that support critical applications with such devices being employed at managed system interfaces. The granularity of monitoring the information collected is based on organizational monitoring objectives and the capability of the system to support such objectives. Systems connections can be network, remote, or local. A network connection is any connection with a device that communicates through a network (e.g., local area network, the internet). A remote connection is any connection with a device that communicates through an external network (e.g., the internet). Network, remote, and local connections can be either wired or wireless. Unusual or unauthorized activities or conditions related to inbound and outbound communications traffic include internal traffic that indicates the presence of malicious code in the system or propagating among system components, the unauthorized export of information, or signaling to external systems. Evidence of malicious code is used to identify a potentially compromised system. System monitoring requirements, including the need for types of system monitoring, may be referenced in other requirements."
+                            },
+                            {
+                                "elementIdentifier": "E-03.14.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and information integrity policy and procedures; procedures for system monitoring tools and techniques; continuous monitoring strategy; facility diagram or layout; system design documentation; locations within the system where monitoring devices are deployed; system configuration settings; system protocols; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.14.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with responsibilities for installing, configuring, or maintaining the system; personnel with system monitoring responsibilities; personnel with intrusion detection responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-137",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Dempsey KL, Chawla NS, Johnson LA, Johnston R, Jones AC, Orebaugh AD, Scholl MA, Stine KM (2011) Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations. (N",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-137"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-177",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Rose SW, Nightingale S, Garfinkel SL, Chandramouli R (2019) Trustworthy Email. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-177, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-177r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-61",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Cichonski PR, Millar T, Grance T, Scarfone KA (2012) Computer Security Incident Handling Guide. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-61",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-61r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-83",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2013) Guide to Malware Incident Prevention and Handling for Desktops and Laptops. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-83r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-92",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Souppaya MP (2006) Guide to Computer Security Log Management. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-92.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-92"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-94",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Mell PM (2007) Guide to Intrusion Detection and Prevention Systems (IDPS). (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-94.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-94"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.14.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.14.06.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Monitor the system to detect:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.14.06.a.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "Attacks and indicators of potential attacks and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.14.06.a.01[01]",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "the system is monitored to detect attacks."
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.14.06.a.01[02]",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "the system is monitored to detect indicators of potential attacks."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.14.06.a.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "Unauthorized connections.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.14.06.a.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "the system is monitored to detect unauthorized connections."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.14.06.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Identify unauthorized use of the system.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.06.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "unauthorized use of the system is identified."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.14.06.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Monitor inbound and outbound communications traffic to detect unusual or unauthorized activities or conditions.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.06.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "inbound communications traffic is monitored to detect unusual or unauthorized activities or conditions."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.06.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "outbound communications traffic is monitored to detect unusual or unauthorized activities or conditions."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.14.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for intrusion detection and system monitoring; mechanisms for supporting or implementing system monitoring capabilities; mechanisms for supporting or implementing intrusion detection and system monitoring capabilities; mechanisms for supporting or implementing the monitoring of inbound and outbound communications traffic]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.14.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199083,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SI-04",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "SYSTEM MONITORING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "SI-04(04)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "INBOUND AND OUTBOUND COMMUNICATIONS TRAFFIC",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

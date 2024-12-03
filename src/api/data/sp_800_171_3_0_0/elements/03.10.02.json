@@ -1,0 +1,160 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.10",
+                "elementTypeIdentifier": "family",
+                "title": "Physical Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.10.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Monitoring Physical Access",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "A facility can include one or more physical locations containing systems or system components that process, store, or transmit CUI. Physical access monitoring includes publicly accessible areas within organizational facilities. Examples of physical access monitoring include guards, video surveillance equipment (i.e., cameras), and sensor devices. Reviewing physical access logs can help to identify suspicious activities, anomalous events, or potential threats. The reviews can be supported by audit logging controls if the access logs are part of an automated system. Incident response capabilities include investigations of physical security incidents and responses to those incidents. Incidents include security violations or suspicious physical access activities, such as access outside of normal work hours, repeated access to areas not normally accessed, access for unusual lengths of time, and out-of-sequence access."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for physical access monitoring; physical access logs or records; physical access monitoring records; physical access log reviews; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access monitoring responsibilities; personnel with incident response responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Monitor physical access to the facility where the system resides to detect and respond to physical security incidents.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access to the facility where the system resides is monitored to detect physical security incidents."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical security incidents are responded to."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review physical access logs [Assignment: organization-defined frequency] and upon occurrence of [Assignment: organization-defined events or potential indications of events].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access logs are reviewed <A.03.10.02.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.02.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to review physical access logs is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.02.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access logs are reviewed upon occurrence of <A.03.10.02.ODP[02]: events or potential indicators of events>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.02.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "events or potential indicators of events",
+                                                        "text": "events or potential indications of events requiring physical access logs to be reviewed are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.02.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined events or potential indications of events"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for monitoring physical access; mechanisms for supporting or implementing physical access monitoring; mechanisms for supporting or implementing the review of physical access logs]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.10.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199059,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "PE-06",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MONITORING PHYSICAL ACCESS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

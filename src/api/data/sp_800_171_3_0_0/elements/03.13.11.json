@@ -1,0 +1,110 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.13",
+                "elementTypeIdentifier": "family",
+                "title": "System and Communications Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.13.11",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Cryptographic Protection",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.13.11",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Cryptography is implemented in accordance with applicable laws, Executive Orders, directives, regulations, policies, standards, and guidelines. FIPS-validated cryptography is recommended for the protection of CUI."
+                            },
+                            {
+                                "elementIdentifier": "E-03.13.11",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and communications protection policy and procedures; procedures for cryptographic protection; system design documentation; system configuration settings; cryptographic module validation certificates; list of FIPS-validated cryptographic modules; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "FIPS 140-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "National Institute of Standards and Technology (2019) Security Requirements for Cryptographic Modules. (U.S. Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publica",
+                                "text": "https://doi.org/10.6028/NIST.FIPS.140-3"
+                            },
+                            {
+                                "elementIdentifier": "I-03.13.11",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with responsibilities for cryptographic protection; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.13.11",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Implement the following types of cryptography to protect the confidentiality of CUI: [Assignment: organization-defined types of cryptography].",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.13.11",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "the following types of cryptography are implemented to protect the confidentiality of CUI: <A.03.13.11.ODP[01]: types of cryptography>.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "A.03.13.11.ODP[01]",
+                                                "elementTypeIdentifier": "odp",
+                                                "title": "types of cryptography",
+                                                "text": "the types of cryptography for protecting the confidentiality of CUI are defined.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "OS-a.03.13.11.odp[01]",
+                                                        "elementTypeIdentifier": "odp_statement",
+                                                        "title": "",
+                                                        "text": "organization-defined types of cryptography"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "single_entry",
+                                                        "elementTypeIdentifier": "odp_type",
+                                                        "title": "Assignment",
+                                                        "text": ""
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.13.11",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting or implementing cryptographic protection]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.13.11",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199076,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SC-13",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "CRYPTOGRAPHIC PROTECTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.11",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Information Location",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.04.11",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Information location addresses the need to understand the specific system components where CUI is being processed and stored and the users who have access to CUI so that appropriate protection mechanisms can be provided, including information flow controls, access controls, and information management."
+                            },
+                            {
+                                "elementIdentifier": "E-03.04.11",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: configuration management policy and procedures; configuration management plan; procedures for identification and documentation of information location; system audit records; architecture documentation; system design documentation; list of users with system and system component access; change control records; system component inventory; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.04.11",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with responsibilities for managing information location and user access; personnel with responsibilities for operating, using, or maintaining the system; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.04.11",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.04.11.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Identify and document the location of CUI and the system components on which the information is processed and stored.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.11.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the location of CUI is identified and documented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.11.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system components on which CUI is processed are identified and documented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.11.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system components on which CUI is stored are identified and documented."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.04.11.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Document changes to the system or system component location where CUI is processed and stored.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.11.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "changes to the system or system component location where CUI is processed are documented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.04.11.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "changes to the system or system component location where CUI is stored are documented."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.04.11",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes governing information location; mechanisms for enforcing policies and methods for governing information location]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "CM-12",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "INFORMATION LOCATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

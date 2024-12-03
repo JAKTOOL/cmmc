@@ -1,0 +1,148 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.03",
+                "elementTypeIdentifier": "family",
+                "title": "Audit and Accountability",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.03.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Response to Audit Logging Process Failures",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.04",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit logging process failures include software and hardware errors, failures in audit log capturing mechanisms, and reaching or exceeding audit log storage capacity. Response actions include overwriting the oldest audit records, shutting down the system, and stopping the generation of audit records. Organizations may choose to define additional actions for audit logging process failures based on the type of failure, the location of the failure, the severity of the failure, or a combination of such factors. When the audit logging process failure is related to storage, the response is carried out for the audit log storage repository (i.e., the distinct system component where the audit logs are stored), the system on which the audit logs reside, the total audit log storage capacity of the organization (i.e., all audit log storage repositories combined), or all three. Organizations may decide to take no additional actions after alerting designated roles or personnel."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.04",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for responding to audit processing failures; system design documentation; system configuration settings; list of personnel to be notified in case of an audit processing failure; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.04",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit and accountability responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.04",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.04.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Alert organizational personnel or roles within [Assignment: organization-defined time period] in the event of an audit logging process failure.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.04.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "organizational personnel or roles are alerted in the event of an audit logging process failure within <A.03.03.04.ODP[01]: time period>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.04.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "time period",
+                                                        "text": "the time period for organizational personnel or roles receiving audit logging process failure alerts is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.04.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined time period"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.04.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Take the following additional actions: [Assignment: organization-defined additional actions].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.04.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following additional actions are taken: <A.03.03.04.ODP[02]: additional actions>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.04.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "additional actions",
+                                                        "text": "additional actions to be taken in the event of an audit logging process failure are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.04.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined additional actions"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.04",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing system response to audit processing failures]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.4",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199018,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "RESPONSE TO AUDIT LOGGING PROCESS FAILURES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

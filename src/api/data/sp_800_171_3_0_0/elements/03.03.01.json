@@ -1,0 +1,160 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.03",
+                "elementTypeIdentifier": "family",
+                "title": "Audit and Accountability",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.03.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Event Logging",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "An event is any observable occurrence in a system, including unlawful or unauthorized system activity. Organizations identify event types for which a logging functionality is needed. This includes events that are relevant to the security of systems and the environments in which those systems operate to meet specific and ongoing auditing needs. Event types can include password changes, the execution of privileged functions, failed logons or accesses related to systems, administrative privilege usage, or third-party credential usage. In determining event types that require logging, organizations consider the system monitoring and auditing that are appropriate for each of the security requirements. When defining event types, organizations consider the logging necessary to cover related events, such as the steps in distributed, transaction-based processes (e.g., processes that are distributed across multiple organizations) and actions that occur in service-oriented or cloud-based architectures. Monitoring and auditing requirements can be balanced with other system needs. For example, organizations may determine that systems must have the capability to log every file access \u2014 both successful and unsuccessful \u2014 but only activate that capability under specific circumstances due to the potential burden on system performance. The event types that are logged by organizations may change over time. Reviewing and updating the set of logged event types are necessary to ensure that the current set of event types remains relevant."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for auditable events; system design documentation; system configuration settings; system audit records; system auditable events; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit and accountability responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-92",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Souppaya MP (2006) Guide to Computer Security Log Management. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-92.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-92"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Specify the following event types selected for logging within the system: [Assignment: organization-defined event types].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.01.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following event types are specified for logging within the system: <A.03.03.01.ODP[01]: event types>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "event types",
+                                                        "text": "event types selected for logging within the system are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined event types"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review and update the event types selected for logging [Assignment: organization-defined frequency].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.01.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the event types selected for logging are reviewed <A.03.03.01.ODP[02]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.01.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency of event types selected for logging are reviewed and updated.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.01.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.01.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the event types selected for logging are updated <A.03.03.01.ODP[02]: frequency>."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing system auditing]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199015,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "EVENT LOGGING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

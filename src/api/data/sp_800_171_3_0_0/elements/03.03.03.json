@@ -1,0 +1,119 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.03",
+                "elementTypeIdentifier": "family",
+                "title": "Audit and Accountability",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.03.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Audit Record Generation",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.03",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit records can be generated at various levels of abstraction, including at the packet level as information traverses the network. Selecting the appropriate level of abstraction is a critical aspect of an audit logging capability and can facilitate the identification of root causes to problems. The ability to add information generated in audit records is dependent on system functionality to configure the audit record content. Organizations may consider additional information in audit records, including the access control or flow control rules invoked and the individual identities of group account users. Organizations may also consider limiting additional audit record information to only information that is explicitly needed for audit requirements."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.03",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for audit record generation; system design documentation; list of auditable events; system audit records; audit record retention policy and procedures; organization-defined retention period for audit records; audit record archives; system configuration settings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.03",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit record generation responsibilities; personnel with audit record retention responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-92",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Souppaya MP (2006) Guide to Computer Security Log Management. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-92.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-92"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.03",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.03.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Generate audit records for the selected event types and audit record content specified in 03.03.01 and 03.03.02.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.03.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records for the selected event types and audit record content specified in 03.03.01 and 03.03.02 are generated."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.03.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Retain audit records for a time period consistent with the records retention policy.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.03.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records are retained for a time period consistent with the records retention policy."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.03",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing the audit record generation capability]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.3",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199017,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-11",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD RETENTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AU-12",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD GENERATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

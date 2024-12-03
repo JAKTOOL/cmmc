@@ -1,0 +1,1082 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.03",
+                "elementTypeIdentifier": "family",
+                "title": "Audit and Accountability",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.03.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Event Logging",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "An event is any observable occurrence in a system, including unlawful or unauthorized system activity. Organizations identify event types for which a logging functionality is needed. This includes events that are relevant to the security of systems and the environments in which those systems operate to meet specific and ongoing auditing needs. Event types can include password changes, the execution of privileged functions, failed logons or accesses related to systems, administrative privilege usage, or third-party credential usage. In determining event types that require logging, organizations consider the system monitoring and auditing that are appropriate for each of the security requirements. When defining event types, organizations consider the logging necessary to cover related events, such as the steps in distributed, transaction-based processes (e.g., processes that are distributed across multiple organizations) and actions that occur in service-oriented or cloud-based architectures. Monitoring and auditing requirements can be balanced with other system needs. For example, organizations may determine that systems must have the capability to log every file access \u2014 both successful and unsuccessful \u2014 but only activate that capability under specific circumstances due to the potential burden on system performance. The event types that are logged by organizations may change over time. Reviewing and updating the set of logged event types are necessary to ensure that the current set of event types remains relevant."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for auditable events; system design documentation; system configuration settings; system audit records; system auditable events; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit and accountability responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-92",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Souppaya MP (2006) Guide to Computer Security Log Management. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-92.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-92"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Specify the following event types selected for logging within the system: [Assignment: organization-defined event types].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.01.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following event types are specified for logging within the system: <A.03.03.01.ODP[01]: event types>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "event types",
+                                                        "text": "event types selected for logging within the system are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined event types"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review and update the event types selected for logging [Assignment: organization-defined frequency].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.01.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the event types selected for logging are reviewed <A.03.03.01.ODP[02]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.01.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency of event types selected for logging are reviewed and updated.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.01.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.01.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the event types selected for logging are updated <A.03.03.01.ODP[02]: frequency>."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing system auditing]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199015,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "EVENT LOGGING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Audit Record Content",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit record content that may be necessary to support the auditing function includes time stamps, source and destination addresses, user or process identifiers, event descriptions, file names, and the access control or flow control rules that are invoked. Event outcomes can include indicators of event success or failure and event-specific results (e.g., the security state of the system after the event occurred). Detailed information that organizations consider in audit records may include a full text recording of privileged commands or the individual identities of group account users."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for the content of audit records; list of organization-defined auditable events; system design documentation; system configuration settings; system audit records; system incident reports; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit and accountability responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Include the following content in audit records:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.03.02.a.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "What type of event occurred",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.03.02.a.01",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "audit records contain information that establishes what type of event occurred."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.03.02.a.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "When the event occurred",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.03.02.a.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "audit records contain information that establishes when the event occurred."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.03.02.a.03",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "03",
+                                                "text": "Where the event occurred",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.03.02.a.03",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "audit records contain information that establishes where the event occurred."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.03.02.a.04",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "04",
+                                                "text": "Source of the event",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.03.02.a.04",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "audit records contain information that establishes the source of the event."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.03.02.a.05",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "05",
+                                                "text": "Outcome of the event",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.03.02.a.05",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "audit records contain information that establishes the outcome of the event."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.03.02.a.06",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "06",
+                                                "text": "Identity of the individuals, subjects, objects, or entities associated with the event",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.03.02.a.06",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "audit records contain information that establishes the identity of the individuals, subjects, objects, or entities associated with the event."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Provide additional information for audit records as needed.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.02.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "additional information for audit records is provided, as needed."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing system auditing of auditable events; system audit capability]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199016,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "CONTENT OF AUDIT RECORDS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AU-03(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "ADDITIONAL AUDIT INFORMATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Audit Record Generation",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.03",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit records can be generated at various levels of abstraction, including at the packet level as information traverses the network. Selecting the appropriate level of abstraction is a critical aspect of an audit logging capability and can facilitate the identification of root causes to problems. The ability to add information generated in audit records is dependent on system functionality to configure the audit record content. Organizations may consider additional information in audit records, including the access control or flow control rules invoked and the individual identities of group account users. Organizations may also consider limiting additional audit record information to only information that is explicitly needed for audit requirements."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.03",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for audit record generation; system design documentation; list of auditable events; system audit records; audit record retention policy and procedures; organization-defined retention period for audit records; audit record archives; system configuration settings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.03",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit record generation responsibilities; personnel with audit record retention responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-92",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Souppaya MP (2006) Guide to Computer Security Log Management. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-92.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-92"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.03",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.03.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Generate audit records for the selected event types and audit record content specified in 03.03.01 and 03.03.02.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.03.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records for the selected event types and audit record content specified in 03.03.01 and 03.03.02 are generated."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.03.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Retain audit records for a time period consistent with the records retention policy.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.03.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records are retained for a time period consistent with the records retention policy."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.03",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing the audit record generation capability]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.3",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199017,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-11",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD RETENTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AU-12",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD GENERATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Response to Audit Logging Process Failures",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.04",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit logging process failures include software and hardware errors, failures in audit log capturing mechanisms, and reaching or exceeding audit log storage capacity. Response actions include overwriting the oldest audit records, shutting down the system, and stopping the generation of audit records. Organizations may choose to define additional actions for audit logging process failures based on the type of failure, the location of the failure, the severity of the failure, or a combination of such factors. When the audit logging process failure is related to storage, the response is carried out for the audit log storage repository (i.e., the distinct system component where the audit logs are stored), the system on which the audit logs reside, the total audit log storage capacity of the organization (i.e., all audit log storage repositories combined), or all three. Organizations may decide to take no additional actions after alerting designated roles or personnel."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.04",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for responding to audit processing failures; system design documentation; system configuration settings; list of personnel to be notified in case of an audit processing failure; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.04",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit and accountability responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.04",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.04.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Alert organizational personnel or roles within [Assignment: organization-defined time period] in the event of an audit logging process failure.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.04.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "organizational personnel or roles are alerted in the event of an audit logging process failure within <A.03.03.04.ODP[01]: time period>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.04.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "time period",
+                                                        "text": "the time period for organizational personnel or roles receiving audit logging process failure alerts is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.04.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined time period"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.04.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Take the following additional actions: [Assignment: organization-defined additional actions].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.04.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following additional actions are taken: <A.03.03.04.ODP[02]: additional actions>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.04.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "additional actions",
+                                                        "text": "additional actions to be taken in the event of an audit logging process failure are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.04.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined additional actions"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.04",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing system response to audit processing failures]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.4",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199018,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "RESPONSE TO AUDIT LOGGING PROCESS FAILURES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Audit Record Review, Analysis, and Reporting",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit record review, analysis, and reporting cover information security logging performed by organizations and can include logging that results from the monitoring of account usage, remote access, wireless connectivity, configuration settings, the use of maintenance tools and nonlocal maintenance, system component inventory, mobile device connection, equipment delivery and removal, physical access, temperature and humidity, communications at system interfaces, and the use of mobile code. Findings can be reported to organizational entities, such as the incident response team, help desk, and security or privacy offices. If organizations are prohibited from reviewing and analyzing audit records or unable to conduct such activities, the review or analysis may be carried out by other organizations granted such authority. The scope, frequency, and/or depth of the audit record review, analysis, and reporting may be adjusted to meet organizational needs based on new information received. Correlating audit record review, analysis, and reporting processes helps to ensure that audit records collectively create a more complete view of events."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for audit record review, analysis, and reporting; reports of audit record findings; records of actions taken in response to reviews and analyses of audit records; system design documentation; system audit records across different repositories; system security plan; system configuration settings; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit record review, analysis, and reporting responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-101",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ayers RP, Brothers S, Jansen W (2014) Guidelines on Mobile Device Forensics. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-101, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-101r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-86",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Chevalier S, Grance T, Dang H (2006) Guide to Integrating Forensic Techniques into Incident Response. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publicati",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-86"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Review and analyze system audit records [Assignment: organization-defined frequency] for indications and the potential impact of inappropriate or unusual activity.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system audit records are reviewed and analyzed <A.03.03.05.ODP[01]: frequency> for indications and the potential impact of inappropriate or unusual activity.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.05.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which system audit records are reviewed and analyzed is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.05.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Report findings to organizational personnel or roles.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "findings are reported to organizational personnel or roles."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Analyze and correlate audit records across different repositories to gain organization-wide situational awareness.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records across different repositories are analyzed to gain organization-wide situational awareness."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records across different repositories are correlated to gain organization-wide situational awareness."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting the analysis and correlation of audit records]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.5",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199019,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-06",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD REVIEW, ANALYSIS, AND REPORTING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AU-06(03)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "CORRELATE AUDIT RECORD REPOSITORIES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Audit Record Reduction and Report Generation",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit records are generated in <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.03.03\">03.03.03</a>. Audit record reduction and report generation occur after audit record generation. Audit record reduction is a process that manipulates collected audit information and organizes it in a summary format that is more meaningful to analysts. Audit record reduction and report generation capabilities do not always come from the same system or organizational entities that conduct auditing activities. An audit record reduction capability can include, for example, modern data mining techniques with advanced data filters to identify anomalous behavior in audit records. The report generation capability provided by the system can help generate customizable reports. The time ordering of audit records can be a significant issue if the granularity of the time stamp in the record is insufficient."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for audit record reduction and report generation; audit record reduction, review, analysis, and reporting tools; system audit records; system design documentation; system configuration settings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit record reduction and report generation responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.06.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Implement an audit record reduction and report generation capability that supports audit record review, analysis, reporting requirements, and after-the-fact investigations of incidents.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.06.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an audit record reduction and report generation capability that supports audit record review is implemented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.06.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an audit record reduction and report generation capability that supports audit record analysis is implemented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.06.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an audit record reduction and report generation capability that supports audit record reporting requirements is implemented."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.06.a[04]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an audit record reduction and report generation capability that supports after-the-fact investigations of incidents is implemented."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.06.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Preserve the original content and time ordering of audit records.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.06.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the original content of audit records is preserved."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.06.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the original time ordering of audit records is preserved."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting audit record reduction and report generation capability]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199020,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-07",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD REDUCTION AND REPORT GENERATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.07",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Time Stamps",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.07",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Time stamps generated by the system include the date and time. Time is often expressed in Coordinated Universal Time (UTC) \u2014 a modern continuation of Greenwich Mean Time (GMT) \u2014 or local time with an offset from UTC. The granularity of time measurements refers to the degree of synchronization between system clocks and reference clocks (e.g., clocks synchronizing within hundreds or tens of milliseconds). Organizations may define different time granularities for system components. Time service can be critical to other security capabilities (e.g., access control and identification and authentication), depending on the nature of the mechanisms used to support those capabilities."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.07",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for timestamp generation; system design documentation; system configuration settings; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.07",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.07",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.07.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Use internal system clocks to generate time stamps for audit records.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.07.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "internal system clocks are used to generate time stamps for audit records."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.07.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Record time stamps for audit records that meet [Assignment: organization-defined granularity of time measurement] and that use Coordinated Universal Time (UTC), have a fixed local time offset from UTC, or include the local time offset as part of the time stamp.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.07.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "time stamps are recorded for audit records that meet <A.03.03.07.ODP[01]: granularity of time measurement>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.07.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "granularity of time measurement",
+                                                        "text": "granularity of time measurement for audit record time stamps is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.07.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined granularity of time measurement"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.07.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "time stamps are recorded for audit records that use Coordinated Universal Time (UTC), have a fixed local time offset from UTC, or include the local time offset as part of the time stamp."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.07",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing timestamp generation]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.7",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199021,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-08",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "TIME STAMPS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.08",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Protection of Audit Information",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.08",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit information includes the information needed to successfully audit system activity, such as audit records, audit log settings, audit reports, and personally identifiable information. Audit logging tools are programs and devices used to conduct audit and logging activities. The protection of audit information focuses on technical protection and limits the ability to access and execute audit logging tools to authorized individuals. The physical protection of audit information is addressed by media and physical protection requirements. Individuals or roles with privileged access to a system and who are also the subject of an audit by that system may affect the reliability of the audit information by inhibiting audit activities or modifying audit records. Requiring privileged access to be further defined between audit-related privileges and other privileges limits the number of users or roles with audit-related privileges."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.08",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; access control policy and procedures; procedures for the protection of audit information; system configuration settings; system audit records; audit tools; system-generated list of privileged users with access to the management of audit functionality; access authorizations; access control list; system design documentation; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.08",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit and accountability responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.08",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.08.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Protect audit information and audit logging tools from unauthorized access, modification, and deletion.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.08.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit information is protected from unauthorized access, modification, and deletion."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.08.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit logging tools are protected from unauthorized access, modification, and deletion."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.08.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Authorize access to management of audit logging functionality to only a subset of privileged users or roles.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.08.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "access to management of audit logging functionality is authorized to only a subset of privileged users or roles."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.08",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing audit information protection; mechanisms for managing access to audit functionality]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.8",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199022,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-09",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PROTECTION OF AUDIT INFORMATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AU-09(04)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "ACCESS BY SUBSET OF PRIVILEGED USERS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.03.09",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.03.09",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.03.08.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.03.08",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Protection of Audit Information",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

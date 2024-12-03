@@ -1,0 +1,167 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.03",
+                "elementTypeIdentifier": "family",
+                "title": "Audit and Accountability",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.03.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Audit Record Review, Analysis, and Reporting",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.03.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Audit record review, analysis, and reporting cover information security logging performed by organizations and can include logging that results from the monitoring of account usage, remote access, wireless connectivity, configuration settings, the use of maintenance tools and nonlocal maintenance, system component inventory, mobile device connection, equipment delivery and removal, physical access, temperature and humidity, communications at system interfaces, and the use of mobile code. Findings can be reported to organizational entities, such as the incident response team, help desk, and security or privacy offices. If organizations are prohibited from reviewing and analyzing audit records or unable to conduct such activities, the review or analysis may be carried out by other organizations granted such authority. The scope, frequency, and/or depth of the audit record review, analysis, and reporting may be adjusted to meet organizational needs based on new information received. Correlating audit record review, analysis, and reporting processes helps to ensure that audit records collectively create a more complete view of events."
+                            },
+                            {
+                                "elementIdentifier": "E-03.03.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: audit and accountability policy and procedures; procedures for audit record review, analysis, and reporting; reports of audit record findings; records of actions taken in response to reviews and analyses of audit records; system design documentation; system audit records across different repositories; system security plan; system configuration settings; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.03.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with audit record review, analysis, and reporting responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-101",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ayers RP, Brothers S, Jansen W (2014) Guidelines on Mobile Device Forensics. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-101, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-101r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-86",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Chevalier S, Grance T, Dang H (2006) Guide to Integrating Forensic Techniques into Incident Response. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publicati",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-86"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.03.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.03.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Review and analyze system audit records [Assignment: organization-defined frequency] for indications and the potential impact of inappropriate or unusual activity.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system audit records are reviewed and analyzed <A.03.03.05.ODP[01]: frequency> for indications and the potential impact of inappropriate or unusual activity.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.03.05.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which system audit records are reviewed and analyzed is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.03.05.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Report findings to organizational personnel or roles.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "findings are reported to organizational personnel or roles."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.03.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Analyze and correlate audit records across different repositories to gain organization-wide situational awareness.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records across different repositories are analyzed to gain organization-wide situational awareness."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.03.05.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "audit records across different repositories are correlated to gain organization-wide situational awareness."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.03.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting the analysis and correlation of audit records]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.3.5",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199019,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AU-06",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "AUDIT RECORD REVIEW, ANALYSIS, AND REPORTING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "AU-06(03)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "CORRELATE AUDIT RECORD REPOSITORIES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.08",
+                "elementTypeIdentifier": "family",
+                "title": "Media Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.08.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Media Marking",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.08.04",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "System media include digital and non-digital media. Marking refers to the use or application of human-readable security attributes. Labeling refers to the use of security attributes for internal system data structures. Digital media include diskettes, magnetic tapes, external or removable solid state or magnetic drives, flash drives, compact discs, and digital versatile discs. Non-digital media include paper and microfilm. CUI is defined by NARA along with marking, safeguarding, and dissemination requirements for such information."
+                            },
+                            {
+                                "elementIdentifier": "E-03.08.04",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; media protection policy and procedures; procedures for media marking; list of system media marking security attributes; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.08.04",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with system media protection and marking responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.08.04",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Mark system media that contain CUI to indicate distribution limitations, handling caveats, and applicable CUI markings.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.08.04[01]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "system media that contain CUI are marked to indicate distribution limitations."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.08.04[02]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "system media that contain CUI are marked to indicate handling caveats."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.08.04[03]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "system media that contain CUI are marked to indicate applicable CUI markings."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.08.04",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for marking information media; mechanisms for supporting or implementing media marking]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.8.4",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199052,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "MP-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MEDIA MARKING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

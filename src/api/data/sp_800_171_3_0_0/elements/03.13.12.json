@@ -1,0 +1,126 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.13",
+                "elementTypeIdentifier": "family",
+                "title": "System and Communications Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.13.12",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Collaborative Computing Devices and Applications",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.13.12",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Collaborative computing devices include white boards, microphones, and cameras. Notebook computers, smartphones, display monitors, and tablets containing cameras and microphones are considered part of collaborative computing devices when conferencing software is in use. Indication of use includes notifying users (e.g., a pop-up menu stating that recording is in progress or that the microphone has been turned on) when collaborative computing devices are activated. Dedicated video conferencing systems, which typically rely on one of the participants calling or connecting to the other party to activate the video conference, are excluded. Solutions to prevent device usage include webcam covers and buttons to disable microphones."
+                            },
+                            {
+                                "elementIdentifier": "E-03.13.12",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and communications protection policy and procedures; procedures for collaborative computing; access control policy and procedures; system configuration settings; system design documentation; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.13.12",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with responsibilities for managing collaborative computing devices; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.13.12",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.13.12.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Prohibit the remote activation of collaborative computing devices and applications with the following exceptions: [Assignment: organization-defined exceptions where remote activation is to be allowed].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.12.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the remote activation of collaborative computing devices and applications is prohibited with the following exceptions: <A.03.13.12.ODP[01]: exceptions>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.13.12.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "exceptions",
+                                                        "text": "exceptions where remote activation is to be allowed are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.13.12.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined exceptions where remote activation is to be allowed"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.13.12.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Provide an explicit indication of use to users physically present at the devices.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.12.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an explicit indication of use is provided to users who are physically present at the devices."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.13.12",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting or implementing the management of remote activation of collaborative computing devices; mechanisms for providing an indication of use of collaborative computing devices]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.13.12",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199077,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SC-15",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "COLLABORATIVE COMPUTING DEVICES AND APPLICATIONS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

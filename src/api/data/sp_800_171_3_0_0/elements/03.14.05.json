@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.14",
+                "elementTypeIdentifier": "family",
+                "title": "System and Information Integrity",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.14.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.14.05",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Addressed by 03.14.02.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.14.02",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Malicious Code Protection",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

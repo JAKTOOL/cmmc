@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.05",
+                "elementTypeIdentifier": "family",
+                "title": "Identification and Authentication",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.05.10",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.05.10",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.05.07.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.05.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Password Management",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

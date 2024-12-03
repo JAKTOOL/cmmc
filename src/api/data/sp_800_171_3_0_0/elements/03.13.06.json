@@ -1,0 +1,106 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.13",
+                "elementTypeIdentifier": "family",
+                "title": "System and Communications Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.13.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Network Communications \u2013 Deny by Default \u2013 Allow by Exception",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.13.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "This requirement applies to inbound and outbound network communications traffic at the system boundary and at identified points within the system. A deny-all, allow-by-exception network communications traffic policy ensures that only essential and approved connections are allowed."
+                            },
+                            {
+                                "elementIdentifier": "E-03.13.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and communications protection policy and procedures; procedures for boundary protection; system design documentation; system configuration settings; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.13.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with boundary protection responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-189",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Sriram K, Montgomery D (2019) Resilient Interdomain Traffic Exchange: BGP Security and DDoS Mitigation. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-189"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-41",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Hoffman P (2009) Guidelines on Firewalls and Firewall Policy. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-41, Rev. 1",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-41r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-77",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Barker EB, Dang QH, Frankel SE, Scarfone KA, Wouters P (2020) Guide to IPsec VPNs. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-77, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-77r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.13.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Deny network communications traffic by default, and allow network communications traffic by exception.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.13.06[01]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "network communications traffic is denied by default."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.13.06[02]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "network communications traffic is allowed by exception."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.13.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing traffic management at managed interfaces]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.13.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199072,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SC-07(05)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "DENY BY DEFAULT \u2014 ALLOW BY EXCEPTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,192 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.14",
+                "elementTypeIdentifier": "family",
+                "title": "System and Information Integrity",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.14.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Malicious Code Protection",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.14.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Malicious code insertions occur through the exploitation of system vulnerabilities. Malicious code can be inserted into the system in a variety of ways, including email, the internet, and portable storage devices. Malicious code includes viruses, worms, Trojan horses, and spyware. Malicious code can be encoded in various formats, contained in compressed or hidden files, or hidden in files using techniques such as steganography. Malicious code may be present in commercial off-the-shelf software and custom-built software and could include logic bombs, backdoors, and other types of attacks that could affect organizational mission and business functions. Periodic scans of the system and real-time scans of files from external sources as files are downloaded, opened, or executed can detect malicious code. Malicious code protection mechanisms can also monitor systems for anomalous or unexpected behaviors and take appropriate actions. Malicious code protection mechanisms include signature- and non-signature-based technologies. Non-signature-based detection mechanisms include artificial intelligence techniques that use heuristics to detect, analyze, and describe the characteristics or behavior of malicious code and to provide controls against such code for which signatures do not yet exist or for which existing signatures may not be effective. Malicious code for which active signatures do not yet exist or may be ineffective includes polymorphic malicious code (i.e., code that changes signatures when it replicates). Non-signature-based mechanisms include reputation-based technologies. Pervasive configuration management, anti-exploitation software, and software integrity controls may also be effective in preventing unauthorized code execution.  If malicious code cannot be detected by detection methods or technologies, organizations can rely on secure coding practices, configuration management and control, trusted procurement processes, and monitoring practices to help ensure that the software only performs intended functions. Organizations may determine that different actions are warranted in response to the detection of malicious code. For example, organizations can define actions to be taken in response to the detection of malicious code during scans, malicious downloads, or malicious activity when attempting to open or execute files."
+                            },
+                            {
+                                "elementIdentifier": "E-03.14.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and information integrity policy and procedures; configuration management policy and procedures; procedures for malicious code protection; records of malicious code protection updates; system design documentation; system configuration settings; scan results from malicious code protection mechanisms; record of actions initiated by malicious code protection mechanisms in response to malicious code detection; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.14.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel responsible for malicious code protection; personnel with system installation, configuration, or maintenance responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-125B",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Chandramouli R (2016) Secure Virtual Network Configuration for Virtual Machine (VM) Protection. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-12",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-125B"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-177",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Rose SW, Nightingale S, Garfinkel SL, Chandramouli R (2019) Trustworthy Email. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-177, Rev. 1.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-177r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-83",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2013) Guide to Malware Incident Prevention and Handling for Desktops and Laptops. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-83r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.14.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.14.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Implement malicious code protection mechanisms at system entry and exit points to detect and eradicate malicious code.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.02.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "malicious code protection mechanisms are implemented at system entry and exit points to detect malicious code."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.02.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "malicious code protection mechanisms are implemented at system entry and exit points to eradicate malicious code."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.14.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Update malicious code protection mechanisms as new releases are available in accordance with configuration management policies and procedures.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.02.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "malicious code protection mechanisms are updated as new releases are available in accordance with configuration management policy and procedures."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.14.02.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Configure malicious code protection mechanisms to:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.14.02.c.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "Perform scans of the system [Assignment: organization-defined frequency] and real-time scans of files from external sources at endpoints or system entry and exit points as the files are downloaded, opened, or executed; and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.14.02.c.01[01]",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "malicious code protection mechanisms are configured to perform scans of the system <A.03.14.02.ODP[01]: frequency>.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "A.03.14.02.ODP[01]",
+                                                                "elementTypeIdentifier": "odp",
+                                                                "title": "frequency",
+                                                                "text": "the frequency at which malicious code protection mechanisms perform scans is defined.",
+                                                                "elements": [
+                                                                    {
+                                                                        "elementIdentifier": "OS-a.03.14.02.odp[01]",
+                                                                        "elementTypeIdentifier": "odp_statement",
+                                                                        "title": "",
+                                                                        "text": "organization-defined frequency"
+                                                                    },
+                                                                    {
+                                                                        "elementIdentifier": "single_entry",
+                                                                        "elementTypeIdentifier": "odp_type",
+                                                                        "title": "Assignment",
+                                                                        "text": ""
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.14.02.c.01[02]",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "malicious code protection mechanisms are configured to perform real-time scans of files from external sources at endpoints or system entry and exit points as the files are downloaded, opened, or executed."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.14.02.c.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "Block malicious code, quarantine malicious code, or take other mitigation actions in response to malicious code detection.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.14.02.c.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "malicious code protection mechanisms are configured to block malicious code, quarantine malicious code, or take other actions in response to malicious code detection."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.14.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for employing, updating, and configuring malicious code protection mechanisms; processes for addressing the detection of false positives and resulting potential impacts; mechanisms for supporting or implementing, employing, updating, and configuring malicious code protection mechanisms; mechanisms for supporting or implementing malicious code scanning and the execution of subsequent actions]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.14.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199081,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SI-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MALICIOUS CODE PROTECTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

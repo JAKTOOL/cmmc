@@ -1,0 +1,718 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.10",
+                "elementTypeIdentifier": "family",
+                "title": "Physical Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.10.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Physical Access Authorizations",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "A facility can include one or more physical locations containing systems or system components that process, store, or transmit CUI. Physical access authorizations apply to employees and visitors. Individuals with permanent physical access authorization credentials are not considered visitors. Authorization credentials include identification badges, identification cards, and smart cards. Organizations determine the strength of the authorization credentials consistent with applicable laws, Executive Orders, directives, regulations, policies, standards, and guidelines. Physical access authorizations may not be necessary to access certain areas within facilities that are designated as publicly accessible."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for physical access authorizations; authorized personnel access list; physical access list reviews; physical access termination records; authorization credentials; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access authorization responsibilities; personnel with physical access to the facility where the system resides; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Develop, approve, and maintain a list of individuals with authorized access to the facility where the system resides.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of individuals with authorized access to the facility where the system resides is developed."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of individuals with authorized access to the facility where the system resides is approved."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of individuals with authorized access to the facility where the system resides is maintained."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Issue authorization credentials for facility access.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "authorization credentials for facility access are issued."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Review the facility access list [Assignment: organization-defined frequency].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the facility access list is reviewed <A.03.10.01.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to review the access list detailing authorized facility access by individuals is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.01.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Remove individuals from the facility access list when access is no longer required.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.01.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "individuals from the facility access list are removed when access is no longer required."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for physical access authorizations; mechanisms for supporting or implementing physical access authorizations]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.10.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199058,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "PE-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PHYSICAL ACCESS AUTHORIZATIONS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Monitoring Physical Access",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "A facility can include one or more physical locations containing systems or system components that process, store, or transmit CUI. Physical access monitoring includes publicly accessible areas within organizational facilities. Examples of physical access monitoring include guards, video surveillance equipment (i.e., cameras), and sensor devices. Reviewing physical access logs can help to identify suspicious activities, anomalous events, or potential threats. The reviews can be supported by audit logging controls if the access logs are part of an automated system. Incident response capabilities include investigations of physical security incidents and responses to those incidents. Incidents include security violations or suspicious physical access activities, such as access outside of normal work hours, repeated access to areas not normally accessed, access for unusual lengths of time, and out-of-sequence access."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for physical access monitoring; physical access logs or records; physical access monitoring records; physical access log reviews; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access monitoring responsibilities; personnel with incident response responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Monitor physical access to the facility where the system resides to detect and respond to physical security incidents.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access to the facility where the system resides is monitored to detect physical security incidents."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical security incidents are responded to."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review physical access logs [Assignment: organization-defined frequency] and upon occurrence of [Assignment: organization-defined events or potential indications of events].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access logs are reviewed <A.03.10.02.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.02.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to review physical access logs is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.02.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.02.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access logs are reviewed upon occurrence of <A.03.10.02.ODP[02]: events or potential indicators of events>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.02.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "events or potential indicators of events",
+                                                        "text": "events or potential indications of events requiring physical access logs to be reviewed are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.02.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined events or potential indications of events"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for monitoring physical access; mechanisms for supporting or implementing physical access monitoring; mechanisms for supporting or implementing the review of physical access logs]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.10.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199059,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "PE-06",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MONITORING PHYSICAL ACCESS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.10.03",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.10.07.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.10.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Physical Access Control",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.10.04",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.10.07.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.10.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Physical Access Control",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.10.05",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.10.07.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.10.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Physical Access Control",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Alternate Work Site",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Alternate work sites include the private residences of employees or other facilities designated by the organization. Alternate work sites can provide readily available alternate locations during contingency operations. Organizations can define different security requirements for specific alternate work sites or types of sites, depending on the work-related activities conducted at the sites. Assessing the effectiveness of the requirements and providing a means to communicate incidents at alternate work sites supports the contingency planning activities of organizations."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for alternate work sites for personnel; list of security requirements for alternate work sites; assessments of security requirements at alternate work sites; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel approving the use of alternate work sites; personnel using alternate work sites; personnel assessing security requirements at alternate work sites; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-114",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) User\u2019s Guide to Telework and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 80",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-114r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-46",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2016) Guide to Enterprise Telework, Remote Access, and Bring Your Own Device (BYOD) Security. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-46r2"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.06.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Determine alternate work sites allowed for use by employees.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.06.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "alternate work sites allowed for use by employees are determined."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.06.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Employ the following security requirements at alternate work sites: [Assignment: organization-defined security requirements].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.06.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the following security requirements are employed at alternate work sites: <A.03.10.06.ODP[01]: security requirements>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.10.06.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "security requirements",
+                                                        "text": "security requirements to be employed at alternate work sites are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.10.06.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined security requirements"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for security at alternate work sites; mechanisms for supporting alternate work sites; security requirements employed at alternate work sites; means of communication between personnel at alternate work sites and security personnel]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.10.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199060,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "PE-17",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ALTERNATE WORK SITE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.07",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Physical Access Control",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.07",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "This requirement addresses physical locations containing systems or system components that process, store, or transmit CUI. Organizations determine the types of guards needed, including professional security staff or administrative staff. Physical access devices include keys, locks, combinations, biometric readers, and card readers. Physical access control systems comply with applicable laws, Executive Orders, directives, policies, regulations, standards, and guidelines. Organizations have flexibility in the types of audit logs employed. Audit logs can be procedural, automated, or some combination thereof. Physical access points can include exterior access points, interior access points to systems that require supplemental access controls, or both. Physical access control applies to employees and visitors. Individuals with permanent physical access authorizations are not considered visitors. Controlling physical access to output devices includes placing output devices in locked rooms or other secured areas with keypad or card reader access controls and only allowing access to authorized individuals, placing output devices in locations that can be monitored by personnel, installing monitor or screen filters, and using headphones. Examples of output devices include monitors, printers, scanners, facsimile machines, audio devices, and copiers."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.07",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for physical access control; physical access control logs or records; inventory records of physical access control devices; system entry and exit points; records of key and lock combination changes; storage locations for physical access control devices; physical access control devices; list of security safeguards controlling access to designated publicly accessible areas within facility; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.07",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access control responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.07",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Enforce physical access authorizations at entry and exit points to the facility where the system resides by:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.10.07.a.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "Verifying individual physical access authorizations before granting access to the facility and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.10.07.a.01",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "physical access authorizations are enforced at entry and exit points to the facility where the system resides by verifying individual physical access authorizations before granting access."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.10.07.a.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "Controlling ingress and egress with physical access control systems, devices, or guards.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.10.07.a.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "physical access authorizations are enforced at entry and exit points to the facility where the system resides by controlling ingress and egress with physical access control systems, devices, or guards."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Maintain physical access audit logs for entry or exit points.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access audit logs for entry or exit points are maintained."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Escort visitors, and control visitor activity.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "visitors are escorted."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "visitor activity is controlled."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Secure keys, combinations, and other physical access devices.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "keys, combinations, and other physical access devices are secured."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.e",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "e",
+                                        "text": "Control physical access to output devices to prevent unauthorized individuals from obtaining access to CUI.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.e",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access to output devices is controlled to prevent unauthorized individuals from obtaining access to CUI."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.07",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for physical access control; mechanisms for supporting or implementing physical access control; physical access control devices]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "PE-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PHYSICAL ACCESS CONTROL",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "PE-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ACCESS CONTROL FOR OUTPUT DEVICES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.10.08",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Access Control for Transmission",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.08",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Safeguarding measures applied to system distribution and transmission lines prevent accidental damage, disruption, and physical tampering. Such measures may also be necessary to prevent eavesdropping or the modification of unencrypted transmissions. Safeguarding measures used to control physical access to system distribution and transmission lines include disconnected or locked spare jacks, locked wiring closets, cabling protection with conduit or cable trays, and wiretapping sensors."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.08",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for access control for transmission mediums; system design documentation; facility communications and wiring diagrams; list of physical security safeguards applied to system distribution and transmission lines; procedures for access control for display medium; facility layout of system components; list of output devices and associated outputs that require physical access controls; actual displays from system components; physical access control logs or records for areas containing output devices and related outputs; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.08",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access control responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.08",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Control physical access to system distribution and transmission lines within organizational facilities.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.10.08",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "physical access to system distribution and transmission lines within organizational facilities is controlled."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.08",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for access control for distribution and transmission lines; mechanisms for supporting or implementing access control for distribution and transmission lines; processes for access control to output devices; mechanisms for supporting or implementing access control for output devices]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "PE-04",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ACCESS CONTROL FOR TRANSMISSION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

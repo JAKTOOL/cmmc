@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.08",
+                "elementTypeIdentifier": "family",
+                "title": "Media Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.08.08",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.08.08",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.08.07.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.08.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Media Use",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

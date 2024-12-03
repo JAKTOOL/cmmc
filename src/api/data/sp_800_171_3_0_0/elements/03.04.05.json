@@ -1,0 +1,130 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Access Restrictions for Change",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.04.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Changes to the hardware, software, or firmware components of the system or the operational procedures related to the system can have potentially significant effects on the security of the system. Therefore, organizations permit only qualified and authorized individuals to access the system for the purpose of initiating changes. Access restrictions include physical and logical access controls, software libraries, workflow automation, media libraries, abstract layers (i.e., changes implemented into external interfaces rather than directly into the system), and change windows (i.e., changes occur only during specified times)."
+                            },
+                            {
+                                "elementIdentifier": "E-03.04.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: configuration management policy and procedures; procedures for access restrictions for system changes; configuration management plan; system design documentation; system architecture; system configuration settings; logical access approvals; physical access approvals; access credentials; change control records; system audit records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "FIPS 140-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "National Institute of Standards and Technology (2019) Security Requirements for Cryptographic Modules. (U.S. Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publica",
+                                "text": "https://doi.org/10.6028/NIST.FIPS.140-3"
+                            },
+                            {
+                                "elementIdentifier": "FIPS 180-4",
+                                "elementTypeIdentifier": "reference",
+                                "title": "National Institute of Standards and Technology (2015) Secure Hash Standard (SHS). (U.S. Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publication (FIPS) 180-4.",
+                                "text": "https://doi.org/10.6028/NIST.FIPS.180-4"
+                            },
+                            {
+                                "elementIdentifier": "I-03.04.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with logical access control responsibilities; personnel with physical access control responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-128",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Johnson LA, Dempsey KL, Ross RS, Gupta S, Bailey D (2011) Guide for Security-Focused Configuration Management of Information Systems. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-128"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.04.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Define, document, approve, and enforce physical and logical access restrictions associated with changes to the system.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.04.05[01]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "physical access restrictions associated with changes to the system are defined and documented."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.04.05[02]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "physical access restrictions associated with changes to the system are approved."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.04.05[03]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "physical access restrictions associated with changes to the system are enforced."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.04.05[04]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "logical access restrictions associated with changes to the system are defined and documented."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.04.05[05]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "logical access restrictions associated with changes to the system are approved."
+                                    },
+                                    {
+                                        "elementIdentifier": "DS-A.03.04.05[06]",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "logical access restrictions associated with changes to the system are enforced."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.04.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for managing access restrictions for system changes; mechanisms for supporting, implementing, or enforcing access restrictions associated with system changes]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.4.5",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199027,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CM-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ACCESS RESTRICTIONS FOR CHANGE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

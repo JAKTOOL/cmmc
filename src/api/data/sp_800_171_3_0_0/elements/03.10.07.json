@@ -1,0 +1,173 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.10",
+                "elementTypeIdentifier": "family",
+                "title": "Physical Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.10.07",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Physical Access Control",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.10.07",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "This requirement addresses physical locations containing systems or system components that process, store, or transmit CUI. Organizations determine the types of guards needed, including professional security staff or administrative staff. Physical access devices include keys, locks, combinations, biometric readers, and card readers. Physical access control systems comply with applicable laws, Executive Orders, directives, policies, regulations, standards, and guidelines. Organizations have flexibility in the types of audit logs employed. Audit logs can be procedural, automated, or some combination thereof. Physical access points can include exterior access points, interior access points to systems that require supplemental access controls, or both. Physical access control applies to employees and visitors. Individuals with permanent physical access authorizations are not considered visitors. Controlling physical access to output devices includes placing output devices in locked rooms or other secured areas with keypad or card reader access controls and only allowing access to authorized individuals, placing output devices in locations that can be monitored by personnel, installing monitor or screen filters, and using headphones. Examples of output devices include monitors, printers, scanners, facsimile machines, audio devices, and copiers."
+                            },
+                            {
+                                "elementIdentifier": "E-03.10.07",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; procedures for physical access control; physical access control logs or records; inventory records of physical access control devices; system entry and exit points; records of key and lock combination changes; storage locations for physical access control devices; physical access control devices; list of security safeguards controlling access to designated publicly accessible areas within facility; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.10.07",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with physical access control responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.10.07",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Enforce physical access authorizations at entry and exit points to the facility where the system resides by:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.10.07.a.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "Verifying individual physical access authorizations before granting access to the facility and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.10.07.a.01",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "physical access authorizations are enforced at entry and exit points to the facility where the system resides by verifying individual physical access authorizations before granting access."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.10.07.a.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "Controlling ingress and egress with physical access control systems, devices, or guards.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.10.07.a.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "physical access authorizations are enforced at entry and exit points to the facility where the system resides by controlling ingress and egress with physical access control systems, devices, or guards."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Maintain physical access audit logs for entry or exit points.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access audit logs for entry or exit points are maintained."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Escort visitors, and control visitor activity.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "visitors are escorted."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "visitor activity is controlled."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Secure keys, combinations, and other physical access devices.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "keys, combinations, and other physical access devices are secured."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.10.07.e",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "e",
+                                        "text": "Control physical access to output devices to prevent unauthorized individuals from obtaining access to CUI.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.10.07.e",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "physical access to output devices is controlled to prevent unauthorized individuals from obtaining access to CUI."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.10.07",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for physical access control; mechanisms for supporting or implementing physical access control; physical access control devices]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "PE-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PHYSICAL ACCESS CONTROL",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "PE-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "ACCESS CONTROL FOR OUTPUT DEVICES",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

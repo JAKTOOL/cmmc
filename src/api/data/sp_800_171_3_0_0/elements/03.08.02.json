@@ -1,0 +1,88 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.08",
+                "elementTypeIdentifier": "family",
+                "title": "Media Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.08.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Media Access",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.08.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "System media include digital and non-digital media. Access to CUI on system media can be restricted by physically controlling such media. This includes conducting inventories, ensuring that procedures are in place to allow individuals to check out and return media to the media library, and maintaining accountability for stored media. For digital media, access to CUI can be restricted by using cryptographic means. Encrypting data in storage or at rest is addressed in <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.13.08\">03.13.08</a>."
+                            },
+                            {
+                                "elementIdentifier": "E-03.08.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: physical protection policy and procedures; media protection policy and procedures; procedures for media access restrictions; access control policy and procedures; media storage facilities; access control records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.08.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with system media protection responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-111",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Souppaya MP, Sexton M (2007) Guide to Storage Encryption Technologies for End User Devices. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (S",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-111"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.08.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Restrict access to CUI on system media to authorized personnel or roles.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.08.02",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "access to CUI on system media is restricted to authorized personnel or roles."
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.08.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for restricting information on media; mechanisms for supporting or implementing media access restrictions]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.8.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199050,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "MP-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MEDIA ACCESS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

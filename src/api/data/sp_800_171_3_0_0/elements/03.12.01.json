@@ -1,0 +1,128 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.12",
+                "elementTypeIdentifier": "family",
+                "title": "Security Assessment and Monitoring",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.12.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Security Assessment",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.12.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "By assessing the security requirements, organizations determine whether the necessary safeguards and countermeasures are implemented correctly, operating as intended, and producing the desired outcome. Security assessments identify weaknesses in the system and provide the essential information needed to make risk-based decisions. Security assessment reports document assessment results in sufficient detail as deemed necessary by the organization to determine the accuracy and completeness of the reports. Security assessment results are provided to the individuals or roles appropriate for the types of assessments being conducted."
+                            },
+                            {
+                                "elementIdentifier": "E-03.12.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: security assessment and monitoring policy and procedures; procedures for security assessment planning; security assessment plan; security assessment report; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.12.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with security assessment responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-115",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Souppaya MP, Cody A, Orebaugh AD (2008) Technical Guide to Information Security Testing and Assessment. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Pu",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-115"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-37",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force (2018) Risk Management Framework for Information Systems and Organizations: A System Life Cycle Approach for Security and Privacy. (National Institute of Standards and Technology, Gai",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-37r2"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-53",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force (2020) Security and Privacy Controls for Information Systems and Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-5",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-53r5"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-53A",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2022) Assessing Security and Privacy Controls in Information Systems and Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-53Ar5"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.12.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "Assess the security requirements for the system and its environment of operation [Assignment: organization-defined frequency] to determine if the requirements have been satisfied.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "DS-A.03.12.01",
+                                        "elementTypeIdentifier": "determination",
+                                        "title": "",
+                                        "text": "the security requirements for the system and its environment of operation are assessed <A.03.12.01.ODP[01]: frequency> to determine if the requirements have been satisfied.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "A.03.12.01.ODP[01]",
+                                                "elementTypeIdentifier": "odp",
+                                                "title": "frequency",
+                                                "text": "the frequency at which to assess the security requirements for the system and its environment of operation is defined.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "OS-a.03.12.01.odp[01]",
+                                                        "elementTypeIdentifier": "odp_statement",
+                                                        "title": "",
+                                                        "text": "organization-defined frequency"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "single_entry",
+                                                        "elementTypeIdentifier": "odp_type",
+                                                        "title": "Assignment",
+                                                        "text": ""
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.12.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting security assessments, processes for security assessment plan development, or security assessment reporting]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.12.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199066,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "CA-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "CONTROL ASSESSMENTS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

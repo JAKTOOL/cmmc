@@ -1,0 +1,38 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.01",
+                "elementTypeIdentifier": "family",
+                "title": "Access Control",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.01.19",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.01.19",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.01.18.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.01.18",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Access Control for Mobile Devices",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

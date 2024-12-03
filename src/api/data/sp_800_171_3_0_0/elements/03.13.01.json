@@ -1,0 +1,166 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.13",
+                "elementTypeIdentifier": "family",
+                "title": "System and Communications Protection",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.13.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Boundary Protection",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.13.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Managed interfaces include gateways, routers, firewalls, network-based malicious code analysis, virtualization systems, and encrypted tunnels implemented within a security architecture. Subnetworks that are either physically or logically separated from internal networks are referred to as demilitarized zones or DMZs. Restricting or prohibiting interfaces within organizational systems includes restricting external web traffic to designated web servers within managed interfaces, prohibiting external traffic that appears to be spoofing internal addresses, and prohibiting internal traffic that appears to be spoofing external addresses."
+                            },
+                            {
+                                "elementIdentifier": "E-03.13.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and communications protection policy and procedures; procedures for boundary protection; list of key internal boundaries within the system; boundary protection hardware and software; system configuration settings; security architecture; system audit records; system design documentation; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.13.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with boundary protection responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-125B",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Chandramouli R (2016) Secure Virtual Network Configuration for Virtual Machine (VM) Protection. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-12",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-125B"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-160-1",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Ross R, Winstead M, McEvilley M (2022) Engineering Trustworthy Secure Systems. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-160, Vol. 1, Rev. 1",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-160v1r1"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-189",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Sriram K, Montgomery D (2019) Resilient Interdomain Traffic Exchange: BGP Security and DDoS Mitigation. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-189"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-207",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Rose S, Borchert O, Mitchell S, Connelly S (2017) Zero Trust Architecture. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-207.",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-207"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-41",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Hoffman P (2009) Guidelines on Firewalls and Firewall Policy. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-41, Rev. 1",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-41r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.13.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.13.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Monitor and control communications at external managed interfaces to the system and key internal managed interfaces within the system.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.01.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "communications at external managed interfaces to the system are monitored."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.01.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "communications at external managed interfaces to the system are controlled."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.01.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "communications at key internal managed interfaces within the system are monitored."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.01.a[04]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "communications at key internal managed interfaces within the system are controlled."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.13.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.01.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "subnetworks are implemented for publicly accessible system components that are physically or logically separated from internal networks."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.13.01.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Connect to external systems only through managed interfaces that consist of boundary protection devices arranged in accordance with an organizational security architecture.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.13.01.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "external system connections are only made through managed interfaces that consist of boundary protection devices arranged in accordance with an organizational security architecture."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.13.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for implementing boundary protection capabilities]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.13.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199070,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SC-07",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "BOUNDARY PROTECTION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

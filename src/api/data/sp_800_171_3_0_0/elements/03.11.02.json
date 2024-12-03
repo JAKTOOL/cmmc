@@ -1,0 +1,269 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.11",
+                "elementTypeIdentifier": "family",
+                "title": "Risk Assessment",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.11.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Vulnerability Monitoring and Scanning",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.11.02",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Organizations determine the required vulnerability scanning for system components and ensure that potential sources of vulnerabilities (e.g., networked printers, scanners, and copiers) are not overlooked. Vulnerability analyses for custom software may require additional approaches, such as static analysis, dynamic analysis, or binary analysis. Organizations can use these approaches in source code reviews and tools (e.g., static analysis tools, web-based application scanners, binary analyzers). Vulnerability scanning includes scanning for patch levels; scanning for functions, ports, protocols, and services that should not be accessible to users or devices; and scanning for improperly configured or incorrectly operating flow control mechanisms. To facilitate interoperability, organizations consider using scanning tools that express vulnerabilities in the Common Vulnerabilities and Exposures (CVE) naming convention. Sources for vulnerability information also include the Common Weakness Enumeration (CWE) listing, the National Vulnerability Database (NVD), and the Common Vulnerability Scoring System (CVSS)."
+                            },
+                            {
+                                "elementIdentifier": "E-03.11.02",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: risk assessment policy and procedures; procedures for vulnerability scanning; patch and vulnerability management records; vulnerability scanning tools and configuration documentation; vulnerability scanning results; risk assessment; risk assessment report; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.11.02",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with risk assessment and vulnerability scanning responsibilities; personnel with vulnerability scan analysis responsibilities; personnel with vulnerability remediation responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-115",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Scarfone KA, Souppaya MP, Cody A, Orebaugh AD (2008) Technical Guide to Information Security Testing and Assessment. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Pu",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-115"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-126",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Waltermire DA, Quinn SD, Booth H, III, Scarfone KA, Prisaca D (2018) The Technical Specification for the Security Content Automation Protocol (SCAP): SCAP Version 1.3. (National Institute of Standards",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-126r3"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-40",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2022) Guide to Enterprise Patch Management Planning: Preventive Maintenance for Technology. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special P",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-40r4"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-53A",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2022) Assessing Security and Privacy Controls in Information Systems and Organizations. (National Institute of Standards and Technology, Gaithersburg, MD), ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-53Ar5"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-70",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Quinn SD, Souppaya MP, Cook MR, Scarfone KA (2018) National Checklist Program for IT Products: Guidelines for Checklist Users and Developers. (National Institute of Standards and Technology, Gaithersb",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-70r4"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.11.02",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.11.02.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Monitor and scan the system for vulnerabilities [Assignment: organization-defined frequency] and when new vulnerabilities affecting the system are identified.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system is monitored for vulnerabilities <A.03.11.02.ODP[01]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.11.02.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which the system is monitored for vulnerabilities is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.11.02.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system is scanned for vulnerabilities <A.03.11.02.ODP[02]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.11.02.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which the system is scanned for vulnerabilities is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.11.02.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system is monitored for vulnerabilities when new vulnerabilities that affect the system are identified."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.a[04]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the system is scanned for vulnerabilities when new vulnerabilities that affect the system are identified."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.11.02.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Remediate system vulnerabilities within [Assignment: organization-defined response times].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system vulnerabilities are remediated within <A.03.11.02.ODP[03]: response times>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.11.02.ODP[03]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "response times",
+                                                        "text": "response times to remediate system vulnerabilities are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.11.02.odp[03]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined response times"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.11.02.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Update system vulnerabilities to be scanned [Assignment: organization-defined frequency] and when new vulnerabilities are identified and reported.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system vulnerabilities to be scanned are updated <A.03.11.02.ODP[04]: frequency>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.11.02.ODP[04]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "frequency",
+                                                        "text": "the frequency at which to update system vulnerabilities to be scanned is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.11.02.odp[04]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined frequency"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.11.02.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system vulnerabilities to be scanned are updated when new vulnerabilities are identified and reported."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.11.02",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for vulnerability monitoring, scanning, analysis, and remediation; mechanisms for supporting or implementing vulnerability monitoring, scanning, analysis, and remediation]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.11.2",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199064,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "RA-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "VULNERABILITY MONITORING AND SCANNING",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "RA-05(02)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "UPDATE VULNERABILITIES TO BE SCANNED",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

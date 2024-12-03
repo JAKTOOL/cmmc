@@ -1,0 +1,486 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.07",
+                "elementTypeIdentifier": "family",
+                "title": "Maintenance",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.07.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.07.01",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Recategorized as NCO."
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.07.02",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.07.02",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.07.04 and 03.07.06.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.07.04",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Maintenance Tools",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.07.06",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Maintenance Personnel",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.07.03",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.07.03",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Incorporated into 03.08.03.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.08.03",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Media Sanitization",
+                                        "text": "",
+                                        "relationIdentifier": "incorporated_into"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.07.04",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Maintenance Tools",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.07.04",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Approving, controlling, monitoring, and reviewing maintenance tools address security-related issues associated with the tools that are used for diagnostic and repair actions on the system. Maintenance tools can include hardware and software diagnostic and test equipment as well as packet sniffers. The tools may be pre-installed, brought in with maintenance personnel on media, cloud-based, or downloaded from a website. Diagnostic and test programs are potential vehicles for transporting malicious code into the system, either intentionally or unintentionally. Examples of media inspection include checking the cryptographic hash or digital signatures of diagnostic and test programs and media. If organizations inspect media that contain diagnostic and test programs and determine that the media also contain malicious code, the incident is handled consistent with incident handling policies and procedures. A periodic review of system maintenance tools can result in the withdrawal of approval for outdated, unsupported, irrelevant, or no-longer-used tools. Maintenance tools do not address the hardware and software components that support maintenance and are considered a part of the system."
+                            },
+                            {
+                                "elementIdentifier": "E-03.07.04",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: maintenance policy and procedures; procedures for system maintenance tools; system maintenance tools; maintenance tool inspection records; equipment sanitization records; media sanitization records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.07.04",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with system maintenance responsibilities; personnel responsible for media sanitization; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-88",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kissel RL, Regenscheid AR, Scholl MA, Stine KM (2014) Guidelines for Media Sanitization. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-88, Rev. ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-88r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.07.04",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.07.04.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Approve, control, and monitor the use of system maintenance tools.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.04.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of system maintenance tools is approved."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.04.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of system maintenance tools is controlled."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.04.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the use of system maintenance tools is monitored."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.04.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Check media with diagnostic and test programs for malicious code before it is used in the system.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.04.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "media with diagnostic and test programs are checked for malicious code before the media are used in the system."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.04.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Prevent the removal of system maintenance equipment containing CUI by verifying that there is no CUI on the equipment, sanitizing or destroying the equipment, or retaining the equipment within the facility.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.04.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the removal of system maintenance equipment containing CUI is prevented by verifying that there is no CUI on the equipment, sanitizing or destroying the equipment, or retaining the equipment within the facility."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.07.04",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for approving, controlling, and monitoring maintenance tools; mechanisms for supporting or implementing the approval, control, or monitoring of maintenance tools; processes for preventing the unauthorized removal of information; processes for inspecting media for malicious code; mechanisms for supporting media sanitization or the destruction of equipment; mechanisms for supporting the verification of media sanitization; processes for inspecting maintenance tools; mechanisms for supporting or implementing the inspection of maintenance tools; mechanisms for supporting or implementing the inspection of media used for maintenance]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.7.4",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199046,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "MA-03",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MAINTENANCE TOOLS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "MA-03(01)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "INSPECT TOOLS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "MA-03(02)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "INSPECT MEDIA",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "MA-03(03)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "PREVENT UNAUTHORIZED REMOVAL",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.07.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Nonlocal Maintenance",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.07.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Nonlocal maintenance and diagnostic activities are conducted by individuals who communicate through an external or internal network. Local maintenance and diagnostic activities are carried out by individuals who are physically present at the location of the system and not communicating across a network connection. Authentication techniques used to establish nonlocal maintenance and diagnostic sessions reflect the requirements in <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.05.01\">03.05.01</a>."
+                            },
+                            {
+                                "elementIdentifier": "E-03.07.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: maintenance policy and procedures; remote access policy and procedures; procedures for nonlocal system maintenance; records of remote access; maintenance records; diagnostic records; system design documentation; system configuration settings; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.07.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with system maintenance responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-63-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Grassi PA, Garcia ME, Fenton JL (2017) Digital Identity Guidelines. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-63-3, Includes updates as of M",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-63-3"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-88",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kissel RL, Regenscheid AR, Scholl MA, Stine KM (2014) Guidelines for Media Sanitization. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-88, Rev. ",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-88r1"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.07.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.07.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Approve and monitor nonlocal maintenance and diagnostic activities.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "nonlocal maintenance and diagnostic activities are approved."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "nonlocal maintenance and diagnostic activities are monitored."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Implement multi-factor authentication and replay resistance in the establishment of nonlocal maintenance and diagnostic sessions.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "multi-factor authentication is implemented in the establishment of nonlocal maintenance and diagnostic sessions."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "replay resistance is implemented in the establishment of nonlocal maintenance and diagnostic sessions."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Terminate session and network connections when nonlocal maintenance is completed.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.c[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "session connections are terminated when nonlocal maintenance is completed."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.05.c[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "network connections are terminated when nonlocal maintenance is completed."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.07.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for managing nonlocal maintenance; mechanisms for implementing, supporting, or managing nonlocal maintenance; mechanisms for implementing multi-factor authentication and replay resistance; mechanisms for terminating nonlocal maintenance sessions and network connections]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.7.5",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199047,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "MA-04",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "NONLOCAL MAINTENANCE",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    },
+                    {
+                        "elementIdentifier": "03.07.06",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Maintenance Personnel",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.07.06",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Maintenance personnel refers to individuals who perform hardware or software maintenance on the system, while <a href=\"#/cprt/framework/version/SP_800_171_3_0_0/home?element=03.10.01\">03.10.01</a> addresses physical access for individuals whose maintenance duties place them within the physical protection perimeter of the system. The technical competence of supervising individuals relates to the maintenance performed on the system, while having required access authorizations refers to maintenance on and near the system. Individuals who have not been previously identified as authorized maintenance personnel (e.g., manufacturers, consultants, systems integrators, and vendors) may require privileged access to the system, such as when they are required to conduct maintenance with little or no notice. Organizations may choose to issue temporary credentials to these individuals based on their risk assessments. Temporary credentials may be for one-time use or for very limited time periods."
+                            },
+                            {
+                                "elementIdentifier": "E-03.07.06",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: maintenance policy and procedures; service provider contracts; service-level agreements; list of authorized personnel; maintenance records; access control records; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.07.06",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with system maintenance responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.07.06",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.07.06.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Establish a process for maintenance personnel authorization.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.06.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a process for maintenance personnel authorization is established."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.06.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Maintain a list of authorized maintenance organizations or personnel.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.06.b",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "a list of authorized maintenance organizations or personnel is maintained."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.06.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Verify that non-escorted personnel who perform maintenance on the system possess the required access authorizations.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.06.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "non-escorted personnel who perform maintenance on the system possess the required access authorizations."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.07.06.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Designate organizational personnel with required access authorizations and technical competence to supervise the maintenance activities of personnel who do not possess the required access authorizations.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.06.d[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "organizational personnel with required access authorizations are designated to supervise the maintenance activities of personnel who do not possess the required access authorizations."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.07.06.d[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "organizational personnel with required technical competence are designated to supervise the maintenance activities of personnel who do not possess the required access authorizations."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.07.06",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for authorizing and managing maintenance personnel; mechanisms for supporting or implementing the authorization of maintenance personnel]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.7.6",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199048,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "MA-05",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "MAINTENANCE PERSONNEL",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

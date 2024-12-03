@@ -1,0 +1,218 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.06",
+                "elementTypeIdentifier": "family",
+                "title": "Incident Response",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.06.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Incident Response Plan",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.06.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "It is important that organizations develop and implement a coordinated approach to incident response. Organizational mission and business functions determine the structure of incident response capabilities. As part of the incident response capabilities, organizations consider the coordination and sharing of information with external organizations, including external service providers and other organizations involved in the supply chain."
+                            },
+                            {
+                                "elementIdentifier": "E-03.06.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: incident response policy; procedures addressing incident response planning; incident response plan; system security plan; records of incident response plan reviews and approvals; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.06.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with incident response planning responsibilities; personnel with information security responsibilities]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-137",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Dempsey KL, Chawla NS, Johnson LA, Johnston R, Jones AC, Orebaugh AD, Scholl MA, Stine KM (2011) Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations. (N",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-137"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-86",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Kent K, Chevalier S, Grance T, Dang H (2006) Guide to Integrating Forensic Techniques into Incident Response. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publicati",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-86"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.06.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.06.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Develop an incident response plan that:",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "SR-03.06.05.a.01",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "01",
+                                                "text": "Provides the organization with a roadmap for implementing its incident response capability,",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.06.05.a.01",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "an incident response plan is developed that provides the organization with a roadmap for implementing its incident response capability."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.06.05.a.02",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "02",
+                                                "text": "Describes the structure and organization of the incident response capability,",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.06.05.a.02",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "an incident response plan is developed that describes the structure and organization of the incident response capability."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.06.05.a.03",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "03",
+                                                "text": "Provides a high-level approach for how the incident response capability fits into the overall organization,",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.06.05.a.03",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "an incident response plan is developed that provides a high-level approach for how the incident response capability fits into the overall organization."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.06.05.a.04",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "04",
+                                                "text": "Defines reportable incidents,",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.06.05.a.04",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "an incident response plan is developed that defines reportable incidents."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.06.05.a.05",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "05",
+                                                "text": "Addresses the sharing of incident information, and",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.06.05.a.05",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "an incident response plan is developed that addresses the sharing of incident information."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "SR-03.06.05.a.06",
+                                                "elementTypeIdentifier": "security_requirement",
+                                                "title": "06",
+                                                "text": "Designates responsibilities to organizational entities, personnel, or roles.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "DS-A.03.06.05.a.06",
+                                                        "elementTypeIdentifier": "determination",
+                                                        "title": "",
+                                                        "text": "an incident response plan is developed that designates responsibilities to organizational entities, personnel, or roles."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.06.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Distribute copies of the incident response plan to designated incident response personnel (identified by name and/or by role) and organizational elements.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.05.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "copies of the incident response plan are distributed to designated incident response personnel (identified by name or by role)."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.05.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "copies of the incident response plan are distributed to organizational elements."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.06.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Update the incident response plan to address system and organizational changes or problems encountered during plan implementation, execution, or testing.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.05.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the incident response plan is updated to address system and organizational changes or problems encountered during plan implementation, execution, or testing."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.06.05.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Protect the incident response plan from unauthorized disclosure.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.06.05.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the incident response plan is protected from unauthorized disclosure."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.06.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: incident response plan and related processes]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "IR-08",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "INCIDENT RESPONSE PLAN",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.01",
+                "elementTypeIdentifier": "family",
+                "title": "Access Control",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.01.22",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Publicly Accessible Content",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.01.22",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "In accordance with applicable laws, Executive Orders, directives, policies, regulations, standards, and guidelines, the public is not authorized to have access to nonpublic information, including CUI."
+                            },
+                            {
+                                "elementIdentifier": "SR-03.01.22",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.01.22.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Train authorized individuals to ensure that publicly accessible information does not contain CUI.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.22.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "authorized individuals are trained to ensure that publicly accessible information does not contain CUI."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.01.22.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Review the content on publicly accessible systems for CUI and remove such information, if discovered.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.22.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the content on publicly accessible systems is reviewed for CUI."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.01.22.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "CUI is removed from publicly accessible systems, if discovered."
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.1.22",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199012,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "AC-22",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "PUBLICLY ACCESSIBLE CONTENT",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

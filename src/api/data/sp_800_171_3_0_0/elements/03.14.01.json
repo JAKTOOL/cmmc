@@ -1,0 +1,184 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.14",
+                "elementTypeIdentifier": "family",
+                "title": "System and Information Integrity",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.14.01",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Flaw Remediation",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.14.01",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Organizations identify systems that are affected by announced software and firmware flaws, including potential vulnerabilities that result from those flaws, and report this information to designated personnel with information security responsibilities. Security-relevant updates include patches, service packs, hot fixes, and anti-virus signatures. Organizations address the flaws discovered during security assessments, continuous monitoring, incident response activities, and system error handling. Organizations can take advantage of available resources (e.g., CWE or CVE databases) when remediating system flaws. Organization-defined time periods for updating security-relevant software and firmware may vary based on a variety of factors, including the criticality of the update (i.e., severity of the vulnerability related to the discovered flaw). Some types of flaw remediation may require more testing than other types."
+                            },
+                            {
+                                "elementIdentifier": "E-03.14.01",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: system and information integrity policy and procedures; procedures for flaw remediation; procedures for configuration management; list of recent security flaw remediation actions performed on the system; list of flaws and vulnerabilities that may potentially affect the system; test results from the installation of software and firmware updates to correct system flaws; installation and change control records for security-relevant software and firmware updates; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.14.01",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel responsible for installing, configuring, or maintaining the system; personnel responsible for flaw remediation; personnel with configuration management responsibilities; personnel with information security responsibilities; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-128",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Johnson LA, Dempsey KL, Ross RS, Gupta S, Bailey D (2011) Guide for Security-Focused Configuration Management of Information Systems. (National Institute of Standards and Technology, Gaithersburg, MD)",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-128"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-39",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Joint Task Force Transformation Initiative (2011) Managing Information Security Risk: Organization, Mission, and Information System View. (National Institute of Standards and Technology, Gaithersburg,",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-39"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-40",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Souppaya MP, Scarfone KA (2022) Guide to Enterprise Patch Management Planning: Preventive Maintenance for Technology. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special P",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-40r4"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.14.01",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.14.01.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Identify, report, and correct system flaws.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.01.a[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system flaws are identified."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.01.a[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system flaws are reported."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.01.a[03]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "system flaws are corrected."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.14.01.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Install security-relevant software and firmware updates within [Assignment: organization-defined time period] of the release of the updates.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.01.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "security-relevant software updates are installed within <A.03.14.01.ODP[01]: time period> of the release of the updates.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.14.01.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "time period",
+                                                        "text": "the time period within which to install security-relevant software updates after the release of the updates is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.14.01.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined time period"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.14.01.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "security-relevant firmware updates are installed within <A.03.14.01.ODP[02]: time period> of the release of the updates.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.14.01.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "time period",
+                                                        "text": "the time period within which to install security-relevant firmware updates after the release of the updates is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.14.01.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined time period"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.14.01",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: processes for identifying, reporting, and correcting system flaws; processes for installing software and firmware updates; mechanisms for supporting or implementing the reporting and correction of system flaws; mechanisms for supporting or implementing the testing software and firmware updates]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.14.1",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199080,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "SI-02",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "FLAW REMEDIATION",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

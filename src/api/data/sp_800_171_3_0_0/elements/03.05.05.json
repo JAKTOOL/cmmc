@@ -1,0 +1,197 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.05",
+                "elementTypeIdentifier": "family",
+                "title": "Identification and Authentication",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.05.05",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "Identifier Management",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "D-03.05.05",
+                                "elementTypeIdentifier": "discussion",
+                                "title": "",
+                                "text": "Identifiers are provided for users, processes acting on behalf of users, and devices. Prohibiting the reuse of identifiers prevents the assignment of previously used individual, group, role, service, or device identifiers to different individuals, groups, roles, services, or devices. Characteristics that identify the status of individuals include contractors, foreign nationals, and non-organizational users. Identifying the status of individuals by these characteristics provides information about the people with whom organizational personnel are communicating. For example, it is useful for an employee to know that one of the individuals on an email message is a contractor."
+                            },
+                            {
+                                "elementIdentifier": "E-03.05.05",
+                                "elementTypeIdentifier": "examine",
+                                "title": "",
+                                "text": "[SELECT FROM: identification and authentication policy and procedures; procedures for identifier management; procedures for account management; system design documentation; list of system accounts; list of characteristics identifying individual status; system configuration settings; list of identifiers generated from physical access control devices; system security plan; other relevant documents or records]"
+                            },
+                            {
+                                "elementIdentifier": "I-03.05.05",
+                                "elementTypeIdentifier": "interview",
+                                "title": "",
+                                "text": "[SELECT FROM: personnel with identifier management responsibilities; personnel with information security responsibilities; system developers; system administrators]"
+                            },
+                            {
+                                "elementIdentifier": "SP 800-63-3",
+                                "elementTypeIdentifier": "reference",
+                                "title": "Grassi PA, Garcia ME, Fenton JL (2017) Digital Identity Guidelines. (National Institute of Standards and Technology, Gaithersburg, MD), NIST Special Publication (SP) 800-63-3, Includes updates as of M",
+                                "text": "https://doi.org/10.6028/NIST.SP.800-63-3"
+                            },
+                            {
+                                "elementIdentifier": "SR-03.05.05",
+                                "elementTypeIdentifier": "security_requirement",
+                                "title": "",
+                                "text": "",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "SR-03.05.05.a",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "a",
+                                        "text": "Receive authorization from organizational personnel or roles to assign an individual, group, role, service, or device identifier.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.05.a",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "authorization is received from organizational personnel or roles to assign an individual, group, role, service, or device identifier."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.05.b",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "b",
+                                        "text": "Select and assign an identifier that identifies an individual, group, role, service, or device.",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.05.b[01]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an identifier that identifies an individual, group, role, service, or device is selected."
+                                            },
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.05.b[02]",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "an identifier that identifies an individual, group, role, service, or device is assigned."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.05.c",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "c",
+                                        "text": "Prevent the reuse of identifiers for [Assignment: organization-defined time period].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.05.c",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "the reuse of identifiers for <A.03.05.05.ODP[01]: time period> is prevented.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.05.05.ODP[01]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "time period",
+                                                        "text": "the time period for preventing the reuse of identifiers is defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.05.05.odp[01]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined time period"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "elementIdentifier": "SR-03.05.05.d",
+                                        "elementTypeIdentifier": "security_requirement",
+                                        "title": "d",
+                                        "text": "Manage individual identifiers by uniquely identifying each individual as [Assignment: organization-defined characteristic identifying individual status].",
+                                        "elements": [
+                                            {
+                                                "elementIdentifier": "DS-A.03.05.05.d",
+                                                "elementTypeIdentifier": "determination",
+                                                "title": "",
+                                                "text": "individual identifiers are managed by uniquely identifying each individual as <A.03.05.05.ODP[02]: characteristic>.",
+                                                "elements": [
+                                                    {
+                                                        "elementIdentifier": "A.03.05.05.ODP[02]",
+                                                        "elementTypeIdentifier": "odp",
+                                                        "title": "characteristic",
+                                                        "text": "characteristic used to identify individual status are defined.",
+                                                        "elements": [
+                                                            {
+                                                                "elementIdentifier": "OS-a.03.05.05.odp[02]",
+                                                                "elementTypeIdentifier": "odp_statement",
+                                                                "title": "",
+                                                                "text": "organization-defined characteristic identifying individual status"
+                                                            },
+                                                            {
+                                                                "elementIdentifier": "single_entry",
+                                                                "elementTypeIdentifier": "odp_type",
+                                                                "title": "Assignment",
+                                                                "text": ""
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "elementIdentifier": "T-03.05.05",
+                                "elementTypeIdentifier": "test",
+                                "title": "",
+                                "text": "[SELECT FROM: mechanisms for supporting or implementing identifier management]"
+                            }
+                        ],
+                        "externalRelationships": [
+                            {
+                                "elementIdentifier": "3.5.5",
+                                "relationIdentifier": "olir_focal",
+                                "olirEntryElementId": 199037,
+                                "shortName": "SP 800-171 Rev 2",
+                                "elementTypeIdentifier": "x",
+                                "title": "y",
+                                "text": "z",
+                                "olirName": "a"
+                            },
+                            {
+                                "elementIdentifier": "IA-04",
+                                "elementTypeIdentifier": "control",
+                                "child_title": "IDENTIFIER MANAGEMENT",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            },
+                            {
+                                "elementIdentifier": "IA-04(04)",
+                                "elementTypeIdentifier": "control_enhancement",
+                                "child_title": "IDENTIFY USER STATUS",
+                                "child_text": "",
+                                "relationIdentifier": "external_reference",
+                                "shortName": "SP 800-53 Rev 5.1.1",
+                                "frameworkVersionIdentifier": "SP_800_53_5_1_1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

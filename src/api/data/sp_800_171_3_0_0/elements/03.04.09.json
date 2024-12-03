@@ -1,0 +1,66 @@
+{
+    "response": {
+        "requestType": 3,
+        "elements": [
+            {
+                "elementIdentifier": "03.04",
+                "elementTypeIdentifier": "family",
+                "title": "Configuration Management",
+                "text": "",
+                "elements": [
+                    {
+                        "elementIdentifier": "03.04.09",
+                        "elementTypeIdentifier": "requirement",
+                        "title": "",
+                        "text": "",
+                        "elements": [
+                            {
+                                "elementIdentifier": "WR-03.04.09",
+                                "elementTypeIdentifier": "withdraw_reason",
+                                "title": "",
+                                "text": "Addressed by 03.01.05, 03.01.06, 03.01.07, 03.04.08, and 03.12.03.",
+                                "elements": [
+                                    {
+                                        "elementIdentifier": "03.01.05",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Least Privilege",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.01.06",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Least Privilege \u2013 Privileged Accounts",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.01.07",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Least Privilege \u2013 Privileged Functions",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.04.08",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Authorized Software \u2013 Allow by Exception",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    },
+                                    {
+                                        "elementIdentifier": "03.12.03",
+                                        "elementTypeIdentifier": "requirement",
+                                        "title": "Continuous Monitoring",
+                                        "text": "",
+                                        "relationIdentifier": "addressed_by"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
