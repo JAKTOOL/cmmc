@@ -14,6 +14,7 @@ mkShell {
   '';
 
   packages = [
+    nodejs
     (python312.withPackages
       (
         pp: [
