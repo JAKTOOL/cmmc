@@ -18,7 +18,10 @@ mkShell {
       (
         pp: [
           pp.fastapi
+          pp.fastapi-cli
+          pp.uvicorn
           pp.jupyter
+          pp.dataclasses-json
         ]
       ))
   ];
