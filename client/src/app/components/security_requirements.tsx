@@ -192,15 +192,13 @@ export const SecurityForm = ({
     return (
         <>
             <form id={requirement.element_identifier} action={formAction}>
-                <div className="flex flex-row justify-end">
-                    <button
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-                        disabled={isPending || isHydrating}
-                    >
-                        Save
-                    </button>
-                </div>
+                <button
+                    type="submit"
+                    className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none sticky top-4 left-full z-30"
+                    disabled={isPending || isHydrating}
+                >
+                    Save
+                </button>
                 {Object.entries(groupings)?.map(([key, grouping]) => (
                     <ol key={key}>
                         {grouping.map((securityRequirement) => (
