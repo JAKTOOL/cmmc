@@ -113,7 +113,14 @@ const SecurityRequirement = ({
     return (
         <li>
             <fieldset className="flex flex-col grow">
-                <legend className="text-2xl">
+                <legend className="text-2xl flex flex-row items-center justify-center">
+                    <StatusState
+                        status={
+                            initialState[
+                                `${securityRequirement.subSubRequirement}.status`
+                            ]
+                        }
+                    />
                     {securityRequirement.subSubRequirement}
                 </legend>
                 <p className="text-lg">{securityRequirement.text}</p>
@@ -139,7 +146,8 @@ export const SecurityForm = ({
     initialState,
     setInitialState,
     groupings,
-    hydrating,
+    isHydrating,
+    setStatuses,
 }) => {
     async function action(prevState, formData) {
         const db = await getDB;
@@ -164,17 +172,19 @@ export const SecurityForm = ({
             .transaction("requirements", "readwrite")
             .objectStore("requirements");
 
+        const statuses = [];
         reqStore.put({
             id: requirement.element_identifier,
             bySecurityRequirementId: Object.entries(records).reduce(
                 (acc, [id, record]) => {
                     acc[id] = record.status;
+                    statuses.push(record.status);
                     return acc;
                 },
                 {}
             ),
         });
-
+        setStatuses(statuses);
         setInitialState(Object.fromEntries(formData.entries()));
     }
     const [_, formAction, isPending] = useActionState(action, initialState);
@@ -186,7 +196,7 @@ export const SecurityForm = ({
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-                        disabled={isPending || hydrating}
+                        disabled={isPending || isHydrating}
                     >
                         Save
                     </button>
@@ -198,7 +208,7 @@ export const SecurityForm = ({
                                 key={securityRequirement.element_identifier}
                                 securityRequirement={securityRequirement}
                                 initialState={initialState}
-                                isPending={isPending || hydrating}
+                                isPending={isPending || isHydrating}
                             />
                         ))}
                     </ol>
@@ -214,7 +224,8 @@ export const SecurityRequirements = ({
     requirementId: string;
 }) => {
     const [initialState, setInitialState] = useState({});
-    const [hydrating, setHydrating] = useState(false);
+    const [isHydrating, setHydrating] = useState(false);
+    const [statuses, setStatuses] = useState([]);
     const manifest = useManifestContext();
     const securityRequirements = useMemo(() => {
         return (
@@ -248,14 +259,21 @@ export const SecurityRequirements = ({
                 .transaction("security_requirements", "readonly")
                 .objectStore("security_requirements");
 
-            const request = store.getAll();
+            const ids = securityRequirements.map((s) => s.subSubRequirement);
+
+            const request = store.getAll(
+                IDBKeyRange.bound(ids[0], ids[ids.length - 1])
+            );
             request.onsuccess = () => {
+                const statuses = [];
                 const state = request?.result?.reduce((acc, requirement) => {
                     acc[`${requirement.id}.status`] = requirement.status;
                     acc[`${requirement.id}.description`] =
                         requirement.description;
+                    statuses.push(requirement.status);
                     return acc;
                 }, {});
+                setStatuses(statuses);
                 setInitialState(state);
                 setHydrating(false);
             };
@@ -277,7 +295,7 @@ export const SecurityRequirements = ({
             <h3 className="text-3xl">
                 Security Requirements for {requirement.requirement}{" "}
                 {requirement.title}
-                <StatusState />
+                <StatusState statuses={statuses} />
             </h3>
             <p className="text-base">
                 {manifest.discussions.byRequirements[requirementId]?.[0]?.text}
@@ -288,7 +306,8 @@ export const SecurityRequirements = ({
                     groupings={groupings}
                     initialState={initialState}
                     setInitialState={setInitialState}
-                    hydrating={hydrating}
+                    isHydrating={isHydrating}
+                    setStatuses={setStatuses}
                 />
             </section>
         </>
