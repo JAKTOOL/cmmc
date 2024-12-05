@@ -1,14 +1,83 @@
 "use client";
 import { useManifestContext } from "@/app/context";
+import { getDB } from "@/app/db";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Breadcrumbs } from "./breadcrumbs";
+import { StatusState } from "./status";
 
 export const Families = () => {
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
+    const [status, setStatus] = useState({});
     if (!families?.length) {
         return null;
     }
+
+    useEffect(() => {
+        async function fetchInitialState() {
+            const db = await getDB;
+            const store = db
+                .transaction("requirements", "readonly")
+                .objectStore("requirements");
+
+            const request = store.getAll();
+            request.onsuccess = () => {
+                const status = families.reduce((acc, cur) => {
+                    acc[cur.element_identifier] = [];
+                    return acc;
+                }, {});
+                for (let family of families) {
+                    const familyId = family.element_identifier;
+                    // if (familyId === "03.03") {
+                    //     debugger;
+                    // }
+                    const familyRequirements =
+                        manifest.requirements.byFamily[familyId];
+                    const storedRequirements = request.result.reduce(
+                        (acc, cur) => {
+                            acc[cur.id] = cur;
+                            return acc;
+                        },
+                        {}
+                    );
+
+                    const storedIds = new Set(Object.keys(storedRequirements));
+                    const hasFamilyBeenWorkedUpon = familyRequirements.some(
+                        (r) => storedIds.has(r.id)
+                    );
+                    for (let requirement of familyRequirements) {
+                        const securityRequirements =
+                            manifest.securityRequirements.byRequirements[
+                                requirement.id
+                            ];
+
+                        const stored = storedRequirements[requirement.id];
+
+                        if (!stored) {
+                            status[familyId].push(
+                                hasFamilyBeenWorkedUpon
+                                    ? "needs-work"
+                                    : "not-started"
+                            );
+                            continue;
+                        }
+                        const values = Object.values(
+                            stored.bySecurityRequirementId
+                        );
+                        if (securityRequirements.length !== values.length) {
+                            status[familyId].push("needs-work");
+                            continue;
+                        }
+                        status[familyId] = [...status[familyId], ...values];
+                    }
+                }
+                setStatus(status);
+            };
+            request.onerror = () => {};
+        }
+        fetchInitialState();
+    }, [families]);
 
     return (
         <>
@@ -22,6 +91,11 @@ export const Families = () => {
                             href={`/r3/family/${family.element_identifier}`}
                         >
                             <h3 className="text-2xl flex flex-row">
+                                <StatusState
+                                    statuses={
+                                        status?.[family.element_identifier]
+                                    }
+                                />
                                 <span className="flex flex-col mr-2">
                                     {family.element_identifier}:
                                 </span>

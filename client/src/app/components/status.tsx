@@ -9,6 +9,7 @@ enum Status {
     IMPLEMENTED = "implemented",
     NOT_IMPLEMENTED = "not-implemented",
     NOT_APPLICABLE = "not-applicable",
+    NEEDS_WORK = "needs-work",
 }
 
 const StatusSpan = ({ status }: { status?: Status }) => {
@@ -40,6 +41,15 @@ const StatusSpan = ({ status }: { status?: Status }) => {
                     ⚫
                 </span>
             );
+        case Status.NEEDS_WORK:
+            return (
+                <span
+                    className="text-xl text-black mx-2"
+                    title="Has work remaining"
+                >
+                    🟡
+                </span>
+            );
         default:
             return (
                 <span
@@ -54,7 +64,11 @@ const StatusSpan = ({ status }: { status?: Status }) => {
 
 export const StatusState = ({ statuses, status }: StatusStateProps) => {
     if (statuses) {
-        if (statuses.includes(Status.NOT_IMPLEMENTED)) {
+        if (statuses.length && statuses.includes(Status.NEEDS_WORK)) {
+            return <StatusSpan status={Status.NEEDS_WORK} />;
+        }
+
+        if (statuses.length && statuses.includes(Status.NOT_IMPLEMENTED)) {
             return <StatusSpan status={Status.NOT_IMPLEMENTED} />;
         }
 
@@ -74,7 +88,7 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
             return <StatusSpan status={Status.IMPLEMENTED} />;
         }
 
-        return <StatusSpan status={Status.IMPLEMENTED} />;
+        return <StatusSpan />;
     }
 
     return <StatusSpan status={status} />;

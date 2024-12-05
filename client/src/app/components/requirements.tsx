@@ -28,10 +28,28 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                 IDBKeyRange.bound(ids[0], ids[ids.length - 1])
             );
             request.onsuccess = () => {
+                let unfinishedWork =
+                    request.result.length &&
+                    ids.length !== request.result.length;
                 const status = request?.result?.reduce((acc, cur) => {
-                    acc[cur.id] = Object.values(cur.bySecurityRequirementId);
+                    const securityRequirements =
+                        manifest.securityRequirements.byRequirements[cur.id];
+                    const values = Object.values(cur.bySecurityRequirementId);
+                    if (
+                        securityRequirements.length !== values.length &&
+                        !unfinishedWork
+                    ) {
+                        unfinishedWork = true;
+                    }
+                    acc[cur.id] = values;
                     return acc;
                 }, {});
+
+                if (unfinishedWork) {
+                    status["all"] = ["needs-work"];
+                } else {
+                    status["all"] = Object.values(status).flat();
+                }
 
                 setStatus(status);
             };
@@ -45,7 +63,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
             <Breadcrumbs familyId={familyId} />
             <h2 className="text-4xl flex flex-row items-center">
                 Requirements for {family.element_identifier}: {family.title}{" "}
-                <StatusState statuses={Object.values(status).flat()} />
+                <StatusState statuses={status["all"]} />
             </h2>
             <ol>
                 {requirements?.map((requirement) => (

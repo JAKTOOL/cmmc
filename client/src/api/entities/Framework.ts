@@ -192,8 +192,15 @@ export class Manifest {
             ElementType.Requirement,
             (element)=>{
                 return !this.withdrawReason.byRequirements[element.element_identifier]
-            });
-        this.securityRequirements = ElementMapper.fromElements(this.elements, ElementType.SecurityRequirement);
+            }
+        );
+        this.securityRequirements = ElementMapper.fromElements(
+            this.elements,
+            ElementType.SecurityRequirement,
+            (element)=>{
+                return !!element.text
+            }
+        );
         this.discussions = ElementMapper.fromElements(this.elements, ElementType.Discussion);
         Object.freeze(this);
     }
