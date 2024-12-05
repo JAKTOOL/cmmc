@@ -196,6 +196,7 @@ export class Manifest {
             this.elements,
             ElementType.Requirement,
             (element)=>{
+                // Remove requirements that are withdrawn
                 return !this.withdrawReason.byRequirements[element.element_identifier]
             }
         );
@@ -203,6 +204,7 @@ export class Manifest {
             this.elements,
             ElementType.SecurityRequirement,
             (element)=>{
+                // Remove empty security requirements
                 return !!element.text
             }
         );

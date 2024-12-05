@@ -3,6 +3,7 @@ import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
 import { getDB } from "@/app/db";
 import { Breadcrumbs } from "./breadcrumbs";
+import { ContentNavigation } from "./content_navigation";
 import { StatusState } from "./status";
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
@@ -233,6 +234,12 @@ export const SecurityRequirements = ({
     const requirement = useMemo(() => {
         return manifest?.requirements.byId[requirementId] || null;
     }, [manifest, requirementId]);
+    const requirements = useMemo(() => {
+        return manifest?.requirements.byFamily[requirement?.family] || [];
+    }, [requirementId]);
+    const requirementIdx = requirements.findIndex(
+        (r) => r.id === requirementId
+    );
     const groupings = useMemo(() => {
         const groupings: Record<string, ElementWrapper[]> = {};
         for (const securityRequirement of securityRequirements) {
@@ -286,6 +293,26 @@ export const SecurityRequirements = ({
         return null;
     }
 
+    let prev = requirements[requirementIdx - 1];
+    let next = requirements[requirementIdx + 1];
+
+    if (!prev || !next) {
+        const families = manifest.families.elements;
+        const familyIdx = families.findIndex(
+            (f) => f.id === requirement.family
+        );
+        if (!prev) {
+            const prevFamilyId = families?.[familyIdx - 1]?.id;
+            const prevRequirements =
+                manifest.requirements.byFamily[prevFamilyId];
+            prev = prevRequirements?.[prevRequirements?.length - 1];
+        }
+        if (!next) {
+            const nextFamilyId = families?.[familyIdx + 1]?.id;
+            next = manifest.requirements.byFamily[nextFamilyId]?.[0];
+        }
+    }
+
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
@@ -298,6 +325,7 @@ export const SecurityRequirements = ({
             <p className="text-base">
                 {manifest.discussions.byRequirements[requirementId]?.[0]?.text}
             </p>
+            <ContentNavigation previous={prev} next={next} />
             <section className="w-full">
                 <SecurityForm
                     requirement={requirement}
