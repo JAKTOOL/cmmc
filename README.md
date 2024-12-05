@@ -41,3 +41,5 @@ JSON used for the application from [csrc.nist.gov](https://csrc.nist.gov/extensi
 ## License
 
 This project is licensed under the MIT License. I have no affiliation with NIST.
+
+Made the app in a couple days... don't expect the best code.
