@@ -1,12 +1,16 @@
+import { Families } from "@/app/components/families";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
-export default function Home() {
+import ManifestComponent from "@/app/context";
+
+export default async function Page() {
     return (
-        <>
+        <ManifestComponent>
             <Navigation />
             <Main>
-                <span></span>
+                <Families />
             </Main>
-        </>
+        </ManifestComponent>
     );
 }
+``;
