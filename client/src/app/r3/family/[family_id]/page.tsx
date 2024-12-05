@@ -1,4 +1,5 @@
 import * as Framework from "@/api/entities/Framework";
+import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { Requirements } from "@/app/components/requirements";
@@ -21,6 +22,7 @@ export default async function Page({ params }) {
             <Main>
                 <Requirements familyId={family_id} />
             </Main>
+            <Footer />
         </ManifestComponent>
     );
 }
