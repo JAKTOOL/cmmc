@@ -5,7 +5,7 @@ interface StatusStateProps {
     status?: Status;
 }
 
-enum Status {
+export enum Status {
     IMPLEMENTED = "implemented",
     NOT_IMPLEMENTED = "not-implemented",
     NOT_APPLICABLE = "not-applicable",
