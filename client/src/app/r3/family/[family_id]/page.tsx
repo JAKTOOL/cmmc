@@ -1,4 +1,6 @@
 import * as Framework from "@/api/entities/Framework";
+import { Main } from "@/app/components/main";
+import { Navigation } from "@/app/components/navigation";
 import { Requirements } from "@/app/components/requirements";
 import ManifestComponent from "@/app/context";
 
@@ -15,7 +17,10 @@ export default async function Page({ params }) {
     const { family_id } = await params;
     return (
         <ManifestComponent>
-            <Requirements familyId={family_id} />
+            <Navigation />
+            <Main>
+                <Requirements familyId={family_id} />
+            </Main>
         </ManifestComponent>
     );
 }

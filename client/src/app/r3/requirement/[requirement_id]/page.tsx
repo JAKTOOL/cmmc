@@ -1,4 +1,6 @@
 import * as Framework from "@/api/entities/Framework";
+import { Main } from "@/app/components/main";
+import { Navigation } from "@/app/components/navigation";
 import { SecurityRequirements } from "@/app/components/security_requirements";
 import ManifestComponent from "@/app/context";
 
@@ -16,7 +18,10 @@ export default async function Page({ params }) {
 
     return (
         <ManifestComponent>
-            <SecurityRequirements requirementId={requirement_id} />
+            <Navigation />
+            <Main>
+                <SecurityRequirements requirementId={requirement_id} />
+            </Main>
         </ManifestComponent>
     );
 }
