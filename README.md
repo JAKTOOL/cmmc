@@ -2,7 +2,7 @@
 
 I built this because it was challenging to find resources for NIST 800-171 Revision 3 without paying a bunch of money for [CMMC](https://dodcio.defense.gov/cmmc/About/) compliance.
 
-By going through the 800-171 controls, you can generate a markdown file with all statuses and notes for each security control.
+By going through the 800-171 controls, you can generate a markdown file with all statuses and notes for each security control. Withdrawn controls are filtered out from the revision 2 -> revision 3 migration.
 
 ![Demo](screenshots/demo.gif)
 
