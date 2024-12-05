@@ -1,9 +1,15 @@
 import { Convert, Element, ElementType, Framework } from "@/api/generated/Framework";
+
+let cache: Framework | undefined;
 export const read = async () => {
+    if (cache) {
+        return cache;
+    }
     const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/framework.json`);
     // const data = await fetch("https://csrc.nist.gov/extensions/nudp/services/json/nudp/framework/version/sp_800_171_3_0_0/export/json?element=all");
     const framework: Framework = Convert.toFramework(await data.text())
-    return framework;
+    cache = framework;
+    return cache;
 }
 
 export const getFamily = (element: Element) => {
