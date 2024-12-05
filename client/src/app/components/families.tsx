@@ -1,6 +1,8 @@
 "use client";
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
+import { Breadcrumbs } from "./breadcrumbs";
+
 export const Families = () => {
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
@@ -10,7 +12,8 @@ export const Families = () => {
 
     return (
         <>
-            <h2 className="text-4xl">Families</h2>
+            <Breadcrumbs />
+            <h2 className="text-4xl">800-171 Rev 3 Families</h2>
             <ul>
                 {families.map((family) => (
                     <li className="flex mb-2" key={family.element_identifier}>

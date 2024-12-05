@@ -112,6 +112,7 @@ export class ElementWrapper {
 
 export class ElementMapper {
     readonly elements: ElementWrapper[];
+    readonly byId: Record<string, ElementWrapper> = {};
     readonly byFamily: Record<string, ElementWrapper[]> = {};
     readonly byRequirements: Record<string, ElementWrapper[]> = {};
     readonly bySubRequirements: Record<string, ElementWrapper[]> = {};
@@ -120,6 +121,8 @@ export class ElementMapper {
     constructor(elements: ElementWrapper[]) {
         this.elements = elements;
         for (const element of this.elements) {
+            this.byId[element.element_identifier] = element;
+
             if (!this.byFamily[element.family]) {
                 this.byFamily[element.family] = [];
             }

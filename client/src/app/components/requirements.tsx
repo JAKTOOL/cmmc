@@ -1,19 +1,21 @@
 "use client";
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
+import { Breadcrumbs } from "./breadcrumbs";
 
-export const Requirements = ({ familyId }) => {
+export const Requirements = ({ familyId }: { familyId: string }) => {
     const manifest = useManifestContext();
     const requirements = manifest.requirements.byFamily[familyId];
+    const family = manifest.families.byId[familyId];
     if (!requirements?.length) {
         return null;
     }
 
     return (
         <>
-            <Link href={`/r3`}>Back to Families</Link>
+            <Breadcrumbs familyId={familyId} />
             <h2 className="text-4xl">
-                Requirements for {requirements[0].family}{" "}
+                Requirements for {family.element_identifier}: {family.title}{" "}
             </h2>
             <ol>
                 {requirements?.map((requirement) => (

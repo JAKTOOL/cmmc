@@ -2,7 +2,7 @@
 // Open (or create) the database
 let loader: Promise<IDBDatabase> = Promise.reject("No IndexedDB available");
 if (typeof window !== "undefined") {
-    const request = window?.indexedDB?.open("MyDatabase", 1);
+    const request = window?.indexedDB?.open("800_171_r3", 1);
 
     loader = new Promise((resolve, reject) => {
         request.onerror = (event) => {
@@ -10,12 +10,48 @@ if (typeof window !== "undefined") {
             reject(event);
         };
         request.onsuccess = (event) => {
-            resolve(event.target?.result as IDBDatabase);
+            const db = event.target?.result as IDBDatabase;
+
+            resolve(db);
+        };
+
+        request.onupgradeneeded = function (event) {
+            const db = event.target?.result as IDBDatabase;
+
+            const securityRequirementsStore = db.createObjectStore(
+                "security_requirements",
+                {
+                    keyPath: "id",
+                }
+            );
+
+            securityRequirementsStore.createIndex("status", "status", {
+                unique: false,
+            });
+            securityRequirementsStore.createIndex(
+                "description",
+                "description",
+                {
+                    unique: false,
+                }
+            );
+
+            const requirementsStore = db.createObjectStore("requirements", {
+                keyPath: "id",
+            });
+
+            requirementsStore.createIndex(
+                "security_requirements",
+                "security_requirements",
+                {
+                    unique: false,
+                }
+            );
         };
     });
 }
 
-export const db = loader;
+export const getDB = loader;
 // request.onupgradeneeded = function (event) {
 //     const db = event.target.result;
 //     // Create an object store
