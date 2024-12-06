@@ -70,7 +70,10 @@ const SecurityRequirementSelect = ({
     const key = `${securityRequirement.subSubRequirement}.status`;
     return (
         <div className="flex flex-col mr-4" key={key}>
-            <label htmlFor={key} className="font-semibold text-lg">
+            <label
+                htmlFor={key}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
+            >
                 Status
             </label>
             <Select
@@ -90,7 +93,10 @@ const SecurityRequirementNote = ({
     const key = `${securityRequirement.subSubRequirement}.description`;
     return (
         <div className="flex flex-col grow">
-            <label htmlFor={key} className="font-semibold text-lg">
+            <label
+                htmlFor={key}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
+            >
                 Description
             </label>
             <textarea
