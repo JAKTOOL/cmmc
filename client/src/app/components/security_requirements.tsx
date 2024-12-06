@@ -92,6 +92,7 @@ const SecurityRequirementNote = ({
     isPending,
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.description`;
+    const maxLength = 2048;
     return (
         <div className="flex flex-col grow">
             <label
@@ -103,10 +104,9 @@ const SecurityRequirementNote = ({
             <textarea
                 name={key}
                 id={key}
-                rows="5"
-                maxLength="256"
-                required=""
-                placeholder="[Max 256 chars]"
+                rows={5}
+                maxLength={maxLength}
+                placeholder={`[Max ${maxLength} chars]`}
                 className="grow w-full rounded-md border border-input bg-transparent px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                 disabled={isPending}
                 defaultValue={initialState[key]}
