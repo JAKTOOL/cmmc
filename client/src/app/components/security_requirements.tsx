@@ -337,7 +337,7 @@ export const SecurityRequirements = ({
             // HACK: Allows for the back button to work properly
             history.replaceState(
                 null,
-                null,
+                "",
                 window.location.pathname + window.location.search
             );
             router.push(`/r3/requirement/${url.searchParams.get("element")}`);
