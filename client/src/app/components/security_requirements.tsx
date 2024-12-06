@@ -32,7 +32,7 @@ const Select = ({ id, defaultValue, isPending }) => {
                 key={`${id}-pending`}
                 id={id}
                 name={id}
-                className="rounded-lg p-4 bg-black/5 border-2 border-solid border-black/10 font-mono font-medium text-sm disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+                className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                 disabled={true}
                 value={inputRef?.current?.value || defaultValue}
             >
@@ -49,7 +49,7 @@ const Select = ({ id, defaultValue, isPending }) => {
             id={id}
             name={id}
             ref={inputRef}
-            className="rounded-lg p-4 bg-black/5 border-2 border-solid border-black/10 font-mono font-medium text-sm disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+            className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
             disabled={isPending}
             defaultValue={defaultValue}
         >
@@ -59,6 +59,8 @@ const Select = ({ id, defaultValue, isPending }) => {
         </select>
     );
 };
+
+// rounded-lg p-4 bg-black/5 border-2 border-solid border-black/10 font-mono font-medium text-sm disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
 
 const SecurityRequirementSelect = ({
     securityRequirement,
@@ -98,7 +100,7 @@ const SecurityRequirementNote = ({
                 maxLength="256"
                 required=""
                 placeholder="[Max 256 chars]"
-                className="grow rounded-lg p-4 bg-black/5 border-2 border-solid border-black/10 font-mono font-medium text-sm disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+                className="grow w-full rounded-md border border-input bg-transparent px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                 disabled={isPending}
                 defaultValue={initialState[key]}
             ></textarea>
@@ -112,7 +114,7 @@ const SecurityRequirement = ({
     isPending,
 }: SecurityRequirementProps) => {
     return (
-        <li>
+        <li className="mb-4">
             <fieldset className="flex flex-col grow">
                 <legend className="text-2xl flex flex-row items-center justify-center">
                     <StatusState
@@ -124,7 +126,7 @@ const SecurityRequirement = ({
                     />
                     {securityRequirement.subSubRequirement}
                 </legend>
-                <p className="text-lg">{securityRequirement.text}</p>
+                <p className="text-lg my-2">{securityRequirement.text}</p>
                 <div className="flex flex-row">
                     <SecurityRequirementSelect
                         securityRequirement={securityRequirement}
@@ -149,6 +151,8 @@ export const SecurityForm = ({
     groupings,
     isHydrating,
     setStatuses,
+    prev,
+    next,
 }) => {
     async function action(prevState, formData) {
         const db = await getDB;
@@ -191,29 +195,33 @@ export const SecurityForm = ({
     const [_, formAction, isPending] = useActionState(action, initialState);
 
     return (
-        <>
-            <form id={requirement.element_identifier} action={formAction}>
-                <button
-                    type="submit"
-                    className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none sticky top-24 left-full z-30"
-                    disabled={isPending || isHydrating}
-                >
-                    Save
-                </button>
-                {Object.entries(groupings)?.map(([key, grouping]) => (
-                    <ol key={key}>
-                        {grouping.map((securityRequirement) => (
-                            <SecurityRequirement
-                                key={securityRequirement.element_identifier}
-                                securityRequirement={securityRequirement}
-                                initialState={initialState}
-                                isPending={isPending || isHydrating}
-                            />
-                        ))}
-                    </ol>
-                ))}
-            </form>
-        </>
+        <form
+            id={requirement.element_identifier}
+            action={formAction}
+            className="basis-full"
+        >
+            <ContentNavigation previous={prev} next={next} />
+            <button
+                type="submit"
+                className="shrink w-24 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none sticky top-32 left-full z-30"
+                disabled={isHydrating}
+                style={{ transform: "translateY(-100%)" }}
+            >
+                Save
+            </button>
+            {Object.entries(groupings)?.map(([key, grouping]) => (
+                <ol key={key}>
+                    {grouping.map((securityRequirement) => (
+                        <SecurityRequirement
+                            key={securityRequirement.element_identifier}
+                            securityRequirement={securityRequirement}
+                            initialState={initialState}
+                            isPending={isPending || isHydrating}
+                        />
+                    ))}
+                </ol>
+            ))}
+        </form>
     );
 };
 
@@ -325,8 +333,7 @@ export const SecurityRequirements = ({
             <p className="text-base">
                 {manifest.discussions.byRequirements[requirementId]?.[0]?.text}
             </p>
-            <ContentNavigation previous={prev} next={next} />
-            <section className="w-full">
+            <section className="w-full flex flex-col">
                 <SecurityForm
                     requirement={requirement}
                     groupings={groupings}
@@ -334,6 +341,8 @@ export const SecurityRequirements = ({
                     setInitialState={setInitialState}
                     isHydrating={isHydrating}
                     setStatuses={setStatuses}
+                    prev={prev}
+                    next={next}
                 />
             </section>
         </>
