@@ -23,3 +23,7 @@ body {
 body > div {
     min-height: calc(100vh - 136px);
 }
+
+.discussion > a {
+    color: #3b82f6;
+}

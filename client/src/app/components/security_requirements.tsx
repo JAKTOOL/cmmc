@@ -2,6 +2,7 @@
 import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
 import { getDB } from "@/app/db";
+import { useRouter } from "next/navigation";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
 import { StatusState } from "./status";
@@ -240,6 +241,7 @@ export const SecurityRequirements = ({
     const [isHydrating, setHydrating] = useState(false);
     const [statuses, setStatuses] = useState([]);
     const manifest = useManifestContext();
+    const router = useRouter();
     const securityRequirements = useMemo(() => {
         return (
             manifest?.securityRequirements.byRequirements[requirementId] || []
@@ -327,6 +329,27 @@ export const SecurityRequirements = ({
         fetchInitialState();
     }, [requirementId, setInitialState]);
 
+    useEffect(() => {
+        const handleHashChange = (event) => {
+            const url = new URL(
+                `${window.location.origin}/${event.newURL.split("#")[1]}`
+            );
+            // HACK: Allows for the back button to work properly
+            history.replaceState(
+                null,
+                null,
+                window.location.pathname + window.location.search
+            );
+            router.push(`/r3/requirement/${url.searchParams.get("element")}`);
+        };
+
+        window.addEventListener("hashchange", handleHashChange);
+
+        return () => {
+            window.removeEventListener("hashchange", handleHashChange);
+        };
+    }, []);
+
     if (!securityRequirements?.length) {
         return null;
     }
@@ -341,7 +364,7 @@ export const SecurityRequirements = ({
                 <StatusState statuses={statuses} />
             </h3>
             <p
-                className="text-base"
+                className="text-base discussion"
                 dangerouslySetInnerHTML={{
                     __html:
                         manifest.discussions.byRequirements[requirementId]?.[0]
