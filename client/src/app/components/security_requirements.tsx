@@ -334,9 +334,14 @@ export const SecurityRequirements = ({
                 {requirement.title}
                 <StatusState statuses={statuses} />
             </h3>
-            <p className="text-base">
-                {manifest.discussions.byRequirements[requirementId]?.[0]?.text}
-            </p>
+            <p
+                className="text-base"
+                dangerouslySetInnerHTML={{
+                    __html:
+                        manifest.discussions.byRequirements[requirementId]?.[0]
+                            ?.text || "",
+                }}
+            ></p>
             <section className="w-full flex flex-col">
                 <SecurityForm
                     requirement={requirement}
