@@ -242,12 +242,7 @@ export const SecurityRequirements = ({
     const requirement = useMemo(() => {
         return manifest?.requirements.byId[requirementId] || null;
     }, [manifest, requirementId]);
-    const requirements = useMemo(() => {
-        return manifest?.requirements.byFamily[requirement?.family] || [];
-    }, [requirementId]);
-    const requirementIdx = requirements.findIndex(
-        (r) => r.id === requirementId
-    );
+
     const groupings = useMemo(() => {
         const groupings: Record<string, ElementWrapper[]> = {};
         for (const securityRequirement of securityRequirements) {
@@ -263,6 +258,35 @@ export const SecurityRequirements = ({
         }
         return groupings;
     }, [securityRequirements]);
+
+    const [prev, next] = useMemo(() => {
+        const requirements =
+            manifest?.requirements.byFamily[requirement?.family] || [];
+        const requirementIdx = requirements.findIndex(
+            (r) => r.id === requirementId
+        );
+
+        let prev = requirements[requirementIdx - 1];
+        let next = requirements[requirementIdx + 1];
+
+        if (!prev || !next) {
+            const families = manifest.families.elements;
+            const familyIdx = families.findIndex(
+                (f) => f.id === requirement.family
+            );
+            if (!prev) {
+                const prevFamilyId = families?.[familyIdx - 1]?.id;
+                const prevRequirements =
+                    manifest.requirements.byFamily[prevFamilyId];
+                prev = prevRequirements?.[prevRequirements?.length - 1];
+            }
+            if (!next) {
+                const nextFamilyId = families?.[familyIdx + 1]?.id;
+                next = manifest.requirements.byFamily[nextFamilyId]?.[0];
+            }
+        }
+        return [prev, next];
+    }, [requirement, requirementId]);
 
     useEffect(() => {
         async function fetchInitialState() {
@@ -299,26 +323,6 @@ export const SecurityRequirements = ({
 
     if (!securityRequirements?.length) {
         return null;
-    }
-
-    let prev = requirements[requirementIdx - 1];
-    let next = requirements[requirementIdx + 1];
-
-    if (!prev || !next) {
-        const families = manifest.families.elements;
-        const familyIdx = families.findIndex(
-            (f) => f.id === requirement.family
-        );
-        if (!prev) {
-            const prevFamilyId = families?.[familyIdx - 1]?.id;
-            const prevRequirements =
-                manifest.requirements.byFamily[prevFamilyId];
-            prev = prevRequirements?.[prevRequirements?.length - 1];
-        }
-        if (!next) {
-            const nextFamilyId = families?.[familyIdx + 1]?.id;
-            next = manifest.requirements.byFamily[nextFamilyId]?.[0];
-        }
     }
 
     return (
