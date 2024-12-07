@@ -252,7 +252,7 @@ export const SecurityForm = ({
         >
             <ContentNavigation previous={prev} next={next} />
             <div
-                className="sticky top-32 left-full z-30 flex flex-row-reverse items-center shrink-0 w-1/4"
+                className="sticky top-36 left-full z-30 flex flex-row-reverse items-center shrink-0 w-1/4 pb-4"
                 style={{ transform: "translateY(-100%)" }}
             >
                 <button
@@ -415,8 +415,7 @@ export const SecurityRequirements = ({
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
-            <br />
-            <h3 className="text-3xl">
+            <h3 className="text-3xl mt-6">
                 Security Requirements for {requirement.requirement}{" "}
                 {requirement.title}
                 <StatusState statuses={statuses} />
@@ -433,7 +432,7 @@ export const SecurityRequirements = ({
                 href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_3_0_0/home?element=${requirement.id}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-gray-600 italic"
+                className="text-xs text-gray-600"
             >
                 View CPRT {requirement.id}
             </a>

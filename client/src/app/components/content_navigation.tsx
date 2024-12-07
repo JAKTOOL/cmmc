@@ -18,7 +18,7 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
     }
 
     return (
-        <aside className="w-5/6 flex flex-row">
+        <aside className="w-5/6 flex flex-row mb-4">
             {previous && (
                 <Link
                     href={`/r3/requirement/${previous.requirement}`}
