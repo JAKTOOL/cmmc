@@ -12,6 +12,7 @@ export enum Status {
     PARTIALLY_IMPLEMENTED = "partially-implemented",
     NOT_STARTED = "not-started",
     NEEDS_WORK = "needs-work",
+    _NOT_STARTED_DEFAULT = "", // Special default value for empty form fields
 }
 
 const StatusSpan = ({ status }: { status?: Status }) => {
@@ -92,6 +93,12 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
             statuses.some((s) => s === Status.IMPLEMENTED) &&
             statuses.some((s) => s === Status.NOT_IMPLEMENTED)
         ) {
+            if (
+                statuses.includes(Status.NOT_STARTED) ||
+                statuses.includes(Status._NOT_STARTED_DEFAULT)
+            ) {
+                return <StatusSpan status={Status.NEEDS_WORK} />;
+            }
             return <StatusSpan status={Status.PARTIALLY_IMPLEMENTED} />;
         }
 
