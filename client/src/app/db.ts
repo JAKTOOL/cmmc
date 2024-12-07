@@ -124,24 +124,31 @@ export const clear = (table: string) => async (): Promise<boolean> => {
     });
 };
 
+class StoreWrapper<T> {
+    public table: string;
+    getAll: (
+        query?: IDBKeyRange | IDBValidKey | null,
+        count?: number
+    ) => Promise<T[]>;
+    put: (data: T) => Promise<T[]>;
+    clear: () => Promise<boolean>;
+    store: (permission: Permission) => Promise<IDBObjectStore>;
+
+    constructor(table: string) {
+        this.table = table;
+        this.getAll = getAll<T>(table);
+        this.put = put<T>(table);
+        this.clear = clear(table);
+        this.store = (permission: Permission = Permission.READONLY) =>
+            getStore(table, permission);
+    }
+}
+
 export class IDB {
-    static getSecurityRequirements = getAll<IDBSecurityRequirement>(
+    static requirements = new StoreWrapper<IDBRequirement>("requirements");
+    static securityRequirements = new StoreWrapper<IDBSecurityRequirement>(
         "security_requirements"
     );
-    static getRequirements = getAll<IDBRequirement>("requirements");
-
-    static putSecurityRequirement = put<IDBSecurityRequirement>(
-        "security_requirements"
-    );
-    static putRequirement = put<IDBRequirement>("requirements");
-
-    static clearSecurityRequirements = clear("security_requirements");
-    static clearRequirements = clear("requirements");
-
-    static getWriteableSecurityRequirementsStore = async () =>
-        getStore("security_requirements", Permission.READWRITE);
-    static getWriteableRequirementsStore = async () =>
-        getStore("requirements", Permission.READWRITE);
 
     static version = version;
 }

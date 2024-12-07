@@ -21,7 +21,7 @@ export const Markdown = () => {
     const manifest = useManifestContext();
 
     const onClick = async () => {
-        const idbSecurityRequirements = await IDB.getSecurityRequirements();
+        const idbSecurityRequirements = await IDB.securityRequirements.getAll();
 
         const storedSecRequirements = idbSecurityRequirements.reduce(
             (acc, cur) => {

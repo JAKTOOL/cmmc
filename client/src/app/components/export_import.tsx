@@ -10,7 +10,7 @@ interface ImportExportPayload {
 
 export const Export = () => {
     const action = async () => {
-        const idbSecurityRequirements = await IDB.getSecurityRequirements();
+        const idbSecurityRequirements = await IDB.securityRequirements.getAll();
 
         const validSecurityRequirements = idbSecurityRequirements.filter(
             (secReq) => !!secReq.status
@@ -86,7 +86,7 @@ export const Import = () => {
 
                     for (const secReq of payload.securityRequirements) {
                         const reqId = secReq.id.slice(0, 8);
-                        await IDB.putSecurityRequirement(secReq);
+                        await IDB.securityRequirements.put(secReq);
                         if (!requirements[reqId]) {
                             requirements[reqId] = {
                                 id: reqId,
@@ -98,7 +98,7 @@ export const Import = () => {
                     }
 
                     for (const req of Object.values(requirements)) {
-                        await IDB.putRequirement(req);
+                        await IDB.requirements.put(req);
                     }
 
                     resolve(payload);

@@ -12,8 +12,8 @@ export const ClearDB = () => {
                 return;
             }
 
-            await IDB.clearSecurityRequirements();
-            await IDB.clearRequirements();
+            await IDB.securityRequirements.clear();
+            await IDB.requirements.clear();
 
             resolve(null);
             window.location.reload();

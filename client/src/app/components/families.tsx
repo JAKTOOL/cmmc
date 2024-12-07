@@ -16,7 +16,7 @@ export const Families = () => {
 
     useEffect(() => {
         async function fetchInitialState() {
-            const idbRequirements = await IDB.getRequirements();
+            const idbRequirements = await IDB.requirements.getAll();
 
             const status = families.reduce((acc, cur) => {
                 acc[cur.element_identifier] = [];

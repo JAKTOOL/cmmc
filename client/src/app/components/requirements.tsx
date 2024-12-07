@@ -18,7 +18,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
     useEffect(() => {
         async function fetchInitialState() {
             const ids = requirements.map((r) => r.element_identifier);
-            const idbRequirements = await IDB.getRequirements(
+            const idbRequirements = await IDB.requirements.getAll(
                 IDBKeyRange.bound(ids[0], ids[ids.length - 1])
             );
 

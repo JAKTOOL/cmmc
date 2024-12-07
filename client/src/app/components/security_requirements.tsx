@@ -1,7 +1,7 @@
 "use client";
 import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
-import { IDB } from "@/app/db";
+import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { useRouter } from "next/navigation";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
@@ -161,8 +161,6 @@ const SecurityRequirement = ({
 };
 
 const saveState = async (requirementId: string, formData: FormData) => {
-    const store = await IDB.getWriteableSecurityRequirementsStore();
-
     const records: Record<string, Record<string, FormDataEntryValue>> = {};
     for (const [_key, value] of formData.entries()) {
         // Extract the id from the key to the last period
@@ -172,12 +170,14 @@ const saveState = async (requirementId: string, formData: FormData) => {
         records[id] = { ...(records?.[id] || {}), [key]: value };
     }
     for (const [id, record] of Object.entries(records)) {
-        store?.put({ id, ...record });
+        await IDB.securityRequirements?.put({
+            id,
+            ...record,
+        } as IDBSecurityRequirement);
     }
 
-    const reqStore = await IDB.getWriteableRequirementsStore();
     const statuses: string[] = [];
-    reqStore?.put({
+    await IDB.requirements?.put({
         id: requirementId,
         bySecurityRequirementId: Object.entries(records).reduce(
             (acc, [id, record]) => {
@@ -348,9 +348,10 @@ export const SecurityRequirements = ({
         async function fetchInitialState() {
             setHydrating(true);
             const ids = securityRequirements.map((s) => s.subSubRequirement);
-            const idbSecurityRequirements = await IDB.getSecurityRequirements(
-                IDBKeyRange.bound(ids[0], ids[ids.length - 1])
-            );
+            const idbSecurityRequirements =
+                await IDB.securityRequirements.getAll(
+                    IDBKeyRange.bound(ids[0], ids[ids.length - 1])
+                );
             const statuses = [];
             const state = idbSecurityRequirements?.reduce(
                 (acc, requirement) => {
