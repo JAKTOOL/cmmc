@@ -60,57 +60,61 @@ export const Export = () => {
 export const Import = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const action = async (prevState, formData: FormData) => {
-        return new Promise(async (resolve, reject) => {
-            const file = formData.get("file") as File;
+        try {
+            return await new Promise(async (resolve, reject) => {
+                const file = formData.get("file") as File;
 
-            if (file) {
-                const reader = new FileReader();
+                if (file) {
+                    const reader = new FileReader();
 
-                reader.onload = async (event) => {
-                    const payload = JSON.parse(
-                        event?.target?.result as string
-                    ) as ImportExportPayload;
+                    reader.onload = async (event) => {
+                        const payload = JSON.parse(
+                            event?.target?.result as string
+                        ) as ImportExportPayload;
 
-                    if (payload.version !== IDB.version) {
-                        throw new Error("Database version mismatch");
-                    }
-
-                    const confirm = window.confirm(
-                        "Importing will overwrite the current database. Continue?"
-                    );
-                    if (!confirm) {
-                        return;
-                    }
-
-                    await IDB.securityRequirements.clear();
-                    await IDB.requirements.clear();
-
-                    const requirements: Record<string, IDBRequirement> = {};
-
-                    for (const secReq of payload.securityRequirements) {
-                        const reqId = secReq.id.slice(0, 8);
-                        await IDB.securityRequirements.put(secReq);
-                        if (!requirements[reqId]) {
-                            requirements[reqId] = {
-                                id: reqId,
-                                bySecurityRequirementId: {},
-                            };
+                        if (payload.version !== IDB.version) {
+                            throw new Error("Database version mismatch");
                         }
-                        requirements[reqId].bySecurityRequirementId[secReq.id] =
-                            secReq.status as Status;
-                    }
 
-                    for (const req of Object.values(requirements)) {
-                        await IDB.requirements.put(req);
-                    }
+                        const confirm = window.confirm(
+                            "Importing will overwrite the current database. Continue?"
+                        );
+                        if (!confirm) {
+                            return;
+                        }
 
-                    resolve(payload);
-                    window.location.reload();
-                };
+                        await IDB.securityRequirements.clear();
+                        await IDB.requirements.clear();
 
-                reader.readAsText(file);
-            }
-        });
+                        const requirements: Record<string, IDBRequirement> = {};
+
+                        for (const secReq of payload.securityRequirements) {
+                            const reqId = secReq.id.slice(0, 8);
+                            await IDB.securityRequirements.put(secReq);
+                            if (!requirements[reqId]) {
+                                requirements[reqId] = {
+                                    id: reqId,
+                                    bySecurityRequirementId: {},
+                                };
+                            }
+                            requirements[reqId].bySecurityRequirementId[
+                                secReq.id
+                            ] = secReq.status as Status;
+                        }
+
+                        for (const req of Object.values(requirements)) {
+                            await IDB.requirements.put(req);
+                        }
+
+                        resolve(payload);
+                    };
+
+                    reader.readAsText(file);
+                }
+            });
+        } finally {
+            window.location.reload();
+        }
     };
 
     const onClick = () => {

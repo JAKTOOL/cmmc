@@ -4,19 +4,22 @@ import { useActionState } from "react";
 
 export const ClearDB = () => {
     const action = async (prevState, formData: FormData) => {
-        return new Promise(async (resolve) => {
-            const confirm = window.confirm(
-                "Clear the current database. Continue?"
-            );
-            if (!confirm) {
-                return;
+        return await new Promise(async (resolve) => {
+            try {
+                const confirm = window.confirm(
+                    "Clear the current database. Continue?"
+                );
+                if (!confirm) {
+                    return;
+                }
+
+                await IDB.securityRequirements.clear();
+                await IDB.requirements.clear();
+
+                resolve(null);
+            } finally {
+                window.location.reload();
             }
-
-            await IDB.securityRequirements.clear();
-            await IDB.requirements.clear();
-
-            resolve(null);
-            window.location.reload();
         });
     };
 
