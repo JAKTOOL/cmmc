@@ -4,7 +4,7 @@ import { IDB } from "@/app/db";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Breadcrumbs } from "./breadcrumbs";
-import { StatusState } from "./status";
+import { Status, StatusState } from "./status";
 
 export const Families = () => {
     const manifest = useManifestContext();
@@ -49,8 +49,8 @@ export const Families = () => {
                     if (!stored) {
                         status[familyId].push(
                             hasFamilyBeenWorkedUpon
-                                ? "needs-work"
-                                : "not-started"
+                                ? Status.NEEDS_WORK
+                                : Status.NOT_STARTED
                         );
                         continue;
                     }
@@ -58,7 +58,7 @@ export const Families = () => {
                         stored.bySecurityRequirementId
                     );
                     if (securityRequirements.length !== values.length) {
-                        status[familyId].push("needs-work");
+                        status[familyId].push(Status.NOT_STARTED);
                         continue;
                     }
                     status[familyId] = [...status[familyId], ...values];

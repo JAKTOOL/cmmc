@@ -5,7 +5,7 @@ import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { useRouter } from "next/navigation";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
-import { StatusState } from "./status";
+import { Status, StatusState } from "./status";
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
@@ -176,13 +176,13 @@ const saveState = async (requirementId: string, formData: FormData) => {
         } as IDBSecurityRequirement);
     }
 
-    const statuses: string[] = [];
+    const statuses: Status[] = [];
     await IDB.requirements?.put({
         id: requirementId,
         bySecurityRequirementId: Object.entries(records).reduce(
             (acc, [id, record]) => {
                 acc[id] = record.status;
-                statuses.push(record.status as string);
+                statuses.push(record.status as Status);
                 return acc;
             },
             {}
@@ -217,20 +217,20 @@ export const SecurityForm = ({
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
     async function action(prevState, formData) {
-        const statuses = await saveState(requirement.id, formData);
-        setStatuses(statuses);
+        const nextStatuses = await saveState(requirement.id, formData);
+        setStatuses(nextStatuses);
         setInitialState(Object.fromEntries(formData.entries()));
         setLastSaved(new Date());
     }
 
     const debouncedSave = useMemo(
         () =>
-            debounce((event) => {
+            debounce(async (event) => {
+                if (!event.target?.form) {
+                    return;
+                }
                 const formData = new FormData(event.target.form);
-                const statuses = saveState(requirement.id, formData);
-                setStatuses(statuses);
-                setInitialState(Object.fromEntries(formData.entries()));
-                setLastSaved(new Date());
+                await action(null, formData);
             }, 250),
         [requirement.id, setStatuses, setInitialState]
     );
@@ -287,7 +287,7 @@ export const SecurityRequirements = ({
 }) => {
     const [initialState, setInitialState] = useState({});
     const [isHydrating, setHydrating] = useState(false);
-    const [statuses, setStatuses] = useState([]);
+    const [statuses, setStatuses] = useState<Status[]>([]);
     const manifest = useManifestContext();
     const router = useRouter();
     const securityRequirements = useMemo(() => {
@@ -352,23 +352,29 @@ export const SecurityRequirements = ({
                 await IDB.securityRequirements.getAll(
                     IDBKeyRange.bound(ids[0], ids[ids.length - 1])
                 );
-            const statuses = [];
+            const nextStatuses: Status[] = [];
             const state = idbSecurityRequirements?.reduce(
                 (acc, requirement) => {
                     acc[`${requirement.id}.status`] = requirement.status;
                     acc[`${requirement.id}.description`] =
                         requirement.description;
-                    statuses.push(requirement.status);
+                    nextStatuses.push(requirement.status as Status);
                     return acc;
                 },
                 {}
             );
-            setStatuses(statuses);
+            setStatuses(nextStatuses);
             setInitialState(state);
             setHydrating(false);
         }
         fetchInitialState();
-    }, [requirementId, setInitialState, securityRequirements]);
+    }, [
+        requirementId,
+        setInitialState,
+        securityRequirements,
+        setStatuses,
+        setHydrating,
+    ]);
 
     useEffect(() => {
         const handleHashChange = (event) => {

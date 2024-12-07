@@ -33,6 +33,10 @@ export const Navigation = () => {
             document.removeEventListener("keydown", onKeyDown);
             document.removeEventListener("click", onClick);
         }
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+            document.removeEventListener("click", onClick);
+        };
     }, [isOpen]);
 
     return (

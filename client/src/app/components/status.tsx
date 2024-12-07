@@ -69,6 +69,14 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
             return <StatusSpan status={Status.NEEDS_WORK} />;
         }
 
+        if (
+            statuses.length &&
+            statuses.includes(Status.NOT_STARTED) &&
+            !statuses.every((s) => s === Status.NOT_STARTED)
+        ) {
+            return <StatusSpan status={Status.NEEDS_WORK} />;
+        }
+
         if (statuses.length && statuses.includes(Status.NOT_IMPLEMENTED)) {
             return <StatusSpan status={Status.NOT_IMPLEMENTED} />;
         }
@@ -87,10 +95,6 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
             )
         ) {
             return <StatusSpan status={Status.IMPLEMENTED} />;
-        }
-
-        if (statuses.length && statuses.includes(Status.NOT_STARTED)) {
-            return <StatusSpan status={Status.NEEDS_WORK} />;
         }
 
         return <StatusSpan />;
