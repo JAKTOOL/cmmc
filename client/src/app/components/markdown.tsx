@@ -63,7 +63,15 @@ export const Markdown = () => {
                                 payload.push(`**${toStatus(stored.status)}**`);
                                 payload.push(`${stored.description}`);
                             } else {
-                                payload.push(`**${toStatus()}**`);
+                                payload.push(
+                                    `**${toStatus()} [${
+                                        secReq.subSubRequirement
+                                    }](${
+                                        window.location.origin
+                                    }/r3/requirement/${secReq.requirement}#${
+                                        secReq.subSubRequirement
+                                    })**`
+                                );
                             }
                         }
                     }

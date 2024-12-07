@@ -128,7 +128,9 @@ const SecurityRequirement = ({
                             ]
                         }
                     />
-                    {securityRequirement.subSubRequirement}
+                    <h4 id={securityRequirement.subSubRequirement}>
+                        {securityRequirement.subSubRequirement}
+                    </h4>
                 </legend>
                 <p className="text-lg my-2">{securityRequirement.text}</p>
                 <div className="flex flex-row">
