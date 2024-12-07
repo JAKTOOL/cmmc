@@ -51,7 +51,7 @@ export const Export = () => {
                 disabled={isPending}
                 tabIndex={-1}
             >
-                Export
+                Export Database
             </button>
         </form>
     );
@@ -140,7 +140,7 @@ export const Import = () => {
                 tabIndex={-1}
                 onClick={onClick}
             >
-                Import
+                Import Database
             </button>
         </form>
     );
