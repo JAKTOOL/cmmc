@@ -220,10 +220,13 @@ export const SecurityForm = ({
     const debouncedSave = useMemo(
         () =>
             debounce((event) => {
-                saveState(requirement.id, new FormData(event.target.form));
+                const formData = new FormData(event.target.form);
+                const statuses = saveState(requirement.id, formData);
+                setStatuses(statuses);
+                setInitialState(Object.fromEntries(formData.entries()));
                 setLastSaved(new Date());
-            }, 2000),
-        [requirement.id]
+            }, 250),
+        [requirement.id, setStatuses, setInitialState]
     );
 
     const [_, formAction, isPending] = useActionState(action, initialState);
