@@ -26,8 +26,8 @@ By going through the 800-171 controls, you can generate a markdown file with all
 - 🔴 A family, requirement, or security requirement is not implemented.
 - ⚫ A family, requirement, or security requirement is not applicable.
 - ⚪ A family, requirement, or security requirement has not been started (default).
-- 🟤 A family or requirement is partially implemented (some security requirements are implemented and not implemented)
-- 🟡 A family or requirement has remaining work.
+- 🟡 A family or requirement is partially implemented (some security requirements are implemented and not implemented)
+- 🚧 A family or requirement has remaining work.
 
 ## Privacy
 

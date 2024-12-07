@@ -49,7 +49,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
                     className="text-xl text-black mx-2"
                     title="Has work remaining"
                 >
-                    🟡
+                    🚧
                 </span>
             );
         case Status.PARTIALLY_IMPLEMENTED:
@@ -58,7 +58,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
                     className="text-xl text-black mx-2"
                     title="Partially implemented"
                 >
-                    🟤
+                    🟡
                 </span>
             );
         default:
