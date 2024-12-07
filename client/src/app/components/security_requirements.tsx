@@ -47,7 +47,6 @@ const Select = ({ id, defaultValue, isPending, idx }) => {
                 disabled={isPending}
                 defaultValue={defaultValue}
                 tabIndex={20}
-                autoFocus={idx === 0 && !hasChanged}
             >
                 <option value="not-implemented">Not Implemented</option>
                 <option value="implemented">Implemented</option>
