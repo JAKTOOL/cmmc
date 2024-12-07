@@ -13,7 +13,7 @@ export const Export = () => {
         const idbSecurityRequirements = await IDB.securityRequirements.getAll();
 
         const validSecurityRequirements = idbSecurityRequirements.filter(
-            (secReq) => !!secReq.status
+            (secReq) => !!(secReq.status || secReq.description)
         );
 
         const payload: ImportExportPayload = {
