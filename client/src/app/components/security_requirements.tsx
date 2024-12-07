@@ -253,7 +253,7 @@ export const SecurityForm = ({
                     Save
                 </button>
                 {lastSaved && (
-                    <span className="text-sm text-gray-500 mr-4">
+                    <span className="text-sm text-gray-500 mr-2 text-right">
                         Last saved: {lastSaved?.toLocaleTimeString()}
                     </span>
                 )}
