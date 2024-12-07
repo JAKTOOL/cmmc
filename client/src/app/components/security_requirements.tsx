@@ -395,8 +395,19 @@ export const SecurityRequirements = ({
 
         window.addEventListener("hashchange", handleHashChange);
 
+        const saveOnCtrlS = (event: KeyboardEvent) => {
+            if (event.ctrlKey && event.key === "s") {
+                event.preventDefault();
+                const form = document.forms?.[0];
+                form?.requestSubmit();
+            }
+        };
+
+        document.addEventListener("keydown", saveOnCtrlS);
+
         return () => {
             window.removeEventListener("hashchange", handleHashChange);
+            document.removeEventListener("keydown", saveOnCtrlS);
         };
     }, []);
 
