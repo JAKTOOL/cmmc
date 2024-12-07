@@ -7,7 +7,7 @@ import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
 import { StatusState } from "./status";
 
-import { useActionState, useEffect, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
 interface SecurityRequirement {
     element_identifier: string;
@@ -24,24 +24,32 @@ interface SecurityRequirementProps {
 
 const Select = ({ id, defaultValue, isPending }) => {
     const [hasChanged, setHasChanged] = useState(!!defaultValue);
+    const inputRef = useRef(null);
     const setToChanged = useMemo(
         () => () => !hasChanged && setHasChanged(true),
         [hasChanged]
     );
+    const emitChange = useMemo(
+        () => () => {
+            if (inputRef?.current) {
+                inputRef?.current?.dispatchEvent(
+                    new Event("change", { bubbles: true })
+                );
+                setToChanged();
+            }
+        },
+        [inputRef, setToChanged]
+    );
 
     return (
-        <div
-            onBlur={setToChanged}
-            onClick={setToChanged}
-            onKeyDown={setToChanged}
-            onChange={setToChanged}
-        >
+        <div onBlur={emitChange} onClick={setToChanged} onKeyUp={setToChanged}>
             <select
                 // HACK: To get around react resetting select element back to default value
                 // as it doesn't re-render properly otherwise
                 key={`${id}-${isPending}`}
                 id={id}
                 name={id}
+                ref={inputRef}
                 className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                 disabled={isPending}
                 defaultValue={defaultValue}
@@ -51,7 +59,7 @@ const Select = ({ id, defaultValue, isPending }) => {
                 <option value="not-applicable">Not Applicable</option>
             </select>
             {/* 
-                NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by events on the select parent element)
+                NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by clicking on the select parent element)
 
                 In cases where the status is not changed, we don't render the hidden input element to allow the status to be stored correctly
             */}
