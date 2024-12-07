@@ -20,11 +20,12 @@ By going through the 800-171 controls, you can generate a markdown file with all
 
 ### Icon Meanings
 
-- 🟢 All requirements or security requirements have been implemented (or are not applicable).
-- 🔴 Any security requirement within a family or requirement has not been implemented.
+- 🟢 A family, requirement, or security requirement is implemented.
+- 🔴 A family, requirement, or security requirement is not implemented.
 - ⚫ A family, requirement, or security requirement is not applicable.
 - ⚪ A family, requirement, or security requirement has not been started (default).
-- 🟡 Work still remains to be completed for a family or requirement.
+- 🟤 A family or requirement is partially implemented (some security requirements are implemented and not implemented)
+- 🟡 A family or requirement has remaining work.
 
 ## Privacy
 

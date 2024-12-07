@@ -9,6 +9,7 @@ export enum Status {
     IMPLEMENTED = "implemented",
     NOT_IMPLEMENTED = "not-implemented",
     NOT_APPLICABLE = "not-applicable",
+    PARTIALLY_IMPLEMENTED = "partially-implemented",
     NOT_STARTED = "not-started",
     NEEDS_WORK = "needs-work",
 }
@@ -51,6 +52,15 @@ const StatusSpan = ({ status }: { status?: Status }) => {
                     🟡
                 </span>
             );
+        case Status.PARTIALLY_IMPLEMENTED:
+            return (
+                <span
+                    className="text-xl text-black mx-2"
+                    title="Partially implemented"
+                >
+                    🟤
+                </span>
+            );
         default:
             return (
                 <span
@@ -75,6 +85,14 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
             !statuses.every((s) => s === Status.NOT_STARTED)
         ) {
             return <StatusSpan status={Status.NEEDS_WORK} />;
+        }
+
+        if (
+            statuses.length &&
+            statuses.some((s) => s === Status.IMPLEMENTED) &&
+            statuses.some((s) => s === Status.NOT_IMPLEMENTED)
+        ) {
+            return <StatusSpan status={Status.PARTIALLY_IMPLEMENTED} />;
         }
 
         if (statuses.length && statuses.includes(Status.NOT_IMPLEMENTED)) {
