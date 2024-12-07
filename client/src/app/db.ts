@@ -1,4 +1,5 @@
 "use client";
+import { Status } from "@/app/components/status";
 
 let loader: Promise<IDBDatabase> | undefined;
 if (typeof window !== "undefined") {
@@ -51,4 +52,59 @@ if (typeof window !== "undefined") {
     });
 }
 
-export const getDB = loader;
+export const getDB = function () {
+    return loader || Promise.reject("Can't use IndexDB");
+};
+
+interface IDBSecurityRequirement {
+    id: string;
+    status: string;
+    description: string;
+}
+
+interface IDBRequirement {
+    id: string;
+    bySecurityRequirementId: Record<string, Status>;
+}
+
+enum Permission {
+    READONLY = "readonly",
+    READWRITE = "readwrite",
+}
+
+export const getStore = async (table: string, permission: Permission) => {
+    const db = await getDB();
+    return db.transaction(table, permission).objectStore(table);
+};
+
+export const getAll =
+    <T>(table: string) =>
+    async (
+        query: IDBKeyRange | IDBValidKey | null = null,
+        count?: number
+    ): Promise<T[]> => {
+        const store = await getStore(table, Permission.READONLY);
+
+        const request = store.getAll(query, count);
+
+        return new Promise<T[]>((resolve, reject) => {
+            request.onsuccess = () => {
+                resolve(request.result as T[]);
+            };
+            request.onerror = () => {
+                reject();
+            };
+        });
+    };
+
+export class IDB {
+    static getSecurityRequirements = getAll<IDBSecurityRequirement>(
+        "security_requirements"
+    );
+    static getRequirements = getAll<IDBRequirement>("requirements");
+
+    static getWriteableSecurityRequirementsStore = async () =>
+        getStore("security_requirements", Permission.READWRITE);
+    static getWriteableRequirementsStore = async () =>
+        getStore("requirements", Permission.READWRITE);
+}

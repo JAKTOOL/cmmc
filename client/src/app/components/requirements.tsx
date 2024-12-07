@@ -1,6 +1,6 @@
 "use client";
 import { useManifestContext } from "@/app/context";
-import { getDB } from "@/app/db";
+import { IDB } from "@/app/db";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Breadcrumbs } from "./breadcrumbs";
@@ -17,43 +17,34 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
 
     useEffect(() => {
         async function fetchInitialState() {
-            const db = await getDB;
-            const store = db
-                .transaction("requirements", "readonly")
-                .objectStore("requirements");
-
             const ids = requirements.map((r) => r.element_identifier);
-
-            const request = store.getAll(
+            const idbRequirements = await IDB.getRequirements(
                 IDBKeyRange.bound(ids[0], ids[ids.length - 1])
             );
-            request.onsuccess = () => {
-                let unfinishedWork =
-                    request.result.length &&
-                    ids.length !== request.result.length;
-                const status = request?.result?.reduce((acc, cur) => {
-                    const securityRequirements =
-                        manifest.securityRequirements.byRequirements[cur.id];
-                    const values = Object.values(cur.bySecurityRequirementId);
-                    if (
-                        securityRequirements.length !== values.length &&
-                        !unfinishedWork
-                    ) {
-                        unfinishedWork = true;
-                    }
-                    acc[cur.id] = values;
-                    return acc;
-                }, {});
 
-                if (unfinishedWork) {
-                    status["all"] = ["needs-work"];
-                } else {
-                    status["all"] = Object.values(status).flat();
+            let unfinishedWork =
+                idbRequirements.length && ids.length !== idbRequirements.length;
+            const status = idbRequirements?.reduce((acc, cur) => {
+                const securityRequirements =
+                    manifest.securityRequirements.byRequirements[cur.id];
+                const values = Object.values(cur.bySecurityRequirementId);
+                if (
+                    securityRequirements.length !== values.length &&
+                    !unfinishedWork
+                ) {
+                    unfinishedWork = true;
                 }
+                acc[cur.id] = values;
+                return acc;
+            }, {});
 
-                setStatus(status);
-            };
-            request.onerror = () => {};
+            if (unfinishedWork) {
+                status["all"] = ["needs-work"];
+            } else {
+                status["all"] = Object.values(status).flat();
+            }
+
+            setStatus(status);
         }
         fetchInitialState();
     }, [familyId]);

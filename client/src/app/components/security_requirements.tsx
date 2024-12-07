@@ -1,7 +1,7 @@
 "use client";
 import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
-import { getDB } from "@/app/db";
+import { IDB } from "@/app/db";
 import { useRouter } from "next/navigation";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
@@ -161,10 +161,7 @@ const SecurityRequirement = ({
 };
 
 const saveState = async (requirementId: string, formData: FormData) => {
-    const db = await getDB;
-    const store = db
-        ?.transaction("security_requirements", "readwrite")
-        .objectStore("security_requirements");
+    const store = await IDB.getWriteableSecurityRequirementsStore();
 
     const records: Record<string, Record<string, FormDataEntryValue>> = {};
     for (const [_key, value] of formData.entries()) {
@@ -178,10 +175,7 @@ const saveState = async (requirementId: string, formData: FormData) => {
         store?.put({ id, ...record });
     }
 
-    const reqStore = db
-        ?.transaction("requirements", "readwrite")
-        .objectStore("requirements");
-
+    const reqStore = await IDB.getWriteableRequirementsStore();
     const statuses: string[] = [];
     reqStore?.put({
         id: requirementId,
@@ -348,37 +342,29 @@ export const SecurityRequirements = ({
             }
         }
         return [prev, next];
-    }, [requirement, requirementId]);
+    }, [requirement, requirementId, manifest]);
 
     useEffect(() => {
         async function fetchInitialState() {
             setHydrating(true);
-            const db = await getDB;
-            const store = db
-                .transaction("security_requirements", "readonly")
-                .objectStore("security_requirements");
-
             const ids = securityRequirements.map((s) => s.subSubRequirement);
-
-            const request = store.getAll(
+            const idbSecurityRequirements = await IDB.getSecurityRequirements(
                 IDBKeyRange.bound(ids[0], ids[ids.length - 1])
             );
-            request.onsuccess = () => {
-                const statuses = [];
-                const state = request?.result?.reduce((acc, requirement) => {
+            const statuses = [];
+            const state = idbSecurityRequirements?.reduce(
+                (acc, requirement) => {
                     acc[`${requirement.id}.status`] = requirement.status;
                     acc[`${requirement.id}.description`] =
                         requirement.description;
                     statuses.push(requirement.status);
                     return acc;
-                }, {});
-                setStatuses(statuses);
-                setInitialState(state);
-                setHydrating(false);
-            };
-            request.onerror = () => {
-                setHydrating(false);
-            };
+                },
+                {}
+            );
+            setStatuses(statuses);
+            setInitialState(state);
+            setHydrating(false);
         }
         fetchInitialState();
     }, [requirementId, setInitialState, securityRequirements]);
