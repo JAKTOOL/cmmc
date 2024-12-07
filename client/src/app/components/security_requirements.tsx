@@ -59,6 +59,7 @@ const Select = ({ id, defaultValue, isPending, idx }) => {
                 <option value="not-implemented">Not Implemented</option>
                 <option value="implemented">Implemented</option>
                 <option value="not-applicable">Not Applicable</option>
+                <option value="not-started">Not Started</option>
             </select>
             {/* 
                 NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by clicking on the select parent element)

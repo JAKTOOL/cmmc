@@ -9,6 +9,7 @@ export enum Status {
     IMPLEMENTED = "implemented",
     NOT_IMPLEMENTED = "not-implemented",
     NOT_APPLICABLE = "not-applicable",
+    NOT_STARTED = "not-started",
     NEEDS_WORK = "needs-work",
 }
 
