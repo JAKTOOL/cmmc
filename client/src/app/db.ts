@@ -2,6 +2,12 @@
 import { Status } from "@/app/components/status";
 export const version = 1;
 let loader: Promise<IDBDatabase> | undefined;
+
+enum Table {
+    SECURITY_REQUIREMENTS = "security_requirements",
+    REQUIREMENTS = "requirements",
+}
+
 if (typeof window !== "undefined") {
     const request = window?.indexedDB?.open("800_171_r3", version);
 
@@ -20,7 +26,7 @@ if (typeof window !== "undefined") {
             const db = event.target?.result as IDBDatabase;
 
             const securityRequirementsStore = db.createObjectStore(
-                "security_requirements",
+                Table.SECURITY_REQUIREMENTS,
                 {
                     keyPath: "id",
                 }
@@ -37,7 +43,7 @@ if (typeof window !== "undefined") {
                 }
             );
 
-            const requirementsStore = db.createObjectStore("requirements", {
+            const requirementsStore = db.createObjectStore(Table.REQUIREMENTS, {
                 keyPath: "id",
             });
 
@@ -125,7 +131,7 @@ export const clear = (table: string) => async (): Promise<boolean> => {
 };
 
 class StoreWrapper<T> {
-    public table: string;
+    public table: Table;
     getAll: (
         query?: IDBKeyRange | IDBValidKey | null,
         count?: number
@@ -134,7 +140,7 @@ class StoreWrapper<T> {
     clear: () => Promise<boolean>;
     store: (permission: Permission) => Promise<IDBObjectStore>;
 
-    constructor(table: string) {
+    constructor(table: Table) {
         this.table = table;
         this.getAll = getAll<T>(table);
         this.put = put<T>(table);
@@ -145,9 +151,9 @@ class StoreWrapper<T> {
 }
 
 export class IDB {
-    static requirements = new StoreWrapper<IDBRequirement>("requirements");
+    static requirements = new StoreWrapper<IDBRequirement>(Table.REQUIREMENTS);
     static securityRequirements = new StoreWrapper<IDBSecurityRequirement>(
-        "security_requirements"
+        Table.SECURITY_REQUIREMENTS
     );
 
     static version = version;
