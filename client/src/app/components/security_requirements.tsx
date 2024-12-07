@@ -9,15 +9,8 @@ import { StatusState } from "./status";
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
-interface SecurityRequirement {
-    element_identifier: string;
-    subSubRequirement: string;
-    text: string;
-    subRequirement: string;
-}
-
 interface SecurityRequirementProps {
-    securityRequirement: SecurityRequirement;
+    securityRequirement: ElementWrapper;
     initialState: Record<string, string>;
     isPending: boolean;
 }
@@ -436,6 +429,14 @@ export const SecurityRequirements = ({
                             ?.text || "",
                 }}
             ></p>
+            <a
+                href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_3_0_0/home?element=${requirement.id}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs text-gray-600 italic"
+            >
+                View CPRT {requirement.id}
+            </a>
             <section className="w-full flex flex-col">
                 <SecurityForm
                     requirement={requirement}
