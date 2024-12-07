@@ -75,13 +75,16 @@ const StatusSpan = ({ status }: { status?: Status }) => {
 };
 
 export const StatusState = ({ statuses, status }: StatusStateProps) => {
-    if (statuses) {
-        if (statuses.length && statuses.includes(Status.NEEDS_WORK)) {
+    if (status) {
+        return <StatusSpan status={status} />;
+    }
+
+    if (statuses?.length) {
+        if (statuses.includes(Status.NEEDS_WORK)) {
             return <StatusSpan status={Status.NEEDS_WORK} />;
         }
 
         if (
-            statuses.length &&
             statuses.includes(Status.NOT_STARTED) &&
             !statuses.every((s) => s === Status.NOT_STARTED)
         ) {
@@ -89,7 +92,6 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
         }
 
         if (
-            statuses.length &&
             statuses.some((s) => s === Status.IMPLEMENTED) &&
             statuses.some((s) => s === Status.NOT_IMPLEMENTED)
         ) {
@@ -102,28 +104,22 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
             return <StatusSpan status={Status.PARTIALLY_IMPLEMENTED} />;
         }
 
-        if (statuses.length && statuses.includes(Status.NOT_IMPLEMENTED)) {
+        if (statuses.includes(Status.NOT_IMPLEMENTED)) {
             return <StatusSpan status={Status.NOT_IMPLEMENTED} />;
         }
 
-        if (
-            statuses.length &&
-            statuses.every((s) => s === Status.NOT_APPLICABLE)
-        ) {
+        if (statuses.every((s) => s === Status.NOT_APPLICABLE)) {
             return <StatusSpan status={Status.NOT_APPLICABLE} />;
         }
 
         if (
-            statuses.length &&
             statuses.every((s) =>
                 [Status.NOT_APPLICABLE, Status.IMPLEMENTED].includes(s)
             )
         ) {
             return <StatusSpan status={Status.IMPLEMENTED} />;
         }
-
-        return <StatusSpan />;
     }
 
-    return <StatusSpan status={status} />;
+    return <StatusSpan />;
 };
