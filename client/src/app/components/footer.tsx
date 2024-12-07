@@ -6,7 +6,11 @@ export const Footer = () => (
             </span>
             <span className="block text-sm text-gray-500 sm:text-center">
                 © 2024{" "}
-                <a href="https://neal.codes" className="hover:underline">
+                <a
+                    href="https://neal.codes"
+                    className="hover:underline"
+                    tabIndex={70}
+                >
                     neal.codes
                 </a>
                 . All Rights Reserved.

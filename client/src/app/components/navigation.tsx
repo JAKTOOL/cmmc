@@ -8,6 +8,7 @@ export const Navigation = () => {
                 <a
                     href="/"
                     className="flex items-center space-x-3 rtl:space-x-reverse"
+                    tabIndex={100}
                 >
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                         NIST SP 800-171 Rev 3
@@ -18,6 +19,7 @@ export const Navigation = () => {
                     <a
                         href="https://github.com/nealfennimore/nist-sp-800-171"
                         className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent"
+                        tabIndex={100}
                     >
                         <svg
                             className="w-5 h-5 mx-4"

@@ -22,7 +22,7 @@ interface SecurityRequirementProps {
     isPending: boolean;
 }
 
-const Select = ({ id, defaultValue, isPending }) => {
+const Select = ({ id, defaultValue, isPending, idx }) => {
     const [hasChanged, setHasChanged] = useState(!!defaultValue);
     const inputRef = useRef(null);
     const setToChanged = useMemo(
@@ -53,6 +53,8 @@ const Select = ({ id, defaultValue, isPending }) => {
                 className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                 disabled={isPending}
                 defaultValue={defaultValue}
+                tabIndex={20}
+                autoFocus={idx === 0 && !hasChanged}
             >
                 <option value="not-implemented">Not Implemented</option>
                 <option value="implemented">Implemented</option>
@@ -76,6 +78,7 @@ const SecurityRequirementSelect = ({
     securityRequirement,
     initialState,
     isPending,
+    idx,
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.status`;
     return (
@@ -90,6 +93,7 @@ const SecurityRequirementSelect = ({
                 id={key}
                 isPending={isPending}
                 defaultValue={initialState[key]}
+                idx={idx}
             />
         </div>
     );
@@ -110,6 +114,7 @@ const SecurityRequirementNote = ({
                 Description
             </label>
             <textarea
+                tabIndex={20}
                 name={key}
                 id={key}
                 rows={5}
@@ -125,6 +130,7 @@ const SecurityRequirement = ({
     securityRequirement,
     initialState,
     isPending,
+    idx,
 }: SecurityRequirementProps) => {
     return (
         <li className="mb-4">
@@ -147,6 +153,7 @@ const SecurityRequirement = ({
                         securityRequirement={securityRequirement}
                         initialState={initialState}
                         isPending={isPending}
+                        idx={idx}
                     />
                     <SecurityRequirementNote
                         securityRequirement={securityRequirement}
@@ -258,6 +265,7 @@ export const SecurityForm = ({
                     type="submit"
                     className="shrink w-24 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
                     disabled={isHydrating}
+                    tabIndex={30}
                 >
                     Save
                 </button>
@@ -267,7 +275,7 @@ export const SecurityForm = ({
                     </span>
                 )}
             </div>
-            {Object.entries(groupings)?.map(([key, grouping]) => (
+            {Object.entries(groupings)?.map(([key, grouping], idx) => (
                 <ol key={key}>
                     {grouping.map((securityRequirement) => (
                         <SecurityRequirement
@@ -275,6 +283,7 @@ export const SecurityForm = ({
                             securityRequirement={securityRequirement}
                             initialState={initialState}
                             isPending={isPending || isHydrating}
+                            idx={idx}
                         />
                     ))}
                 </ol>

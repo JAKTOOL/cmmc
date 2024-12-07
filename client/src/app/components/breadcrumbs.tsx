@@ -50,6 +50,7 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
                         className="text-sm text-gray-600"
                         href={link.href}
                         aria-disabled={link.disabled}
+                        tabIndex={60}
                     >
                         {link.text}
                     </Link>

@@ -23,6 +23,7 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
                 <Link
                     href={`/r3/requirement/${previous.requirement}`}
                     className={`flex flex-row items-center bg-gray-200 text-gray-700 border-gray-400 py-2 px-4 border-b-4 hover:bg-gray-300 ${prevClasses}`}
+                    tabIndex={40}
                 >
                     <svg
                         className="w-6 h-6 text-gray-500"
@@ -47,6 +48,7 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
                 <Link
                     href={`/r3/requirement/${next.requirement}`}
                     className={`flex flex-row items-center bg-gray-200 text-gray-700 border-gray-400 py-2 px-4 border-b-4 hover:bg-gray-300 ${nextClasses}`}
+                    tabIndex={41}
                 >
                     <span className="ml-4 mr-2">
                         {next.requirement}: {next.title}
