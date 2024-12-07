@@ -47,7 +47,7 @@ export const Export = () => {
         <form action={formAction}>
             <button
                 type="submit"
-                className="block px-4 py-2 text-sm text-gray-700"
+                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
                 disabled={isPending}
                 tabIndex={-1}
             >
@@ -132,7 +132,7 @@ export const Import = () => {
             />
             <button
                 type={"button"}
-                className="block px-4 py-2 text-sm text-gray-700"
+                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
                 disabled={isPending}
                 tabIndex={-1}
                 onClick={onClick}
