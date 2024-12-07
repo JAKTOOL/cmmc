@@ -111,6 +111,19 @@ export const put =
         });
     };
 
+export const clear = (table: string) => async (): Promise<boolean> => {
+    const store = await getStore(table, Permission.READWRITE);
+    return new Promise<boolean>((resolve, reject) => {
+        const request = store.clear();
+        request.onsuccess = () => {
+            resolve(true);
+        };
+        request.onerror = () => {
+            reject(false);
+        };
+    });
+};
+
 export class IDB {
     static getSecurityRequirements = getAll<IDBSecurityRequirement>(
         "security_requirements"
@@ -121,6 +134,9 @@ export class IDB {
         "security_requirements"
     );
     static putRequirement = put<IDBRequirement>("requirements");
+
+    static clearSecurityRequirements = clear("security_requirements");
+    static clearRequirements = clear("requirements");
 
     static getWriteableSecurityRequirementsStore = async () =>
         getStore("security_requirements", Permission.READWRITE);

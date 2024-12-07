@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ClearDB } from "./clear_db";
 import { Export, Import } from "./export_import";
 import { Markdown } from "./markdown";
 
@@ -46,7 +47,7 @@ export const Navigation = () => {
                         </div>
                         {isOpen && (
                             <div
-                                className="absolute top-10 right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none divide-y divide-gray-100"
+                                className="absolute top-10 right-0 z-100 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none divide-y divide-gray-100"
                                 role="menu"
                                 aria-orientation="vertical"
                                 aria-labelledby="menu-button"
@@ -60,6 +61,9 @@ export const Navigation = () => {
                                 <div className="py-1" role="none">
                                     <Export />
                                     <Import />
+                                </div>
+                                <div className="py-1" role="none">
+                                    <ClearDB />
                                 </div>
                                 <div className="py-1" role="none">
                                     <a

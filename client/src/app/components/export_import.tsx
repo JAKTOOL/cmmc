@@ -75,6 +75,13 @@ export const Import = () => {
                         throw new Error("Database version mismatch");
                     }
 
+                    const confirm = window.confirm(
+                        "Importing will overwrite the current database. Continue?"
+                    );
+                    if (!confirm) {
+                        return;
+                    }
+
                     const requirements: Record<string, IDBRequirement> = {};
 
                     for (const secReq of payload.securityRequirements) {
