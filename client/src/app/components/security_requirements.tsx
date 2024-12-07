@@ -148,6 +148,56 @@ const SecurityRequirement = ({
     );
 };
 
+const saveState = async (requirementId: string, formData: FormData) => {
+    const db = await getDB;
+    const store = db
+        ?.transaction("security_requirements", "readwrite")
+        .objectStore("security_requirements");
+
+    const records: Record<string, Record<string, FormDataEntryValue>> = {};
+    for (const [_key, value] of formData.entries()) {
+        // Extract the id from the key to the last period
+        const idx = _key.lastIndexOf(".");
+        const id = _key.substring(0, idx);
+        const key = _key.substring(idx + 1);
+        records[id] = { ...(records?.[id] || {}), [key]: value };
+    }
+    for (const [id, record] of Object.entries(records)) {
+        store?.put({ id, ...record });
+    }
+
+    const reqStore = db
+        ?.transaction("requirements", "readwrite")
+        .objectStore("requirements");
+
+    const statuses: string[] = [];
+    reqStore?.put({
+        id: requirementId,
+        bySecurityRequirementId: Object.entries(records).reduce(
+            (acc, [id, record]) => {
+                acc[id] = record.status;
+                statuses.push(record.status as string);
+                return acc;
+            },
+            {}
+        ),
+    });
+
+    return statuses;
+};
+
+function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
 export const SecurityForm = ({
     requirement,
     initialState,
@@ -158,61 +208,51 @@ export const SecurityForm = ({
     prev,
     next,
 }) => {
+    const [lastSaved, setLastSaved] = useState<Date | null>(null);
+
     async function action(prevState, formData) {
-        const db = await getDB;
-        const store = db
-            .transaction("security_requirements", "readwrite")
-            .objectStore("security_requirements");
-
-        const records: Record<string, Record<string, string>> = {};
-        for (const entry of formData.entries()) {
-            const [_key, value] = entry;
-            // Extract the id from the key to the last period
-            const idx = _key.lastIndexOf(".");
-            const id = _key.substring(0, idx);
-            const key = _key.substring(idx + 1);
-            records[id] = { ...(records?.[id] || {}), [key]: value };
-        }
-        for (const [id, record] of Object.entries(records)) {
-            store.put({ id, ...record });
-        }
-
-        const reqStore = db
-            .transaction("requirements", "readwrite")
-            .objectStore("requirements");
-
-        const statuses = [];
-        reqStore.put({
-            id: requirement.element_identifier,
-            bySecurityRequirementId: Object.entries(records).reduce(
-                (acc, [id, record]) => {
-                    acc[id] = record.status;
-                    statuses.push(record.status);
-                    return acc;
-                },
-                {}
-            ),
-        });
+        const statuses = await saveState(requirement.id, formData);
         setStatuses(statuses);
         setInitialState(Object.fromEntries(formData.entries()));
+        setLastSaved(new Date());
     }
+
+    const debouncedSave = useMemo(
+        () =>
+            debounce((event) => {
+                saveState(requirement.id, new FormData(event.target.form));
+                setLastSaved(new Date());
+            }, 2000),
+        [requirement.id]
+    );
+
     const [_, formAction, isPending] = useActionState(action, initialState);
 
     return (
         <form
             id={requirement.element_identifier}
             action={formAction}
+            onChange={debouncedSave}
             className="basis-full"
         >
             <ContentNavigation previous={prev} next={next} />
-            <button
-                type="submit"
-                className="shrink w-24 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none sticky top-32 left-full z-30"
-                disabled={isHydrating}
+            <div
+                className="sticky top-32 left-full z-30 flex flex-row-reverse items-center shrink-0 w-1/2"
                 style={{ transform: "translateY(-100%)" }}
             >
-                Save
-            </button>
+                <button
+                    type="submit"
+                    className="shrink w-24 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+                    disabled={isHydrating}
+                >
+                    Save
+                </button>
+                {lastSaved && (
+                    <span className="text-sm text-gray-500 mr-4">
+                        Last saved: {lastSaved?.toLocaleTimeString()}
+                    </span>
+                )}
+            </div>
             {Object.entries(groupings)?.map(([key, grouping]) => (
                 <ol key={key}>
                     {grouping.map((securityRequirement) => (
@@ -324,7 +364,7 @@ export const SecurityRequirements = ({
             };
         }
         fetchInitialState();
-    }, [requirementId, setInitialState]);
+    }, [requirementId, setInitialState, securityRequirements]);
 
     useEffect(() => {
         const handleHashChange = (event) => {
