@@ -82,6 +82,9 @@ export const Import = () => {
                         return;
                     }
 
+                    await IDB.securityRequirements.clear();
+                    await IDB.requirements.clear();
+
                     const requirements: Record<string, IDBRequirement> = {};
 
                     for (const secReq of payload.securityRequirements) {
