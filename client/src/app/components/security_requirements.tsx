@@ -23,41 +23,41 @@ interface SecurityRequirementProps {
 }
 
 const Select = ({ id, defaultValue, isPending }) => {
+    const [hasChanged, setHasChanged] = useState(!!defaultValue);
     const inputRef = useRef(null);
+    const setToChanged = useMemo(() => () => setHasChanged(true), []);
 
-    // HACK: To get around react resetting select element back to default value
-    // as it doesn't re-render properly otherwise
-    if (isPending) {
-        return (
+    return (
+        <div
+            onBlur={setToChanged}
+            onClick={setToChanged}
+            onKeyUp={setToChanged}
+            onChange={setToChanged}
+        >
             <select
-                key={`${id}-pending`}
+                // HACK: To get around react resetting select element back to default value
+                // as it doesn't re-render properly otherwise
+                key={`${id}-${isPending}`}
                 id={id}
                 name={id}
+                // ref={inputRef}
                 className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                disabled={true}
-                value={inputRef?.current?.value || defaultValue}
+                disabled={isPending}
+                defaultValue={inputRef?.current?.value || defaultValue}
             >
                 <option value="not-implemented">Not Implemented</option>
                 <option value="implemented">Implemented</option>
                 <option value="not-applicable">Not Applicable</option>
             </select>
-        );
-    }
+            {/* 
+                NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by clicking on the select parent element)
 
-    return (
-        <select
-            key={id}
-            id={id}
-            name={id}
-            ref={inputRef}
-            className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-            disabled={isPending}
-            defaultValue={defaultValue}
-        >
-            <option value="not-implemented">Not Implemented</option>
-            <option value="implemented">Implemented</option>
-            <option value="not-applicable">Not Applicable</option>
-        </select>
+                In cases where the status is not changed, we don't render the hidden input element to allow the status to be stored correctly
+            */}
+            {!hasChanged && (
+                <input type="hidden" name={id} value={defaultValue} />
+            )}
+        </div>
     );
 };
 
