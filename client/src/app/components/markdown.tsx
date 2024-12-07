@@ -92,9 +92,9 @@ export const Markdown = () => {
         <form action={formAction}>
             <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+                className="block px-4 py-2 text-sm text-gray-700"
                 disabled={isPending}
-                tabIndex={50}
+                tabIndex={-1}
             >
                 Generate Markdown
             </button>

@@ -1,9 +1,9 @@
 "use client";
 import { Status } from "@/app/components/status";
-
+export const version = 1;
 let loader: Promise<IDBDatabase> | undefined;
 if (typeof window !== "undefined") {
-    const request = window?.indexedDB?.open("800_171_r3", 1);
+    const request = window?.indexedDB?.open("800_171_r3", version);
 
     loader = new Promise((resolve, reject) => {
         request.onerror = (event) => {
@@ -56,13 +56,13 @@ export const getDB = function () {
     return loader || Promise.reject("Can't use IndexDB");
 };
 
-interface IDBSecurityRequirement {
+export interface IDBSecurityRequirement {
     id: string;
     status: string;
     description: string;
 }
 
-interface IDBRequirement {
+export interface IDBRequirement {
     id: string;
     bySecurityRequirementId: Record<string, Status>;
 }
@@ -96,6 +96,20 @@ export const getAll =
             };
         });
     };
+export const put =
+    <T>(table: string) =>
+    async (data: T): Promise<T[]> => {
+        const store = await getStore(table, Permission.READWRITE);
+        return new Promise<T[]>((resolve, reject) => {
+            const request = store.put(data);
+            request.onsuccess = () => {
+                resolve(request.result as T[]);
+            };
+            request.onerror = () => {
+                reject();
+            };
+        });
+    };
 
 export class IDB {
     static getSecurityRequirements = getAll<IDBSecurityRequirement>(
@@ -103,8 +117,15 @@ export class IDB {
     );
     static getRequirements = getAll<IDBRequirement>("requirements");
 
+    static putSecurityRequirement = put<IDBSecurityRequirement>(
+        "security_requirements"
+    );
+    static putRequirement = put<IDBRequirement>("requirements");
+
     static getWriteableSecurityRequirementsStore = async () =>
         getStore("security_requirements", Permission.READWRITE);
     static getWriteableRequirementsStore = async () =>
         getStore("requirements", Permission.READWRITE);
+
+    static version = version;
 }
