@@ -7,7 +7,7 @@ import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
 import { StatusState } from "./status";
 
-import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import { useActionState, useEffect, useMemo, useState } from "react";
 
 interface SecurityRequirement {
     element_identifier: string;
@@ -24,14 +24,16 @@ interface SecurityRequirementProps {
 
 const Select = ({ id, defaultValue, isPending }) => {
     const [hasChanged, setHasChanged] = useState(!!defaultValue);
-    const inputRef = useRef(null);
-    const setToChanged = useMemo(() => () => setHasChanged(true), []);
+    const setToChanged = useMemo(
+        () => () => !hasChanged && setHasChanged(true),
+        [hasChanged]
+    );
 
     return (
         <div
             onBlur={setToChanged}
             onClick={setToChanged}
-            onKeyUp={setToChanged}
+            onKeyDown={setToChanged}
             onChange={setToChanged}
         >
             <select
@@ -40,17 +42,16 @@ const Select = ({ id, defaultValue, isPending }) => {
                 key={`${id}-${isPending}`}
                 id={id}
                 name={id}
-                // ref={inputRef}
                 className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                 disabled={isPending}
-                defaultValue={inputRef?.current?.value || defaultValue}
+                defaultValue={defaultValue}
             >
                 <option value="not-implemented">Not Implemented</option>
                 <option value="implemented">Implemented</option>
                 <option value="not-applicable">Not Applicable</option>
             </select>
             {/* 
-                NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by clicking on the select parent element)
+                NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by events on the select parent element)
 
                 In cases where the status is not changed, we don't render the hidden input element to allow the status to be stored correctly
             */}
