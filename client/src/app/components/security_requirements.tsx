@@ -242,7 +242,7 @@ export const SecurityForm = ({
         >
             <ContentNavigation previous={prev} next={next} />
             <div
-                className="sticky top-32 left-full z-30 flex flex-row-reverse items-center shrink-0 w-1/2"
+                className="sticky top-32 left-full z-30 flex flex-row-reverse items-center shrink-0 w-1/4"
                 style={{ transform: "translateY(-100%)" }}
             >
                 <button
@@ -376,13 +376,17 @@ export const SecurityRequirements = ({
             const url = new URL(
                 `${window.location.origin}/${event.newURL.split("#")[1]}`
             );
-            // HACK: Allows for the back button to work properly
-            history.replaceState(
-                null,
-                "",
-                window.location.pathname + window.location.search
-            );
-            router.push(`/r3/requirement/${url.searchParams.get("element")}`);
+            if (url.searchParams.get("element")) {
+                // HACK: Allows for the back button to work properly
+                history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname + window.location.search
+                );
+                router.push(
+                    `/r3/requirement/${url.searchParams.get("element")}`
+                );
+            }
         };
 
         window.addEventListener("hashchange", handleHashChange);
