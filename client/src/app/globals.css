@@ -24,6 +24,32 @@ body > div {
     min-height: calc(100vh - 136px);
 }
 
-.discussion > a {
+.discussion > a,
+.md-output a {
     color: #3b82f6;
+}
+
+.md-output h6 {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+}
+.md-output h5 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+}
+.md-output h4 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+}
+.md-output h3 {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+}
+.md-output h2 {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+}
+.md-output h1 {
+    font-size: 3rem; /* 48px */
+    line-height: 1;
 }
