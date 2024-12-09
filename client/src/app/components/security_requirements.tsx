@@ -2,12 +2,21 @@
 import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
 import { IDB, IDBSecurityRequirement } from "@/app/db";
+import { marked } from "marked";
 import { useRouter } from "next/navigation";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
 import { Status, StatusState } from "./status";
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+
+// Set options
+marked.use({
+    async: true,
+    pedantic: false,
+    gfm: true,
+    breaks: true,
+});
 
 interface SecurityRequirementProps {
     securityRequirement: ElementWrapper;
@@ -17,7 +26,7 @@ interface SecurityRequirementProps {
 
 const Select = ({ id, defaultValue, isPending, idx }) => {
     const [hasChanged, setHasChanged] = useState(!!defaultValue);
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLSelectElement>(null);
     const setToChanged = useMemo(
         () => () => !hasChanged && setHasChanged(true),
         [hasChanged]
@@ -98,23 +107,94 @@ const SecurityRequirementNote = ({
     isPending,
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.description`;
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const mdRef = useRef<HTMLDivElement>(null);
+    const parentRef = useRef<HTMLDivElement>(null);
+    const [showOutput, setShowOutput] = useState(true);
+    const [currentState, setCurrentState] = useState(initialState[key]);
+
+    const hideOutput = useMemo(
+        () => () => {
+            setShowOutput(false);
+            textareaRef?.current?.focus();
+        },
+        []
+    );
+    const syncOutput = useMemo(
+        () => async () => {
+            if (mdRef?.current && textareaRef?.current) {
+                setShowOutput(true);
+                mdRef.current.innerHTML = await marked(
+                    textareaRef?.current?.value
+                );
+            }
+        },
+        []
+    );
+
+    useEffect(() => {
+        (async () => {
+            if (showOutput && currentState !== initialState[key]) {
+                setCurrentState(initialState[key]);
+                await syncOutput();
+            }
+        })();
+    }, [currentState, initialState]);
+
+    useEffect(() => {
+        if (textareaRef?.current) {
+            textareaRef.current.addEventListener("focus", hideOutput);
+            textareaRef.current.addEventListener("blur", syncOutput);
+        }
+
+        if (parentRef.current) {
+            parentRef.current.addEventListener("click", hideOutput);
+        }
+
+        return () => {
+            if (textareaRef?.current) {
+                textareaRef.current.removeEventListener("focus", hideOutput);
+                textareaRef.current.removeEventListener("blur", syncOutput);
+            }
+
+            if (parentRef.current) {
+                parentRef.current.removeEventListener("click", hideOutput);
+            }
+        };
+    }, [textareaRef, mdRef]);
+
     return (
-        <div className="flex flex-col grow">
+        <div className="flex flex-col grow" ref={parentRef}>
             <label
                 htmlFor={key}
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
             >
                 Description
             </label>
-            <textarea
-                tabIndex={20}
-                name={key}
-                id={key}
-                rows={5}
-                className="grow w-full rounded-md border border-input bg-transparent px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                disabled={isPending}
-                defaultValue={initialState[key]}
-            ></textarea>
+            <div className="relative">
+                <textarea
+                    ref={textareaRef}
+                    tabIndex={20}
+                    name={key}
+                    id={key}
+                    className={`min-h-32 grow z-0 w-full rounded-md border border-input bg-transparent px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm ${
+                        showOutput && textareaRef?.current?.value
+                            ? "absolute opacity-0"
+                            : ""
+                    }`}
+                    disabled={isPending}
+                    defaultValue={initialState[key]}
+                ></textarea>
+                <div
+                    ref={mdRef}
+                    tabIndex={-1}
+                    className={`min-h-32 relative z-10 md-output w-full rounded-md border border-input bg-white px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm ${
+                        showOutput && textareaRef?.current?.value
+                            ? ""
+                            : "hidden"
+                    }`}
+                ></div>
+            </div>
         </div>
     );
 };
