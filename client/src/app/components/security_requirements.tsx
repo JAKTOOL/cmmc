@@ -325,7 +325,7 @@ export const SecurityForm = ({
         >
             <ContentNavigation previous={prev} next={next} />
             <div
-                className="sticky top-36 left-full flex flex-row-reverse items-center shrink-0 w-1/4 pb-4"
+                className="sticky top-36 left-full flex flex-row-reverse items-center shrink-0 w-1/4 pb-4 z-20"
                 style={{ transform: "translateY(-100%)" }}
             >
                 <button
