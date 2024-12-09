@@ -29,6 +29,11 @@ body > div {
     color: #3b82f6;
 }
 
+.md-output blockquote {
+    border-left: 2px solid silver;
+    padding-left: 4px;
+}
+
 .md-output h6 {
     font-size: 1.125rem; /* 18px */
     line-height: 1.75rem; /* 28px */
