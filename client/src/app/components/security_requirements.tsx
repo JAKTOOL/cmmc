@@ -206,9 +206,9 @@ const SecurityRequirement = ({
     idx,
 }: SecurityRequirementProps) => {
     return (
-        <li className="mb-4">
+        <li className="mb-6">
             <fieldset className="flex flex-col grow">
-                <legend className="text-2xl flex flex-row items-center justify-center">
+                <legend className="text-2xl flex flex-row items-center text-left">
                     <StatusState
                         status={
                             initialState[
