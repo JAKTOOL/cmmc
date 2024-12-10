@@ -29,6 +29,23 @@ body > div {
     color: #3b82f6;
 }
 
+.md-output > * {
+    margin-bottom: 20px;
+}
+
+.md-output ol,
+.md-output ul {
+    margin-left: 16px;
+}
+
+.md-output ul {
+    list-style-type: circle;
+}
+
+.md-output ol {
+    list-style-type: decimal;
+}
+
 .md-output blockquote {
     border-left: 2px solid silver;
     padding-left: 4px;
