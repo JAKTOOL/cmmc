@@ -164,7 +164,7 @@ const SecurityRequirementNote = ({
     }, [textareaRef, mdRef]);
 
     return (
-        <div className="flex flex-col grow" ref={parentRef}>
+        <div className="flex flex-col grow w-10/12" ref={parentRef}>
             <label
                 htmlFor={key}
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
@@ -184,6 +184,11 @@ const SecurityRequirementNote = ({
                     }`}
                     disabled={isPending}
                     defaultValue={initialState[key]}
+                    style={{
+                        height: mdRef?.current?.offsetHeight
+                            ? `${mdRef?.current?.offsetHeight}px`
+                            : "auto",
+                    }}
                 ></textarea>
                 <div
                     ref={mdRef}
