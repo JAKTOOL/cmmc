@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ClearDB } from "./clear_db";
 import { Export, Import } from "./export_import";
 import { Markdown } from "./markdown";
+import { POAM } from "./poam";
 
 export const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -90,6 +91,7 @@ export const Navigation = () => {
                             >
                                 <div className="py-1" role="none">
                                     <Markdown />
+                                    <POAM />
                                 </div>
                                 <div className="py-1" role="none">
                                     <Export />
