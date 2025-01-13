@@ -10,6 +10,7 @@ By going through the 800-171 controls, you can generate a markdown file with all
 
 - Stores data client-side using [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), ensuring no privacy concerns
 - Generates a markdown file for compliance (Good for System Security Plan!)
+- Generates a POAM in CSV for unimplemented requirements
 - Allows for exporting and importing the database for archived storage
 
 ## Usage
