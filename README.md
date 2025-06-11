@@ -15,7 +15,7 @@ By going through the 800-171 controls, you can generate a markdown file with all
 
 ## Usage
 
-1. Go to [nist-sp-800-171](https://nist-sp-800-171.neal.codes/)
+1. Go to [nist-sp-800-171](https://cmmc.jaktool.com/)
 2. Start working through security controls for a family
 3. Choose whether it has been implemented or not, and any notes
 4. Click the upper right menu

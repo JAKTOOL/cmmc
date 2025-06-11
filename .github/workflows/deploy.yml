@@ -27,7 +27,7 @@ jobs:
           echo NEXT_PUBLIC_API_URL=https://cmmc.jaktool.com >> .env
 
       - name: Retrieve the cached "node_modules" directory (if present)
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: node-cache
         with:
           path: ./client/node_modules
@@ -45,7 +45,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          cname: nist-sp-800-171.neal.codes
+          cname: cmmc.jaktool.com
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./client/out  # This is the default output directory for `next export`
 
