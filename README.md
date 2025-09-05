@@ -1,7 +1,7 @@
-# NIST SP 800-171 Rev 3
+# CMMC
 
 > [!IMPORTANT]  
-> CMMC currently uses NIST 800-171 Rev 2. If you want to get ahead of eventual compliance using Rev 3, then this application is for you. NIST provides a [change analysis](https://csrc.nist.gov/files/pubs/sp/800/171/r3/final/docs/sp800-171r2-to-r3-analysis.xlsx) for what has changed.
+> CMMC currently uses NIST 800-171 Rev 2. If you want to get ahead of eventual compliance using Rev 3, then this application is for you. NIST provides a [change analysis](https://csrc.nist.gov/files/pubs/sp/800/171/r3/final/docs/sp800-171r2-to-r3-analysis.xlsx) for what's different.
 
 It was challenging to find resources for [NIST 800-171 Revision 3](https://csrc.nist.gov/publications/detail/sp/800-171/rev-3/final) and [CMMC](https://dodcio.defense.gov/cmmc/About/) compliance, so this application was created to solve that case.
 
