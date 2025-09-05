@@ -1,6 +1,9 @@
 # NIST SP 800-171 Rev 3
 
-I built this because it was challenging to find resources for [NIST 800-171 Revision 3](https://csrc.nist.gov/publications/detail/sp/800-171/rev-3/final) and [CMMC](https://dodcio.defense.gov/cmmc/About/) compliance.
+> [!IMPORTANT]  
+> CMMC currently uses NIST 800-171 Rev 2. If you want to get ahead of eventual compliance using Rev 3, then this application is for you. NIST provides a [change analysis](https://csrc.nist.gov/files/pubs/sp/800/171/r3/final/docs/sp800-171r2-to-r3-analysis.xlsx) for what has changed.
+
+It was challenging to find resources for [NIST 800-171 Revision 3](https://csrc.nist.gov/publications/detail/sp/800-171/rev-3/final) and [CMMC](https://dodcio.defense.gov/cmmc/About/) compliance, so this application was created to solve that case.
 
 By going through the 800-171 controls, you can generate a markdown file with all statuses and notes for each security control. Withdrawn controls are filtered out from the revision 2 -> revision 3 migration.
 
@@ -15,7 +18,7 @@ By going through the 800-171 controls, you can generate a markdown file with all
 
 ## Usage
 
-1. Go to [nist-sp-800-171](https://cmmc.jaktool.com/)
+1. Go to [CMMC app](https://cmmc.jaktool.com/)
 2. Start working through security controls for a family
 3. Choose whether it has been implemented or not, and any notes
 4. Click the upper right menu
@@ -42,6 +45,4 @@ All data is stored locally on your device using [IndexedDB](https://developer.mo
 
 ## License
 
-This project is licensed under the MIT License. I have no affiliation with NIST.
-
-Made the app in a couple days... don't expect the best code.
+This project is licensed under the MIT License and has no affiliation with NIST.
