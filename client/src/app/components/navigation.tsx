@@ -49,7 +49,7 @@ export const Navigation = () => {
                     tabIndex={100}
                 >
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                        NIST SP 800-171 Rev 3
+                        CMMC
                     </span>
                 </a>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -102,7 +102,7 @@ export const Navigation = () => {
                                 </div>
                                 <div className="py-1" role="none">
                                     <a
-                                        href="https://github.com/nealfennimore/nist-sp-800-171"
+                                        href="https://github.com/JAKTOOL/cmmc"
                                         className="block px-4 py-2 text-sm text-gray-700 flex flex-row"
                                         tabIndex={100}
                                     >

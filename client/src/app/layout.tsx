@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "SP NIST 800-171 Rev 3",
+    title: "CMMC | SP NIST 800-171 Rev 3",
     description: "NIST 800-171 Rev 3",
 };
 
