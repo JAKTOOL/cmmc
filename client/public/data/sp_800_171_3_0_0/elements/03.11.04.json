@@ -80,6 +80,19 @@
                                         "title": "",
                                         "text": "findings from security audits are responded to."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "RSK-06.1",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213066,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {

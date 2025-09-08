@@ -44,6 +44,30 @@
                                                 "title": "",
                                                 "text": "system security alerts, advisories, and directives from external organizations are received on an ongoing basis."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "THR-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213171,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "THR-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213172,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -64,6 +88,19 @@
                                                 "title": "",
                                                 "text": "internal security alerts, advisories, and directives are disseminated, as necessary."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "RSK-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213174,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -75,6 +112,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199082,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

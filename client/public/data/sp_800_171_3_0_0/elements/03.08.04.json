@@ -56,6 +56,19 @@
                                         "title": "",
                                         "text": "system media that contain CUI are marked to indicate applicable CUI markings."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "DCH-04",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212943,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -71,6 +84,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199052,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
