@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export const read =  async (path: string) => {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/elements/${path}`);
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/elements/${path}?${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`);
     const elements: Elements = Convert.toElements(await data.text())
     return elements;
 }

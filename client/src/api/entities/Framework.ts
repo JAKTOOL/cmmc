@@ -2,8 +2,8 @@ import { Convert, Element, ElementType, Framework } from "@/api/generated/Framew
 
 let cache: Framework | undefined;
 
-let manifestPromise = fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/framework.json`
+const manifestPromise = fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/framework.json?${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`
 ).then((r) => r.text());
 
 export const read = async () => {
