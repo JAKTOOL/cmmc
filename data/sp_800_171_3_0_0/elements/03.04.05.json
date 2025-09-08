@@ -92,6 +92,52 @@
                                         "title": "",
                                         "text": "logical access restrictions associated with changes to the system are enforced."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "CHG-04",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212683,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "CHG-04.4",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212684,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-08",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212685,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-21",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212686,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -107,6 +153,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199027,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

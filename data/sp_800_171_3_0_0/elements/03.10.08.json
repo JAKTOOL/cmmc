@@ -44,6 +44,41 @@
                                         "title": "",
                                         "text": "physical access to system distribution and transmission lines within organizational facilities is controlled."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "PES-07",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213035,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "PES-12",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213036,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "PES-12.1",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213037,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {

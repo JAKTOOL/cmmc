@@ -56,6 +56,41 @@
                                                 "title": "",
                                                 "text": "individuals are screened prior to authorizing access to the system."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212959,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212960,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-04.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212961,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -92,6 +127,30 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212962,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-04.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212963,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -109,6 +168,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199056,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

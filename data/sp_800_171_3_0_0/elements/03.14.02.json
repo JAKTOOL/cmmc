@@ -74,6 +74,30 @@
                                                 "title": "",
                                                 "text": "malicious code protection mechanisms are implemented at system entry and exit points to eradicate malicious code."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "END-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213162,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "END-04.3",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213163,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -87,6 +111,19 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "malicious code protection mechanisms are updated as new releases are available in accordance with configuration management policy and procedures."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "END-04.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213165,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -136,6 +173,19 @@
                                                         "title": "",
                                                         "text": "malicious code protection mechanisms are configured to perform real-time scans of files from external sources at endpoints or system entry and exit points as the files are downloaded, opened, or executed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "END-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213167,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -150,7 +200,33 @@
                                                         "title": "",
                                                         "text": "malicious code protection mechanisms are configured to block malicious code, quarantine malicious code, or take other actions in response to malicious code detection."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "END-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213169,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "END-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213166,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -169,6 +245,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199081,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

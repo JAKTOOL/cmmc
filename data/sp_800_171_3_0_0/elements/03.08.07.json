@@ -78,6 +78,30 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212952,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "DCH-10",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212953,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -91,6 +115,19 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the use of removable system media without an identifiable owner is prohibited."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "DCH-10.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212955,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -109,6 +146,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199054,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

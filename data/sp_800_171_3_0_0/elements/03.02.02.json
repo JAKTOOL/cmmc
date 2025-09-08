@@ -102,6 +102,63 @@
                                                             }
                                                         ]
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "HRS-04.1",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212589,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "HRS-04.2",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212590,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212591,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-03.3",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212592,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-03.6",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212594,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -138,7 +195,44 @@
                                                             }
                                                         ]
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "SAT-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212595,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-03.6",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212596,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "SAT-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212588,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -204,6 +298,41 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "SAT-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212597,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "SAT-03.6",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212598,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "THR-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212599,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -221,6 +350,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199014,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

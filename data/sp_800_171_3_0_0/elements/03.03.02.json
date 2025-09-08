@@ -56,6 +56,19 @@
                                                         "title": "",
                                                         "text": "audit records contain information that establishes what type of event occurred."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "MON-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212608,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -69,6 +82,30 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "audit records contain information that establishes when the event occurred."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "MON-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212609,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "MON-07",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212610,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -84,6 +121,19 @@
                                                         "title": "",
                                                         "text": "audit records contain information that establishes where the event occurred."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "MON-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212611,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -97,6 +147,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "audit records contain information that establishes the source of the event."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "MON-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212612,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -112,6 +175,19 @@
                                                         "title": "",
                                                         "text": "audit records contain information that establishes the outcome of the event."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "MON-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212613,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -126,7 +202,33 @@
                                                         "title": "",
                                                         "text": "audit records contain information that establishes the identity of the individuals, subjects, objects, or entities associated with the event."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "MON-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212614,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "MON-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212607,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -141,6 +243,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "additional information for audit records is provided, as needed."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212615,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "MON-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212616,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -159,6 +285,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199016,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

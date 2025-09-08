@@ -74,6 +74,41 @@
                                                 "title": "",
                                                 "text": "an inventory of system components is developed and documented."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212709,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212710,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212711,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -116,6 +151,41 @@
                                                 "title": "",
                                                 "text": "the system component inventory is updated <A.03.04.10.ODP[01]: frequency>."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212712,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212713,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212714,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -141,6 +211,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the system component inventory is updated as part of system updates."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212715,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212716,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }

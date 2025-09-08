@@ -80,6 +80,63 @@
                                                 "title": "",
                                                 "text": "a current baseline configuration of the system is maintained under configuration control."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212646,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212647,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.5",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212648,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.7",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212649,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212650,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -134,6 +191,19 @@
                                                 "title": "",
                                                 "text": "the baseline configuration of the system is updated when system components are installed or modified."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212651,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -151,6 +221,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199023,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -255,6 +326,63 @@
                                                 "title": "",
                                                 "text": "the following configuration settings for the system are implemented: <A.03.04.02.ODP[01]: configuration settings>."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212652,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.5",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212653,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212654,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212655,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212656,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -275,6 +403,118 @@
                                                 "title": "",
                                                 "text": "any deviations from established configuration settings are approved."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02.4",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212657,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212658,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212659,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.7",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212660,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212661,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212662,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212663,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212664,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212665,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212666,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -292,6 +532,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199024,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -362,6 +603,52 @@
                                                 "title": "",
                                                 "text": "the types of changes to the system that are configuration-controlled are defined."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212667,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212668,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212669,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212670,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -381,6 +668,41 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "proposed configuration-controlled changes to the system are approved or disapproved with explicit consideration for security impacts."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CHG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212671,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212672,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212673,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -402,6 +724,52 @@
                                                 "title": "",
                                                 "text": "approved configuration-controlled changes to the system are documented."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CHG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212675,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212674,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "MNT-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212676,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "MNT-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212677,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -422,6 +790,19 @@
                                                 "title": "",
                                                 "text": "activities associated with configuration-controlled changes to the system are reviewed."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212678,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -439,6 +820,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199025,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -503,6 +885,41 @@
                                                 "title": "",
                                                 "text": "changes to the system are analyzed to determine potential security impacts prior to change implementation."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CHG-02.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212679,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02.3",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212680,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212681,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -516,6 +933,19 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the security requirements for the system continue to be satisfied after the system changes have been implemented."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CHG-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212682,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -534,6 +964,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199026,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -643,6 +1074,52 @@
                                         "title": "",
                                         "text": "logical access restrictions associated with changes to the system are enforced."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "CHG-04",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212683,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "CHG-04.4",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212684,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-08",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212685,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-21",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212686,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -658,6 +1135,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199027,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -727,6 +1205,63 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the system is configured to provide only mission-essential capabilities."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02.4",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212688,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212687,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.5",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212689,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212690,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212691,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -876,6 +1411,41 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212692,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.5",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212693,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212694,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -912,6 +1482,19 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-03.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212695,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -925,6 +1508,41 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "unnecessary or nonsecure functions, ports, protocols, connections, and services are disabled or removed."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212696,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.5",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212697,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212698,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -943,6 +1561,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199028,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -1052,6 +1671,63 @@
                                                 "title": "",
                                                 "text": "software programs authorized to execute on the system are identified."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212699,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212700,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212701,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212702,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03.3",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212703,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -1065,6 +1741,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "a deny-all, allow-by-exception policy for the execution of authorized software programs on the system is implemented."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-03.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212704,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03.3",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212705,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -1102,6 +1802,41 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212706,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-03.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212707,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CPL-03.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212708,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -1119,6 +1854,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199029,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -1252,6 +1988,41 @@
                                                 "title": "",
                                                 "text": "an inventory of system components is developed and documented."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212709,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212710,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212711,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -1294,6 +2065,41 @@
                                                 "title": "",
                                                 "text": "the system component inventory is updated <A.03.04.10.ODP[01]: frequency>."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212712,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212713,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212714,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -1319,6 +2125,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the system component inventory is updated as part of system updates."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212715,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212716,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -1406,6 +2236,85 @@
                                                 "title": "",
                                                 "text": "the system components on which CUI is stored are identified and documented."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212717,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212718,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-02.8",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212719,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212720,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-04.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212721,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CPL-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212723,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "DCH-19",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212727,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -1425,6 +2334,107 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "changes to the system or system component location where CUI is stored are documented."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "AST-02.8",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212728,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212729,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "AST-04.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212730,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-02.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212732,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212733,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CHG-05",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212734,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "DCH-19",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212736,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IAO-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212737,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IAO-05",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212738,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -1525,6 +2535,30 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "CFG-02.5",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212740,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "CFG-02.9",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212741,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -1560,6 +2594,19 @@
                                                         ]
                                                     }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "MDM-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212744,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }

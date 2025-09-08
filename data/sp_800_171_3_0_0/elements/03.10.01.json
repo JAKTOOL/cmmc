@@ -62,6 +62,30 @@
                                                 "title": "",
                                                 "text": "a list of individuals with authorized access to the facility where the system resides is maintained."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "PES-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212987,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "PES-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212988,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -75,6 +99,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "authorization credentials for facility access are issued."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "PES-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212989,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "PES-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212990,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -112,6 +160,30 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IAC-17",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212991,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "PES-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212992,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -125,6 +197,41 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "individuals from the facility access list are removed when access is no longer required."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IAC-17",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212993,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "PES-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212994,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "PES-02.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212995,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -143,6 +250,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199058,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

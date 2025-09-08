@@ -56,6 +56,52 @@
                                         "title": "",
                                         "text": "multi-factor authentication for access to non-privileged accounts is implemented."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "IAC-06",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212754,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-06.1",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212755,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-06.2",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212756,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-06.3",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212757,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -71,6 +117,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199035,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

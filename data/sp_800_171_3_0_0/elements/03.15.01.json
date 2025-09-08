@@ -80,6 +80,52 @@
                                                 "title": "",
                                                 "text": "procedures needed to satisfy the security requirements for the protection of CUI are disseminated to organizational personnel or roles."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "GOV-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213196,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "GOV-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213197,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "OPS-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213204,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "OPS-01.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213205,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -121,6 +167,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "policies and procedures are updated <A.03.15.01.ODP[01]: frequency>."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "GOV-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213206,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "OPS-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213207,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }

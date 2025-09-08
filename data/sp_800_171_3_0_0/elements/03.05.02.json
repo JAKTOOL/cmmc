@@ -78,6 +78,41 @@
                                         "title": "",
                                         "text": "<A.03.05.02.ODP[01]: devices or types of devices> are authenticated before establishing a system connection."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "IAC-01.2",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212751,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-04",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212752,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IAC-05",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212753,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -93,6 +128,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199034,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

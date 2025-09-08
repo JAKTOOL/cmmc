@@ -62,6 +62,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that defines the constituent system components is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213210,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -75,6 +88,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "a system security plan that identifies the information types processed, stored, and transmitted by the system is developed."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213211,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -90,6 +116,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that describes specific threats to the system that are of concern to the organization is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213212,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -103,6 +142,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "a system security plan that describes the operational environment for the system and any dependencies on or connections to other systems or system components is developed."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213217,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -118,6 +170,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that provides an overview of the security requirements for the system is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213218,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -131,6 +196,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "a system security plan that describes the safeguards in place or planned for meeting the security requirements is developed."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213219,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -146,6 +224,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that identifies individuals that fulfill system roles and responsibilities is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213220,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -160,7 +251,33 @@
                                                         "title": "",
                                                         "text": "a system security plan that includes other relevant information necessary for the protection of CUI is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213221,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IAO-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213209,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -204,6 +321,19 @@
                                                 "title": "",
                                                 "text": "the system security plan is updated <A.03.15.02.ODP[01]: frequency>."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IAO-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213222,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -235,6 +365,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199086,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

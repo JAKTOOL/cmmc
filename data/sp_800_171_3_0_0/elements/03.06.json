@@ -92,6 +92,52 @@
                                         "title": "",
                                         "text": "the incident handling capability includes recovery."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "IRO-01",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212828,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IRO-02",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212829,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IRO-04",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212830,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "IRO-12",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212831,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -107,6 +153,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199041,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -183,6 +230,30 @@
                                                 "title": "",
                                                 "text": "system security incidents are documented."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212832,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-09",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212833,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -218,6 +289,41 @@
                                                         ]
                                                     }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212834,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-09",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212835,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-10",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212836,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -255,6 +361,41 @@
                                                     }
                                                 ]
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212838,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-10",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212839,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-14",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212841,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -268,6 +409,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "an incident response support resource that offers advice and assistance to system users on handling and reporting incidents is provided."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212842,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-11",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212843,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -286,6 +451,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199042,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -384,6 +550,19 @@
                                             }
                                         ]
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "IRO-06",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212844,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             }
                         ],
@@ -393,6 +572,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199043,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -491,6 +671,30 @@
                                                             }
                                                         ]
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "HRS-04.2",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212849,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212850,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -504,6 +708,30 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "incident response training for system users consistent with assigned roles and responsibilities is provided when required by system changes."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "SAT-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212851,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-03.6",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212852,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -541,7 +769,77 @@
                                                             }
                                                         ]
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-05",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212853,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    },
+                                                    {
+                                                        "elementIdentifier": "SAT-02",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212854,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212845,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-04.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212846,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-05",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212847,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "SAT-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212848,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -618,6 +916,52 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "incident response training content is updated following <A.03.06.04.ODP[04]: events>."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-04.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212855,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-04.3",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212856,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IRO-13",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212857,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "SAT-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212858,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -696,6 +1040,19 @@
                                                         "title": "",
                                                         "text": "an incident response plan is developed that provides the organization with a roadmap for implementing its incident response capability."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212861,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -709,6 +1066,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "an incident response plan is developed that describes the structure and organization of the incident response capability."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212862,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -724,6 +1094,19 @@
                                                         "title": "",
                                                         "text": "an incident response plan is developed that provides a high-level approach for how the incident response capability fits into the overall organization."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212863,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -737,6 +1120,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "an incident response plan is developed that defines reportable incidents."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212864,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -752,6 +1148,19 @@
                                                         "title": "",
                                                         "text": "an incident response plan is developed that addresses the sharing of incident information."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212865,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -766,7 +1175,33 @@
                                                         "title": "",
                                                         "text": "an incident response plan is developed that designates responsibilities to organizational entities, personnel, or roles."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IRO-04",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 212866,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212860,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -788,6 +1223,19 @@
                                                 "title": "",
                                                 "text": "copies of the incident response plan are distributed to organizational elements."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-04",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212867,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -802,6 +1250,19 @@
                                                 "title": "",
                                                 "text": "the incident response plan is updated to address system and organizational changes or problems encountered during plan implementation, execution, or testing."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IRO-04.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212868,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -815,6 +1276,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the incident response plan is protected from unauthorized disclosure."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212870,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "IAC-08",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212871,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }

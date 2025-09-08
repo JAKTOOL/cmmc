@@ -68,6 +68,30 @@
                                                 "title": "",
                                                 "text": "the confidentiality of backup information is protected."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "BCD-11",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212956,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "BCD-11.4",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212957,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -81,6 +105,19 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "cryptographic mechanisms are implemented to prevent the unauthorized disclosure of CUI at backup storage locations."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "BCD-11.4",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212958,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -99,6 +136,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199055,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

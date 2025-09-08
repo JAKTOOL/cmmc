@@ -80,6 +80,52 @@
                                                 "title": "",
                                                 "text": "procedures needed to satisfy the security requirements for the protection of CUI are disseminated to organizational personnel or roles."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "GOV-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213196,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "GOV-02",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213197,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "OPS-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213204,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "OPS-01.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213205,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -121,6 +167,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "policies and procedures are updated <A.03.15.01.ODP[01]: frequency>."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "GOV-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213206,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "OPS-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213207,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }
@@ -337,6 +407,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that defines the constituent system components is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213210,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -350,6 +433,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "a system security plan that identifies the information types processed, stored, and transmitted by the system is developed."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213211,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -365,6 +461,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that describes specific threats to the system that are of concern to the organization is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213212,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -378,6 +487,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "a system security plan that describes the operational environment for the system and any dependencies on or connections to other systems or system components is developed."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213217,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -393,6 +515,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that provides an overview of the security requirements for the system is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213218,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -406,6 +541,19 @@
                                                         "elementTypeIdentifier": "determination",
                                                         "title": "",
                                                         "text": "a system security plan that describes the safeguards in place or planned for meeting the security requirements is developed."
+                                                    }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213219,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
                                                     }
                                                 ]
                                             },
@@ -421,6 +569,19 @@
                                                         "title": "",
                                                         "text": "a system security plan that identifies individuals that fulfill system roles and responsibilities is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213220,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
                                             },
                                             {
@@ -435,7 +596,33 @@
                                                         "title": "",
                                                         "text": "a system security plan that includes other relevant information necessary for the protection of CUI is developed."
                                                     }
+                                                ],
+                                                "externalRelationships": [
+                                                    {
+                                                        "elementIdentifier": "IAO-03",
+                                                        "relationIdentifier": "olir_focal",
+                                                        "olirEntryElementId": 213221,
+                                                        "shortName": "SCF",
+                                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                        "elementTypeIdentifier": "x",
+                                                        "title": "y",
+                                                        "text": "z",
+                                                        "olirName": "a"
+                                                    }
                                                 ]
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IAO-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213209,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -479,6 +666,19 @@
                                                 "title": "",
                                                 "text": "the system security plan is updated <A.03.15.02.ODP[01]: frequency>."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "IAO-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213222,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -510,6 +710,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199086,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
@@ -574,6 +775,63 @@
                                                 "title": "",
                                                 "text": "rules that describe responsibilities and expected behavior for system usage and protecting CUI are established."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213225,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-05",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213226,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-05.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213227,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-05.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213228,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-05.3",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213229,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -588,6 +846,41 @@
                                                 "title": "",
                                                 "text": "rules are provided to individuals who require access to the system."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213232,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-04.2",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213234,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213236,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -601,6 +894,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "a documented acknowledgement from individuals indicating that they have read, understand, and agree to abide by the rules of behavior is received before authorizing access to CUI and the system."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "HRS-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213238,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-06.1",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213239,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     },
@@ -643,6 +960,30 @@
                                                 "elementTypeIdentifier": "determination",
                                                 "title": "",
                                                 "text": "the rules of behavior are updated <A.03.15.03.ODP[01]: frequency>."
+                                            }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "GOV-03",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213240,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            },
+                                            {
+                                                "elementIdentifier": "HRS-01",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 213241,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
                                             }
                                         ]
                                     }

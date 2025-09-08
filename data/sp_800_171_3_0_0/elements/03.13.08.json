@@ -152,6 +152,52 @@
                                         "title": "",
                                         "text": "cryptographic mechanisms are implemented to prevent the unauthorized disclosure of CUI while in storage."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "CRY-01",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213128,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "CRY-01.1",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213129,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "CRY-03",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213130,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "CRY-05",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 213131,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -167,6 +213,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199073,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

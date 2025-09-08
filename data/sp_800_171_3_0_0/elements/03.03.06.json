@@ -68,6 +68,19 @@
                                                 "title": "",
                                                 "text": "an audit record reduction and report generation capability that supports after-the-fact investigations of incidents is implemented."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "MON-06",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212634,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     },
                                     {
@@ -88,6 +101,19 @@
                                                 "title": "",
                                                 "text": "the original time ordering of audit records is preserved."
                                             }
+                                        ],
+                                        "externalRelationships": [
+                                            {
+                                                "elementIdentifier": "MON-08",
+                                                "relationIdentifier": "olir_focal",
+                                                "olirEntryElementId": 212635,
+                                                "shortName": "SCF",
+                                                "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                                "elementTypeIdentifier": "x",
+                                                "title": "y",
+                                                "text": "z",
+                                                "olirName": "a"
+                                            }
                                         ]
                                     }
                                 ]
@@ -105,6 +131,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199020,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",

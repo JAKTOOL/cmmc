@@ -50,6 +50,52 @@
                                         "title": "",
                                         "text": "system media that contain CUI are sanitized prior to disposal, release out of organizational control, or release for reuse."
                                     }
+                                ],
+                                "externalRelationships": [
+                                    {
+                                        "elementIdentifier": "AST-09",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212938,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "DCH-08",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212939,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "DCH-09",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212940,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    },
+                                    {
+                                        "elementIdentifier": "DCH-21",
+                                        "relationIdentifier": "olir_focal",
+                                        "olirEntryElementId": 212941,
+                                        "shortName": "SCF",
+                                        "frameworkVersionIdentifier": "SCF2024.4_2024_4",
+                                        "elementTypeIdentifier": "x",
+                                        "title": "y",
+                                        "text": "z",
+                                        "olirName": "a"
+                                    }
                                 ]
                             },
                             {
@@ -65,6 +111,7 @@
                                 "relationIdentifier": "olir_focal",
                                 "olirEntryElementId": 199051,
                                 "shortName": "SP 800-171 Rev 2",
+                                "frameworkVersionIdentifier": "SP_800_171_2_0_0",
                                 "elementTypeIdentifier": "x",
                                 "title": "y",
                                 "text": "z",
