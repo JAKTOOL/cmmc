@@ -32,6 +32,7 @@ export interface Document {
 
 export enum DocIdentifier {
     SP800_171_3_0_0 = "SP_800_171_3_0_0",
+    SP800_53_5_1_1 = "SP_800_53_5_1_1",
 }
 
 export interface Element {
@@ -284,6 +285,7 @@ const typeMap: any = {
     ], false),
     "DocIdentifier": [
         "SP_800_171_3_0_0",
+        "SP_800_53_5_1_1",
     ],
     "ElementType": [
         "determination",
