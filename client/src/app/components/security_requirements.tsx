@@ -541,16 +541,15 @@ export const SecurityRequirements = ({
                         {
                             title: "Merged With",
                             value: value?.withdrawn_from?.map((id) => (
-                                <>
-                                    <a
-                                        href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_2_0_0/home?element=${requirement.id}`}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-xs mr-2"
-                                    >
-                                        {id}
-                                    </a>
-                                </>
+                                <a
+                                    key={id}
+                                    href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_2_0_0/home?element=${requirement.id}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-xs mr-2"
+                                >
+                                    {id}
+                                </a>
                             )),
                         },
                         {
