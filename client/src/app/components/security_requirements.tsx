@@ -4,8 +4,10 @@ import { useManifestContext } from "@/app/context";
 import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
+import { useRequirementValue } from "../hooks/requirementValues";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
+import { DataTable } from "./datatable";
 import { Status, StatusState } from "./status";
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
@@ -374,6 +376,7 @@ export const SecurityRequirements = ({
     const [statuses, setStatuses] = useState<Status[]>([]);
     const manifest = useManifestContext();
     const router = useRouter();
+    const value = useRequirementValue(requirementId);
     const securityRequirements = useMemo(() => {
         return (
             manifest?.securityRequirements.byRequirements[requirementId] || []
@@ -516,14 +519,47 @@ export const SecurityRequirements = ({
                             ?.text || "",
                 }}
             ></p>
-            <a
-                href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_3_0_0/home?element=${requirement.id}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs text-gray-600"
-            >
-                View CPRT {requirement.id}
-            </a>
+            <aside className="flex flex-wrap justify-between items-center w-full mx-auto">
+                <div className="flex mb-4 sm:mb-1">
+                    <a
+                        href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_3_0_0/home?element=${requirement.id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-gray-600"
+                    >
+                        View CPRT {requirement.id}
+                    </a>
+                </div>
+                <DataTable
+                    rows={[
+                        { title: "Revision", value: value?.revision },
+                        { title: "Value", value: value?.value },
+                        {
+                            title: "Partial Value",
+                            value: value?.partial_value || null,
+                        },
+                        {
+                            title: "Merged With",
+                            value: value?.withdrawn_from?.map((id) => (
+                                <>
+                                    <a
+                                        href={`https://csrc.nist.gov/projects/cprt/catalog#/cprt/framework/version/SP_800_171_2_0_0/home?element=${requirement.id}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="text-xs mr-2"
+                                    >
+                                        {id}
+                                    </a>
+                                </>
+                            )),
+                        },
+                        {
+                            title: "Merged Value",
+                            value: value?.aggregate_value_withdrawn_from,
+                        },
+                    ]}
+                />
+            </aside>
             <section className="w-full flex flex-col">
                 <SecurityForm
                     requirement={requirement}

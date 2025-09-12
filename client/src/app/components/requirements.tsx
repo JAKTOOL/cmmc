@@ -4,19 +4,19 @@ import { IDB } from "@/app/db";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Breadcrumbs } from "./breadcrumbs";
-import { StatusState } from "./status";
+import { Status, StatusState } from "./status";
 
 export const Requirements = ({ familyId }: { familyId: string }) => {
     const manifest = useManifestContext();
     const requirements = manifest.requirements.byFamily[familyId];
     const family = manifest.families.byId[familyId];
-    const [status, setStatus] = useState({});
-    if (!requirements?.length) {
-        return null;
-    }
+    const [status, setStatus] = useState({} as Record<string, Status[]>);
 
     useEffect(() => {
         async function fetchInitialState() {
+            if (!requirements?.length) {
+                return null;
+            }
             const ids = requirements.map((r) => r.element_identifier);
             const idbRequirements = await IDB.requirements.getAll(
                 IDBKeyRange.bound(ids[0], ids[ids.length - 1])
@@ -36,7 +36,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                 }
                 acc[cur.id] = values;
                 return acc;
-            }, {});
+            }, {} as Record<string, Status[]>);
 
             if (unfinishedWork) {
                 status["all"] = ["needs-work"];
