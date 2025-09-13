@@ -1,22 +1,39 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "shell",
-            "command": "npm run dev",
-            "problemMatcher": [],
-            "label": "npm: dev",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "options": {
-                "cwd": "${workspaceFolder}/client",
-                "env": {
-                    "NEXT_PUBLIC_API_URL": "http://localhost:3000",
-                    "NEXT_PUBLIC_FRAMEWORK_VERSION": ""
-                }
-            }
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "npm run dev",
+      "problemMatcher": [],
+      "label": "npm: dev",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/client",
+        "env": {
+          "NEXT_PUBLIC_API_URL": "http://localhost:3000",
+          "NEXT_PUBLIC_FRAMEWORK_VERSION": ""
         }
-    ]
+      }
+    },
+    {
+      "type": "shell",
+      "command": "npm run build",
+      "problemMatcher": [],
+      "label": "npm: build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/client",
+        "env": {
+          "NEXT_PUBLIC_API_URL": "http://localhost:3000",
+          "NEXT_PUBLIC_FRAMEWORK_VERSION": ""
+        }
+      }
+    }
+  ]
 }
