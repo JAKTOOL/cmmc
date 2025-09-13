@@ -1,18 +1,19 @@
 "use client";
 import {
     read,
-    RequirementValuesSchema,
+    SecurityRequirementValuesSchema,
 } from "@/api/entities/RequirementValues";
 import { useEffect, useState } from "react";
 
 export const useRequirementsValues = () => {
     const [requirementValuesSchema, setRequirementValuesSchema] = useState(
-        undefined as RequirementValuesSchema | undefined
+        undefined as SecurityRequirementValuesSchema | undefined
     );
 
     useEffect(() => {
         async function fetchInitialState() {
-            const reqValueSchema = (await read()) as RequirementValuesSchema;
+            const reqValueSchema =
+                (await read()) as SecurityRequirementValuesSchema;
             setRequirementValuesSchema(reqValueSchema);
         }
         fetchInitialState();

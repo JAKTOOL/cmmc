@@ -1,5 +1,7 @@
 "use client";
 import { useManifestContext } from "@/app/context";
+import { useScore } from "@/app/hooks/score";
+import { useGlobalStatus } from "@/app/hooks/status";
 import Link from "next/link";
 
 interface BreadcrumbLink {
@@ -15,6 +17,10 @@ interface BreadcrumbsProps {
 
 export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
     const manifest = useManifestContext();
+    const score = useScore();
+    const groupStatus = useGlobalStatus();
+
+    console.log("familyState", groupStatus);
     const links: BreadcrumbLink[] = [
         {
             href: "/r3",

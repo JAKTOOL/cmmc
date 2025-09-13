@@ -1,14 +1,14 @@
 "use client";
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
-import { useFamilyState } from "../hooks/familyState";
+import { useGroupStatus } from "../hooks/status";
 import { Breadcrumbs } from "./breadcrumbs";
 import { StatusState } from "./status";
 
 export const Families = () => {
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
-    const familyState = useFamilyState();
+    const groupStatus = useGroupStatus();
     if (!families?.length) {
         return null;
     }
@@ -26,9 +26,9 @@ export const Families = () => {
                         >
                             <h3 className="text-2xl flex flex-row">
                                 <StatusState
-                                    statuses={
-                                        familyState?.[family.element_identifier]
-                                            ?.requirement_statuses
+                                    status={
+                                        groupStatus?.[family.element_identifier]
+                                            ?.familyStatus
                                     }
                                 />
                                 <span className="flex flex-col mr-2">

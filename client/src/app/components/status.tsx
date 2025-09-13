@@ -15,6 +15,52 @@ export enum Status {
     _NOT_STARTED_DEFAULT = "", // Special default value for empty form fields
 }
 
+const isNotStarted = (status: Status) =>
+    status === Status._NOT_STARTED_DEFAULT || status === Status.NOT_STARTED;
+const hasNotStarted = (statuses: Status[]) =>
+    statuses.includes(Status.NOT_STARTED) ||
+    statuses.includes(Status._NOT_STARTED_DEFAULT);
+
+export const calcStatus = (statuses: Status[] | undefined) => {
+    if (statuses?.length) {
+        if (statuses.includes(Status.NEEDS_WORK)) {
+            return Status.NEEDS_WORK;
+        }
+
+        if (hasNotStarted(statuses) && !statuses.every(isNotStarted)) {
+            return Status.NEEDS_WORK;
+        }
+
+        if (
+            statuses.some((s) => s === Status.IMPLEMENTED) &&
+            statuses.some((s) => s === Status.NOT_IMPLEMENTED)
+        ) {
+            if (hasNotStarted(statuses)) {
+                return Status.NEEDS_WORK;
+            }
+            return Status.PARTIALLY_IMPLEMENTED;
+        }
+
+        if (statuses.includes(Status.NOT_IMPLEMENTED)) {
+            return Status.NOT_IMPLEMENTED;
+        }
+
+        if (statuses.every((s) => s === Status.NOT_APPLICABLE)) {
+            return Status.NOT_APPLICABLE;
+        }
+
+        if (
+            statuses.every((s) =>
+                [Status.NOT_APPLICABLE, Status.IMPLEMENTED].includes(s)
+            )
+        ) {
+            return Status.IMPLEMENTED;
+        }
+    }
+
+    return Status.NOT_STARTED;
+};
+
 const StatusSpan = ({ status }: { status?: Status }) => {
     switch (status) {
         case Status.IMPLEMENTED:
@@ -79,47 +125,5 @@ export const StatusState = ({ statuses, status }: StatusStateProps) => {
         return <StatusSpan status={status} />;
     }
 
-    if (statuses?.length) {
-        if (statuses.includes(Status.NEEDS_WORK)) {
-            return <StatusSpan status={Status.NEEDS_WORK} />;
-        }
-
-        if (
-            statuses.includes(Status.NOT_STARTED) &&
-            !statuses.every((s) => s === Status.NOT_STARTED)
-        ) {
-            return <StatusSpan status={Status.NEEDS_WORK} />;
-        }
-
-        if (
-            statuses.some((s) => s === Status.IMPLEMENTED) &&
-            statuses.some((s) => s === Status.NOT_IMPLEMENTED)
-        ) {
-            if (
-                statuses.includes(Status.NOT_STARTED) ||
-                statuses.includes(Status._NOT_STARTED_DEFAULT)
-            ) {
-                return <StatusSpan status={Status.NEEDS_WORK} />;
-            }
-            return <StatusSpan status={Status.PARTIALLY_IMPLEMENTED} />;
-        }
-
-        if (statuses.includes(Status.NOT_IMPLEMENTED)) {
-            return <StatusSpan status={Status.NOT_IMPLEMENTED} />;
-        }
-
-        if (statuses.every((s) => s === Status.NOT_APPLICABLE)) {
-            return <StatusSpan status={Status.NOT_APPLICABLE} />;
-        }
-
-        if (
-            statuses.every((s) =>
-                [Status.NOT_APPLICABLE, Status.IMPLEMENTED].includes(s)
-            )
-        ) {
-            return <StatusSpan status={Status.IMPLEMENTED} />;
-        }
-    }
-
-    return <StatusSpan />;
+    return <StatusSpan status={calcStatus(statuses)} />;
 };
