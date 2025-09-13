@@ -67,7 +67,8 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
             <div>
                 <span className="text-sm text-gray-400 mr-2">Score:</span>
                 <span className="text-sm text-gray-400">
-                    {globalScore?.score ?? 0}/{GlobalScore.maxScore}
+                    {(globalScore?.score ?? 0).toFixed(2)}/
+                    {GlobalScore.maxScore}
                 </span>
             </div>
         </aside>
