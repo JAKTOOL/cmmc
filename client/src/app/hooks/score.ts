@@ -44,10 +44,9 @@ class Score {
 
 type ScoresRecord = Record<string, Score>;
 
-class GlobalScore {
+export class GlobalScore {
+    static maxScore = 110;
     records: ScoresRecord;
-
-    maxScore = 110;
 
     constructor(records?: ScoresRecord) {
         this.records = records || {};
@@ -56,7 +55,7 @@ class GlobalScore {
     get score() {
         return Object.values(this.records).reduce((acc, score) => {
             return acc - score.penalty;
-        }, this.maxScore);
+        }, GlobalScore.maxScore);
     }
 }
 
@@ -66,7 +65,7 @@ export const useGlobalScore = () => {
     const reqValueSchema = useRequirementsValues();
     const globalStatus = useGlobalStatus();
 
-    const globalScores = useMemo(() => {
+    return useMemo(() => {
         if (!requirements?.length || !reqValueSchema || !globalStatus) {
             return;
         }
@@ -83,6 +82,4 @@ export const useGlobalScore = () => {
 
         return new GlobalScore(records);
     }, [requirements, reqValueSchema, globalStatus]);
-
-    return globalScores;
 };

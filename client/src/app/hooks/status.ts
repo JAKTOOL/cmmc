@@ -1,19 +1,14 @@
 "use client";
 import { useManifestContext } from "@/app/context";
-import { IDB, IDBRequirement } from "@/app/db";
-import { useEffect, useState } from "react";
+import { IDBRequirement } from "@/app/db";
+import { useMemo } from "react";
 import { Status, calcStatus } from "../components/status";
-import { useRequirementsValues } from "./requirementValues";
+import { useDBRequirements } from "./db";
 
 class FamilyStatus {
-    // securityRequirementValues: SecurityRequirementValue[];
     subSecurityRequirementStatuses: Record<string, Status>;
 
-    constructor(
-        // securityRequirementValues?: SecurityRequirementValue[],
-        subSecurityRequirementStatuses?: Record<string, Status>
-    ) {
-        // this.securityRequirementValues = securityRequirementValues || [];
+    constructor(subSecurityRequirementStatuses?: Record<string, Status>) {
         this.subSecurityRequirementStatuses =
             subSecurityRequirementStatuses || {};
     }
@@ -56,63 +51,53 @@ type GlobalStatuses = Record<string, FamilyStatus>;
 export const useGlobalStatus = () => {
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
-    const [aggregateFamilyStatus, setAggregateFamilyStatus] = useState(
-        undefined as GlobalStatuses | undefined
-    );
+    const securityRequirementsByRequirements =
+        manifest.securityRequirements.byRequirements;
+    const idbRequirements = useDBRequirements();
 
-    useEffect(() => {
-        async function fetchInitialState() {
-            if (!families?.length) {
-                return;
-            }
-            const idbRequirements = await IDB.requirements.getAll();
+    return useMemo(() => {
+        if (!families?.length || !idbRequirements) {
+            return;
+        }
 
-            const familyStatus = families.reduce((acc, family) => {
-                acc[family.element_identifier] = new FamilyStatus();
-                // manifest.requirements.byFamily[
-                //     family.element_identifier
-                // ].map((req) =[req.element_identifier])
-                return acc;
-            }, {} as GlobalStatuses);
+        const familyStatus = families.reduce((acc, family) => {
+            acc[family.element_identifier] = new FamilyStatus();
+            return acc;
+        }, {} as GlobalStatuses);
 
-            const storedRequirements = idbRequirements?.reduce((acc, cur) => {
-                acc[cur.id] = cur;
-                return acc;
-            }, {} as Record<string, IDBRequirement>);
+        const storedRequirements = idbRequirements?.reduce((acc, cur) => {
+            acc[cur.id] = cur;
+            return acc;
+        }, {} as Record<string, IDBRequirement>);
 
-            for (const [requirementId, securityRequirements] of Object.entries(
-                manifest.securityRequirements.byRequirements
-            )) {
-                const family = securityRequirements[0].family;
+        for (const [requirementId, securityRequirements] of Object.entries(
+            securityRequirementsByRequirements
+        )) {
+            const family = securityRequirements[0].family;
 
-                let subSecurityStatuses = securityRequirements.reduce(
-                    (acc, securityRequirement) => {
-                        acc[securityRequirement.subSubRequirement] =
-                            Status.NOT_STARTED;
-                        return acc;
-                    },
-                    {} as Record<string, Status>
-                );
+            let subSecurityStatuses = securityRequirements.reduce(
+                (acc, securityRequirement) => {
+                    acc[securityRequirement.subSubRequirement] =
+                        Status.NOT_STARTED;
+                    return acc;
+                },
+                {} as Record<string, Status>
+            );
 
-                if (storedRequirements[requirementId]) {
-                    subSecurityStatuses = {
-                        ...subSecurityStatuses,
-                        ...storedRequirements[requirementId]
-                            .bySecurityRequirementId,
-                    };
-                }
-                familyStatus[family].subSecurityRequirementStatuses = {
-                    ...familyStatus[family].subSecurityRequirementStatuses,
+            if (storedRequirements[requirementId]) {
+                subSecurityStatuses = {
                     ...subSecurityStatuses,
+                    ...storedRequirements[requirementId]
+                        .bySecurityRequirementId,
                 };
             }
-
-            setAggregateFamilyStatus(familyStatus);
+            familyStatus[family].subSecurityRequirementStatuses = {
+                ...familyStatus[family].subSecurityRequirementStatuses,
+                ...subSecurityStatuses,
+            };
         }
-        fetchInitialState();
-    }, [families]);
-
-    return aggregateFamilyStatus;
+        return familyStatus;
+    }, [families, securityRequirementsByRequirements, idbRequirements]);
 };
 
 export const useFamilyStatus = (familyId: string) => {

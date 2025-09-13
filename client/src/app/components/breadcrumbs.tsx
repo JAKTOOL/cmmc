@@ -1,7 +1,6 @@
 "use client";
 import { useManifestContext } from "@/app/context";
-import { useGlobalScore } from "@/app/hooks/score";
-import { useGlobalStatus } from "@/app/hooks/status";
+import { GlobalScore, useGlobalScore } from "@/app/hooks/score";
 import Link from "next/link";
 
 interface BreadcrumbLink {
@@ -18,10 +17,7 @@ interface BreadcrumbsProps {
 export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
     const manifest = useManifestContext();
     const globalScore = useGlobalScore();
-    const globalStatus = useGlobalStatus();
 
-    console.log("familyState", globalStatus);
-    console.log(globalScore?.score);
     const links: BreadcrumbLink[] = [
         {
             href: "/r3",
@@ -50,22 +46,30 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
     }
 
     return (
-        <aside>
-            {links.map((link, index) => (
-                <span key={index}>
-                    <Link
-                        className="text-sm text-gray-600"
-                        href={link.href}
-                        aria-disabled={link.disabled}
-                        tabIndex={60}
-                    >
-                        {link.text}
-                    </Link>
-                    {index < links.length - 1 && (
-                        <span className="text-sm mx-2"> &gt; </span>
-                    )}
+        <aside className="flex flex-wrap justify-between items-center w-full mx-auto">
+            <div>
+                {links.map((link, index) => (
+                    <span key={index}>
+                        <Link
+                            className="text-sm text-gray-600"
+                            href={link.href}
+                            aria-disabled={link.disabled}
+                            tabIndex={60}
+                        >
+                            {link.text}
+                        </Link>
+                        {index < links.length - 1 && (
+                            <span className="text-sm mx-2"> &gt; </span>
+                        )}
+                    </span>
+                ))}
+            </div>
+            <div>
+                <span className="text-sm text-gray-400 mr-2">Score:</span>
+                <span className="text-sm text-gray-400">
+                    {globalScore?.score ?? 0}/{GlobalScore.maxScore}
                 </span>
-            ))}
+            </div>
         </aside>
     );
 };

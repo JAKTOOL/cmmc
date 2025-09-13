@@ -539,7 +539,7 @@ export const SecurityRequirements = ({
                             value: value?.partial_value || null,
                         },
                         {
-                            title: "Merged With",
+                            title: "Deprecates",
                             value: value?.withdrawn_from?.map((id) => (
                                 <a
                                     key={id}
@@ -553,7 +553,7 @@ export const SecurityRequirements = ({
                             )),
                         },
                         {
-                            title: "Merged Value",
+                            title: "Deprecated Value",
                             value: value?.aggregate_value_withdrawn_from,
                         },
                     ]}
