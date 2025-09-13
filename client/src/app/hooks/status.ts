@@ -59,11 +59,10 @@ export const useGlobalStatus = () => {
     const [aggregateFamilyStatus, setAggregateFamilyStatus] = useState(
         undefined as GlobalStatuses | undefined
     );
-    const reqValueSchema = useRequirementsValues();
 
     useEffect(() => {
         async function fetchInitialState() {
-            if (!families?.length || !reqValueSchema) {
+            if (!families?.length) {
                 return;
             }
             const idbRequirements = await IDB.requirements.getAll();
@@ -72,7 +71,7 @@ export const useGlobalStatus = () => {
                 acc[family.element_identifier] = new FamilyStatus();
                 // manifest.requirements.byFamily[
                 //     family.element_identifier
-                // ].map((req) => reqValueSchema[req.element_identifier])
+                // ].map((req) =[req.element_identifier])
                 return acc;
             }, {} as GlobalStatuses);
 
@@ -111,7 +110,7 @@ export const useGlobalStatus = () => {
             setAggregateFamilyStatus(familyStatus);
         }
         fetchInitialState();
-    }, [families, reqValueSchema]);
+    }, [families]);
 
     return aggregateFamilyStatus;
 };
