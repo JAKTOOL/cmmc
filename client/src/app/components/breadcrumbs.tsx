@@ -1,7 +1,8 @@
 "use client";
 import { useManifestContext } from "@/app/context";
-import { GlobalScore, useGlobalScore } from "@/app/hooks/score";
+import { useGlobalScore } from "@/app/hooks/score";
 import Link from "next/link";
+import { TotalScore } from "./score";
 
 interface BreadcrumbLink {
     href: string;
@@ -64,13 +65,7 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
                     </span>
                 ))}
             </div>
-            <div>
-                <span className="text-sm text-gray-400 mr-2">Score:</span>
-                <span className="text-sm text-gray-400">
-                    {(globalScore?.score ?? 0).toFixed(2)}/
-                    {GlobalScore.maxScore}
-                </span>
-            </div>
+            <TotalScore />
         </aside>
     );
 };
