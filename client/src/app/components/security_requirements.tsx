@@ -2,15 +2,15 @@
 import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
 import { IDB, IDBSecurityRequirement } from "@/app/db";
+import { renderNumber } from "@/app/utils/number";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { useRequirementValue } from "../hooks/requirementValues";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
 import { DataTable } from "./datatable";
 import { Status, StatusState } from "./status";
-
-import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
 // Set options
 marked.use({
@@ -532,14 +532,20 @@ export const SecurityRequirements = ({
                 </div>
                 <DataTable
                     rows={[
-                        { title: "Revision", value: value?.revision },
-                        { title: "Value", value: value?.value },
+                        {
+                            title: "Revision",
+                            visible: true,
+                            value: value?.revision,
+                        },
+                        { title: "Value", visible: true, value: value?.value },
                         {
                             title: "Partial Value",
-                            value: value?.partial_value || null,
+                            visible: (value?.partial_value ?? 0) > 0,
+                            value: value?.partial_value,
                         },
                         {
                             title: "Deprecates",
+                            visible: !!value?.withdrawn_from?.length,
                             value: value?.withdrawn_from?.map((id) => (
                                 <a
                                     key={id}
@@ -554,7 +560,10 @@ export const SecurityRequirements = ({
                         },
                         {
                             title: "Deprecated Value",
-                            value: value?.aggregate_value_withdrawn_from,
+                            visible: !!value?.withdrawn_from?.length,
+                            value: renderNumber(
+                                value?.aggregate_value_withdrawn_from
+                            ),
                         },
                     ]}
                 />

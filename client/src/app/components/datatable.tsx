@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 interface Row {
     title: string;
     value: ReactNode;
+    visible?: boolean;
 }
 
 interface Props {
@@ -13,7 +14,7 @@ export const DataTable = ({ rows }: Props) => {
     return (
         <dl className="flex flex-row">
             {rows.reduce((acc, row) => {
-                if (row.value !== undefined && row.value !== null) {
+                if (row.visible !== undefined && row.visible) {
                     acc.push(
                         <div key={row.title}>
                             <dt className="text-xs text-gray-700 uppercase bg-gray-50 text-gray-700 border-gray-100 py-2 px-4 text-left border-r-2 border-b-2">
