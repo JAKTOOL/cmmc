@@ -1,4 +1,9 @@
-import { Convert, Element, ElementType, Framework } from "@/api/generated/Framework";
+import {
+    Convert,
+    Element,
+    ElementType,
+    Framework,
+} from "@/api/generated/Framework";
 
 let cache: Framework | undefined;
 
@@ -11,10 +16,10 @@ export const read = async () => {
         return cache;
     }
     // const data = await fetch("https://csrc.nist.gov/extensions/nudp/services/json/nudp/framework/version/sp_800_171_3_0_0/export/json?element=all");
-    const framework: Framework = Convert.toFramework(await manifestPromise)
+    const framework: Framework = Convert.toFramework(await manifestPromise);
     cache = framework;
     return cache;
-}
+};
 
 export const getFamily = (element: Element) => {
     switch (element.element_type) {
@@ -28,7 +33,7 @@ export const getFamily = (element: Element) => {
         default:
             return element.element_identifier;
     }
-}
+};
 export const getRequirement = (element: Element) => {
     switch (element.element_type) {
         case "requirement":
@@ -42,7 +47,7 @@ export const getRequirement = (element: Element) => {
         default:
             return element.element_identifier;
     }
-}
+};
 
 export const getSubRequirement = (element: Element) => {
     switch (element.element_type) {
@@ -51,7 +56,7 @@ export const getSubRequirement = (element: Element) => {
         default:
             return element.element_identifier;
     }
-}
+};
 
 export const getSubSubRequirement = (element: Element) => {
     switch (element.element_type) {
@@ -60,7 +65,7 @@ export const getSubSubRequirement = (element: Element) => {
         default:
             return element.element_identifier;
     }
-}
+};
 
 export class ElementWrapper {
     readonly element: Element;
@@ -74,7 +79,7 @@ export class ElementWrapper {
         return this.element.element_identifier;
     }
 
-    get element_type(){
+    get element_type() {
         return this.element.element_type;
     }
 
@@ -126,6 +131,7 @@ export class ElementMapper {
     readonly byRequirements: Record<string, ElementWrapper[]> = {};
     readonly bySubRequirements: Record<string, ElementWrapper[]> = {};
     readonly bySubSubRequirements: Record<string, ElementWrapper[]> = {};
+    readonly byWithdrawnReason: Record<string, ElementWrapper[]> = {};
 
     constructor(elements: ElementWrapper[]) {
         this.elements = elements;
@@ -163,21 +169,26 @@ export class ElementMapper {
             return 1;
         }
         return 0;
-    }
+    };
 
-
-    static fromElements(elements: ElementWrapper[], type: ElementType, filterFn?: (element: ElementWrapper) => boolean | undefined) {
-        let _elements = elements.filter((element) => element.element.element_type === type);
+    static fromElements(
+        elements: ElementWrapper[],
+        type: ElementType,
+        filterFn?: (element: ElementWrapper) => boolean | undefined
+    ) {
+        let _elements = elements.filter(
+            (element) => element.element.element_type === type
+        );
 
         if (filterFn) {
             _elements = _elements.filter(filterFn);
         }
 
-        _elements = _elements.sort((a, b) => ElementMapper.sortById(a.element, b.element));
-
-        return new ElementMapper(
-            _elements
+        _elements = _elements.sort((a, b) =>
+            ElementMapper.sortById(a.element, b.element)
         );
+
+        return new ElementMapper(_elements);
     }
 }
 
@@ -192,9 +203,17 @@ export class Manifest {
 
     constructor(framework: Framework) {
         this.framework = framework;
-        this.elements = framework.response.elements.elements.map(ElementWrapper.fromElement);
-        this.withdrawReason = ElementMapper.fromElements(this.elements, ElementType.WithdrawReason);
-        this.families = ElementMapper.fromElements(this.elements, ElementType.Family);
+        this.elements = framework.response.elements.elements.map(
+            ElementWrapper.fromElement
+        );
+        this.withdrawReason = ElementMapper.fromElements(
+            this.elements,
+            ElementType.WithdrawReason
+        );
+        this.families = ElementMapper.fromElements(
+            this.elements,
+            ElementType.Family
+        );
         this.requirements = ElementMapper.fromElements(
             this.elements,
             ElementType.Requirement
@@ -202,12 +221,15 @@ export class Manifest {
         this.securityRequirements = ElementMapper.fromElements(
             this.elements,
             ElementType.SecurityRequirement,
-            (element)=>{
+            (element) => {
                 // Remove empty security requirements
-                return !!element.text
+                return !!element.text;
             }
         );
-        this.discussions = ElementMapper.fromElements(this.elements, ElementType.Discussion);
+        this.discussions = ElementMapper.fromElements(
+            this.elements,
+            ElementType.Discussion
+        );
         Object.freeze(this);
     }
 
