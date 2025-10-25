@@ -28,7 +28,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-                <Script src="/service-worker.js" async />
+                <Script
+                    src={`/service-worker.js?${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`}
+                    async
+                />
             </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
