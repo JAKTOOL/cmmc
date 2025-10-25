@@ -116,7 +116,6 @@ export const SecurityRequirements = ({
         securityRequirements,
         setStatuses,
         setHydrating,
-        withdrawn,
     ]);
 
     useEffect(() => {
