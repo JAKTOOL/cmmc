@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang="en">
             <head>
                 <Script
-                    src={`/service-worker.js?${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`}
+                    src={`/service-worker.js?v=${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`}
                     async
                 />
             </head>
