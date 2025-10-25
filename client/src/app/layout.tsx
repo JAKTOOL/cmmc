@@ -16,7 +16,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
     title: "CMMC | SP NIST 800-171 Rev 3",
-    description: "NIST 800-171 Rev 3",
+    description:
+        "This application simplifies achieving NIST SP 800-171 Revision 3 compliance by providing a user-friendly interface to manage security controls, store data locally, and generate compliance summaries. ",
 };
 
 export default function RootLayout({
