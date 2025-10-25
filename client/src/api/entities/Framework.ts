@@ -197,11 +197,7 @@ export class Manifest {
         this.families = ElementMapper.fromElements(this.elements, ElementType.Family);
         this.requirements = ElementMapper.fromElements(
             this.elements,
-            ElementType.Requirement,
-            (element)=>{
-                // Remove requirements that are withdrawn
-                return !this.withdrawReason.byRequirements[element.element_identifier]
-            }
+            ElementType.Requirement
         );
         this.securityRequirements = ElementMapper.fromElements(
             this.elements,

@@ -31,6 +31,7 @@ export interface Document {
 }
 
 export enum DocIdentifier {
+    SP800_171_2_0_0 = "SP_800_171_2_0_0",
     SP800_171_3_0_0 = "SP_800_171_3_0_0",
     SP800_53_5_1_1 = "SP_800_53_5_1_1",
 }
@@ -245,49 +246,109 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-    "Framework": o([
-        { json: "response", js: "response", typ: r("Response") },
-    ], false),
-    "Response": o([
-        { json: "requestType", js: "requestType", typ: 0 },
-        { json: "elements", js: "elements", typ: r("Elements") },
-    ], false),
-    "Elements": o([
-        { json: "documents", js: "documents", typ: a(r("Document")) },
-        { json: "relationship_types", js: "relationship_types", typ: a(r("RelationshipType")) },
-        { json: "elements", js: "elements", typ: a(r("Element")) },
-        { json: "relationships", js: "relationships", typ: a(r("Relationship")) },
-    ], false),
-    "Document": o([
-        { json: "doc_identifier", js: "doc_identifier", typ: r("DocIdentifier") },
-        { json: "name", js: "name", typ: "" },
-        { json: "version", js: "version", typ: "" },
-        { json: "website", js: "website", typ: "" },
-    ], false),
-    "Element": o([
-        { json: "element_type", js: "element_type", typ: r("ElementType") },
-        { json: "element_identifier", js: "element_identifier", typ: "" },
-        { json: "title", js: "title", typ: "" },
-        { json: "text", js: "text", typ: "" },
-        { json: "doc_identifier", js: "doc_identifier", typ: r("DocIdentifier") },
-    ], false),
-    "RelationshipType": o([
-        { json: "relationship_identifier", js: "relationship_identifier", typ: r("RelationshipIdentifier") },
-        { json: "description", js: "description", typ: "" },
-    ], false),
-    "Relationship": o([
-        { json: "source_element_identifier", js: "source_element_identifier", typ: "" },
-        { json: "source_doc_identifier", js: "source_doc_identifier", typ: r("DocIdentifier") },
-        { json: "dest_element_identifier", js: "dest_element_identifier", typ: "" },
-        { json: "dest_doc_identifier", js: "dest_doc_identifier", typ: r("DocIdentifier") },
-        { json: "relationship_identifier", js: "relationship_identifier", typ: r("RelationshipIdentifier") },
-        { json: "provenance_doc_identifier", js: "provenance_doc_identifier", typ: r("DocIdentifier") },
-    ], false),
-    "DocIdentifier": [
-        "SP_800_171_3_0_0",
-        "SP_800_53_5_1_1",
-    ],
-    "ElementType": [
+    Framework: o(
+        [{ json: "response", js: "response", typ: r("Response") }],
+        false
+    ),
+    Response: o(
+        [
+            { json: "requestType", js: "requestType", typ: 0 },
+            { json: "elements", js: "elements", typ: r("Elements") },
+        ],
+        false
+    ),
+    Elements: o(
+        [
+            { json: "documents", js: "documents", typ: a(r("Document")) },
+            {
+                json: "relationship_types",
+                js: "relationship_types",
+                typ: a(r("RelationshipType")),
+            },
+            { json: "elements", js: "elements", typ: a(r("Element")) },
+            {
+                json: "relationships",
+                js: "relationships",
+                typ: a(r("Relationship")),
+            },
+        ],
+        false
+    ),
+    Document: o(
+        [
+            {
+                json: "doc_identifier",
+                js: "doc_identifier",
+                typ: r("DocIdentifier"),
+            },
+            { json: "name", js: "name", typ: "" },
+            { json: "version", js: "version", typ: "" },
+            { json: "website", js: "website", typ: "" },
+        ],
+        false
+    ),
+    Element: o(
+        [
+            { json: "element_type", js: "element_type", typ: r("ElementType") },
+            { json: "element_identifier", js: "element_identifier", typ: "" },
+            { json: "title", js: "title", typ: "" },
+            { json: "text", js: "text", typ: "" },
+            {
+                json: "doc_identifier",
+                js: "doc_identifier",
+                typ: r("DocIdentifier"),
+            },
+        ],
+        false
+    ),
+    RelationshipType: o(
+        [
+            {
+                json: "relationship_identifier",
+                js: "relationship_identifier",
+                typ: r("RelationshipIdentifier"),
+            },
+            { json: "description", js: "description", typ: "" },
+        ],
+        false
+    ),
+    Relationship: o(
+        [
+            {
+                json: "source_element_identifier",
+                js: "source_element_identifier",
+                typ: "",
+            },
+            {
+                json: "source_doc_identifier",
+                js: "source_doc_identifier",
+                typ: r("DocIdentifier"),
+            },
+            {
+                json: "dest_element_identifier",
+                js: "dest_element_identifier",
+                typ: "",
+            },
+            {
+                json: "dest_doc_identifier",
+                js: "dest_doc_identifier",
+                typ: r("DocIdentifier"),
+            },
+            {
+                json: "relationship_identifier",
+                js: "relationship_identifier",
+                typ: r("RelationshipIdentifier"),
+            },
+            {
+                json: "provenance_doc_identifier",
+                js: "provenance_doc_identifier",
+                typ: r("DocIdentifier"),
+            },
+        ],
+        false
+    ),
+    DocIdentifier: ["SP_800_171_2_0_0", "SP_800_171_3_0_0", "SP_800_53_5_1_1"],
+    ElementType: [
         "determination",
         "discussion",
         "examine",
