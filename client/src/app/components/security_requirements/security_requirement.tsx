@@ -3,6 +3,8 @@ import { renderNumber } from "@/app/utils/number";
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
 import { DataTable } from "../datatable";
+import { IconInfo } from "../icon_info";
+import { Popover } from "../popover";
 import { StatusState } from "../status";
 import { SecurityForm } from "./security_form";
 
@@ -61,7 +63,25 @@ export const SecurityRequirement = ({
                             value: value?.partial_value,
                         },
                         {
-                            title: "Deprecates",
+                            title: (
+                                <>
+                                    <button
+                                        popoverTarget="deprecated-popover"
+                                        className="uppercase flex items-center"
+                                    >
+                                        <span className="mr-2">Deprecates</span>{" "}
+                                        <IconInfo />
+                                    </button>
+                                    <Popover id="deprecated-popover">
+                                        <IconInfo />
+                                        <span>
+                                            This security requirement
+                                            incorporates the following controls
+                                            from revision 2.
+                                        </span>
+                                    </Popover>
+                                </>
+                            ),
                             visible: !!value?.withdrawn_from?.length,
                             value: value?.withdrawn_from?.map((id) => (
                                 <Link
@@ -74,7 +94,27 @@ export const SecurityRequirement = ({
                             )),
                         },
                         {
-                            title: "Deprecated Value",
+                            title: (
+                                <>
+                                    <button
+                                        popoverTarget="deprecated-value-popover"
+                                        className="uppercase flex items-center"
+                                    >
+                                        <span className="mr-2">
+                                            Deprecated Value
+                                        </span>{" "}
+                                        <IconInfo />
+                                    </button>
+                                    <Popover id="deprecated-value-popover">
+                                        <IconInfo />
+                                        <span>
+                                            This is the aggregate value of all
+                                            controls this security requirement
+                                            has incorporated.
+                                        </span>
+                                    </Popover>
+                                </>
+                            ),
                             visible: !!value?.withdrawn_from?.length,
                             value: renderNumber(
                                 value?.aggregate_value_withdrawn_from
