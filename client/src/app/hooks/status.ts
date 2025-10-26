@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { Status, calcStatus } from "../components/status";
 import { useDBRequirements } from "./db";
 
-class FamilyStatus {
+export class FamilyStatus {
     subSecurityRequirementStatuses: Record<string, Status>;
 
     constructor(subSecurityRequirementStatuses?: Record<string, Status>) {

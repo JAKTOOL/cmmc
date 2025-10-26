@@ -4,9 +4,11 @@ import { ClearDB } from "./clear_db";
 import { Export, Import } from "./export_import";
 import { Markdown } from "./markdown";
 import { POAM } from "./poam";
+import { Tree } from "./tree";
 
 export const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isTreeOpen, setTreeIsOpen] = useState(false);
     const menuRef = useRef<HTMLElement>(null);
     const onKeyDown = useMemo(
         () => (event: KeyboardEvent) => {
@@ -40,8 +42,11 @@ export const Navigation = () => {
         };
     }, [isOpen]);
 
-    return (
-        <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+    return [
+        <nav
+            key="nav"
+            className="bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-600"
+        >
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a
                     href="/"
@@ -60,12 +65,21 @@ export const Navigation = () => {
                         />
                     </svg>
                 </a>
-                <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <button
+                        key="tree-open"
+                        className="text-gray-100 py-2.5 px-5 me-2  text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-400 border-gray-600 hover:text-white"
+                        onClick={() => {
+                            setTreeIsOpen(!isTreeOpen);
+                        }}
+                    >
+                        Family Tree
+                    </button>
                     <div className="relative inline-block text-left">
                         <div>
                             <button
                                 type="button"
-                                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-gray-500 shadow-sm"
+                                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-transparent px-3 py-3 text-sm font-semibold text-gray-500 shadow-sm"
                                 id="menu-button"
                                 aria-expanded="true"
                                 aria-haspopup="true"
@@ -79,6 +93,7 @@ export const Navigation = () => {
                                     fill="currentColor"
                                     aria-hidden="true"
                                     data-slot="icon"
+                                    style={{ transform: "translateY(2px)" }}
                                 >
                                     <rect width="30" height="3" />
                                     <rect y="9" width="30" height="3" />
@@ -134,6 +149,7 @@ export const Navigation = () => {
                     </div>
                 </div>
             </div>
-        </nav>
-    );
+        </nav>,
+        <Tree key="tree" isOpen={isTreeOpen} setOpen={setTreeIsOpen} />,
+    ];
 };

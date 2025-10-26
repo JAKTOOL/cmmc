@@ -3,6 +3,7 @@
 interface StatusStateProps {
     statuses?: Status[];
     status?: Status;
+    size?: string;
 }
 
 export enum Status {
@@ -61,12 +62,18 @@ export const calcStatus = (statuses: Status[] | undefined) => {
     return Status.NOT_STARTED;
 };
 
-const StatusSpan = ({ status }: { status?: Status }) => {
+const StatusSpan = ({
+    status,
+    size = "xl",
+}: {
+    status?: Status;
+    size?: string;
+}) => {
     switch (status) {
         case Status.IMPLEMENTED:
             return (
                 <span
-                    className="text-xl text-green-600 mx-2"
+                    className={`text-${size} text-green-600 mx-2`}
                     title="Implemented"
                 >
                     🟢
@@ -75,7 +82,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
         case Status.NOT_IMPLEMENTED:
             return (
                 <span
-                    className="text-xl text-red-600 mx-2"
+                    className={`text-${size} text-red-600 mx-2`}
                     title="Not implemented"
                 >
                     🔴
@@ -84,7 +91,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
         case Status.NOT_APPLICABLE:
             return (
                 <span
-                    className="text-xl text-black mx-2"
+                    className={`text-${size} text-black mx-2`}
                     title="Not applicable"
                 >
                     ⚫
@@ -93,7 +100,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
         case Status.NEEDS_WORK:
             return (
                 <span
-                    className="text-xl text-black mx-2"
+                    className={`text-${size} text-black mx-2`}
                     title="Has work remaining"
                 >
                     🚧
@@ -102,7 +109,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
         case Status.PARTIALLY_IMPLEMENTED:
             return (
                 <span
-                    className="text-xl text-black mx-2"
+                    className={`text-${size} text-black mx-2`}
                     title="Partially implemented"
                 >
                     🟡
@@ -111,7 +118,7 @@ const StatusSpan = ({ status }: { status?: Status }) => {
         default:
             return (
                 <span
-                    className="text-xl text-gray-600 mx-2"
+                    className={`text-${size} text-gray-600 mx-2`}
                     title="Not started"
                 >
                     ⚪
@@ -120,10 +127,10 @@ const StatusSpan = ({ status }: { status?: Status }) => {
     }
 };
 
-export const StatusState = ({ statuses, status }: StatusStateProps) => {
+export const StatusState = ({ statuses, status, size }: StatusStateProps) => {
     if (status) {
-        return <StatusSpan status={status} />;
+        return <StatusSpan status={status} size={size} />;
     }
 
-    return <StatusSpan status={calcStatus(statuses)} />;
+    return <StatusSpan status={calcStatus(statuses)} size={size} />;
 };
