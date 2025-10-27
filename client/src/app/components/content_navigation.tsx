@@ -8,6 +8,19 @@ interface PageNavigationProps {
     next?: ElementWrapper | undefined;
 }
 
+function inViewport(element: HTMLAnchorElement) {
+    const clientRect = element.getBoundingClientRect();
+    return (
+        // 82 = navbar height
+        clientRect.top >= 82 &&
+        clientRect.left >= 0 &&
+        clientRect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+        clientRect.right <=
+            (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
 export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
     const previousRef = useRef<HTMLAnchorElement>(null);
     const nextRef = useRef<HTMLAnchorElement>(null);
@@ -22,9 +35,9 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
     }
 
     useEffect(() => {
-        if (nextRef.current) {
+        if (nextRef.current && inViewport(nextRef.current)) {
             nextRef.current.focus();
-        } else if (previousRef.current) {
+        } else if (previousRef.current && inViewport(previousRef.current)) {
             previousRef.current.focus();
         }
     }, [previousRef, nextRef]);
