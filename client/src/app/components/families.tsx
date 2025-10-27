@@ -3,6 +3,8 @@ import { useManifestContext } from "@/app/context";
 import Link from "next/link";
 import { useGlobalStatus } from "../hooks/status";
 import { Breadcrumbs } from "./breadcrumbs";
+import { IconInfo } from "./icon_info";
+import { Popover } from "./popover";
 import { StatusState } from "./status";
 
 export const Families = () => {
@@ -16,7 +18,21 @@ export const Families = () => {
     return (
         <>
             <Breadcrumbs />
-            <h2 className="text-4xl">800-171 Rev 3 Families</h2>
+            <h2 className="text-4xl flex items-center">
+                SP NIST 800-171 Families
+                <button className="ml-2" popoverTarget="families-popover">
+                    <IconInfo inline={false} />
+                </button>
+            </h2>
+            <Popover id="families-popover">
+                <IconInfo />
+                <span>
+                    Families from NIST 800-171 include controls from both
+                    revision 2 and 3. Withdrawn controls from revision 2 will
+                    show with a strikethrough, and otherwise display a warning
+                    when viewing the requirements.
+                </span>
+            </Popover>
             <ul>
                 {families.map((family) => (
                     <li className="flex mb-2" key={family.element_identifier}>

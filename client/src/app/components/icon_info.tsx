@@ -1,6 +1,6 @@
-export const IconInfo = () => (
+export const IconInfo = ({ inline = true }: { inline?: boolean }) => (
     <svg
-        className="shrink-0 inline w-4 h-4 me-3"
+        className={`shrink-0 w-4 h-4 ${inline ? "inline me-2" : ""}`}
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"

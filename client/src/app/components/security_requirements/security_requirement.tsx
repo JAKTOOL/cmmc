@@ -25,7 +25,7 @@ export const SecurityRequirement = ({
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
-            <h3 className="text-3xl mt-6">
+            <h3 className="text-3xl mt-6 flex items-center">
                 Security Requirements for {requirement.requirement}{" "}
                 {requirement.title}
                 <StatusState statuses={statuses} />
@@ -111,7 +111,9 @@ export const SecurityRequirement = ({
                                         <span>
                                             This is the aggregate value of all
                                             controls this security requirement
-                                            has incorporated.
+                                            has incorporated. It is an estimate
+                                            until CMMC is updated to use 800-171
+                                            revision 3.
                                         </span>
                                     </Popover>
                                 </>

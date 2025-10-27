@@ -3,6 +3,8 @@ import { useManifestContext } from "@/app/context";
 import Link from "next/link";
 import { useFamilyStatus } from "../hooks/status";
 import { Breadcrumbs } from "./breadcrumbs";
+import { IconInfo } from "./icon_info";
+import { Popover } from "./popover";
 import { StatusState } from "./status";
 
 export const Requirements = ({ familyId }: { familyId: string }) => {
@@ -16,8 +18,20 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
             <Breadcrumbs familyId={familyId} />
             <h2 className="text-4xl flex flex-row items-center">
                 Requirements for {family.element_identifier}: {family.title}{" "}
+                <button className="ml-2" popoverTarget="requirements-popover">
+                    <IconInfo inline={false} />
+                </button>
                 <StatusState status={familyStatus?.status} />
             </h2>
+            <Popover id="requirements-popover">
+                <IconInfo />
+                <span>
+                    Requirements from NIST 800-171 include controls from both
+                    revision 2 and 3. Withdrawn controls from revision 2 will
+                    show with a strikethrough, and otherwise display a warning
+                    when viewing the requirement.
+                </span>
+            </Popover>
             <ol>
                 {requirements?.map((requirement) => {
                     const withdrawn =

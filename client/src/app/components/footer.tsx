@@ -25,7 +25,7 @@ export const Footer = () => (
                     </a>
                 </div>
             </span>
-            <span className="block text-sm text-gray-500 sm:text-center">
+            <span className="block text-sm text-gray-500 text-center">
                 © 2025{" "}
                 <a
                     href="https://jaktool.com"
