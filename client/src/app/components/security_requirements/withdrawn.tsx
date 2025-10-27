@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
 import { DataTable } from "../datatable";
 import { IconInfo } from "../icon_info";
+import { Popover } from "../popover";
 import { StatusState } from "../status";
 import { SecurityForm } from "./security_form";
 
@@ -113,7 +114,26 @@ export const WithdrawnSecurityRequirement = ({
                             value: value?.partial_value,
                         },
                         {
-                            title: "Withdrawn Reason",
+                            title: (
+                                <>
+                                    <button
+                                        popoverTarget="deprecated-value-popover"
+                                        className="uppercase flex items-center"
+                                    >
+                                        <span className="mr-2">
+                                            Withdrawn Reason
+                                        </span>{" "}
+                                        <IconInfo />
+                                    </button>
+                                    <Popover id="deprecated-value-popover">
+                                        <IconInfo />
+                                        <span>
+                                            Why this security control was
+                                            withdrawn.
+                                        </span>
+                                    </Popover>
+                                </>
+                            ),
                             visible: true,
                             value: (
                                 <WithdrawnInto
