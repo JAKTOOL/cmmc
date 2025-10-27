@@ -36,6 +36,7 @@ export const Footer = () => (
                 </a>
                 . All Rights Reserved.
             </span>
+            <span className="text-xl text-sm text-md hidden"></span>
         </div>
     </footer>
 );

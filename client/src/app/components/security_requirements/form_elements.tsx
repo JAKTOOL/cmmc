@@ -76,7 +76,7 @@ export const SecurityRequirementSelect = ({
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.status`;
     return (
-        <div className="flex flex-col lg:mr-4" key={key}>
+        <div className="flex flex-col md:mr-2 lg:mr-4" key={key}>
             <label
                 htmlFor={key}
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
