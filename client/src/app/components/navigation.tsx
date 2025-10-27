@@ -68,12 +68,23 @@ export const Navigation = () => {
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <button
                         key="tree-open"
-                        className="text-gray-100 py-2.5 px-5 me-2  text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-400 border-gray-600 hover:text-white"
+                        className="px-5 me-2  text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-500 border-gray-600 border-r hover:text-gray-600 flex items-center"
                         onClick={() => {
                             setTreeIsOpen(!isTreeOpen);
                         }}
                     >
-                        Family Tree
+                        <span className="mr-1 hidden md:block">Overview</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlSpace="preserve"
+                            viewBox="0 0 135.467 135.467"
+                            className="w-5 fill-gray-500 "
+                        >
+                            <path
+                                d="M66.041 79.726v33.867h33.867V79.726H82.975Zm13.494 40.746v67.477h6.88v-.01l27.053.067 27.054.067.07 6.813.07 6.813h33.859v-33.866h-33.867v13.494h-54.24v-40.749l27.054.068 27.054.067.07 6.68.07 6.681h33.859v-33.602h-33.867v13.494h-54.24v-13.494h-3.44z"
+                                transform="translate(-52.652 -72.76)"
+                            />
+                        </svg>
                     </button>
                     <div className="relative inline-block text-left">
                         <div>

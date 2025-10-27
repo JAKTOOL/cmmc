@@ -6,6 +6,23 @@ import type { Dispatch, SetStateAction } from "react";
 import { Fragment, useState } from "react";
 import { FamilyStatus, useFamilyStatus } from "../hooks/status";
 import { StatusState } from "./status";
+
+export const Dropdown = ({ isOpen }: { isOpen: boolean }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0)" }}
+    >
+        <path
+            fill="#fff"
+            fill-rule="evenodd"
+            d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+            clip-rule="evenodd"
+        />
+    </svg>
+);
+
 export const FamilyBranch = ({
     family,
     manifest,
@@ -17,13 +34,21 @@ export const FamilyBranch = ({
     const [isOpen, setOpen] = useState(false);
     return (
         <li className="mb-1" key={family.element_identifier}>
-            <StatusState status={familyStatus?.status} size="sm" />
-            <Link href={`/r3/family/${family.element_identifier}`}>
-                {family.element_identifier}: {family.title}
-            </Link>
-            <button className="ml-2" onClick={() => setOpen(!isOpen)}>
-                {isOpen ? "△" : "▽"}
-            </button>
+            <div className="flex items-center">
+                <StatusState status={familyStatus?.status} size="sm" />
+                <Link
+                    className="grow"
+                    href={`/r3/family/${family.element_identifier}`}
+                >
+                    {family.element_identifier}: {family.title}
+                </Link>
+                <button
+                    className="ml-2 w-[24px] h-[24px]"
+                    onClick={() => setOpen(!isOpen)}
+                >
+                    <Dropdown isOpen={isOpen} />
+                </button>
+            </div>
             {isOpen && (
                 <RequirementsLeaf
                     family={family}
@@ -47,7 +72,7 @@ export const RequirementsLeaf = ({
     const requirements =
         manifest.requirements.byFamily[family.element_identifier];
     return (
-        <ol className="ml-4 mt-2 mb-4">
+        <ol className="ml-4 mt-2 mb-4 flex flex-col">
             {requirements.map((requirement) => (
                 <RequirementLeaf
                     key={requirement.element_identifier}
@@ -99,7 +124,7 @@ export const Tree = ({
                 id="drawer-contact"
                 className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform ${
                     !isOpen ? "translate-x-full" : ""
-                } w-full max-w-96 bg-gray-900 text-gray-100`}
+                } w-full max-w-sm bg-gray-900 text-gray-100`}
                 tabIndex={-1}
                 aria-labelledby="drawer-contact-label"
             >
@@ -107,7 +132,7 @@ export const Tree = ({
                     id="drawer-left-label"
                     className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
                 >
-                    Families
+                    Overview
                 </h5>
                 <button
                     type="button"
@@ -133,7 +158,7 @@ export const Tree = ({
                     </svg>
                     <span className="sr-only">Close menu</span>
                 </button>
-                <ol>
+                <ol className="flex flex-col">
                     {families.map((family) => (
                         <FamilyBranch
                             key={family.element_identifier}
