@@ -16,9 +16,9 @@ export const Dropdown = ({ isOpen }: { isOpen: boolean }) => (
     >
         <path
             fill="#fff"
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
         />
     </svg>
 );
@@ -152,7 +152,7 @@ export const Tree = ({
                             stroke="currentColor"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            stroke-width="2"
+                            strokeWidth="2"
                             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                         />
                     </svg>
