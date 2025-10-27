@@ -25,7 +25,7 @@ export const SecurityRequirement = ({
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
-            <h3 className="text-3xl mt-6 flex items-center">
+            <h3 className="text-3xl block sm:flex mt-6 items-center">
                 Security Requirements for {requirement.requirement}{" "}
                 {requirement.title}
                 <StatusState statuses={statuses} />

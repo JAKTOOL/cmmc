@@ -54,7 +54,7 @@ export const WithdrawnSecurityRequirement = ({
         <>
             <Breadcrumbs requirementId={requirementId} />
 
-            <h3 className="text-3xl mt-6 flex items-center">
+            <h3 className="text-3xl mt-6 block sm:flex items-center">
                 Security Requirements for {requirement.requirement}
                 <StatusState statuses={statuses} />
             </h3>

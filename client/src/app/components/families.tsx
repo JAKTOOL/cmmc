@@ -18,7 +18,7 @@ export const Families = () => {
     return (
         <>
             <Breadcrumbs />
-            <h2 className="text-4xl flex items-center">
+            <h2 className="text-4xl block sm:flex items-center">
                 SP NIST 800-171 Families
                 <button className="ml-2" popoverTarget="families-popover">
                     <IconInfo inline={false} />

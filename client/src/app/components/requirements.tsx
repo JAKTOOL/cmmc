@@ -16,7 +16,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
     return (
         <>
             <Breadcrumbs familyId={familyId} />
-            <h2 className="text-4xl flex flex-row items-center">
+            <h2 className="text-4xl block sm:flex flex-row items-center">
                 Requirements for {family.element_identifier}: {family.title}{" "}
                 <button className="ml-2" popoverTarget="requirements-popover">
                     <IconInfo inline={false} />
