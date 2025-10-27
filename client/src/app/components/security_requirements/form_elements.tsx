@@ -76,7 +76,7 @@ export const SecurityRequirementSelect = ({
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.status`;
     return (
-        <div className="flex flex-col mr-4" key={key}>
+        <div className="flex flex-col lg:mr-4" key={key}>
             <label
                 htmlFor={key}
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
@@ -155,7 +155,7 @@ export const SecurityRequirementNote = ({
     }, [textareaRef, mdRef]);
 
     return (
-        <div className="flex flex-col grow w-10/12" ref={parentRef}>
+        <div className="flex flex-col grow w-full lg:w-10/12" ref={parentRef}>
             <label
                 htmlFor={key}
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
@@ -217,7 +217,7 @@ export const SecurityRequirement = ({
                     </h4>
                 </legend>
                 <p className="text-lg my-2">{securityRequirement.text}</p>
-                <div className="flex flex-row">
+                <div className="flex flex-col md:flew-row">
                     <SecurityRequirementSelect
                         securityRequirement={securityRequirement}
                         initialState={initialState}

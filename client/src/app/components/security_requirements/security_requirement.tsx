@@ -83,6 +83,7 @@ export const SecurityRequirement = ({
                                 </>
                             ),
                             visible: !!value?.withdrawn_from?.length,
+                            className: "hidden md:inline",
                             value: value?.withdrawn_from?.map((id) => (
                                 <Link
                                     key={id}

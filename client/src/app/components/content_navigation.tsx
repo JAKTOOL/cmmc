@@ -53,7 +53,12 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
                         ></path>
                     </svg>
                     <span className="mr-4 ml-2">
-                        {previous.requirement}: {previous.title}
+                        <span>{previous.requirement}</span>
+                        {!!previous.title && (
+                            <span className="hidden md:inline">
+                                : {previous.title}
+                            </span>
+                        )}
                     </span>
                 </Link>
             )}
@@ -65,7 +70,12 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
                     ref={nextRef}
                 >
                     <span className="ml-4 mr-2">
-                        {next.requirement}: {next.title}
+                        <span>{next.requirement}</span>
+                        {!!next.title && (
+                            <span className="hidden md:inline">
+                                : {next.title}
+                            </span>
+                        )}
                     </span>
                     <svg
                         className="w-6 h-6 text-gray-500"

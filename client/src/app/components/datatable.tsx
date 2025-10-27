@@ -4,6 +4,7 @@ interface Row {
     title: ReactNode;
     value: ReactNode;
     visible?: boolean;
+    className?: string;
 }
 
 interface Props {
@@ -16,7 +17,7 @@ export const DataTable = ({ rows }: Props) => {
             {rows.reduce((acc, row, idx) => {
                 if (row.visible !== undefined && row.visible) {
                     acc.push(
-                        <div key={idx}>
+                        <div className={row.className || ""} key={idx}>
                             <dt className="text-xs text-gray-700 uppercase bg-gray-50 text-gray-700 border-gray-100 py-2 px-4 text-left border-r-2 border-b-2">
                                 {row.title}
                             </dt>
