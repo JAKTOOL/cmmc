@@ -1,4 +1,4 @@
-const cacheName = "v2";
+const cacheName = "v3";
 
 const deleteCache = async (key) => {
   await caches.delete(key);
@@ -30,20 +30,8 @@ const cacheFirst = async (request, event) => {
   return responseFromNetwork;
 };
 
-const allowList = ["", "json", "plain"];
-
 self.addEventListener("fetch", (event) => {
-  if (allowList.includes(event.request.destination)) {
-    const url = new URL(event.request.url);
-    if (url.pathname.startsWith("/data") && url.pathname.endsWith(".json")) {
-      event.respondWith(cacheFirst(event.request, event));
-    }
-    if (
-      url.pathname.startsWith("/r3") &&
-      url.pathname.endsWith(".txt") &&
-      url.searchParams.has("_rsc")
-    ) {
-      event.respondWith(cacheFirst(event.request, event));
-    }
+  if (event.request.url.startsWith("https:")) {
+    event.respondWith(cacheFirst(event.request, event));
   }
 });
