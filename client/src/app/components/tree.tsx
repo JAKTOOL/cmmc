@@ -3,7 +3,7 @@ import type { ElementWrapper, Manifest } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { FamilyStatus, useFamilyStatus } from "../hooks/status";
 import { StatusState } from "./status";
 
@@ -118,56 +118,54 @@ export const Tree = ({
     const manifest = useManifestContext();
     const families = manifest.families.elements;
 
-    return [
-        <Fragment key="drawer">
-            <div
-                id="drawer-contact"
-                className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform ${
-                    !isOpen ? "translate-x-full" : ""
-                } w-full max-w-sm bg-gray-900 text-gray-100`}
-                tabIndex={-1}
-                aria-labelledby="drawer-contact-label"
+    return (
+        <div
+            id="drawer-contact"
+            className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform md:border-l border-gray-600 ${
+                !isOpen ? "translate-x-full" : ""
+            } w-full md:max-w-sm bg-gray-900 text-gray-100`}
+            tabIndex={-1}
+            aria-labelledby="drawer-contact-label"
+        >
+            <h5
+                id="drawer-left-label"
+                className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
             >
-                <h5
-                    id="drawer-left-label"
-                    className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
+                Overview
+            </h5>
+            <button
+                type="button"
+                data-drawer-hide="drawer-left-example"
+                aria-controls="drawer-left-example"
+                className="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center hover:bg-gray-600 hover:text-white"
+                onClick={() => setOpen(false)}
+            >
+                <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
                 >
-                    Overview
-                </h5>
-                <button
-                    type="button"
-                    data-drawer-hide="drawer-left-example"
-                    aria-controls="drawer-left-example"
-                    className="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center hover:bg-gray-600 hover:text-white"
-                    onClick={() => setOpen(false)}
-                >
-                    <svg
-                        className="w-3 h-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 14"
-                    >
-                        <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                        />
-                    </svg>
-                    <span className="sr-only">Close menu</span>
-                </button>
-                <ol className="flex flex-col">
-                    {families.map((family) => (
-                        <FamilyBranch
-                            key={family.element_identifier}
-                            family={family}
-                            manifest={manifest}
-                        />
-                    ))}
-                </ol>
-            </div>
-        </Fragment>,
-    ];
+                    <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                </svg>
+                <span className="sr-only">Close menu</span>
+            </button>
+            <ol className="flex flex-col">
+                {families.map((family) => (
+                    <FamilyBranch
+                        key={family.element_identifier}
+                        family={family}
+                        manifest={manifest}
+                    />
+                ))}
+            </ol>
+        </div>
+    );
 };
