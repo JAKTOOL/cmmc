@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Notification } from "./notification";
 
 export const Popover = ({
     id,
@@ -7,11 +8,7 @@ export const Popover = ({
     id: string;
     children: ReactNode;
 }) => (
-    <div
-        popover="auto"
-        id={id}
-        className="w-64 text-sm text-blue-800 rounded-lg bg-blue-50 normal-case p-4"
-    >
+    <Notification popover="auto" id={id}>
         {children}
-    </div>
+    </Notification>
 );
