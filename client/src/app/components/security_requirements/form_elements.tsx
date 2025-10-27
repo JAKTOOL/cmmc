@@ -217,7 +217,7 @@ export const SecurityRequirement = ({
                     </h4>
                 </legend>
                 <p className="text-lg my-2">{securityRequirement.text}</p>
-                <div className="flex flex-col md:flew-row">
+                <div className="flex flex-col md:flex-row">
                     <SecurityRequirementSelect
                         securityRequirement={securityRequirement}
                         initialState={initialState}
