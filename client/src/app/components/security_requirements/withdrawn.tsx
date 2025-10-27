@@ -135,6 +135,7 @@ export const WithdrawnSecurityRequirement = ({
                                 </>
                             ),
                             visible: true,
+                            className: "hidden md:block",
                             value: (
                                 <WithdrawnInto
                                     text={withdrawn?.[0]?.element?.text}
