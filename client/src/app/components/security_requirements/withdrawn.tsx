@@ -103,11 +103,49 @@ export const WithdrawnSecurityRequirement = ({
                 <DataTable
                     rows={[
                         {
-                            title: "Revision",
-                            visible: true,
-                            value: value?.revision,
+                            title: (
+                                <>
+                                    <button
+                                        popoverTarget="revision-popover"
+                                        className="uppercase flex items-center"
+                                    >
+                                        <span className="mr-2">Revision</span>{" "}
+                                        <IconInfo />
+                                    </button>
+                                    <Popover id="revision-popover">
+                                        <IconInfo />
+                                        <span>
+                                            What NIST 800-171 revision(s) this
+                                            control appears in.
+                                        </span>
+                                    </Popover>
+                                </>
+                            ),
+                            visible: value?.revision?.length,
+                            value: value?.revision?.join(", "),
                         },
-                        { title: "Value", visible: true, value: value?.value },
+                        {
+                            title: (
+                                <>
+                                    <button
+                                        popoverTarget="value-popover"
+                                        className="uppercase flex items-center"
+                                    >
+                                        <span className="mr-2">Value</span>{" "}
+                                        <IconInfo />
+                                    </button>
+                                    <Popover id="value-popover">
+                                        <IconInfo />
+                                        <span>
+                                            The value this control has currently
+                                            in CMMC.
+                                        </span>
+                                    </Popover>
+                                </>
+                            ),
+                            visible: true,
+                            value: value?.value,
+                        },
                         {
                             title: "Partial Value",
                             visible: (value?.partial_value ?? 0) > 0,

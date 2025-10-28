@@ -9,7 +9,7 @@ export interface SecurityRequirementValue {
     id: SecurityRequirementId;
     value: number;
     partial_value: number;
-    revision: SecurityRequirementRevision;
+    revision: SecurityRequirementRevision[];
     withdrawn_from?: SecurityRequirementId[];
     withdrawn_into?: SecurityRequirementId[];
     aggregate_value_withdrawn_from?: number;
