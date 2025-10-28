@@ -4,22 +4,11 @@ import {
     ElementType,
     Framework,
 } from "@/api/generated/Framework";
+import data from "../../../public/data/sp_800_171_3_0_0/framework.json";
 
-let cache: Framework | undefined;
-
-const manifestPromise = fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/framework.json?${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`
-).then((r) => r.text());
-
-export const read = async () => {
-    if (cache) {
-        return cache;
-    }
-    // const data = await fetch("https://csrc.nist.gov/extensions/nudp/services/json/nudp/framework/version/sp_800_171_3_0_0/export/json?element=all");
-    const framework: Framework = Convert.toFramework(await manifestPromise);
-    cache = framework;
-    return cache;
-};
+export const framework: Framework = Object.freeze(
+    Convert.toFrameworkDict(data)
+);
 
 export const getFamily = (element: Element) => {
     switch (element.element_type) {
@@ -234,6 +223,8 @@ export class Manifest {
     }
 
     static async init() {
-        return new Manifest(await read());
+        return new Manifest(framework);
     }
 }
+
+export const manifest = new Manifest(framework);

@@ -1,3 +1,5 @@
+import data from "../../../public/data/sp_800_171_3_0_0/values.json";
+
 export type SecurityRequirementId = string;
 
 export enum SecurityRequirementRevision {
@@ -6,7 +8,6 @@ export enum SecurityRequirementRevision {
 }
 
 export interface SecurityRequirementValue {
-    id: SecurityRequirementId;
     value: number;
     partial_value: number;
     revision: SecurityRequirementRevision[];
@@ -21,16 +22,4 @@ export type SecurityRequirementValuesSchema = {
     [securityRequirementId: SecurityRequirementId]: SecurityRequirementValue;
 };
 
-const valuesPromise = fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/data/sp_800_171_3_0_0/values.json?${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`
-).then((r) => r.json());
-
-let cache: SecurityRequirementValuesSchema | undefined;
-
-export const read = async () => {
-    if (cache) {
-        return cache;
-    }
-    cache = await valuesPromise;
-    return cache;
-};
+export const values: SecurityRequirementValuesSchema = Object.freeze(data);

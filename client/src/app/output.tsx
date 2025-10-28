@@ -101,7 +101,7 @@ const Families = () => {
 };
 
 export default function Page() {
-    const manifest = Framework.Manifest.init();
+    const manifest = Framework.manifest;
     return (
         <ManifestProvider value={manifest}>
             <Families />

@@ -87,6 +87,9 @@ export class Convert {
     public static toFramework(json: string): Framework {
         return cast(JSON.parse(json), r("Framework"));
     }
+    public static toFrameworkDict(json: any): Framework {
+        return cast(json, r("Framework"));
+    }
 
     public static frameworkToJson(value: Framework): string {
         return JSON.stringify(uncast(value, r("Framework")), null, 2);

@@ -4,7 +4,7 @@ export const dynamic = "force-static";
 const URL = "https://cmmc.jaktool.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const manifest = await Framework.Manifest.init();
+    const manifest = Framework.manifest;
 
     return [
         {

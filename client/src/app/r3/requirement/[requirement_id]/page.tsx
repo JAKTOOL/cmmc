@@ -7,7 +7,7 @@ import ManifestComponent from "@/app/context";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
-    const manifest = await Framework.Manifest.init();
+    const manifest = await Framework.manifest;
     const requirements = manifest.requirements.elements;
 
     return requirements.map((requirement) => ({
@@ -24,7 +24,7 @@ export async function generateMetadata(
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     const { requirement_id } = await params;
-    const manifest = await Framework.Manifest.init();
+    const manifest = await Framework.manifest;
     const requirement = manifest.requirements.byId[requirement_id];
     return {
         title: `${requirement_id}: ${requirement.title}`,

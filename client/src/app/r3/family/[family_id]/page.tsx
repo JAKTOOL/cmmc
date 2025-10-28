@@ -7,7 +7,7 @@ import ManifestComponent from "@/app/context";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
-    const manifest = await Framework.Manifest.init();
+    const manifest = await Framework.manifest;
     const families = manifest.families.elements;
 
     return families.map((family) => ({

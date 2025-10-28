@@ -1,15 +1,16 @@
 "use client";
 import * as Framework from "@/api/entities/Framework";
-import React, { createContext, use, useContext } from "react";
+import React, { createContext, useContext } from "react";
 
-export const ManifestContext =
-    createContext<Promise<Framework.Manifest> | null>(null);
+export const ManifestContext = createContext<Framework.Manifest>(
+    Framework.manifest
+);
 export function ManifestProvider({
     children,
     value,
 }: {
     children: React.ReactNode;
-    value: Promise<Framework.Manifest> | null;
+    value: Framework.Manifest;
 }) {
     return (
         <ManifestContext.Provider value={value}>
@@ -18,18 +19,8 @@ export function ManifestProvider({
     );
 }
 
-export function useManifestContextPromise() {
-    const context = useContext(ManifestContext);
-    if (!context) {
-        throw new Error(
-            "useManifestContext must be used within a ManifestProvider"
-        );
-    }
-    return context;
-}
-
 export function useManifestContext() {
-    return use(useManifestContextPromise());
+    return useContext(ManifestContext);
 }
 
 export default function ManifestComponent({
@@ -37,6 +28,6 @@ export default function ManifestComponent({
 }: {
     children: React.ReactNode;
 }) {
-    const manifest = Framework.Manifest.init();
+    const manifest = Framework.manifest;
     return <ManifestProvider value={manifest}>{children}</ManifestProvider>;
 }
