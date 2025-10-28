@@ -30,7 +30,7 @@ export default function RootLayout({
             <head>
                 <meta
                     http-equiv="Content-Security-Policy"
-                    content="default-src 'self';"
+                    content="default-src 'self'; script-src 'unsafe-inline'"
                 />
                 <Script
                     src={`/service-worker.js?v=${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`}
