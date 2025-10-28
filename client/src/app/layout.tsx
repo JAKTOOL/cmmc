@@ -28,6 +28,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
+                <meta
+                    http-equiv="Content-Security-Policy"
+                    content="default-src 'self';"
+                />
                 <Script
                     src={`/service-worker.js?v=${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`}
                     async
