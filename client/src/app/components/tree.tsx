@@ -12,7 +12,7 @@ export const Dropdown = ({ isOpen }: { isOpen: boolean }) => (
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0)" }}
+        className={isOpen ? "rotate-180" : "rotate-0"}
     >
         <path
             fill="#fff"
