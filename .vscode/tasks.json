@@ -14,7 +14,8 @@
                 "cwd": "${workspaceFolder}/client",
                 "env": {
                     "NEXT_PUBLIC_API_URL": "http://localhost:3000",
-                    "NEXT_PUBLIC_FRAMEWORK_VERSION": "1"
+                    "NEXT_PUBLIC_FRAMEWORK_VERSION": "1",
+                    "NEXT_PUBLIC_CSP": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-hashes'; style-src-attr 'self' 'unsafe-inline'"
                 }
             }
         },
@@ -31,7 +32,8 @@
                 "cwd": "${workspaceFolder}/client",
                 "env": {
                     "NEXT_PUBLIC_API_URL": "http://localhost:3000",
-                    "NEXT_PUBLIC_FRAMEWORK_VERSION": "1"
+                    "NEXT_PUBLIC_FRAMEWORK_VERSION": "1",
+                    "NEXT_PUBLIC_CSP": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-hashes'; style-src-attr 'self' 'unsafe-inline'"
                 }
             }
         }

@@ -26,6 +26,7 @@ jobs:
         run: |
           echo NEXT_PUBLIC_API_URL=https://cmmc.jaktool.com >> .env
           echo NEXT_PUBLIC_FRAMEWORK_VERSION=$(sha1sum public/data/sp_800_171_3_0_0/framework.json | awk '{print $1}') >> .env
+          echo NEXT_PUBLIC_CSP="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'"
 
       - name: Retrieve the cached "node_modules" directory (if present)
         uses: actions/cache@v3
