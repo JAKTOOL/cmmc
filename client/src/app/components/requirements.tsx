@@ -1,8 +1,10 @@
 "use client";
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
+import { useMemo } from "react";
 import { useFamilyStatus } from "../hooks/status";
 import { Breadcrumbs } from "./breadcrumbs";
+import { ContentNavigation } from "./content_navigation";
 import { IconInfo } from "./icon_info";
 import { Popover } from "./popover";
 import { StatusState } from "./status";
@@ -12,6 +14,14 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
     const requirements = manifest.requirements.byFamily[familyId];
     const family = manifest.families.byId[familyId];
     const familyStatus = useFamilyStatus(familyId);
+
+    const [prev, next] = useMemo(() => {
+        const families = manifest?.families?.elements;
+        const familyIdx = families?.findIndex((r) => r.id === familyId);
+        const prev = families[familyIdx - 1];
+        const next = families[familyIdx + 1];
+        return [prev, next];
+    }, [familyId, manifest]);
 
     return (
         <>
@@ -32,6 +42,12 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                     when viewing the requirement.
                 </span>
             </Popover>
+            <ContentNavigation
+                elementIdentity={(element) => element?.family}
+                previous={prev}
+                next={next}
+                elementType="family"
+            />
             <ol>
                 {requirements?.map((requirement) => {
                     const withdrawn =

@@ -6,7 +6,16 @@ import { useEffect, useRef } from "react";
 interface PageNavigationProps {
     previous?: ElementWrapper | undefined;
     next?: ElementWrapper | undefined;
+
+    elementIdentity?: (
+        element: ElementWrapper | undefined
+    ) => string | undefined;
+
+    elementType?: string;
 }
+
+const defaultElementIdentity = (element: ElementWrapper | undefined) =>
+    element?.requirement;
 
 function inViewport(element: HTMLAnchorElement) {
     const clientRect = element.getBoundingClientRect();
@@ -21,7 +30,12 @@ function inViewport(element: HTMLAnchorElement) {
     );
 }
 
-export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
+export const ContentNavigation = ({
+    previous,
+    next,
+    elementType = "requirement",
+    elementIdentity = defaultElementIdentity,
+}: PageNavigationProps) => {
     const previousRef = useRef<HTMLAnchorElement>(null);
     const nextRef = useRef<HTMLAnchorElement>(null);
 
@@ -42,11 +56,14 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
         }
     }, [previousRef, nextRef]);
 
+    const prevElement = elementIdentity(previous);
+    const nextElement = elementIdentity(next);
+
     return (
         <aside className="w-5/6 flex flex-row mb-4">
             {previous && (
                 <Link
-                    href={`/r3/requirement/${previous.requirement}`}
+                    href={`/r3/${elementType}/${prevElement}`}
                     className={`flex flex-row items-center bg-gray-200 text-gray-700 border-gray-400 py-2 px-4 border-b-4 hover:bg-gray-300 ${prevClasses}`}
                     tabIndex={10}
                     ref={previousRef}
@@ -66,7 +83,7 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
                         ></path>
                     </svg>
                     <span className="mr-4 ml-2">
-                        <span>{previous.requirement}</span>
+                        <span>{prevElement}</span>
                         {!!previous.title && (
                             <span className="hidden md:inline">
                                 : {previous.title}
@@ -77,13 +94,13 @@ export const ContentNavigation = ({ previous, next }: PageNavigationProps) => {
             )}
             {next && (
                 <Link
-                    href={`/r3/requirement/${next.requirement}`}
+                    href={`/r3/${elementType}/${nextElement}`}
                     className={`flex flex-row items-center bg-gray-200 text-gray-700 border-gray-400 py-2 px-4 border-b-4 hover:bg-gray-300 ${nextClasses}`}
                     tabIndex={11}
                     ref={nextRef}
                 >
                     <span className="ml-4 mr-2">
-                        <span>{next.requirement}</span>
+                        <span>{nextElement}</span>
                         {!!next.title && (
                             <span className="hidden md:inline">
                                 : {next.title}
