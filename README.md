@@ -5,7 +5,7 @@
 
 It was challenging to find resources for [NIST 800-171 Revision 3](https://csrc.nist.gov/publications/detail/sp/800-171/rev-3/final) and [CMMC](https://dodcio.defense.gov/cmmc/About/) compliance, so this application was created to make writing SSP's a bit easier, without having to stare at an excel spreadsheet.
 
-By going through the 800-171 controls, you can generate a markdown file with all statuses and notes for each security control. Withdrawn controls from revision 2 are included, so as to meet all requirements for CMMC.
+By going through the 800-171 controls, you can generate a markdown file with all statuses and notes for each security control. Withdrawn controls from revision 2 are included in order to meet all current requirements for CMMC.
 
 ![Demo](screenshots/demo.gif)
 
