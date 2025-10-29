@@ -34,6 +34,7 @@ export const Files = ({
             const evidence: IDBEvidence = {
                 uuid: window.crypto.randomUUID(),
                 filename: file.name,
+                type: file.type,
                 data,
                 requirement_id: requirementId,
             };
