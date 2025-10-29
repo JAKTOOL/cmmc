@@ -99,7 +99,7 @@ export const EvidenceBadge = ({
         <span className="flex shrink items-center max-h-[20px] bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium me-2 mb-2 px-2.5 py-0.5 rounded-sm">
             <span
                 className="border-r border-blue-200 pr-2"
-                title={`${artifact.data.byteLength} bytes`}
+                title={`${artifact.data.byteLength} bytes | ${artifact.type}`}
             >
                 {artifact.filename}
             </span>
