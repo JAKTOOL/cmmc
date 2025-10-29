@@ -280,7 +280,6 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
             const href = formData.get("url") as string;
             const url = new URL(href);
             const data = new TextEncoder().encode(href);
-            debugger;
             const evidence: IDBEvidence = {
                 uuid: window.crypto.randomUUID(),
                 filename: url.host || url.href,
