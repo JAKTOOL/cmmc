@@ -123,9 +123,17 @@ export const getAll =
     <T>(table: string) =>
     async (
         query: IDBKeyRange | IDBValidKey | null = null,
+        index?: string,
         count?: number
     ): Promise<T[]> => {
-        const store = await getStore(table, Permission.READONLY);
+        let store: IDBObjectStore | IDBIndex = await getStore(
+            table,
+            Permission.READONLY
+        );
+
+        if (index) {
+            store = store.index(index) as IDBIndex;
+        }
 
         const request = store.getAll(query, count);
 
@@ -138,6 +146,27 @@ export const getAll =
             };
         });
     };
+
+export const remove =
+    (table: string) =>
+    async (query: IDBKeyRange | IDBValidKey): Promise<boolean> => {
+        const store: IDBObjectStore = await getStore(
+            table,
+            Permission.READWRITE
+        );
+
+        const request = store.delete(query);
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = () => {
+                resolve(true);
+            };
+            request.onerror = () => {
+                reject();
+            };
+        });
+    };
+
 export const put =
     <T>(table: string) =>
     async (data: T): Promise<T[]> => {
@@ -170,8 +199,10 @@ class StoreWrapper<T> {
     public table: Table;
     getAll: (
         query?: IDBKeyRange | IDBValidKey | null,
+        index?: string,
         count?: number
     ) => Promise<T[]>;
+    delete: (query: IDBKeyRange | IDBValidKey) => Promise<boolean>;
     put: (data: T) => Promise<T[]>;
     clear: () => Promise<boolean>;
     store: (permission: Permission) => Promise<IDBObjectStore>;
@@ -181,6 +212,7 @@ class StoreWrapper<T> {
         this.getAll = getAll<T>(table);
         this.put = put<T>(table);
         this.clear = clear(table);
+        this.delete = remove(table);
         this.store = (permission: Permission = Permission.READONLY) =>
             getStore(table, permission);
     }
