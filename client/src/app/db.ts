@@ -1,12 +1,67 @@
 "use client";
 import { Status } from "@/app/components/status";
-export const version = 1;
+export const version = 2;
 let loader: Promise<IDBDatabase> | undefined;
 
 enum Table {
     SECURITY_REQUIREMENTS = "security_requirements",
     REQUIREMENTS = "requirements",
+    EVIDENCE = "evidence",
 }
+
+const migrations = {
+    "1": (db: IDBDatabase) => {
+        if (!db.objectStoreNames.contains(Table.SECURITY_REQUIREMENTS)) {
+            const securityRequirementsStore = db.createObjectStore(
+                Table.SECURITY_REQUIREMENTS,
+                {
+                    keyPath: "id",
+                }
+            );
+
+            securityRequirementsStore.createIndex("status", "status", {
+                unique: false,
+            });
+            securityRequirementsStore.createIndex(
+                "description",
+                "description",
+                {
+                    unique: false,
+                }
+            );
+        }
+
+        if (!db.objectStoreNames.contains(Table.REQUIREMENTS)) {
+            const requirementsStore = db.createObjectStore(Table.REQUIREMENTS, {
+                keyPath: "id",
+            });
+
+            requirementsStore.createIndex(
+                "security_requirements",
+                "security_requirements",
+                {
+                    unique: false,
+                }
+            );
+        }
+    },
+    "2": (db: IDBDatabase) => {
+        if (!db.objectStoreNames.contains(Table.EVIDENCE)) {
+            const evidence = db.createObjectStore(Table.EVIDENCE, {
+                keyPath: "uuid",
+            });
+            evidence.createIndex("requirement_id", "requirement_id", {
+                unique: false,
+            });
+            evidence.createIndex("filename", "filename", {
+                unique: false,
+            });
+            evidence.createIndex("data", "data", {
+                unique: false,
+            });
+        }
+    },
+};
 
 if (typeof window !== "undefined") {
     const request = window?.indexedDB?.open("800_171_r3", version);
@@ -25,35 +80,9 @@ if (typeof window !== "undefined") {
         request.onupgradeneeded = function (event) {
             const db = event.target?.result as IDBDatabase;
 
-            const securityRequirementsStore = db.createObjectStore(
-                Table.SECURITY_REQUIREMENTS,
-                {
-                    keyPath: "id",
-                }
-            );
-
-            securityRequirementsStore.createIndex("status", "status", {
-                unique: false,
-            });
-            securityRequirementsStore.createIndex(
-                "description",
-                "description",
-                {
-                    unique: false,
-                }
-            );
-
-            const requirementsStore = db.createObjectStore(Table.REQUIREMENTS, {
-                keyPath: "id",
-            });
-
-            requirementsStore.createIndex(
-                "security_requirements",
-                "security_requirements",
-                {
-                    unique: false,
-                }
-            );
+            for (let v = 1; v <= version; v++) {
+                migrations?.[`${v}`]?.(db);
+            }
         };
     });
 }
@@ -71,6 +100,13 @@ export interface IDBSecurityRequirement {
 export interface IDBRequirement {
     id: string;
     bySecurityRequirementId: Record<string, Status>;
+}
+
+export interface IDBEvidence {
+    uuid: string;
+    requirement_id: string;
+    filename: string;
+    data: ArrayBuffer;
 }
 
 enum Permission {
