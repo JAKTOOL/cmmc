@@ -77,7 +77,6 @@ if (typeof window !== "undefined") {
         };
 
         request.onupgradeneeded = function (event) {
-            debugger;
             const db = event.target?.result as IDBDatabase;
             for (let v = event.oldVersion + 1; v <= event.newVersion; v++) {
                 migrations?.[`${v}`]?.(db);
