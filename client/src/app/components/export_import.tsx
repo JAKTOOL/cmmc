@@ -1,23 +1,38 @@
 "use client";
 import { Status } from "@/app/components/status";
-import { IDB, IDBRequirement, IDBSecurityRequirement } from "@/app/db";
+import {
+    IDB,
+    IDBEvidence,
+    IDBRequirement,
+    IDBSecurityRequirement,
+} from "@/app/db";
 import { useActionState, useRef } from "react";
+
+type PortableIDBEvidence = Omit<IDBEvidence, "data"> & {
+    data: Array<number>;
+};
 
 interface ImportExportPayload {
     securityRequirements: IDBSecurityRequirement[];
+    evidence?: PortableIDBEvidence[];
     version: number;
 }
 
 export const Export = () => {
     const action = async () => {
         const idbSecurityRequirements = await IDB.securityRequirements.getAll();
-
+        const idbEvidence = await IDB.evidence.getAll();
+        const evidence = idbEvidence.map((artifact) => ({
+            ...artifact,
+            data: [...new Uint8Array(artifact.data)],
+        }));
         const validSecurityRequirements = idbSecurityRequirements.filter(
             (secReq) => !!(secReq.status || secReq.description)
         );
 
         const payload: ImportExportPayload = {
             securityRequirements: validSecurityRequirements,
+            evidence,
             version: IDB.version,
         };
 
@@ -104,6 +119,14 @@ export const Import = () => {
 
                         for (const req of Object.values(requirements)) {
                             await IDB.requirements.put(req);
+                        }
+
+                        for (const artifact of payload?.evidence || []) {
+                            const _artifact = {
+                                ...artifact,
+                                data: new Uint8Array(artifact.data).buffer,
+                            };
+                            await IDB.evidence.put(_artifact);
                         }
 
                         resolve(payload);
