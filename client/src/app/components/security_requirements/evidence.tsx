@@ -64,9 +64,9 @@ const IconExternal = () => (
     >
         <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M21 9V3m0 0h-6m6 0-8 8m-3-6H7.8c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.311 1.311C3 7.28 3 8.12 3 9.8v6.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311C5.28 21 6.12 21 7.8 21h6.4c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.311-1.311C19 18.72 19 17.88 19 16.2V14"
         />
     </svg>
@@ -296,35 +296,43 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
     };
 
     return (
-        <form
-            className="flex flex-col md:flex-row shrink mb-4 -translate-y-[36px]"
-            onSubmit={onSubmit}
-        >
-            <div className="basis-full mb-4 md:mb-0 md:basis-1/3 md:mr-4">
-                <Files
-                    requirementId={requirementId}
-                    setUploading={setUploading}
-                    uploading={uploading}
-                />
-                <div className="relative w-full mt-4">
-                    <input
-                        type="url"
-                        name="url"
-                        id="url"
-                        className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                        placeholder="URL for evidence"
+        <>
+            <h4 className="text-2xl block sm:flex mb-6 items-center -translate-y-full">
+                Evidence
+            </h4>
+            <form
+                className="flex flex-col md:flex-row shrink mb-4 -translate-y-[36px]"
+                onSubmit={onSubmit}
+            >
+                <div className="basis-full mb-4 md:mb-0 md:basis-1/3 md:mr-4">
+                    <Files
+                        requirementId={requirementId}
+                        setUploading={setUploading}
+                        uploading={uploading}
                     />
-                    <button
-                        type="submit"
-                        className="absolute top-0 end-0 p-2.5 h-full rounded-e-lg flex items-center px-3 py-2 text-xs font-medium text-gray-600 bg-gray-100 border-l border-gray-200 border border-gray-200"
-                    >
-                        <IconLink />
-                    </button>
+                    <div className="relative w-full mt-4">
+                        <input
+                            type="url"
+                            name="url"
+                            id="url"
+                            className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                            placeholder="URL for evidence"
+                        />
+                        <button
+                            type="submit"
+                            className="absolute top-0 end-0 p-2.5 h-full rounded-e-lg flex items-center px-3 py-2 text-xs font-medium text-gray-600 bg-gray-100 border-l border-gray-200 border border-gray-200"
+                        >
+                            <IconLink />
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div className="flex flex-wrap shrink basis-full md:basis-2/3 content-center">
-                <EvidenceBadges evidence={evidence} setEvidence={setEvidence} />
-            </div>
-        </form>
+                <div className="flex flex-wrap shrink basis-full md:basis-2/3 content-center">
+                    <EvidenceBadges
+                        evidence={evidence}
+                        setEvidence={setEvidence}
+                    />
+                </div>
+            </form>
+        </>
     );
 };
