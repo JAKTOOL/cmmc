@@ -223,6 +223,7 @@ export class IDB {
     static securityRequirements = new StoreWrapper<IDBSecurityRequirement>(
         Table.SECURITY_REQUIREMENTS
     );
+    static evidence = new StoreWrapper<IDBEvidence>(Table.EVIDENCE);
 
     static version = version;
 }
