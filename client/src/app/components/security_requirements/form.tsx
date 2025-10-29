@@ -31,13 +31,13 @@ export const Form = ({
                     </span>
                 )}
             </div>
+            <Evidence requirementId={requirement.element_identifier} />
             <form
                 id={requirement.element_identifier}
                 action={formAction}
                 onChange={debouncedSave}
                 className="basis-full"
             >
-                <Evidence requirementId={requirement.element_identifier} />
                 {children}
             </form>
         </>
