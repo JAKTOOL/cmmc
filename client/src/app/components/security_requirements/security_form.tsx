@@ -1,7 +1,42 @@
 "use client";
+import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { useActionState, useMemo, useState } from "react";
-import { Form, debounce, saveState } from "./form";
+import { Status } from "../status";
+import { Form } from "./form";
 import { SecurityRequirement } from "./form_elements";
+import { debounce } from "./utils";
+
+export const saveState = async (requirementId: string, formData: FormData) => {
+    const records: Record<string, Record<string, FormDataEntryValue>> = {};
+    for (const [_key, value] of formData.entries()) {
+        // Extract the id from the key to the last period
+        const idx = _key.lastIndexOf(".");
+        const id = _key.substring(0, idx);
+        const key = _key.substring(idx + 1);
+        records[id] = { ...(records?.[id] || {}), [key]: value };
+    }
+    for (const [id, record] of Object.entries(records)) {
+        await IDB.securityRequirements?.put({
+            id,
+            ...record,
+        } as IDBSecurityRequirement);
+    }
+
+    const statuses: Status[] = [];
+    await IDB.requirements?.put({
+        id: requirementId,
+        bySecurityRequirementId: Object.entries(records).reduce(
+            (acc, [id, record]) => {
+                acc[id] = record.status;
+                statuses.push(record.status as Status);
+                return acc;
+            },
+            {}
+        ),
+    });
+
+    return statuses;
+};
 
 export const SecurityForm = ({
     requirement,

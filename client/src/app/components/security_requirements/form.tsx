@@ -1,51 +1,6 @@
 "use client";
-import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { ContentNavigation } from "../content_navigation";
-import { Status } from "../status";
-
-export const saveState = async (requirementId: string, formData: FormData) => {
-    const records: Record<string, Record<string, FormDataEntryValue>> = {};
-    for (const [_key, value] of formData.entries()) {
-        // Extract the id from the key to the last period
-        const idx = _key.lastIndexOf(".");
-        const id = _key.substring(0, idx);
-        const key = _key.substring(idx + 1);
-        records[id] = { ...(records?.[id] || {}), [key]: value };
-    }
-    for (const [id, record] of Object.entries(records)) {
-        await IDB.securityRequirements?.put({
-            id,
-            ...record,
-        } as IDBSecurityRequirement);
-    }
-
-    const statuses: Status[] = [];
-    await IDB.requirements?.put({
-        id: requirementId,
-        bySecurityRequirementId: Object.entries(records).reduce(
-            (acc, [id, record]) => {
-                acc[id] = record.status;
-                statuses.push(record.status as Status);
-                return acc;
-            },
-            {}
-        ),
-    });
-
-    return statuses;
-};
-
-export function debounce(func, delay) {
-    let timeoutId: NodeJS.Timeout | undefined;
-    return function (...args) {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-        timeoutId = setTimeout(() => {
-            func.apply(this, args);
-        }, delay);
-    };
-}
+import { Evidence } from "./evidence";
 
 export const Form = ({
     children,
