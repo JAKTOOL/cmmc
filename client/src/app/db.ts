@@ -10,7 +10,8 @@ enum Table {
 }
 
 const migrations = {
-    "1": (db: IDBDatabase) => {
+    "1": (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
         const securityRequirementsStore = db.createObjectStore(
             Table.SECURITY_REQUIREMENTS,
             {
@@ -37,7 +38,8 @@ const migrations = {
             }
         );
     },
-    "2": (db: IDBDatabase) => {
+    "2": (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
         const evidence = db.createObjectStore(Table.EVIDENCE, {
             keyPath: "uuid",
         });
@@ -52,10 +54,11 @@ const migrations = {
         });
         return evidence;
     },
-    "3": (db: IDBDatabase) => {
+    "3": (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
         db.deleteObjectStore(Table.EVIDENCE);
 
-        const evidence = migrations["2"](db);
+        const evidence = migrations["2"](event);
 
         evidence.createIndex("type", "type", {
             unique: false,
@@ -76,10 +79,9 @@ if (typeof window !== "undefined") {
             resolve(db);
         };
 
-        request.onupgradeneeded = function (event) {
-            const db = event.target?.result as IDBDatabase;
+        request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
             for (let v = event.oldVersion + 1; v <= event.newVersion; v++) {
-                migrations?.[`${v}`]?.(db);
+                migrations?.[`${v}`]?.(event);
             }
         };
     });
