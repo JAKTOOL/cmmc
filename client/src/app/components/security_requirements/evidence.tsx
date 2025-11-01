@@ -7,7 +7,7 @@ import {
     useState,
 } from "react";
 
-const toBuffer = (file: File) =>
+const toBuffer = (file: File | Blob) =>
     new Promise<ArrayBuffer>((resolve, reject) => {
         const fr = new FileReader();
         fr.onload = () => resolve(fr.result as ArrayBuffer);
@@ -15,13 +15,45 @@ const toBuffer = (file: File) =>
         fr.readAsArrayBuffer(file);
     });
 
-const toDataURL = (file: File) =>
+const toDataURL = (file: File | Blob) =>
     new Promise<string>((resolve, reject) => {
         const fr = new FileReader();
         fr.onload = () => resolve(fr.result as string);
         fr.onerror = (err) => reject(err);
         fr.readAsDataURL(file);
     });
+
+const createEvidence = async ({
+    requirementId,
+    type,
+    name,
+    data,
+}: {
+    requirementId: string;
+    type: string;
+    name?: string;
+    data: ArrayBuffer;
+}): Promise<IDBEvidence> => {
+    const uuid = [
+        ...new Uint8Array(await window.crypto.subtle.digest("SHA-1", data)),
+    ]
+        .map((x) => x.toString(16).padStart(2, "0"))
+        .join(""); // TODO: Rename uuid since its a hash now
+
+    const suffix = type.includes("image/")
+        ? `.${type.replace("image/", "")}`
+        : "";
+
+    const filename = name || `${uuid.slice(0, 8)}${suffix}`;
+
+    return {
+        uuid,
+        filename,
+        type: type,
+        data,
+        requirement_id: requirementId,
+    };
+};
 
 const IconFileDownload = () => (
     <svg
@@ -88,13 +120,12 @@ export const Files = ({
         }
         for (const file of e.target.files) {
             const data = await toBuffer(file);
-            const evidence: IDBEvidence = {
-                uuid: window.crypto.randomUUID(),
-                filename: file.name,
+            const evidence: IDBEvidence = await createEvidence({
+                name: file.name,
                 type: file.type,
                 data,
-                requirement_id: requirementId,
-            };
+                requirementId: requirementId,
+            });
             await IDB.evidence.put(evidence);
         }
         setUploading(false);
@@ -261,6 +292,49 @@ async function fetchEvidence(requirementId, setEvidence) {
     setEvidence(evidenceRecords);
 }
 
+function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
+    return async function handleImagePaste(event: Event) {
+        try {
+            if (["TEXTAREA", "INPUT"].includes(event?.target?.nodeName)) {
+                return;
+            }
+            event.preventDefault();
+
+            const clipboardItems =
+                typeof navigator?.clipboard?.read === "function"
+                    ? await navigator.clipboard.read()
+                    : event?.clipboardData?.files;
+
+            setUploading(true);
+            for (const clipboardItem of clipboardItems) {
+                let blob: Blob | undefined;
+                if (clipboardItem.type?.startsWith("image/")) {
+                    blob = clipboardItem;
+                } else {
+                    const imageTypes = clipboardItem.types?.filter((type) =>
+                        type.startsWith("image/")
+                    );
+                    for (const imageType of imageTypes) {
+                        blob = await clipboardItem.getType(imageType);
+                    }
+                }
+
+                if (blob) {
+                    const data = await toBuffer(blob);
+                    const evidence: IDBEvidence = await createEvidence({
+                        type: blob.type,
+                        data,
+                        requirementId: requirementId,
+                    });
+                    await IDB.evidence.put(evidence);
+                }
+            }
+        } finally {
+            setUploading(false);
+        }
+    };
+}
+
 export const Evidence = ({ requirementId }: { requirementId: string }) => {
     const [evidence, setEvidence] = useState<IDBEvidence[]>([]);
     const [uploading, setUploading] = useState(false);
@@ -271,6 +345,18 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
         }
     }, [requirementId, uploading]);
 
+    useEffect(() => {
+        const handler = pasteImageFromClipboard(
+            requirementId,
+            setEvidence,
+            setUploading
+        );
+        document.addEventListener("paste", handler);
+        return () => {
+            document.removeEventListener("paste", handler);
+        };
+    }, [requirementId, setEvidence, setUploading]);
+
     const onSubmit = async (e: SubmitEvent) => {
         setUploading(true);
         e.preventDefault();
@@ -280,13 +366,12 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
             const href = formData.get("url") as string;
             const url = new URL(href);
             const data = new TextEncoder().encode(href);
-            const evidence: IDBEvidence = {
-                uuid: window.crypto.randomUUID(),
-                filename: url.host || url.href,
+            const evidence: IDBEvidence = await createEvidence({
+                name: url.host || url.href,
                 type: "url",
                 data: data.buffer,
-                requirement_id: requirementId,
-            };
+                requirementId,
+            });
             await IDB.evidence.put(evidence);
             e?.target?.reset();
         }
