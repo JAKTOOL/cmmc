@@ -4,7 +4,9 @@ import { useManifestContext } from "@/app/context";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
+import { FamilyEvidence, useFamilyEvidence } from "../hooks/evidence";
 import { FamilyStatus, useFamilyStatus } from "../hooks/status";
+import { EvidenceState } from "./evidence";
 import { StatusState } from "./status";
 
 export const Dropdown = ({ isOpen }: { isOpen: boolean }) => (
@@ -31,6 +33,7 @@ export const FamilyBranch = ({
     manifest: Manifest;
 }) => {
     const familyStatus = useFamilyStatus(family.element_identifier);
+    const familyEvidence = useFamilyEvidence(family.element_identifier);
     const [isOpen, setOpen] = useState(false);
     return (
         <li className="mb-1" key={family.element_identifier}>
@@ -42,6 +45,10 @@ export const FamilyBranch = ({
                 >
                     {family.element_identifier}: {family.title}
                 </Link>
+                <EvidenceState
+                    evidence={familyEvidence?.hasEvidence}
+                    size="sm"
+                />
                 <button
                     className="ml-2 w-[24px] h-[24px]"
                     onClick={() => setOpen(!isOpen)}
@@ -54,6 +61,7 @@ export const FamilyBranch = ({
                     family={family}
                     manifest={manifest}
                     familyStatus={familyStatus}
+                    familyEvidence={familyEvidence}
                 />
             )}
         </li>
@@ -64,10 +72,12 @@ export const RequirementsLeaf = ({
     family,
     manifest,
     familyStatus,
+    familyEvidence,
 }: {
     family: ElementWrapper;
     manifest: Manifest;
     familyStatus?: FamilyStatus;
+    familyEvidence?: FamilyEvidence;
 }) => {
     const requirements =
         manifest.requirements.byFamily[family.element_identifier];
@@ -78,6 +88,7 @@ export const RequirementsLeaf = ({
                     key={requirement.element_identifier}
                     requirement={requirement}
                     familyStatus={familyStatus}
+                    familyEvidence={familyEvidence}
                 />
             ))}
         </ol>
@@ -86,11 +97,16 @@ export const RequirementsLeaf = ({
 export const RequirementLeaf = ({
     requirement,
     familyStatus,
+    familyEvidence,
 }: {
     requirement: ElementWrapper;
     familyStatus?: FamilyStatus;
+    familyEvidence?: FamilyEvidence;
 }) => {
     const status = familyStatus?.requirementStatus(
+        requirement.element_identifier
+    );
+    const evidence = familyEvidence?.requirementEvidence(
         requirement.element_identifier
     );
     const className = !requirement.title ? "line-through" : "";
@@ -104,6 +120,7 @@ export const RequirementLeaf = ({
                 {requirement.element_identifier}:{" "}
                 {requirement.title || "Withdrawn"}
             </Link>
+            <EvidenceState evidence={evidence} size="xs" />
         </li>
     );
 };

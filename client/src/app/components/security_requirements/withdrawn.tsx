@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
 import { DataTable } from "../datatable";
+import { EvidenceState } from "../evidence";
 import { IconInfo } from "../icon_info";
 import { Popover } from "../popover";
 import { StatusState } from "../status";
@@ -49,6 +50,7 @@ export const WithdrawnSecurityRequirement = ({
     value,
     withdrawn,
     groupings,
+    evidence,
 }) => {
     return (
         <>
@@ -57,6 +59,7 @@ export const WithdrawnSecurityRequirement = ({
             <h3 className="text-3xl mt-6 block sm:flex items-center">
                 Security Requirements for {requirement.requirement}
                 <StatusState statuses={statuses} />
+                <EvidenceState evidence={evidence} />
             </h3>
 
             <div

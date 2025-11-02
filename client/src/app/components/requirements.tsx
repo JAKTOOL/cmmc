@@ -2,9 +2,11 @@
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
 import { useMemo } from "react";
+import { useFamilyEvidence } from "../hooks/evidence";
 import { useFamilyStatus } from "../hooks/status";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ContentNavigation } from "./content_navigation";
+import { EvidenceState } from "./evidence";
 import { IconInfo } from "./icon_info";
 import { Popover } from "./popover";
 import { StatusState } from "./status";
@@ -14,6 +16,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
     const requirements = manifest.requirements.byFamily[familyId];
     const family = manifest.families.byId[familyId];
     const familyStatus = useFamilyStatus(familyId);
+    const familyEvidence = useFamilyEvidence(familyId);
 
     const [prev, next] = useMemo(() => {
         const families = manifest?.families?.elements;
@@ -73,6 +76,11 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                                         ? "Withdrawn"
                                         : requirement.title}
                                 </h3>
+                                <EvidenceState
+                                    evidence={familyEvidence?.requirementEvidence(
+                                        requirement.element_identifier
+                                    )}
+                                />
                             </Link>
                         </li>
                     );

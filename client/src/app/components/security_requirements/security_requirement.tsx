@@ -3,6 +3,7 @@ import { renderNumber } from "@/app/utils/number";
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
 import { DataTable } from "../datatable";
+import { EvidenceState } from "../evidence";
 import { IconInfo } from "../icon_info";
 import { Popover } from "../popover";
 import { StatusState } from "../status";
@@ -21,6 +22,7 @@ export const SecurityRequirement = ({
     setStatuses,
     statuses,
     value,
+    evidence,
 }) => {
     return (
         <>
@@ -29,6 +31,7 @@ export const SecurityRequirement = ({
                 Security Requirements for {requirement.requirement}{" "}
                 {requirement.title}
                 <StatusState statuses={statuses} />
+                <EvidenceState evidence={evidence} />
             </h3>
             <p
                 className="text-base discussion"

@@ -1,6 +1,11 @@
 "use client";
-import { IDB, IDBRequirement, IDBSecurityRequirement } from "@/app/db";
-import { useEffect, useReducer, useState } from "react";
+import {
+    IDB,
+    IDBEvidence,
+    IDBRequirement,
+    IDBSecurityRequirement,
+} from "@/app/db";
+import { useEffect, useState } from "react";
 
 export const useDBRequirements = () => {
     const [dbRequirements, setDBRequirements] = useState(
@@ -32,15 +37,18 @@ export const useDBSecurityRequirements = () => {
 
     return dbRequirements;
 };
+export const useDBEvidence = () => {
+    const [dbEvidence, setDBEvidence] = useState(
+        undefined as IDBEvidence[] | undefined
+    );
 
-const initialState = { id: crypto.randomUUID() };
-export function transactionReducer(state, action) {
-    switch (action.type) {
-        default:
-            return { id: crypto.randomUUID() };
-    }
-}
+    useEffect(() => {
+        async function fetchInitialState() {
+            const reqs = await IDB.evidence.getAll();
+            setDBEvidence(reqs);
+        }
+        fetchInitialState();
+    }, []);
 
-export const useTransaction = () => {
-    return useReducer(transactionReducer, initialState);
+    return dbEvidence;
 };

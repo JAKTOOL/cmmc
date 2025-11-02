@@ -1,8 +1,10 @@
 "use client";
 import { useManifestContext } from "@/app/context";
 import Link from "next/link";
+import { useGlobalEvidence } from "../hooks/evidence";
 import { useGlobalStatus } from "../hooks/status";
 import { Breadcrumbs } from "./breadcrumbs";
+import { EvidenceState } from "./evidence";
 import { IconInfo } from "./icon_info";
 import { Popover } from "./popover";
 import { StatusState } from "./status";
@@ -11,6 +13,7 @@ export const Families = () => {
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
     const globalStatus = useGlobalStatus();
+    const globalEvidence = useGlobalEvidence();
     if (!families?.length) {
         return null;
     }
@@ -54,6 +57,13 @@ export const Families = () => {
                                 <span className="flex flex-col">
                                     {family.title}
                                 </span>
+                                <EvidenceState
+                                    evidence={
+                                        globalEvidence?.[
+                                            family.element_identifier
+                                        ]?.hasEvidence
+                                    }
+                                />
                             </h3>
                         </Link>
                     </li>

@@ -5,6 +5,7 @@ import { IDB } from "@/app/db";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useFamilyEvidence } from "../../hooks/evidence";
 import { useRequirementValue } from "../../hooks/requirementValues";
 import { Status } from "../status";
 import { SecurityRequirement } from "./security_requirement";
@@ -29,6 +30,9 @@ export const SecurityRequirements = ({
     const manifest = useManifestContext();
     const router = useRouter();
     const value = useRequirementValue(requirementId);
+    const evidence = useFamilyEvidence(
+        requirementId.slice(0, 5)
+    )?.requirementEvidence(requirementId);
 
     const withdrawn = manifest.withdrawReason.byRequirements[requirementId];
 
@@ -170,6 +174,7 @@ export const SecurityRequirements = ({
                 statuses={statuses}
                 value={value}
                 withdrawn={withdrawn}
+                evidence={evidence}
             />
         );
     }
@@ -191,6 +196,7 @@ export const SecurityRequirements = ({
             setStatuses={setStatuses}
             statuses={statuses}
             value={value}
+            evidence={evidence}
         />
     );
 };
