@@ -140,7 +140,7 @@ export const Tree = ({
             id="drawer-contact"
             className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform md:border-l border-gray-600 ${
                 !isOpen ? "translate-x-full" : ""
-            } w-full md:max-w-sm bg-gray-900 text-gray-100`}
+            } w-full md:max-w-md bg-gray-900 text-gray-100`}
             tabIndex={-1}
             aria-labelledby="drawer-contact-label"
         >
