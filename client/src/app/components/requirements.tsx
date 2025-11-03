@@ -35,6 +35,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                     <IconInfo inline={false} />
                 </button>
                 <StatusState status={familyStatus?.status} />
+                <EvidenceState evidence={familyEvidence?.hasEvidence} />
             </h2>
             <Popover id="requirements-popover">
                 <IconInfo />
