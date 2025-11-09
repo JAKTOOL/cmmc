@@ -2,7 +2,7 @@
 import { toDataURL } from "@/app/components/security_requirements/utils";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context";
-import { IDB, IDBSecurityRequirement } from "@/app/db";
+import { IDB, IDBEvidence, IDBSecurityRequirement } from "@/app/db";
 import { useActionState } from "react";
 
 const toStatus = (status?: Status) => {
@@ -15,6 +15,33 @@ const toStatus = (status?: Status) => {
             return "⚫ Not Applicable";
         default:
             return "⚪ Unknown";
+    }
+};
+
+const embeddable = (artifact: IDBEvidence) => {
+    switch (artifact.type) {
+        case "image/png":
+        case "image/gif":
+        case "image/svg+xml":
+        case "image/jpeg":
+        case "image/webp":
+            return true;
+        default:
+            return false;
+    }
+};
+
+const snippetable = (artifact: IDBEvidence) => {
+    switch (artifact.type) {
+        case "text/plain":
+        case "text/javascript":
+        case "application/json":
+        case "text/css":
+        case "text/html":
+        case "text/xml":
+            return true;
+        default:
+            return false;
     }
 };
 
@@ -101,15 +128,29 @@ export const Markdown = () => {
                 if (shouldEmbedArtifacts && fileArtifacts.length) {
                     const embedArtifacts = Promise.all(
                         fileArtifacts.map(async (artifact) => {
-                            const file = new File(
-                                [artifact.data],
-                                artifact.filename,
-                                {
-                                    type: artifact.type,
-                                }
-                            );
-                            const url = await toDataURL(file);
-                            return `![${artifact.filename}](${url})`;
+                            if (embeddable(artifact)) {
+                                const file = new File(
+                                    [artifact.data],
+                                    artifact.filename,
+                                    {
+                                        type: artifact.type,
+                                    }
+                                );
+                                const url = await toDataURL(file);
+                                return `![${artifact.filename}](${url})`;
+                            } else if (snippetable(artifact)) {
+                                const idx = artifact.type.lastIndexOf("/");
+                                const type = artifact.type.slice(idx + 1);
+
+                                return `\`\`\`${type}
+                                ${new TextDecoder().decode(artifact.data)}
+                                \`\`\``;
+                            } else {
+                                console.warn(
+                                    `No work to do for ${artifact.type}: ${artifact.filename}`
+                                );
+                                return `[${artifact.filename}](${artifact.requirement_id}-${artifact.filename})`;
+                            }
                         })
                     );
 
