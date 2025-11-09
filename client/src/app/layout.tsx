@@ -32,10 +32,7 @@ export default function RootLayout({
                     httpEquiv="Content-Security-Policy"
                     content={process.env.NEXT_PUBLIC_CSP}
                 />
-                <Script
-                    src={`/service-worker.js?v=${process.env.NEXT_PUBLIC_FRAMEWORK_VERSION}`}
-                    async
-                />
+                <Script id="service-worker">{`navigator.serviceWorker.register("/sw.js", { scope: "/" });`}</Script>
             </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
