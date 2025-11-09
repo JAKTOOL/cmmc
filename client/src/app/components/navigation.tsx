@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ClearDB } from "./clear_db";
+import { ExportEvidence } from "./export_evidence";
 import { Export, Import } from "./export_import";
 import { Markdown } from "./markdown";
 import { POAM } from "./poam";
@@ -128,6 +129,7 @@ export const Navigation = () => {
                                 </div>
                                 <div className="py-1" role="none">
                                     <Export />
+                                    <ExportEvidence />
                                     <Import />
                                 </div>
                                 <div className="py-1" role="none">
