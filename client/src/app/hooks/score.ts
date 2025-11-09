@@ -18,12 +18,7 @@ class Score {
         this.securityRequirementValue = securityRequirementValue;
     }
 
-    get penalty() {
-        const value =
-            (this.securityRequirementValue?.value ?? 0) +
-            (this.securityRequirementValue?.aggregate_value_withdrawn_from ??
-                0);
-
+    basePenalty(value: number) {
         const partial =
             (this.securityRequirementValue?.partial_value ?? 0) +
             (this.securityRequirementValue
@@ -40,6 +35,19 @@ class Score {
                 return 0;
         }
     }
+
+    get rev2Penalty() {
+        return this.basePenalty(this.securityRequirementValue?.value ?? 0);
+    }
+
+    get penalty() {
+        const value =
+            (this.securityRequirementValue?.value ?? 0) +
+            (this.securityRequirementValue?.aggregate_value_withdrawn_from ??
+                0);
+
+        return this.basePenalty(value);
+    }
 }
 
 type ScoresRecord = Record<string, Score>;
@@ -53,9 +61,23 @@ export class GlobalScore {
     }
 
     get score() {
-        return Object.values(this.records).reduce((acc, score) => {
-            return acc - score.penalty;
-        }, GlobalScore.maxScore);
+        return Object.values(this.records)
+            .filter((score) =>
+                score.securityRequirementValue.revision.includes(3)
+            )
+            .reduce((acc, score) => {
+                return acc - score.penalty;
+            }, GlobalScore.maxScore);
+    }
+
+    get rev2Score() {
+        return Object.values(this.records)
+            .filter((score) =>
+                score.securityRequirementValue.revision.includes(2)
+            )
+            .reduce((acc, score) => {
+                return acc - score.rev2Penalty;
+            }, GlobalScore.maxScore);
     }
 }
 
