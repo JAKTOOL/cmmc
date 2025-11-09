@@ -2,8 +2,10 @@ import { IDB, IDBEvidence } from "@/app/db";
 import {
     ChangeEvent,
     Dispatch,
+    ReactNode,
     SetStateAction,
     useEffect,
+    useMemo,
     useState,
 } from "react";
 
@@ -169,9 +171,74 @@ export const Files = ({
     );
 };
 
-const Badge = ({ children, onDelete }) => {
+const NameChange = ({ artifact, setShowing }: { artifact: IDBEvidence }) => {
+    const suffixIdx =
+        artifact.type !== "url" ? artifact.filename.lastIndexOf(".") : -1;
+    const nameWithoutSuffix =
+        artifact.type !== "url"
+            ? artifact.filename.slice(0, suffixIdx)
+            : artifact.filename;
+
+    const hide = () => setTimeout(() => setShowing(false), 1000);
+
     return (
-        <span className="flex shrink items-center max-h-[20px] bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium me-2 mb-2 px-2.5 py-0.5 rounded-sm">
+        <label className="text-blue-800 border border-blue-200 flex items-center">
+            <input
+                type="text"
+                id={`name.${artifact.uuid}`}
+                name={`name.${artifact.uuid}`}
+                placeholder={nameWithoutSuffix}
+            />
+            <button
+                type="submit"
+                className="bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-sm"
+                onSubmit={hide}
+                onClick={hide}
+            >
+                <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m18 10-4-4M2.5 21.5l3.384-.376c.414-.046.62-.069.814-.131a2 2 0 0 0 .485-.234c.17-.111.317-.259.61-.553L21 7a2.828 2.828 0 1 0-4-4L3.794 16.206c-.294.294-.442.442-.553.611a2 2 0 0 0-.234.485c-.062.193-.085.4-.131.814z"
+                    />
+                </svg>
+            </button>
+        </label>
+    );
+};
+
+const Badge = ({
+    children,
+    onDelete,
+    artifact,
+}: {
+    children: ReactNode;
+    onDelete: CallableFunction;
+    artifact: IDBEvidence;
+}) => {
+    const [isShowing, setShowing] = useState(false);
+
+    function onContextMenu(e: MouseEvent) {
+        e.preventDefault();
+        setShowing(!isShowing);
+    }
+
+    if (isShowing) {
+        return <NameChange artifact={artifact} setShowing={setShowing} />;
+    }
+
+    return (
+        <span
+            className="flex shrink items-center max-h-[20px] bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium me-2 mb-2 px-2.5 py-0.5 rounded-sm"
+            onContextMenu={onContextMenu}
+        >
             {children}
             <button onClick={onDelete} className="pl-2">
                 <svg
@@ -258,7 +325,7 @@ export const EvidenceBadge = ({
     };
 
     return (
-        <Badge onDelete={onDelete}>
+        <Badge onDelete={onDelete} artifact={artifact}>
             {artifact.type === "url" ? (
                 <LinkBadge artifact={artifact} />
             ) : (
@@ -339,6 +406,13 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
     const [evidence, setEvidence] = useState<IDBEvidence[]>([]);
     const [uploading, setUploading] = useState(false);
 
+    const evidenceById = useMemo(() => {
+        return evidence.reduce((acc, artifact) => {
+            acc[artifact.uuid] = artifact;
+            return acc;
+        }, {} as Record<string, IDBEvidence>);
+    }, [evidence]);
+
     useEffect(() => {
         if (!uploading) {
             fetchEvidence(requirementId, setEvidence);
@@ -373,6 +447,27 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                 requirementId,
             });
             await IDB.evidence.put(evidence);
+            e?.target?.reset();
+        } else {
+            for (const key of formData.keys()) {
+                if (key.startsWith("name.")) {
+                    const uuid = key.slice(5);
+                    const artifact = evidenceById[uuid] as IDBEvidence;
+                    let suffix = "";
+                    if (artifact.type !== "url") {
+                        const suffixIdx = artifact.filename.lastIndexOf(".");
+                        suffix = artifact.filename.slice(suffixIdx);
+                    }
+                    const value = formData.get(key);
+                    if (!value) {
+                        continue;
+                    }
+                    await IDB.evidence.put({
+                        ...artifact,
+                        filename: `${value}${suffix}`,
+                    });
+                }
+            }
             e?.target?.reset();
         }
         setUploading(false);
