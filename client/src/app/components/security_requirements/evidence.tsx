@@ -4,8 +4,10 @@ import {
     Dispatch,
     ReactNode,
     SetStateAction,
+    useActionState,
     useEffect,
     useMemo,
+    useRef,
     useState,
 } from "react";
 
@@ -171,7 +173,7 @@ export const Files = ({
     );
 };
 
-const NameChange = ({ artifact, setShowing }: { artifact: IDBEvidence }) => {
+const NameChange = ({ artifact }: { artifact: IDBEvidence }) => {
     const suffixIdx =
         artifact.type !== "url" ? artifact.filename.lastIndexOf(".") : -1;
     const nameWithoutSuffix =
@@ -179,21 +181,19 @@ const NameChange = ({ artifact, setShowing }: { artifact: IDBEvidence }) => {
             ? artifact.filename.slice(0, suffixIdx)
             : artifact.filename;
 
-    const hide = () => setTimeout(() => setShowing(false), 1000);
-
     return (
-        <label className="text-blue-800 border border-blue-200 flex items-center">
+        <label className="text-blue-800 border border-blue-200 flex items-center me-2">
             <input
                 type="text"
+                className="py-0.5 pl-2.5"
                 id={`name.${artifact.uuid}`}
                 name={`name.${artifact.uuid}`}
                 placeholder={nameWithoutSuffix}
+                defaultValue={nameWithoutSuffix}
             />
             <button
                 type="submit"
-                className="bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-sm"
-                onSubmit={hide}
-                onClick={hide}
+                className="bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-sm h-full"
             >
                 <svg
                     className="w-4 h-4"
@@ -218,12 +218,22 @@ const Badge = ({
     children,
     onDelete,
     artifact,
+    lastResetAt,
 }: {
     children: ReactNode;
     onDelete: CallableFunction;
     artifact: IDBEvidence;
+    lastResetAt: null | number;
 }) => {
     const [isShowing, setShowing] = useState(false);
+    const [prevLastResetAt, setPrevLastResetAt] = useState(lastResetAt);
+
+    useEffect(() => {
+        if (lastResetAt !== prevLastResetAt) {
+            setShowing(false);
+            setPrevLastResetAt(lastResetAt);
+        }
+    }, [lastResetAt, prevLastResetAt]);
 
     function onContextMenu(e: MouseEvent) {
         e.preventDefault();
@@ -231,7 +241,7 @@ const Badge = ({
     }
 
     if (isShowing) {
-        return <NameChange artifact={artifact} setShowing={setShowing} />;
+        return <NameChange artifact={artifact} />;
     }
 
     return (
@@ -313,10 +323,12 @@ export const EvidenceBadge = ({
     artifact,
     setEvidence,
     evidence,
+    lastResetAt,
 }: {
     artifact: IDBEvidence;
     evidence: IDBEvidence[];
     setEvidence: Dispatch<SetStateAction<IDBEvidence[]>>;
+    lastResetAt: null | number;
 }) => {
     const onDelete = async () => {
         if (await IDB.evidence.delete(IDBKeyRange.only(artifact.uuid))) {
@@ -325,7 +337,11 @@ export const EvidenceBadge = ({
     };
 
     return (
-        <Badge onDelete={onDelete} artifact={artifact}>
+        <Badge
+            onDelete={onDelete}
+            artifact={artifact}
+            lastResetAt={lastResetAt}
+        >
             {artifact.type === "url" ? (
                 <LinkBadge artifact={artifact} />
             ) : (
@@ -337,9 +353,11 @@ export const EvidenceBadge = ({
 export const EvidenceBadges = ({
     evidence,
     setEvidence,
+    lastResetAt,
 }: {
     evidence: IDBEvidence[];
     setEvidence: Dispatch<SetStateAction<IDBEvidence[]>>;
+    lastResetAt: null | number;
 }) => {
     return evidence?.map((artifact) => (
         <EvidenceBadge
@@ -347,6 +365,7 @@ export const EvidenceBadges = ({
             artifact={artifact}
             evidence={evidence}
             setEvidence={setEvidence}
+            lastResetAt={lastResetAt}
         />
     ));
 };
@@ -405,6 +424,8 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
 export const Evidence = ({ requirementId }: { requirementId: string }) => {
     const [evidence, setEvidence] = useState<IDBEvidence[]>([]);
     const [uploading, setUploading] = useState(false);
+    const [formLastReset, setFormLastReset] = useState<number | null>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const evidenceById = useMemo(() => {
         return evidence.reduce((acc, artifact) => {
@@ -413,28 +434,8 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
         }, {} as Record<string, IDBEvidence>);
     }, [evidence]);
 
-    useEffect(() => {
-        if (!uploading) {
-            fetchEvidence(requirementId, setEvidence);
-        }
-    }, [requirementId, uploading]);
-
-    useEffect(() => {
-        const handler = pasteImageFromClipboard(
-            requirementId,
-            setEvidence,
-            setUploading
-        );
-        document.addEventListener("paste", handler);
-        return () => {
-            document.removeEventListener("paste", handler);
-        };
-    }, [requirementId, setEvidence, setUploading]);
-
-    const onSubmit = async (e: SubmitEvent) => {
-        setUploading(true);
-        e.preventDefault();
-        const formData = new FormData(e.target as HTMLFormElement);
+    const action = async (prevState, formData: FormData) => {
+        let triggerReset = false;
 
         if (formData.get("url")) {
             const href = formData.get("url") as string;
@@ -447,7 +448,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                 requirementId,
             });
             await IDB.evidence.put(evidence);
-            e?.target?.reset();
+            triggerReset = true;
         } else {
             for (const key of formData.keys()) {
                 if (key.startsWith("name.")) {
@@ -466,13 +467,48 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                         ...artifact,
                         filename: `${value}${suffix}`,
                     });
+                    triggerReset = true;
                 }
             }
-            e?.target?.reset();
         }
-        setUploading(false);
-        return false;
+
+        if (triggerReset) {
+            formRef.current?.reset();
+        }
     };
+
+    const [_, formAction, isPending] = useActionState(action, null);
+
+    useEffect(() => {
+        if (!uploading && !isPending) {
+            fetchEvidence(requirementId, setEvidence);
+        }
+    }, [requirementId, uploading, isPending]);
+
+    useEffect(() => {
+        const handler = pasteImageFromClipboard(
+            requirementId,
+            setEvidence,
+            setUploading
+        );
+        document.addEventListener("paste", handler);
+        return () => {
+            document.removeEventListener("paste", handler);
+        };
+    }, [requirementId, setEvidence, setUploading]);
+
+    useEffect(() => {
+        const setTimestamp = (e: Event) => {
+            setFormLastReset(e.timeStamp);
+        };
+        const node = formRef?.current;
+
+        node?.addEventListener("reset", setTimestamp);
+
+        return () => {
+            node?.removeEventListener("reset", setTimestamp);
+        };
+    }, [formRef]);
 
     return (
         <>
@@ -481,7 +517,8 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
             </h4>
             <form
                 className="flex flex-col md:flex-row shrink mb-4 -translate-y-[36px]"
-                onSubmit={onSubmit}
+                action={formAction}
+                ref={formRef}
             >
                 <div className="basis-full mb-4 md:mb-0 md:basis-1/3 md:mr-4">
                     <Files
@@ -509,6 +546,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                     <EvidenceBadges
                         evidence={evidence}
                         setEvidence={setEvidence}
+                        lastResetAt={formLastReset}
                     />
                 </div>
             </form>
