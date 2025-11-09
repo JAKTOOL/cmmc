@@ -9,3 +9,19 @@ export function debounce(func, delay) {
         }, delay);
     };
 }
+
+export const toBuffer = (file: File | Blob) =>
+    new Promise<ArrayBuffer>((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result as ArrayBuffer);
+        fr.onerror = (err) => reject(err);
+        fr.readAsArrayBuffer(file);
+    });
+
+export const toDataURL = (file: File | Blob) =>
+    new Promise<string>((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result as string);
+        fr.onerror = (err) => reject(err);
+        fr.readAsDataURL(file);
+    });

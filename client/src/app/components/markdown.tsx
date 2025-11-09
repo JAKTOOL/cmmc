@@ -1,7 +1,8 @@
 "use client";
+import { toDataURL } from "@/app/components/security_requirements/utils";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context";
-import { IDB } from "@/app/db";
+import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { useActionState } from "react";
 
 const toStatus = (status?: Status) => {
@@ -21,6 +22,14 @@ export const Markdown = () => {
     const manifest = useManifestContext();
 
     const onClick = async () => {
+        const shouldIncludeLinks = window.confirm(
+            "Include evidence links in the generated markdown file?"
+        );
+
+        const shouldEmbedArtifacts = window.confirm(
+            "Embed evidence files into the generated markdown file?"
+        );
+
         const idbSecurityRequirements = await IDB.securityRequirements.getAll();
 
         const storedSecRequirements = idbSecurityRequirements.reduce(
@@ -28,7 +37,7 @@ export const Markdown = () => {
                 acc[cur.id] = cur;
                 return acc;
             },
-            {}
+            {} as Record<string, IDBSecurityRequirement>
         );
 
         const payload = ["# NIST SP 800-171 Rev 3 Report"];
@@ -43,6 +52,70 @@ export const Markdown = () => {
                     `### ${requirement.element_identifier}: ${requirement.title}`
                 );
 
+                const artifacts = await IDB.evidence.getAll(
+                    IDBKeyRange.only(requirement.element_identifier),
+                    "requirement_id"
+                );
+
+                const linkArtifacts = artifacts.filter(
+                    (artifact) => artifact.type === "url"
+                );
+                const fileArtifacts = artifacts.filter(
+                    (artifact) => artifact.type !== "url"
+                );
+
+                if (
+                    (shouldIncludeLinks || shouldEmbedArtifacts) &&
+                    (linkArtifacts.length || fileArtifacts.length)
+                ) {
+                    payload.push("#### Evidence");
+                }
+
+                if (
+                    shouldIncludeLinks &&
+                    (linkArtifacts.length || fileArtifacts.length)
+                ) {
+                    const links = linkArtifacts
+                        .map(
+                            (artifact) =>
+                                `- [${
+                                    artifact.filename
+                                }](${new TextDecoder().decode(artifact.data)})`
+                        )
+                        .join("\n");
+
+                    payload.push(links);
+
+                    if (!shouldEmbedArtifacts && fileArtifacts.length) {
+                        const embedLinks = fileArtifacts
+                            .map(
+                                (artifact) =>
+                                    `- [${artifact.filename}](${artifact.requirement_id}-${artifact.filename})`
+                            )
+                            .join("\n");
+
+                        payload.push(embedLinks);
+                    }
+                }
+
+                if (shouldEmbedArtifacts && fileArtifacts.length) {
+                    const embedArtifacts = Promise.all(
+                        fileArtifacts.map(async (artifact) => {
+                            const file = new File(
+                                [artifact.data],
+                                artifact.filename,
+                                {
+                                    type: artifact.type,
+                                }
+                            );
+                            const url = await toDataURL(file);
+                            return `![${artifact.filename}](${url})`;
+                        })
+                    );
+
+                    payload.push((await embedArtifacts).join("\n\n"));
+                }
+
                 for (const secReq of manifest.securityRequirements
                     .byRequirements[requirement.id]) {
                     payload.push(`#### ${secReq.subSubRequirement}`);
@@ -51,7 +124,9 @@ export const Markdown = () => {
                     const stored =
                         storedSecRequirements[secReq.subSubRequirement];
                     if (stored) {
-                        payload.push(`**${toStatus(stored.status)}**`);
+                        payload.push(
+                            `**${toStatus(stored.status as Status)}**`
+                        );
                         payload.push(`${stored.description}`);
                     } else {
                         payload.push(
@@ -84,6 +159,8 @@ export const Markdown = () => {
 
         // Clean up and remove the link
         document.body.removeChild(link);
+
+        URL.revokeObjectURL(link.href);
         return payload;
     };
 
