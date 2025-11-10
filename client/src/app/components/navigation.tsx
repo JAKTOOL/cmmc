@@ -129,8 +129,10 @@ export const Navigation = () => {
                                 </div>
                                 <div className="py-1" role="none">
                                     <Export />
-                                    <ExportEvidence />
                                     <Import />
+                                </div>
+                                <div className="py-1" role="none">
+                                    <ExportEvidence />
                                 </div>
                                 <div className="py-1" role="none">
                                     <ClearDB />

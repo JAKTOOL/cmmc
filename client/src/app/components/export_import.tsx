@@ -62,11 +62,25 @@ export const Export = () => {
         <form action={formAction}>
             <button
                 type="submit"
-                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+                className="block px-4 py-2 text-sm text-gray-700 w-full text-left flex items-center justify-between w-full"
                 disabled={isPending}
                 tabIndex={-1}
             >
-                Export Database
+                <span>Export Database</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="h-4"
+                >
+                    <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M21 5c0 1.657-4.03 3-9 3S3 6.657 3 5m18 0c0-1.657-4.03-3-9-3S3 3.343 3 5m18 0v14c0 1.66-4 3-9 3s-9-1.34-9-3V5m18 7c0 1.66-4 3-9 3s-9-1.34-9-3"
+                    />
+                </svg>
             </button>
         </form>
     );
@@ -162,12 +176,26 @@ export const Import = () => {
             />
             <button
                 type={"button"}
-                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+                className="block px-4 py-2 text-sm text-gray-700 w-full text-left flex items-center justify-between w-full"
                 disabled={isPending}
                 tabIndex={-1}
                 onClick={onClick}
             >
-                Import Database
+                <span>Import Database</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="h-4"
+                >
+                    <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m8 16 4-4m0 0 4 4m-4-4v9m8-4.257A5.5 5.5 0 0 0 16.5 7a.62.62 0 0 1-.534-.302 7.5 7.5 0 1 0-11.78 9.096"
+                    />
+                </svg>
             </button>
         </form>
     );
