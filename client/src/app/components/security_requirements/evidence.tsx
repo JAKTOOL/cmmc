@@ -169,6 +169,13 @@ const NameChange = ({ artifact }: { artifact: IDBEvidence }) => {
             ? artifact.filename.slice(0, suffixIdx)
             : artifact.filename;
 
+    const input = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        input.current?.focus();
+        input.current?.select();
+    }, [input?.current]);
+
     return (
         <label className="text-blue-800 border border-blue-200 flex items-center me-2">
             <input
@@ -178,6 +185,7 @@ const NameChange = ({ artifact }: { artifact: IDBEvidence }) => {
                 name={`name.${artifact.uuid}`}
                 placeholder={nameWithoutSuffix}
                 defaultValue={nameWithoutSuffix}
+                ref={input}
             />
             <button
                 type="submit"
