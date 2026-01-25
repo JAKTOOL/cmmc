@@ -3,7 +3,7 @@ import * as Framework from "@/api/entities/Framework";
 import React, { createContext, useContext } from "react";
 
 export const ManifestContext = createContext<Framework.Manifest>(
-    Framework.manifest
+    Framework.manifestV3,
 );
 export function ManifestProvider({
     children,
@@ -23,11 +23,25 @@ export function useManifestContext() {
     return useContext(ManifestContext);
 }
 
-export default function ManifestComponent({
+export function ManifestV3Component({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const manifest = Framework.manifest;
-    return <ManifestProvider value={manifest}>{children}</ManifestProvider>;
+    return (
+        <ManifestProvider value={Framework.manifestV3}>
+            {children}
+        </ManifestProvider>
+    );
+}
+export function ManifestV2Component({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <ManifestProvider value={Framework.manifestV2}>
+            {children}
+        </ManifestProvider>
+    );
 }

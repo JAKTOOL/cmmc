@@ -3,12 +3,12 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { Requirements } from "@/app/components/requirements";
-import ManifestComponent from "@/app/context/manifest";
+import { ManifestV3Component } from "@/app/context/manifest";
 import { RevisionV3Component } from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
-    const manifest = await Framework.manifest;
+    const manifest = await Framework.manifestV3;
     const families = manifest.families.elements;
 
     return families.map((family) => ({
@@ -39,7 +39,7 @@ export async function generateMetadata(
 export default async function Page({ params }) {
     const { family_id } = await params;
     return (
-        <ManifestComponent>
+        <ManifestV3Component>
             <RevisionV3Component>
                 <Navigation />
                 <Main>
@@ -47,6 +47,6 @@ export default async function Page({ params }) {
                 </Main>
                 <Footer />
             </RevisionV3Component>
-        </ManifestComponent>
+        </ManifestV3Component>
     );
 }

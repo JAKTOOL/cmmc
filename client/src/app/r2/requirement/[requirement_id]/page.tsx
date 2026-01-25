@@ -3,12 +3,12 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { SecurityRequirements } from "@/app/components/security_requirements";
-import ManifestComponent from "@/app/context/manifest";
+import { ManifestV2Component } from "@/app/context/manifest";
 import { RevisionV2Component } from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
-    const manifest = await Framework.manifest;
+    const manifest = await Framework.manifestV2;
     const requirements = manifest.requirements.elements;
 
     return requirements.map((requirement) => ({
@@ -25,7 +25,7 @@ export async function generateMetadata(
     parent: ResolvingMetadata,
 ): Promise<Metadata> {
     const { requirement_id } = await params;
-    const manifest = await Framework.manifest;
+    const manifest = await Framework.manifestV2;
     const requirement = manifest.requirements.byId[requirement_id];
     return {
         title: `${requirement_id}: ${requirement.title}`,
@@ -45,7 +45,7 @@ export async function generateMetadata(
 export default async function Page({ params }) {
     const { requirement_id } = await params;
     return (
-        <ManifestComponent>
+        <ManifestV2Component>
             <RevisionV2Component>
                 <Navigation />
                 <Main>
@@ -53,6 +53,6 @@ export default async function Page({ params }) {
                 </Main>
                 <Footer />
             </RevisionV2Component>
-        </ManifestComponent>
+        </ManifestV2Component>
     );
 }

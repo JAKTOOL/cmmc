@@ -4,10 +4,14 @@ import {
     ElementType,
     Framework,
 } from "@/api/generated/Framework";
-import data from "../../../public/data/sp_800_171_3_0_0/framework.json";
+import dataV2 from "../../../public/data/sp_800_171_2_0_0/framework.json";
+import dataV3 from "../../../public/data/sp_800_171_3_0_0/framework.json";
 
-export const framework: Framework = Object.freeze(
-    Convert.toFrameworkDict(data)
+export const frameworkV2: Framework = Object.freeze(
+    Convert.toFrameworkDict(dataV2),
+);
+export const frameworkV3: Framework = Object.freeze(
+    Convert.toFrameworkDict(dataV3),
 );
 
 export const getFamily = (element: Element) => {
@@ -163,10 +167,10 @@ export class ElementMapper {
     static fromElements(
         elements: ElementWrapper[],
         type: ElementType,
-        filterFn?: (element: ElementWrapper) => boolean | undefined
+        filterFn?: (element: ElementWrapper) => boolean | undefined,
     ) {
         let _elements = elements.filter(
-            (element) => element.element.element_type === type
+            (element) => element.element.element_type === type,
         );
 
         if (filterFn) {
@@ -174,7 +178,7 @@ export class ElementMapper {
         }
 
         _elements = _elements.sort((a, b) =>
-            ElementMapper.sortById(a.element, b.element)
+            ElementMapper.sortById(a.element, b.element),
         );
 
         return new ElementMapper(_elements);
@@ -193,19 +197,19 @@ export class Manifest {
     constructor(framework: Framework) {
         this.framework = framework;
         this.elements = framework.response.elements.elements.map(
-            ElementWrapper.fromElement
+            ElementWrapper.fromElement,
         );
         this.withdrawReason = ElementMapper.fromElements(
             this.elements,
-            ElementType.WithdrawReason
+            ElementType.WithdrawReason,
         );
         this.families = ElementMapper.fromElements(
             this.elements,
-            ElementType.Family
+            ElementType.Family,
         );
         this.requirements = ElementMapper.fromElements(
             this.elements,
-            ElementType.Requirement
+            ElementType.Requirement,
         );
         this.securityRequirements = ElementMapper.fromElements(
             this.elements,
@@ -213,18 +217,15 @@ export class Manifest {
             (element) => {
                 // Remove empty security requirements
                 return !!element.text;
-            }
+            },
         );
         this.discussions = ElementMapper.fromElements(
             this.elements,
-            ElementType.Discussion
+            ElementType.Discussion,
         );
         Object.freeze(this);
     }
-
-    static async init() {
-        return new Manifest(framework);
-    }
 }
 
-export const manifest = new Manifest(framework);
+export const manifestV3 = new Manifest(frameworkV3);
+export const manifestV2 = new Manifest(frameworkV2);
