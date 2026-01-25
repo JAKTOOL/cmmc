@@ -4,7 +4,7 @@ import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { Requirements } from "@/app/components/requirements";
 import ManifestComponent from "@/app/context/manifest";
-import RevisionComponent, { Revision } from "@/app/context/revision";
+import { RevisionV2Component } from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
@@ -40,13 +40,13 @@ export default async function Page({ params }) {
     const { family_id } = await params;
     return (
         <ManifestComponent>
-            <RevisionComponent value={Revision.V2}>
+            <RevisionV2Component>
                 <Navigation />
                 <Main>
                     <Requirements familyId={family_id} />
                 </Main>
                 <Footer />
-            </RevisionComponent>
+            </RevisionV2Component>
         </ManifestComponent>
     );
 }

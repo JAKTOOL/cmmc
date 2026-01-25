@@ -11,8 +11,13 @@ export enum DocRevision {
     V3 = "SP_800_171_3_0_0",
 }
 
-export const useRevision = (): Revision => {
-    return Revision.V3;
+export const toPath = (revision: Revision): string => {
+    switch (revision) {
+        case Revision.V2:
+            return "/r2";
+        default:
+            return "/r3";
+    }
 };
 
 export const RevisionContext = createContext<Revision>(Revision.V3);
@@ -34,12 +39,18 @@ export function useRevisionContext() {
     return useContext(RevisionContext);
 }
 
-export default function RevisionComponent({
+export function RevisionV2Component({
     children,
-    value = Revision.V3,
 }: {
     children: React.ReactNode;
-    value: Revision;
 }) {
-    return <RevisionProvider value={value}>{children}</RevisionProvider>;
+    return <RevisionProvider value={Revision.V2}>{children}</RevisionProvider>;
+}
+
+export function RevisionV3Component({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return <RevisionProvider value={Revision.V3}>{children}</RevisionProvider>;
 }

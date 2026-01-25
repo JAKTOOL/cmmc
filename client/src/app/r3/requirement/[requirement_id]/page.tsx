@@ -4,7 +4,7 @@ import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { SecurityRequirements } from "@/app/components/security_requirements";
 import ManifestComponent from "@/app/context/manifest";
-import RevisionComponent from "@/app/context/revision";
+import { RevisionV3Component } from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
@@ -47,13 +47,13 @@ export default async function Page({ params }) {
 
     return (
         <ManifestComponent>
-            <RevisionComponent>
+            <RevisionV3Component>
                 <Navigation />
                 <Main>
                     <SecurityRequirements requirementId={requirement_id} />
                 </Main>
                 <Footer />
-            </RevisionComponent>
+            </RevisionV3Component>
         </ManifestComponent>
     );
 }

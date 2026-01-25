@@ -27,5 +27,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: new Date().toISOString(),
             priority: 0.7,
         })),
+        {
+            url: `${URL}/r2`,
+            lastModified: new Date().toISOString(),
+            priority: 1,
+        },
+        ...manifest.families.elements.map((element) => ({
+            url: `${URL}/r2/family/${element.element_identifier}`,
+            lastModified: new Date().toISOString(),
+            priority: 0.9,
+        })),
+        ...manifest.requirements.elements.map((element) => ({
+            url: `${URL}/r2/requirement/${element.element_identifier}`,
+            lastModified: new Date().toISOString(),
+            priority: 0.7,
+        })),
     ];
 }

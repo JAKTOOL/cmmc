@@ -1,6 +1,6 @@
 "use client";
 import { useManifestContext } from "@/app/context/manifest";
-import { useGlobalScore } from "@/app/hooks/score";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import { TotalScore } from "./score";
 
@@ -17,11 +17,14 @@ interface BreadcrumbsProps {
 
 export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
     const manifest = useManifestContext();
-    const globalScore = useGlobalScore();
+    const revision = useRevisionContext();
+    const path = toPath(revision);
+
+    console.log(revision, path);
 
     const links: BreadcrumbLink[] = [
         {
-            href: "/r3",
+            href: path,
             text: "Families",
         },
     ];
@@ -29,18 +32,18 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
     if (familyId) {
         const family = manifest?.families?.byId[familyId];
         links.push({
-            href: `/r3/family/${familyId}`,
+            href: `${path}/family/${familyId}`,
             text: `${family.element_identifier}: ${family.title}`,
         });
     } else if (requirementId) {
         const requirement = manifest?.requirements?.byId[requirementId];
         const family = manifest?.families?.byId[requirement.family];
         links.push({
-            href: `/r3/family/${requirement.family}`,
+            href: `${path}/family/${requirement.family}`,
             text: `${family.element_identifier}: ${family.title}`,
         });
         links.push({
-            href: `/r3/requirement/${requirementId}`,
+            href: `${path}/requirement/${requirementId}`,
             text: `${requirement.element_identifier}: ${requirement.title}`,
             disabled: true,
         });

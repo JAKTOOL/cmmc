@@ -4,7 +4,7 @@ import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { SecurityRequirements } from "@/app/components/security_requirements";
 import ManifestComponent from "@/app/context/manifest";
-import RevisionComponent, { Revision } from "@/app/context/revision";
+import { RevisionV2Component } from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
@@ -44,16 +44,15 @@ export async function generateMetadata(
 
 export default async function Page({ params }) {
     const { requirement_id } = await params;
-
     return (
         <ManifestComponent>
-            <RevisionComponent value={Revision.V2}>
+            <RevisionV2Component>
                 <Navigation />
                 <Main>
                     <SecurityRequirements requirementId={requirement_id} />
                 </Main>
                 <Footer />
-            </RevisionComponent>
+            </RevisionV2Component>
         </ManifestComponent>
     );
 }

@@ -3,6 +3,7 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import ManifestComponent from "@/app/context/manifest";
+import { RevisionV3Component } from "@/app/context/revision";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,11 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
     return (
         <ManifestComponent>
-            <Navigation />
-            <Main>
-                <Families />
-            </Main>
-            <Footer />
+            <RevisionV3Component>
+                <Navigation />
+                <Main>
+                    <Families />
+                </Main>
+                <Footer />
+            </RevisionV3Component>
         </ManifestComponent>
     );
 }

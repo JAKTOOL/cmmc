@@ -3,7 +3,7 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import ManifestComponent from "@/app/context/manifest";
-import RevisionComponent, { Revision } from "@/app/context/revision";
+import { RevisionV2Component } from "@/app/context/revision";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,13 +16,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
     return (
         <ManifestComponent>
-            <RevisionComponent value={Revision.V2}>
+            <RevisionV2Component>
                 <Navigation />
                 <Main>
                     <Families />
                 </Main>
                 <Footer />
-            </RevisionComponent>
+            </RevisionV2Component>
         </ManifestComponent>
     );
 }
