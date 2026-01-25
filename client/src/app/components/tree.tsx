@@ -1,6 +1,7 @@
 "use client";
 import type { ElementWrapper, Manifest } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context/manifest";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
@@ -32,6 +33,8 @@ export const FamilyBranch = ({
     family: ElementWrapper;
     manifest: Manifest;
 }) => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     const familyStatus = useFamilyStatus(family.element_identifier);
     const familyEvidence = useFamilyEvidence(family.element_identifier);
     const [isOpen, setOpen] = useState(false);
@@ -41,7 +44,7 @@ export const FamilyBranch = ({
                 <StatusState status={familyStatus?.status} size="sm" />
                 <Link
                     className="grow"
-                    href={`/r3/family/${family.element_identifier}`}
+                    href={`${path}/family/${family.element_identifier}`}
                 >
                     {family.element_identifier}: {family.title}
                 </Link>
@@ -103,6 +106,8 @@ export const RequirementLeaf = ({
     familyStatus?: FamilyStatus;
     familyEvidence?: FamilyEvidence;
 }) => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     const status = familyStatus?.requirementStatus(
         requirement.element_identifier,
     );
@@ -116,7 +121,9 @@ export const RequirementLeaf = ({
             key={requirement.element_identifier}
         >
             <StatusState status={status} size="xs" />
-            <Link href={`/r3/requirement/${requirement.element_identifier}`}>
+            <Link
+                href={`${path}/requirement/${requirement.element_identifier}`}
+            >
                 {requirement.element_identifier}:{" "}
                 {requirement.title || "Withdrawn"}
             </Link>

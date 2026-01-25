@@ -1,5 +1,6 @@
 "use client";
 import { useManifestContext } from "@/app/context/manifest";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useFamilyEvidence } from "../hooks/evidence";
@@ -13,6 +14,8 @@ import { StatusState } from "./status";
 
 export const Requirements = ({ familyId }: { familyId: string }) => {
     const manifest = useManifestContext();
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     const requirements = manifest.requirements.byFamily[familyId];
     const family = manifest.families.byId[familyId];
     const familyStatus = useFamilyStatus(familyId);
@@ -64,7 +67,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                         >
                             <Link
                                 className="flex"
-                                href={`/r3/requirement/${requirement.element_identifier}`}
+                                href={`${path}/requirement/${requirement.element_identifier}`}
                             >
                                 <StatusState
                                     status={familyStatus?.requirementStatus(

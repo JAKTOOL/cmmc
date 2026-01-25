@@ -1,5 +1,6 @@
 "use client";
 import { useManifestContext } from "@/app/context/manifest";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import { useGlobalEvidence } from "../hooks/evidence";
 import { useGlobalStatus } from "../hooks/status";
@@ -10,6 +11,8 @@ import { Popover } from "./popover";
 import { StatusState } from "./status";
 
 export const Families = () => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
     const globalStatus = useGlobalStatus();
@@ -41,7 +44,7 @@ export const Families = () => {
                     <li className="flex mb-2" key={family.element_identifier}>
                         <Link
                             className="flex flex-col"
-                            href={`/r3/family/${family.element_identifier}`}
+                            href={`${path}/family/${family.element_identifier}`}
                         >
                             <h3 className="text-2xl flex flex-row">
                                 <StatusState

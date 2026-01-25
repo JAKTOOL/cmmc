@@ -2,6 +2,7 @@
 import { toDataURL } from "@/app/components/security_requirements/utils";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context/manifest";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import { IDB, IDBEvidence, IDBSecurityRequirement } from "@/app/db";
 import { useActionState } from "react";
 
@@ -47,6 +48,8 @@ const snippetable = (artifact: IDBEvidence) => {
 
 export const Markdown = () => {
     const manifest = useManifestContext();
+    const revision = useRevisionContext();
+    const path = toPath(revision);
 
     const onClick = async () => {
         const shouldIncludeLinks = window.confirm(
@@ -173,7 +176,7 @@ export const Markdown = () => {
                         payload.push(
                             `**${toStatus()} [${secReq.subSubRequirement}](${
                                 window.location.origin
-                            }/r3/requirement/${secReq.requirement}#${
+                            }${path}/requirement/${secReq.requirement}#${
                                 secReq.subSubRequirement
                             })**`,
                         );

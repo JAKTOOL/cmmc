@@ -1,4 +1,5 @@
 "use client";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import { renderNumber } from "@/app/utils/number";
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
@@ -24,6 +25,8 @@ export const SecurityRequirement = ({
     value,
     evidence,
 }) => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
@@ -128,7 +131,7 @@ export const SecurityRequirement = ({
                             value: value?.withdrawn_from?.map((id) => (
                                 <Link
                                     key={id}
-                                    href={`/r3/requirement/${id}`}
+                                    href={`${path}/requirement/${id}`}
                                     className="text-xs mr-2"
                                 >
                                     {id}
@@ -161,7 +164,7 @@ export const SecurityRequirement = ({
                             ),
                             visible: !!value?.withdrawn_from?.length,
                             value: renderNumber(
-                                value?.aggregate_value_withdrawn_from
+                                value?.aggregate_value_withdrawn_from,
                             ),
                         },
                     ]}

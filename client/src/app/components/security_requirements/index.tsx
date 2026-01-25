@@ -1,6 +1,7 @@
 "use client";
 import { ElementWrapper } from "@/api/entities/Framework";
 import { useManifestContext } from "@/app/context/manifest";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import { IDB } from "@/app/db";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
@@ -24,6 +25,8 @@ export const SecurityRequirements = ({
 }: {
     requirementId: string;
 }) => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     const [initialState, setInitialState] = useState({});
     const [isHydrating, setHydrating] = useState(false);
     const [statuses, setStatuses] = useState<Status[]>([]);
@@ -135,7 +138,7 @@ export const SecurityRequirements = ({
                     window.location.pathname + window.location.search,
                 );
                 router.push(
-                    `/r3/requirement/${url.searchParams.get("element")}`,
+                    `${path}/requirement/${url.searchParams.get("element")}`,
                 );
             }
         };

@@ -1,5 +1,6 @@
 "use client";
 import { ElementWrapper } from "@/api/entities/Framework";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
@@ -8,7 +9,7 @@ interface PageNavigationProps {
     next?: ElementWrapper | undefined;
 
     elementIdentity?: (
-        element: ElementWrapper | undefined
+        element: ElementWrapper | undefined,
     ) => string | undefined;
 
     elementType?: string;
@@ -36,6 +37,8 @@ export const ContentNavigation = ({
     elementType = "requirement",
     elementIdentity = defaultElementIdentity,
 }: PageNavigationProps) => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     const previousRef = useRef<HTMLAnchorElement>(null);
     const nextRef = useRef<HTMLAnchorElement>(null);
 
@@ -63,7 +66,7 @@ export const ContentNavigation = ({
         <aside className="w-5/6 flex flex-row mb-4">
             {previous && (
                 <Link
-                    href={`/r3/${elementType}/${prevElement}`}
+                    href={`${path}/${elementType}/${prevElement}`}
                     className={`flex flex-row items-center bg-gray-200 text-gray-700 border-gray-400 py-2 px-4 border-b-4 hover:bg-gray-300 ${prevClasses}`}
                     tabIndex={10}
                     ref={previousRef}
@@ -94,7 +97,7 @@ export const ContentNavigation = ({
             )}
             {next && (
                 <Link
-                    href={`/r3/${elementType}/${nextElement}`}
+                    href={`${path}/${elementType}/${nextElement}`}
                     className={`flex flex-row items-center bg-gray-200 text-gray-700 border-gray-400 py-2 px-4 border-b-4 hover:bg-gray-300 ${nextClasses}`}
                     tabIndex={11}
                     ref={nextRef}

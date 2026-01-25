@@ -1,4 +1,5 @@
 "use client";
+import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
 import { DataTable } from "../datatable";
@@ -11,6 +12,8 @@ import { SecurityForm } from "./security_form";
 const secReqReg = /\d{2}.\d{2}.\d{2},?/gm;
 
 const WithdrawnInto = ({ text }: { text: string }) => {
+    const revision = useRevisionContext();
+    const path = toPath(revision);
     if (secReqReg.test(text)) {
         const base = text
             .replaceAll(secReqReg, "")
@@ -22,7 +25,7 @@ const WithdrawnInto = ({ text }: { text: string }) => {
             return (
                 <Link
                     key={_id}
-                    href={`/r3/requirement/${_id}`}
+                    href={`${path}/requirement/${_id}`}
                     className="text-xs mr-1"
                 >
                     {id}

@@ -20,8 +20,6 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
     const revision = useRevisionContext();
     const path = toPath(revision);
 
-    console.log(revision, path);
-
     const links: BreadcrumbLink[] = [
         {
             href: path,
