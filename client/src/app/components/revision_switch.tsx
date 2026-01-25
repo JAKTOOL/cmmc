@@ -35,8 +35,10 @@ function getNextPath({
     if (hasRequirement) {
         if (value.revision.includes(toNum(nextRevision))) {
             nextPath = `${nextPath}/requirement/${requirement_id}`;
-        }
-        if (nextFamily && nextFamily?.revision?.includes(toNum(nextRevision))) {
+        } else if (
+            nextFamily &&
+            nextFamily?.revision?.includes(toNum(nextRevision))
+        ) {
             nextPath = `${nextPath}/family/${requirement_id.slice(0, 5)}`;
         }
     } else if (
