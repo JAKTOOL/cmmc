@@ -36,8 +36,10 @@ export function useRevisionContext() {
 
 export default function RevisionComponent({
     children,
+    value = Revision.V3,
 }: {
     children: React.ReactNode;
+    value: Revision;
 }) {
-    return <RevisionProvider value={Revision.V2}>{children}</RevisionProvider>;
+    return <RevisionProvider value={value}>{children}</RevisionProvider>;
 }
