@@ -4,7 +4,8 @@ export const dynamic = "force-static";
 const URL = "https://cmmc.jaktool.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const manifest = Framework.manifest;
+    const manifestV3 = Framework.manifestV3;
+    const manifestV2 = Framework.manifestV2;
 
     return [
         {
@@ -17,12 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: new Date().toISOString(),
             priority: 1,
         },
-        ...manifest.families.elements.map((element) => ({
+        ...manifestV3.families.elements.map((element) => ({
             url: `${URL}/r3/family/${element.element_identifier}`,
             lastModified: new Date().toISOString(),
             priority: 0.9,
         })),
-        ...manifest.requirements.elements.map((element) => ({
+        ...manifestV3.requirements.elements.map((element) => ({
             url: `${URL}/r3/requirement/${element.element_identifier}`,
             lastModified: new Date().toISOString(),
             priority: 0.7,
@@ -32,12 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: new Date().toISOString(),
             priority: 1,
         },
-        ...manifest.families.elements.map((element) => ({
+        ...manifestV2.families.elements.map((element) => ({
             url: `${URL}/r2/family/${element.element_identifier}`,
             lastModified: new Date().toISOString(),
             priority: 0.9,
         })),
-        ...manifest.requirements.elements.map((element) => ({
+        ...manifestV2.requirements.elements.map((element) => ({
             url: `${URL}/r2/requirement/${element.element_identifier}`,
             lastModified: new Date().toISOString(),
             priority: 0.7,

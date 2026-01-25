@@ -82,7 +82,7 @@ export const Navigation = () => {
                                 revision === Revision.V2
                                     ? Revision.V3
                                     : Revision.V2
-                            }`}
+                            }. CMMC currently only uses R2.`}
                             className={`px-3 me-2 text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-500 border-gray-600 border-r flex items-center ${
                                 revision === Revision.V2
                                     ? "bg-green-300 border border-green-500 text-green-600 hover:text-green-800"
