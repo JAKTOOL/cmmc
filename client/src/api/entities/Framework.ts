@@ -210,6 +210,10 @@ export class Manifest {
         this.requirements = ElementMapper.fromElements(
             this.elements,
             ElementType.Requirement,
+            (element) => {
+                // Remove withdrawn
+                return !!element.title;
+            },
         );
         this.securityRequirements = ElementMapper.fromElements(
             this.elements,

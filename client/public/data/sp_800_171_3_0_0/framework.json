@@ -2595,28 +2595,28 @@
                     "element_type": "requirement",
                     "element_identifier": "03.01.17",
                     "title": "",
-                    "text": "Protect wireless access using authentication and encryption.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.13",
                     "title": "",
-                    "text": "Employ cryptographic mechanisms to protect the confidentiality of remote access sessions.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.14",
                     "title": "",
-                    "text": "Route remote access via managed access control points.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.15",
                     "title": "",
-                    "text": "Authorize remote execution of privileged commands and remote access to security-relevant information.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -2630,14 +2630,14 @@
                     "element_type": "requirement",
                     "element_identifier": "03.01.21",
                     "title": "",
-                    "text": "Limit use of portable storage devices on external systems.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.19",
                     "title": "",
-                    "text": "Encrypt CUI on mobile devices and mobile computing platforms.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -2756,14 +2756,14 @@
                     "element_type": "requirement",
                     "element_identifier": "03.04.09",
                     "title": "",
-                    "text": "Control and monitor user-installed software.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.04.07",
                     "title": "",
-                    "text": "Restrict, disable, or prevent the use of nonessential programs, functions, ports, protocols, and services.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -2861,7 +2861,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.13.16",
                     "title": "",
-                    "text": "Protect the confidentiality of CUI at rest.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -2875,7 +2875,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.13.14",
                     "title": "",
-                    "text": "Control and monitor the use of Voice over Internet Protocol (VoIP) technologies.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -2910,7 +2910,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.13.07",
                     "title": "",
-                    "text": "Prevent remote devices from simultaneously establishing non-remote connections with organizational systems and communicating via some other connection to resources in external networks (i.e., split tunneling).",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -2973,14 +2973,14 @@
                     "element_type": "requirement",
                     "element_identifier": "03.13.03",
                     "title": "",
-                    "text": "Separate user functionality from system management functionality.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.13.05",
                     "title": "",
-                    "text": "Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3015,7 +3015,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.13.02",
                     "title": "",
-                    "text": "Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational systems.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3085,7 +3085,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.12.04",
                     "title": "",
-                    "text": "Develop, document, and periodically update system security plans that describe system boundaries, system environments of operation, how security requirements are implemented, and the relationships with or connections to other systems.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3134,7 +3134,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.03.09",
                     "title": "",
-                    "text": "Limit management of audit logging functionality to a subset of privileged users.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3148,7 +3148,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.10.03",
                     "title": "",
-                    "text": "Escort visitors and monitor visitor activity.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3162,14 +3162,14 @@
                     "element_type": "requirement",
                     "element_identifier": "03.10.04",
                     "title": "",
-                    "text": "Maintain audit logs of physical access.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.10.05",
                     "title": "",
-                    "text": "Control and manage physical access devices.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3183,14 +3183,14 @@
                     "element_type": "requirement",
                     "element_identifier": "03.07.01",
                     "title": "",
-                    "text": "Perform maintenance on organizational systems.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.07.02",
                     "title": "",
-                    "text": "Provide controls on the tools, techniques, mechanisms, and personnel used to conduct system maintenance.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3211,7 +3211,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.07.03",
                     "title": "",
-                    "text": "Ensure equipment removed for off-site maintenance is sanitized of any CUI.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3232,7 +3232,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.05.06",
                     "title": "",
-                    "text": "Disable identifiers after a defined period of inactivity.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3246,21 +3246,21 @@
                     "element_type": "requirement",
                     "element_identifier": "03.05.08",
                     "title": "",
-                    "text": "Prohibit password reuse for a specified number of generations.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.05.09",
                     "title": "",
-                    "text": "Allow temporary password use for system logons with an immediate change to a permanent password.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.05.10",
                     "title": "",
-                    "text": "Store and transmit only cryptographically-protected passwords.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3316,7 +3316,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.02.03",
                     "title": "",
-                    "text": "Provide security awareness training on recognizing and reporting potential indicators of insider threat.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3379,7 +3379,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.08.08",
                     "title": "",
-                    "text": "Prohibit the use of portable storage devices when such devices have no identifiable owner.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3407,7 +3407,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.08.06",
                     "title": "",
-                    "text": "Implement cryptographic mechanisms to protect the confidentiality of CUI stored on digital media during transport unless otherwise protected by alternative physical safeguards.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3435,7 +3435,7 @@
                     "element_type": "requirement",
                     "element_identifier": "03.11.03",
                     "title": "",
-                    "text": "Remediate vulnerabilities in accordance with risk assessments.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -3456,21 +3456,21 @@
                     "element_type": "requirement",
                     "element_identifier": "03.14.07",
                     "title": "",
-                    "text": "Identify unauthorized use of organizational systems.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.14.05",
                     "title": "",
-                    "text": "Perform periodic scans of organizational systems and real-time scans of files from external sources as files are downloaded, opened, or executed.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.14.04",
                     "title": "",
-                    "text": "Update malicious code protection mechanisms when new releases are available.",
+                    "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
                 {
@@ -9860,7 +9860,7 @@
                 {
                     "element_type": "odp",
                     "element_identifier": "A.03.01.08.ODP[04]",
-                    "title": "",
+                    "title": "time period",
                     "text": "the time period for an account or node to be locked is defined (if selected).",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
@@ -9888,7 +9888,7 @@
                 {
                     "element_type": "odp",
                     "element_identifier": "A.03.01.10.ODP[02]",
-                    "title": "",
+                    "title": "time period",
                     "text": "the time period of inactivity after which a device lock is initiated is defined (if selected).",
                     "doc_identifier": "SP_800_171_3_0_0"
                 },
@@ -11039,468 +11039,6 @@
                     "title": "Assignment",
                     "text": "",
                     "doc_identifier": "SP_800_171_3_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.01.13",
-                    "title": "",
-                    "text": "Employ cryptographic mechanisms to protect the confidentiality of remote access sessions.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.01.14",
-                    "title": "",
-                    "text": "Route remote access via managed access control points.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.01.15",
-                    "title": "",
-                    "text": "Authorize remote execution of privileged commands and remote access to security-relevant information.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.01.17",
-                    "title": "",
-                    "text": "Protect wireless access using authentication and encryption.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.01.19",
-                    "title": "",
-                    "text": "Encrypt CUI on mobile devices and mobile computing platforms.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.01.21",
-                    "title": "",
-                    "text": "Limit use of portable storage devices on external systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.02.03",
-                    "title": "",
-                    "text": "Provide security awareness training on recognizing and reporting potential indicators of insider threat.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.03.09",
-                    "title": "",
-                    "text": "Limit management of audit logging functionality to a subset of privileged users.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.04.07",
-                    "title": "",
-                    "text": "Restrict, disable, or prevent the use of nonessential programs, functions, ports, protocols, and services.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.04.09",
-                    "title": "",
-                    "text": "Control and monitor user-installed software.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.05.06",
-                    "title": "",
-                    "text": "Disable identifiers after a defined period of inactivity.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.05.08",
-                    "title": "",
-                    "text": "Prohibit password reuse for a specified number of generations.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.05.09",
-                    "title": "",
-                    "text": "Allow temporary password use for system logons with an immediate change to a permanent password.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.05.10",
-                    "title": "",
-                    "text": "Store and transmit only cryptographically-protected passwords.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.07.01",
-                    "title": "",
-                    "text": "Perform maintenance on organizational systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.07.02",
-                    "title": "",
-                    "text": "Provide controls on the tools, techniques, mechanisms, and personnel used to conduct system maintenance.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.07.03",
-                    "title": "",
-                    "text": "Ensure equipment removed for off-site maintenance is sanitized of any CUI.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.08.06",
-                    "title": "",
-                    "text": "Implement cryptographic mechanisms to protect the confidentiality of CUI stored on digital media during transport unless otherwise protected by alternative physical safeguards.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.08.08",
-                    "title": "",
-                    "text": "Prohibit the use of portable storage devices when such devices have no identifiable owner.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.10.03",
-                    "title": "",
-                    "text": "Escort visitors and monitor visitor activity.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.10.04",
-                    "title": "",
-                    "text": "Maintain audit logs of physical access.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.10.05",
-                    "title": "",
-                    "text": "Control and manage physical access devices.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.11.03",
-                    "title": "",
-                    "text": "Remediate vulnerabilities in accordance with risk assessments.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.12.04",
-                    "title": "",
-                    "text": "Develop, document, and periodically update system security plans that describe system boundaries, system environments of operation, how security requirements are implemented, and the relationships with or connections to other systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.13.02",
-                    "title": "",
-                    "text": "Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.13.03",
-                    "title": "",
-                    "text": "Separate user functionality from system management functionality.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.13.05",
-                    "title": "",
-                    "text": "Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.13.07",
-                    "title": "",
-                    "text": "Prevent remote devices from simultaneously establishing non-remote connections with organizational systems and communicating via some other connection to resources in external networks (i.e., split tunneling).",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.13.14",
-                    "title": "",
-                    "text": "Control and monitor the use of Voice over Internet Protocol (VoIP) technologies.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.13.16",
-                    "title": "",
-                    "text": "Protect the confidentiality of CUI at rest.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.14.04",
-                    "title": "",
-                    "text": "Update malicious code protection mechanisms when new releases are available.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.14.05",
-                    "title": "",
-                    "text": "Perform periodic scans of organizational systems and real-time scans of files from external sources as files are downloaded, opened, or executed.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.14.07",
-                    "title": "",
-                    "text": "Identify unauthorized use of organizational systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.01.13",
-                    "title": "",
-                    "text": "Cryptographic standards include FIPS-validated cryptography and NSA-approved cryptography. See [NIST CRYPTO]; [NIST CAVP]; [NIST CMVP]; National Security Agency Cryptographic Standards.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.01.14",
-                    "title": "",
-                    "text": "Routing remote access through managed access control points enhances explicit, organizational control over such connections, reducing the susceptibility to unauthorized access to organizational systems resulting in the unauthorized disclosure of CUI.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.01.15",
-                    "title": "",
-                    "text": "A privileged command is a human-initiated (interactively or via a process operating on behalf of the human) command executed on a system involving the control, monitoring, or administration of the system including security functions and associated security-relevant information. Securityrelevant information is any information within the system that can potentially impact the operation of security functions or the provision of security services in a manner that could result in failure to enforce the system security policy or maintain isolation of code and data. Privileged commands give individuals the ability to execute sensitive, security-critical, or security-relevant system functions. Controlling such access from remote locations helps to ensure that unauthorized individuals are not able to execute such commands freely with the potential to do serious or catastrophic damage to organizational systems. Note that the ability to affect the integrity of the system is considered security-relevant as that could enable the means to by-pass security functions although not directly impacting the function itself.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.01.17",
-                    "title": "",
-                    "text": "Organizations authenticate individuals and devices to help protect wireless access to the system. Special attention is given to the wide variety of devices that are part of the Internet of Things with potential wireless access to organizational systems. See [NIST CRYPTO].",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.01.19",
-                    "title": "",
-                    "text": "Organizations can employ full-device encryption or container-based encryption to protect the confidentiality of CUI on mobile devices and computing platforms. Container-based encryption provides a more fine-grained approach to the encryption of data and information including encrypting selected data structures such as files, records, or fields. See [NIST CRYPTO].",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.01.21",
-                    "title": "",
-                    "text": "Limits on the use of organization-controlled portable storage devices in external systems include complete prohibition of the use of such devices or restrictions on how the devices may be used and under what conditions the devices may be used. Note that while \u201cexternal\u201d typically refers to outside of the organization\u2019s direct supervision and authority, that is not always the case.  Regarding the protection of CUI across an organization, the organization may have systems that process CUI and others that do not. Among the systems that process CUI there are likely access restrictions for CUI that apply between systems. Therefore, from the perspective of a given system, other systems within the organization may be considered \u201cexternal\" to that system.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.02.03",
-                    "title": "",
-                    "text": "Potential indicators and possible precursors of insider threat include behaviors such as: inordinate, long-term job dissatisfaction; attempts to gain access to information that is not required for job performance; unexplained access to financial resources; bullying or sexual harassment of fellow employees; workplace violence; and other serious violations of the policies, procedures, directives, rules, or practices of organizations. Security awareness training includes how to communicate employee and management concerns regarding potential indicators of insider threat through appropriate organizational channels in accordance with established organizational policies and procedures. Organizations may consider tailoring insider threat awareness topics to the role (e.g., training for managers may be focused on specific changes in behavior of team members, while training for employees may be focused on more general observations).",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.03.09",
-                    "title": "",
-                    "text": "Individuals with privileged access to a system and who are also the subject of an audit by that system, may affect the reliability of audit information by inhibiting audit logging activities or modifying audit records. This requirement specifies that privileged access be further defined between audit-related privileges and other privileges, thus limiting the users with audit-related privileges.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.04.07",
-                    "title": "",
-                    "text": "Restricting the use of nonessential software (programs) includes restricting the roles allowed to approve program execution; prohibiting auto-execute; program blacklisting and whitelisting; or restricting the number of program instances executed at the same time. The organization makes a security-based determination which functions, ports, protocols, and/or services are restricted. Bluetooth, File Transfer Protocol (FTP), and peer-to-peer networking are examples of protocols organizations consider preventing the use of, restricting, or disabling.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.04.09",
-                    "title": "",
-                    "text": "Users can install software in organizational systems if provided the necessary privileges. To maintain control over the software installed, organizations identify permitted and prohibited actions regarding software installation through policies. Permitted software installations include updates and security patches to existing software and applications from organization-approved \u201capp stores.\u201d Prohibited software installations may include software with unknown or suspect pedigrees or software that organizations consider potentially malicious. The policies organizations select governing user-installed software may be organization-developed or provided by some external entity. Policy enforcement methods include procedural methods, automated methods, or both.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.05.06",
-                    "title": "",
-                    "text": "Inactive identifiers pose a risk to organizational information because attackers may exploit an inactive identifier to gain undetected access to organizational devices. The owners of the inactive accounts may not notice if unauthorized access to the account has been obtained.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.05.08",
-                    "title": "",
-                    "text": "Password lifetime restrictions do not apply to temporary passwords.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.05.09",
-                    "title": "",
-                    "text": "Changing temporary passwords to permanent passwords immediately after system logon ensures that the necessary strength of the authentication mechanism is implemented at the earliest opportunity, reducing the susceptibility to authenticator compromises.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.05.10",
-                    "title": "",
-                    "text": "Cryptographically-protected passwords use salted one-way cryptographic hashes of passwords. See [NIST CRYPTO].",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.07.01",
-                    "title": "",
-                    "text": "This requirement addresses the information security aspects of the system maintenance program and applies to all types of maintenance to any system component (including hardware, firmware, applications) conducted by any local or nonlocal entity. System maintenance also includes those components not directly associated with information processing and data or information retention such as scanners, copiers, and printers.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.07.02",
-                    "title": "",
-                    "text": "This requirement addresses security-related issues with maintenance tools that are not within the organizational system boundaries that process, store, or transmit CUI, but are used specifically for diagnostic and repair actions on those systems. Organizations have flexibility in determining the controls in place for maintenance tools, but can include approving, controlling, and monitoring the use of such tools. Maintenance tools are potential vehicles for transporting malicious code, either intentionally or unintentionally, into a facility and into organizational systems. Maintenance tools can include hardware, software, and firmware items, for example, hardware and software diagnostic test equipment and hardware and software packet sniffers.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.07.03",
-                    "title": "",
-                    "text": "This requirement addresses the information security aspects of system maintenance that are performed off-site and applies to all types of maintenance to any system component (including applications) conducted by a local or nonlocal entity (e.g., in-contract, warranty, in- house, software maintenance agreement).[SP 800-88] provides guidance on media sanitization.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.08.06",
-                    "title": "",
-                    "text": "This requirement applies to portable storage devices (e.g., USB memory sticks, digital video disks, compact disks, external or removable hard disk drives). See [NIST CRYPTO].[SP 800-111] provides guidance on storage encryption technologies for end user devices.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.08.08",
-                    "title": "",
-                    "text": "Requiring identifiable owners (e.g., individuals, organizations, or projects) for portable storage devices reduces the overall risk of using such technologies by allowing organizations to assign responsibility and accountability for addressing known vulnerabilities in the devices (e.g., insertion of malicious code).",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.10.03",
-                    "title": "",
-                    "text": "Individuals with permanent physical access authorization credentials are not considered visitors. Audit logs can be used to monitor visitor activity.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.10.04",
-                    "title": "",
-                    "text": "Organizations have flexibility in the types of audit logs employed. Audit logs can be procedural (e.g., a written log of individuals accessing the facility), automated (e.g., capturing ID provided by a PIV card), or some combination thereof. Physical access points can include facility access points, interior access points to systems or system components requiring supplemental access controls, or both. System components (e.g., workstations, notebook computers) may be in areas designated as publicly accessible with organizations safeguarding access to such devices.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.10.05",
-                    "title": "",
-                    "text": "Physical access devices include keys, locks, combinations, and card readers.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.11.03",
-                    "title": "",
-                    "text": "Vulnerabilities discovered, for example, via the scanning conducted in response to 3.11.2, are remediated with consideration of the related assessment of risk. The consideration of risk influences the prioritization of remediation efforts and the level of effort to be expended in the remediation for specific vulnerabilities.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.12.04",
-                    "title": "",
-                    "text": "System security plans relate security requirements to a set of security controls. System security plans also describe, at a high level, how the security controls meet those security requirements, but do not provide detailed, technical descriptions of the design or implementation of the controls.System security plans contain sufficient information to enable a design and implementation that is unambiguously compliant with the intent of the plans and subsequent determinations of risk if the plan is implemented as intended. Security plans need not be single documents; the plans can be a collection of various documents including documents that already exist. Effective security plans make extensive use of references to policies, procedures, and additional documents (e.g., design and implementation specifications) where more detailed information can be obtained. This reduces the documentation requirements associated with security programs and maintains security-related information in other established management/operational areas related to enterprise architecture, system development life cycle, systems engineering, and acquisition.Federal agencies may consider the submitted system security plans and plans of action as critical inputs to an overall risk management decision to process, store, or transmit CUI on a system hosted by a nonfederal organization and whether it is advisable to pursue an agreement or contract with the nonfederal organization.[SP 800-18] provides guidance on developing security plans. [NIST CUI] provides supplemental material for Special Publication 800-171 including templates for system security plans.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.13.02",
-                    "title": "",
-                    "text": "Organizations apply systems security engineering principles to new development systems or systems undergoing major upgrades. For legacy systems, organizations apply systems security engineering principles to system upgrades and modifications to the extent feasible, given the current state of hardware, software, and firmware components within those systems. The application of systems security engineering concepts and principles helps to develop trustworthy, secure, and resilient systems and system components and reduce the susceptibility of organizations to disruptions, hazards, and threats. Examples of these concepts and principles include developing layered protections; establishing security policies, architecture, and controls as the foundation for design; incorporating security requirements into the system development life cycle; delineating physical and logical security boundaries; ensuring that developers are trained on how to build secure software; and performing threat modeling to identify use cases, threat agents, attack vectors and patterns, design patterns, and compensating controls needed to mitigate risk. Organizations that apply security engineering concepts and principles can facilitate the development of trustworthy, secure systems, system components, and system services; reduce risk to acceptable levels; and make informed risk-management decisions.[SP 800-160-1] provides guidance on systems security engineering.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.13.03",
-                    "title": "",
-                    "text": "System management functionality includes functions necessary to administer databases, network components, workstations, or servers, and typically requires privileged user access. The separation of user functionality from system management functionality is physical or logical. Organizations can implement separation of system management functionality from user functionality by using different computers, different central processing units, different instances of operating systems, or different network addresses; virtualization techniques; or combinations of these or other methods, as appropriate. This type of separation includes web administrative interfaces that use separate authentication methods for users of any other system resources. Separation of system and user functionality may include isolating administrative interfaces on different domains and with additional access controls.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.13.05",
-                    "title": "",
-                    "text": "Subnetworks that are physically or logically separated from internal networks are referred to as demilitarized zones (DMZs). DMZs are typically implemented with boundary control devices and techniques that include routers, gateways, firewalls, virtualization, or cloud-based technologies. [SP 800-41] provides guidance on firewalls and firewall policy. [SP 800-125B] provides guidance on security for virtualization technologies.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.13.07",
-                    "title": "",
-                    "text": "Split tunneling might be desirable by remote users to communicate with local system resources such as printers or file servers. However, split tunneling allows unauthorized external connections, making the system more vulnerable to attack and to exfiltration of organizational information. This requirement is implemented in remote devices (e.g., notebook computers, smart phones, and tablets) through configuration settings to disable split tunneling in those devices, and by preventing configuration settings from being readily configurable by users. This requirement is implemented in the system by the detection of split tunneling (or of configuration settings that allow split tunneling) in the remote device, and by prohibiting the connection if the remote device is using split tunneling.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.13.14",
-                    "title": "",
-                    "text": "VoIP has different requirements, features, functionality, availability, and service limitations when compared with the Plain Old Telephone Service (POTS) (i.e., the standard telephone service). In contrast, other telephone services are based on high-speed, digital communications lines, such as Integrated Services Digital Network (ISDN) and Fiber Distributed Data Interface (FDDI). The main distinctions between POTS and non-POTS services are speed and bandwidth. To address the threats associated with VoIP, usage restrictions and implementation guidelines are based on the potential for the VoIP technology to cause damage to the system if it is used maliciously. Threats to VoIP are similar to those inherent with any Internet-based application.[SP 800-58] provides guidance on Voice Over IP Systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.13.16",
-                    "title": "",
-                    "text": "Information at rest refers to the state of information when it is not in process or in transit and is located on storage devices as specific components of systems. The focus of protection at rest is not on the type of storage device or the frequency of access but rather the state of the information. Organizations can use different mechanisms to achieve confidentiality protections, including the use of cryptographic mechanisms and file share scanning. Organizations may also use other controls including secure off-line storage in lieu of online storage when adequate protection of information at rest cannot otherwise be achieved or continuous monitoring to identify malicious code at rest. See [NIST CRYPTO].",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.14.04",
-                    "title": "",
-                    "text": "Malicious code protection mechanisms include anti-virus signature definitions and reputationbased technologies. A variety of technologies and methods exist to limit or eliminate the effects of malicious code. Pervasive configuration management and comprehensive software integrity controls may be effective in preventing execution of unauthorized code. In addition to commercial off-the-shelf software, malicious code may also be present in custom-built software. This could include logic bombs, back doors, and other types of cyber-attacks that could affect organizational missions/business functions. Traditional malicious code protection mechanisms cannot always detect such code. In these situations, organizations rely instead on other safeguards including secure coding practices, configuration management and control, trusted procurement processes, and monitoring practices to help ensure that software does not perform functions other than the functions intended.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.14.05",
-                    "title": "",
-                    "text": "Periodic scans of organizational systems and real-time scans of files from external sources can detect malicious code. Malicious code can be encoded in various formats (e.g., UUENCODE, Unicode), contained within compressed or hidden files, or hidden in files using techniques such as steganography. Malicious code can be inserted into systems in a variety of ways including web accesses, electronic mail, electronic mail attachments, and portable storage devices. Malicious code insertions occur through the exploitation of system vulnerabilities.",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "discussion",
-                    "element_identifier": "D_03.14.07",
-                    "title": "",
-                    "text": "System monitoring includes external and internal monitoring. System monitoring can detect unauthorized use of organizational systems.  System monitoring is an integral part of continuous monitoring and incident response programs. Monitoring is achieved through a variety of tools and techniques (e.g., intrusion detection systems, intrusion prevention systems, malicious code protection software, scanning tools, audit record monitoring software, network monitoring software). Output from system monitoring serves as input to continuous monitoring and incident response programs.Unusual/unauthorized activities or conditions related to inbound and outbound communications traffic include internal traffic that indicates the presence of malicious code in systems or propagating among system components, the unauthorized exporting of information, or signaling to external systems. Evidence of malicious code is used to identify potentially compromised systems or system components. System monitoring requirements, including the need for specific types of system monitoring, may be referenced in other requirements.[SP 800-94] provides guidance on intrusion detection and prevention systems.",
-                    "doc_identifier": "SP_800_171_2_0_0"
                 }
             ],
             "relationships": [
