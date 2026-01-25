@@ -11,6 +11,7 @@ import { Tree } from "./tree";
 
 export const Navigation = () => {
     const revision = useRevisionContext();
+    const path = toPath(revision);
     const [isOpen, setIsOpen] = useState(false);
     const [isRevisionOpen, setIsRevisionOpen] = useState(false);
     const [isTreeOpen, setTreeIsOpen] = useState(false);
@@ -54,7 +55,7 @@ export const Navigation = () => {
         >
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a
-                    href="/"
+                    href={path}
                     className="flex items-center space-x-3 rtl:space-x-reverse block"
                     tabIndex={100}
                 >
