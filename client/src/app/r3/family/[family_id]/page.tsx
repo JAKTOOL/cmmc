@@ -3,7 +3,8 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { Requirements } from "@/app/components/requirements";
-import ManifestComponent from "@/app/context";
+import ManifestComponent from "@/app/context/manifest";
+import RevisionComponent from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
@@ -21,7 +22,7 @@ type Props = {
 
 export async function generateMetadata(
     { params }: Props,
-    parent: ResolvingMetadata
+    parent: ResolvingMetadata,
 ): Promise<Metadata> {
     const { family_id } = await params;
 
@@ -39,11 +40,13 @@ export default async function Page({ params }) {
     const { family_id } = await params;
     return (
         <ManifestComponent>
-            <Navigation />
-            <Main>
-                <Requirements familyId={family_id} />
-            </Main>
-            <Footer />
+            <RevisionComponent>
+                <Navigation />
+                <Main>
+                    <Requirements familyId={family_id} />
+                </Main>
+                <Footer />
+            </RevisionComponent>
         </ManifestComponent>
     );
 }

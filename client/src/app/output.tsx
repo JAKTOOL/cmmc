@@ -1,6 +1,6 @@
 "use client";
 import * as Framework from "@/api/entities/Framework";
-import { ManifestProvider, useManifestContext } from "./context";
+import { ManifestProvider, useManifestContext } from "./context/manifest";
 
 const Requirements = () => {
     const manifest = useManifestContext();

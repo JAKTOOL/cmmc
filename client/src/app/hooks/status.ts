@@ -1,5 +1,5 @@
 "use client";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 import { IDBRequirement } from "@/app/db";
 import { useMemo } from "react";
 import { Status, calcStatus } from "../components/status";
@@ -26,8 +26,8 @@ export class FamilyStatus {
                     }
                     return acc;
                 },
-                [] as Status[]
-            )
+                [] as Status[],
+            ),
         );
     }
 
@@ -40,8 +40,8 @@ export class FamilyStatus {
                     }
                     return acc;
                 },
-                [] as Status[]
-            )
+                [] as Status[],
+            ),
         );
     }
 }
@@ -65,13 +65,16 @@ export const useGlobalStatus = () => {
             return acc;
         }, {} as GlobalStatuses);
 
-        const storedRequirements = idbRequirements?.reduce((acc, cur) => {
-            acc[cur.id] = cur;
-            return acc;
-        }, {} as Record<string, IDBRequirement>);
+        const storedRequirements = idbRequirements?.reduce(
+            (acc, cur) => {
+                acc[cur.id] = cur;
+                return acc;
+            },
+            {} as Record<string, IDBRequirement>,
+        );
 
         for (const [requirementId, securityRequirements] of Object.entries(
-            securityRequirementsByRequirements
+            securityRequirementsByRequirements,
         )) {
             const family = securityRequirements[0].family;
 
@@ -81,7 +84,7 @@ export const useGlobalStatus = () => {
                         Status.NOT_STARTED;
                     return acc;
                 },
-                {} as Record<string, Status>
+                {} as Record<string, Status>,
             );
 
             if (storedRequirements[requirementId]) {

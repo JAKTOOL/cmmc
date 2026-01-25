@@ -1,5 +1,5 @@
 "use client";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 import { IDBEvidence } from "@/app/db";
 import { useMemo } from "react";
 import { useDBEvidence } from "./db";
@@ -42,19 +42,22 @@ export const useGlobalEvidence = () => {
             return acc;
         }, {} as GlobalEvidence);
 
-        const storedEvidence = idbEvidence?.reduce((acc, cur) => {
-            acc[cur.requirement_id] = cur;
-            return acc;
-        }, {} as Record<string, IDBEvidence>);
+        const storedEvidence = idbEvidence?.reduce(
+            (acc, cur) => {
+                acc[cur.requirement_id] = cur;
+                return acc;
+            },
+            {} as Record<string, IDBEvidence>,
+        );
 
         for (const [requirementId, requirement] of Object.entries(
-            requirementsById
+            requirementsById,
         )) {
             const family = requirement[0].family;
             const familyEvidence = familiesEvidence[family];
             familyEvidence.setRequirementEvidence(
                 requirementId,
-                !!storedEvidence?.[requirementId]
+                !!storedEvidence?.[requirementId],
             );
         }
         return familiesEvidence;

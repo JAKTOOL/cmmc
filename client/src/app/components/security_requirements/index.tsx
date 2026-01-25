@@ -1,6 +1,6 @@
 "use client";
 import { ElementWrapper } from "@/api/entities/Framework";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 import { IDB } from "@/app/db";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
@@ -31,7 +31,7 @@ export const SecurityRequirements = ({
     const router = useRouter();
     const value = useRequirementValue(requirementId);
     const evidence = useFamilyEvidence(
-        requirementId.slice(0, 5)
+        requirementId.slice(0, 5),
     )?.requirementEvidence(requirementId);
 
     const withdrawn = manifest.withdrawReason.byRequirements[requirementId];
@@ -55,7 +55,7 @@ export const SecurityRequirements = ({
                 groupings[securityRequirement.subRequirement] = [];
             }
             groupings[securityRequirement.subRequirement].push(
-                securityRequirement
+                securityRequirement,
             );
         }
         return groupings;
@@ -65,7 +65,7 @@ export const SecurityRequirements = ({
         const requirements =
             manifest?.requirements.byFamily[requirement?.family] || [];
         const requirementIdx = requirements.findIndex(
-            (r) => r.id === requirementId
+            (r) => r.id === requirementId,
         );
 
         let prev = requirements[requirementIdx - 1];
@@ -74,7 +74,7 @@ export const SecurityRequirements = ({
         if (!prev || !next) {
             const families = manifest.families.elements;
             const familyIdx = families.findIndex(
-                (f) => f.id === requirement.family
+                (f) => f.id === requirement.family,
             );
             if (!prev) {
                 const prevFamilyId = families?.[familyIdx - 1]?.id;
@@ -96,7 +96,7 @@ export const SecurityRequirements = ({
             const ids = securityRequirements.map((s) => s.subSubRequirement);
             const idbSecurityRequirements =
                 await IDB.securityRequirements.getAll(
-                    IDBKeyRange.bound(ids[0], ids[ids.length - 1])
+                    IDBKeyRange.bound(ids[0], ids[ids.length - 1]),
                 );
             const nextStatuses: Status[] = [];
             const state = idbSecurityRequirements?.reduce(
@@ -107,7 +107,7 @@ export const SecurityRequirements = ({
                     nextStatuses.push(requirement.status as Status);
                     return acc;
                 },
-                {}
+                {},
             );
             setStatuses(nextStatuses);
             setInitialState(state);
@@ -125,17 +125,17 @@ export const SecurityRequirements = ({
     useEffect(() => {
         const handleHashChange = (event) => {
             const url = new URL(
-                `${window.location.origin}/${event.newURL.split("#")[1]}`
+                `${window.location.origin}/${event.newURL.split("#")[1]}`,
             );
             if (url.searchParams.get("element")) {
                 // HACK: Allows for the back button to work properly
                 history.replaceState(
                     null,
                     "",
-                    window.location.pathname + window.location.search
+                    window.location.pathname + window.location.search,
                 );
                 router.push(
-                    `/r3/requirement/${url.searchParams.get("element")}`
+                    `/r3/requirement/${url.searchParams.get("element")}`,
                 );
             }
         };

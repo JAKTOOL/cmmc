@@ -1,5 +1,5 @@
 "use client";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 
 export const Discussions = ({ requirementId }) => {
     const manifest = useManifestContext();

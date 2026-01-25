@@ -1,5 +1,5 @@
 "use client";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 import { useGlobalScore } from "@/app/hooks/score";
 import Link from "next/link";
 import { TotalScore } from "./score";

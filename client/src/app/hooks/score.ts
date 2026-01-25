@@ -1,6 +1,6 @@
 "use client";
 import type { SecurityRequirementValue } from "@/api/entities/RequirementValues";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 import { useMemo } from "react";
 import { Status } from "../components/status";
 import { useRequirementsValues } from "./requirementValues";
@@ -12,7 +12,7 @@ class Score {
 
     constructor(
         status: Status,
-        securityRequirementValue: SecurityRequirementValue
+        securityRequirementValue: SecurityRequirementValue,
     ) {
         this.status = status;
         this.securityRequirementValue = securityRequirementValue;
@@ -63,7 +63,7 @@ export class GlobalScore {
     get score() {
         return Object.values(this.records)
             .filter((score) =>
-                score.securityRequirementValue.revision.includes(3)
+                score.securityRequirementValue.revision.includes(3),
             )
             .reduce((acc, score) => {
                 return acc - score.penalty;
@@ -73,7 +73,7 @@ export class GlobalScore {
     get rev2Score() {
         return Object.values(this.records)
             .filter((score) =>
-                score.securityRequirementValue.revision.includes(2)
+                score.securityRequirementValue.revision.includes(2),
             )
             .reduce((acc, score) => {
                 return acc - score.rev2Penalty;
@@ -95,9 +95,9 @@ export const useGlobalScore = () => {
         const records = requirements.reduce((acc, requirement) => {
             acc[requirement.element_identifier] = new Score(
                 globalStatus[requirement.family].requirementStatus(
-                    requirement.element_identifier
+                    requirement.element_identifier,
                 ),
-                reqValueSchema[requirement.element_identifier]
+                reqValueSchema[requirement.element_identifier],
             );
             return acc;
         }, {} as ScoresRecord);

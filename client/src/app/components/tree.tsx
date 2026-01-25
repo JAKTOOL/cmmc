@@ -1,6 +1,6 @@
 "use client";
 import type { ElementWrapper, Manifest } from "@/api/entities/Framework";
-import { useManifestContext } from "@/app/context";
+import { useManifestContext } from "@/app/context/manifest";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
@@ -104,10 +104,10 @@ export const RequirementLeaf = ({
     familyEvidence?: FamilyEvidence;
 }) => {
     const status = familyStatus?.requirementStatus(
-        requirement.element_identifier
+        requirement.element_identifier,
     );
     const evidence = familyEvidence?.requirementEvidence(
-        requirement.element_identifier
+        requirement.element_identifier,
     );
     const className = !requirement.title ? "line-through" : "";
     return (

@@ -3,7 +3,8 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { SecurityRequirements } from "@/app/components/security_requirements";
-import ManifestComponent from "@/app/context";
+import ManifestComponent from "@/app/context/manifest";
+import RevisionComponent from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
@@ -21,7 +22,7 @@ type Props = {
 
 export async function generateMetadata(
     { params }: Props,
-    parent: ResolvingMetadata
+    parent: ResolvingMetadata,
 ): Promise<Metadata> {
     const { requirement_id } = await params;
     const manifest = await Framework.manifest;
@@ -46,11 +47,13 @@ export default async function Page({ params }) {
 
     return (
         <ManifestComponent>
-            <Navigation />
-            <Main>
-                <SecurityRequirements requirementId={requirement_id} />
-            </Main>
-            <Footer />
+            <RevisionComponent>
+                <Navigation />
+                <Main>
+                    <SecurityRequirements requirementId={requirement_id} />
+                </Main>
+                <Footer />
+            </RevisionComponent>
         </ManifestComponent>
     );
 }
