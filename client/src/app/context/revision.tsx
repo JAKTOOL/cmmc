@@ -2,8 +2,8 @@
 import React, { createContext, useContext } from "react";
 
 export enum Revision {
-    V2 = "V2",
-    V3 = "V3",
+    V2 = "R2",
+    V3 = "R3",
 }
 
 export enum DocRevision {
@@ -17,6 +17,14 @@ export const toPath = (revision: Revision): string => {
             return "/r2";
         default:
             return "/r3";
+    }
+};
+export const toNum = (revision: Revision): number => {
+    switch (revision) {
+        case Revision.V2:
+            return 2;
+        default:
+            return 3;
     }
 };
 

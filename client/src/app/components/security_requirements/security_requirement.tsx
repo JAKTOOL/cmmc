@@ -1,5 +1,5 @@
 "use client";
-import { useRevisionContext } from "@/app/context/revision";
+import { Revision, useRevisionContext } from "@/app/context/revision";
 import { renderNumber } from "@/app/utils/number";
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
@@ -76,7 +76,8 @@ export const SecurityRequirement = ({
                                 </>
                             ),
                             visible:
-                                revision == "V3" && value?.revision?.length,
+                                revision === Revision.V3 &&
+                                value?.revision?.length,
                             value: value?.revision?.join(", "),
                         },
                         {
@@ -126,7 +127,9 @@ export const SecurityRequirement = ({
                                     </Popover>
                                 </>
                             ),
-                            visible: !!value?.withdrawn_from?.length,
+                            visible:
+                                revision === Revision.V3 &&
+                                !!value?.withdrawn_from?.length,
                             className: "hidden md:inline",
                             value: value?.withdrawn_from?.map((id) => (
                                 <Link
@@ -162,7 +165,9 @@ export const SecurityRequirement = ({
                                     </Popover>
                                 </>
                             ),
-                            visible: !!value?.withdrawn_from?.length,
+                            visible:
+                                revision === Revision.V3 &&
+                                !!value?.withdrawn_from?.length,
                             value: renderNumber(
                                 value?.aggregate_value_withdrawn_from,
                             ),

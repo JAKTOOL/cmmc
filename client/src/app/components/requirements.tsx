@@ -42,12 +42,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
             </h2>
             <Popover id="requirements-popover">
                 <IconInfo />
-                <span>
-                    Requirements from NIST 800-171 include controls from both
-                    revision 2 and 3. Withdrawn controls from revision 2 will
-                    show with a strikethrough, and otherwise display a warning
-                    when viewing the requirement.
-                </span>
+                <span>Requirements from NIST 800-171 {revision}</span>
             </Popover>
             <ContentNavigation
                 elementIdentity={(element) => element?.family}

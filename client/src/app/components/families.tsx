@@ -1,6 +1,6 @@
 "use client";
 import { useManifestContext } from "@/app/context/manifest";
-import { toPath, useRevisionContext } from "@/app/context/revision";
+import { toNum, toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
 import { useGlobalEvidence } from "../hooks/evidence";
 import { useGlobalStatus } from "../hooks/status";
@@ -25,7 +25,7 @@ export const Families = () => {
         <>
             <Breadcrumbs />
             <h2 className="text-4xl block sm:flex items-center">
-                SP NIST 800-171 Families
+                SP NIST 800-171 Families {revision}
                 <button className="ml-2" popoverTarget="families-popover">
                     <IconInfo inline={false} />
                 </button>
@@ -33,10 +33,9 @@ export const Families = () => {
             <Popover id="families-popover">
                 <IconInfo />
                 <span>
-                    Families from NIST 800-171 include controls from both
-                    revision 2 and 3. Withdrawn controls from revision 2 will
-                    show with a strikethrough, and otherwise display a warning
-                    when viewing the requirements.
+                    Families from NIST 800-171 {revision} include controls from
+                    revision {toNum(revision)}. Revision 2 is the current valid
+                    CMMC revision.
                 </span>
             </Popover>
             <ul>
