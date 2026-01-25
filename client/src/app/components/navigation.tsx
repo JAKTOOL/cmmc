@@ -1,4 +1,6 @@
 "use client";
+import { Revision, toPath, useRevisionContext } from "@/app/context/revision";
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ClearDB } from "./clear_db";
 import { ExportEvidence } from "./export_evidence";
@@ -8,7 +10,9 @@ import { POAM } from "./poam";
 import { Tree } from "./tree";
 
 export const Navigation = () => {
+    const revision = useRevisionContext();
     const [isOpen, setIsOpen] = useState(false);
+    const [isRevisionOpen, setIsRevisionOpen] = useState(false);
     const [isTreeOpen, setTreeIsOpen] = useState(false);
     const menuRef = useRef<HTMLElement>(null);
     const onKeyDown = useMemo(
@@ -17,7 +21,7 @@ export const Navigation = () => {
                 setIsOpen(false);
             }
         },
-        []
+        [],
     );
     const onClick = useMemo(
         () => (event: MouseEvent) => {
@@ -26,7 +30,7 @@ export const Navigation = () => {
             }
             setIsOpen(false);
         },
-        []
+        [],
     );
 
     useEffect(() => {
@@ -66,6 +70,27 @@ export const Navigation = () => {
                     </svg>
                 </a>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <div className="relative inline-block text-left">
+                        <Link
+                            href={
+                                revision === Revision.V2
+                                    ? toPath(Revision.V3)
+                                    : toPath(Revision.V2)
+                            }
+                            title={`Toggle 800-171 revision to ${
+                                revision === Revision.V2
+                                    ? Revision.V3
+                                    : Revision.V2
+                            }`}
+                            className={`px-3 me-2 text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-500 border-gray-600 border-r flex items-center ${
+                                revision === Revision.V2
+                                    ? "bg-green-300 border border-green-500 text-green-600 hover:text-green-800"
+                                    : "bg-yellow-300 border border-yellow-500 text-yellow-600 hover:text-yellow-800"
+                            }`}
+                        >
+                            {revision}
+                        </Link>
+                    </div>
                     <button
                         key="tree-open"
                         className="px-5 me-2  text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-500 border-gray-600 border-r hover:text-gray-600 flex items-center"

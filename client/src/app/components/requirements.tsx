@@ -76,9 +76,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
                                 />
                                 <h3 className={`text-2xl ${className}`}>
                                     {requirement.element_identifier}:{" "}
-                                    {withdrawn
-                                        ? "Withdrawn"
-                                        : requirement.title}
+                                    {requirement.title}
                                 </h3>
                                 <EvidenceState
                                     evidence={familyEvidence?.requirementEvidence(

@@ -1,5 +1,5 @@
 "use client";
-import { toPath, useRevisionContext } from "@/app/context/revision";
+import { useRevisionContext } from "@/app/context/revision";
 import { renderNumber } from "@/app/utils/number";
 import Link from "next/link";
 import { Breadcrumbs } from "../breadcrumbs";
@@ -26,7 +26,6 @@ export const SecurityRequirement = ({
     evidence,
 }) => {
     const revision = useRevisionContext();
-    const path = toPath(revision);
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
@@ -76,7 +75,8 @@ export const SecurityRequirement = ({
                                     </Popover>
                                 </>
                             ),
-                            visible: value?.revision?.length,
+                            visible:
+                                revision == "V3" && value?.revision?.length,
                             value: value?.revision?.join(", "),
                         },
                         {
@@ -131,7 +131,7 @@ export const SecurityRequirement = ({
                             value: value?.withdrawn_from?.map((id) => (
                                 <Link
                                     key={id}
-                                    href={`${path}/requirement/${id}`}
+                                    href={`/r2/requirement/${id}`}
                                     className="text-xs mr-2"
                                 >
                                     {id}
