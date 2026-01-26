@@ -6,7 +6,6 @@ import { ExportEvidence } from "./export_evidence";
 import { Export, Import } from "./export_import";
 import { Markdown } from "./markdown";
 import { POAM } from "./poam";
-import { RevisionSwitch } from "./revision_switch";
 import { Tree } from "./tree";
 
 export const Navigation = () => {
@@ -70,9 +69,6 @@ export const Navigation = () => {
                     </svg>
                 </a>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <div className="relative inline-block text-left">
-                        <RevisionSwitch />
-                    </div>
                     <button
                         key="tree-open"
                         className="px-5 me-2  text-sm font-medium focus:z-20 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-gray-500 border-gray-600 border-r hover:text-gray-600 flex items-center"

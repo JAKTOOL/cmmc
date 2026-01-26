@@ -2,6 +2,7 @@
 import { useManifestContext } from "@/app/context/manifest";
 import { toPath, useRevisionContext } from "@/app/context/revision";
 import Link from "next/link";
+import { RevisionSwitch } from "./revision_switch";
 import { TotalScore } from "./score";
 
 interface BreadcrumbLink {
@@ -66,7 +67,10 @@ export const Breadcrumbs = ({ familyId, requirementId }: BreadcrumbsProps) => {
                     </span>
                 ))}
             </div>
-            <TotalScore />
+            <div className="flex items-center">
+                <RevisionSwitch />
+                <TotalScore />
+            </div>
         </aside>
     );
 };
