@@ -41,11 +41,14 @@ export default async function Page({ params }) {
     return (
         <ManifestV3Component>
             <RevisionV3Component>
-                <Navigation />
-                <Main>
-                    <Requirements familyId={family_id} />
-                </Main>
-                <Footer />
+                <ToastNotificationProvider>
+                    <ToastContainer />
+                    <Navigation />
+                    <Main>
+                        <Requirements familyId={family_id} />
+                    </Main>
+                    <Footer />
+                </ToastNotificationProvider>
             </RevisionV3Component>
         </ManifestV3Component>
     );

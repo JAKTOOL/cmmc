@@ -3,7 +3,9 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { SecurityRequirements } from "@/app/components/security_requirements";
+import { ToastContainer } from "@/app/components/toast";
 import { ManifestV3Component } from "@/app/context/manifest";
+import { ToastNotificationProvider } from "@/app/context/notification";
 import { RevisionV3Component } from "@/app/context/revision";
 import type { Metadata, ResolvingMetadata } from "next";
 
@@ -48,11 +50,14 @@ export default async function Page({ params }) {
     return (
         <ManifestV3Component>
             <RevisionV3Component>
-                <Navigation />
-                <Main>
-                    <SecurityRequirements requirementId={requirement_id} />
-                </Main>
-                <Footer />
+                <ToastNotificationProvider>
+                    <ToastContainer />
+                    <Navigation />
+                    <Main>
+                        <SecurityRequirements requirementId={requirement_id} />
+                    </Main>
+                    <Footer />
+                </ToastNotificationProvider>
             </RevisionV3Component>
         </ManifestV3Component>
     );
