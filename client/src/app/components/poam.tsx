@@ -1,11 +1,13 @@
 "use client";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context/manifest";
+import { toNum, useRevisionContext } from "@/app/context/revision";
 import { IDB, IDBSecurityRequirement } from "@/app/db";
 import { useActionState } from "react";
 
 export const POAM = () => {
     const manifest = useManifestContext();
+    const revision = useRevisionContext();
 
     const onClick = async () => {
         const idbSecurityRequirements = await IDB.securityRequirements.getAll();
@@ -56,10 +58,12 @@ export const POAM = () => {
             type: "text/csv",
         });
 
+        const timestamp = Math.floor(new Date().getTime() / 1000);
+
         // Create a link element
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "nist-sp-800-171-rev-3-poam.csv";
+        link.download = `cmmc-800-171-rev-${toNum(revision)}-poam-${timestamp}.md`;
 
         // Append the link to the body (required for Firefox)
         document.body.appendChild(link);

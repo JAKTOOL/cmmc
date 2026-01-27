@@ -1,5 +1,6 @@
 "use client";
 import { Status } from "@/app/components/status";
+import { toNum, useRevisionContext } from "@/app/context/revision";
 import {
     IDB,
     IDBEvidence,
@@ -19,6 +20,7 @@ interface ImportExportPayload {
 }
 
 export const Export = () => {
+    const revision = useRevisionContext();
     const action = async () => {
         const idbSecurityRequirements = await IDB.securityRequirements.getAll();
         const idbEvidence = await IDB.evidence.getAll();
@@ -27,7 +29,7 @@ export const Export = () => {
             data: [...new Uint8Array(artifact.data)],
         }));
         const validSecurityRequirements = idbSecurityRequirements.filter(
-            (secReq) => !!(secReq.status || secReq.description)
+            (secReq) => !!(secReq.status || secReq.description),
         );
 
         const payload: ImportExportPayload = {
@@ -41,10 +43,12 @@ export const Export = () => {
             type: "application/json",
         });
 
+        const timestamp = Math.floor(new Date().getTime() / 1000);
+
         // Create a link element
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "nist-sp-800-171-rev-3-export.json";
+        link.download = `cmmc-800-171-rev-${toNum(revision)}-export-${timestamp}.json`;
 
         // Append the link to the body (required for Firefox)
         document.body.appendChild(link);
@@ -98,7 +102,7 @@ export const Import = () => {
 
                     reader.onload = async (event) => {
                         const payload = JSON.parse(
-                            event?.target?.result as string
+                            event?.target?.result as string,
                         ) as ImportExportPayload;
 
                         if (payload.version !== IDB.version) {
@@ -106,7 +110,7 @@ export const Import = () => {
                         }
 
                         const confirm = window.confirm(
-                            "Importing will overwrite the current database. Continue?"
+                            "Importing will overwrite the current database. Continue?",
                         );
                         if (!confirm) {
                             return;

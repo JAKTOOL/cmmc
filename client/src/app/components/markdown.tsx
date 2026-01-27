@@ -2,7 +2,7 @@
 import { toDataURL } from "@/app/components/security_requirements/utils";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context/manifest";
-import { toPath, useRevisionContext } from "@/app/context/revision";
+import { toNum, toPath, useRevisionContext } from "@/app/context/revision";
 import { IDB, IDBEvidence, IDBSecurityRequirement } from "@/app/db";
 import { useActionState } from "react";
 
@@ -190,10 +190,12 @@ export const Markdown = () => {
             type: "text/plain",
         });
 
+        const timestamp = Math.floor(new Date().getTime() / 1000);
+
         // Create a link element
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "nist-sp-800-171-rev-3-report.md";
+        link.download = `cmmc-800-171-rev-${toNum(revision)}-report-${timestamp}.md`;
 
         // Append the link to the body (required for Firefox)
         document.body.appendChild(link);
