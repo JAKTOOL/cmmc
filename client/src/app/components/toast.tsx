@@ -129,7 +129,7 @@ export const Toast = ({
     return (
         <div
             id={identifier}
-            className="flex items-center w-full max-w-sm p-4 text-body bg-white rounded-base shadow-xs border border-default"
+            className="flex items-center w-full max-w-sm p-4 text-body bg-white rounded-base shadow-xs border border-default mb-2"
             role="alert"
             ref={node}
         >
