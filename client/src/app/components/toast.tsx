@@ -1,7 +1,7 @@
 "use client";
 
 import { useNotification } from "@/app/context/notification";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 interface ToastProps {
     text: string;
@@ -115,23 +115,9 @@ export const Toast = ({
     identifier,
     danger,
     warning,
-    permanent,
     onClick,
 }: ToastProps) => {
     const node = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (node.current) {
-            const button = node.current.querySelector("button");
-            const remove = () => {
-                node.current?.parentNode?.removeChild(node.current);
-            };
-            button?.addEventListener("click", remove);
-            if (!permanent) {
-                setTimeout(remove, 5000);
-            }
-        }
-    }, [identifier, node, permanent]);
 
     let icon = <IconSuccess />;
     if (danger) {

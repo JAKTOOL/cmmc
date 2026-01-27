@@ -48,7 +48,6 @@ export const useNotification = (): NotificationContextProps => {
 
 interface ToastNotificationProviderProps {
     children: ReactNode;
-    customComponent?: React.ElementType;
 }
 
 export const ToastNotificationProvider = ({
@@ -61,7 +60,11 @@ export const ToastNotificationProvider = ({
     const addNotification = (notification: Notification) => {
         setNotificationsList((prevNotifications) => [
             ...prevNotifications,
-            { ...notification, id: crypto.randomUUID() },
+            {
+                ...notification,
+                id: crypto.randomUUID(),
+                duration: notification.duration || 5000,
+            },
         ]);
     };
 

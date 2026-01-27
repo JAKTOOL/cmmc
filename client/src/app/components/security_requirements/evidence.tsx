@@ -2,6 +2,7 @@ import {
     toBuffer,
     toDataURL,
 } from "@/app/components/security_requirements/utils";
+import { useNotification } from "@/app/context/notification";
 import { IDB, IDBEvidence } from "@/app/db";
 import {
     ChangeEvent,
@@ -369,7 +370,7 @@ export const EvidenceBadges = ({
 async function fetchEvidence(requirementId, setEvidence) {
     const evidenceRecords = await IDB.evidence.getAll(
         IDBKeyRange.only(requirementId),
-        "requirement_id"
+        "requirement_id",
     );
     setEvidence(evidenceRecords);
 }
@@ -394,7 +395,7 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
                     blob = clipboardItem;
                 } else {
                     const imageTypes = clipboardItem.types?.filter((type) =>
-                        type.startsWith("image/")
+                        type.startsWith("image/"),
                     );
                     for (const imageType of imageTypes) {
                         blob = await clipboardItem.getType(imageType);
@@ -422,12 +423,16 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
     const [uploading, setUploading] = useState(false);
     const [formLastReset, setFormLastReset] = useState<number | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
+    const { addNotification } = useNotification();
 
     const evidenceById = useMemo(() => {
-        return evidence.reduce((acc, artifact) => {
-            acc[artifact.uuid] = artifact;
-            return acc;
-        }, {} as Record<string, IDBEvidence>);
+        return evidence.reduce(
+            (acc, artifact) => {
+                acc[artifact.uuid] = artifact;
+                return acc;
+            },
+            {} as Record<string, IDBEvidence>,
+        );
     }, [evidence]);
 
     const action = async (prevState, formData: FormData) => {
@@ -485,11 +490,15 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
         const handler = pasteImageFromClipboard(
             requirementId,
             setEvidence,
-            setUploading
+            setUploading,
         );
-        document.addEventListener("paste", handler);
+        const handlerWithNotifcation = (e: Event) => {
+            handler(e);
+            addNotification({ text: "Successfully pasted evidence" });
+        };
+        document.addEventListener("paste", handlerWithNotifcation);
         return () => {
-            document.removeEventListener("paste", handler);
+            document.removeEventListener("paste", handlerWithNotifcation);
         };
     }, [requirementId, setEvidence, setUploading]);
 
