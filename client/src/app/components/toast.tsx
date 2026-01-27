@@ -144,7 +144,7 @@ export const ToastContainer = () => {
     const { notificationsList, removeNotification } = useNotification();
 
     return (
-        <div className="fixed flex flex-col items-center w-full max-w-xs p-4 text-body bg-neutral-primary-soft rounded-base top-20 end-5 z-20">
+        <aside className="fixed flex flex-col items-center w-full max-w-xs p-4 text-body bg-neutral-primary-soft rounded-base top-20 end-5 z-40">
             {notificationsList.map((notification) => {
                 return (
                     <Toast
@@ -158,6 +158,6 @@ export const ToastContainer = () => {
                     />
                 );
             })}
-        </div>
+        </aside>
     );
 };
