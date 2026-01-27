@@ -135,7 +135,7 @@ export const Toast = ({
         >
             {icon}
             <div className="ms-3 text-sm font-normal">{text}</div>
-            <CloseIcon onClick={onClick} />
+            <CloseIcon onClick={() => onClick(identifier)} />
         </div>
     );
 };
