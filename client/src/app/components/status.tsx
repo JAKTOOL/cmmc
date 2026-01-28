@@ -24,37 +24,38 @@ const hasNotStarted = (statuses: Status[]) =>
 
 export const calcStatus = (statuses: Status[] | undefined) => {
     if (statuses?.length) {
-        if (statuses.includes(Status.NEEDS_WORK)) {
-            return Status.NEEDS_WORK;
-        }
-
-        if (hasNotStarted(statuses) && !statuses.every(isNotStarted)) {
-            return Status.NEEDS_WORK;
-        }
-
+        // When some work has been started on a requirement
         if (
-            statuses.some((s) => s === Status.IMPLEMENTED) &&
-            statuses.some((s) => s === Status.NOT_IMPLEMENTED)
+            statuses.includes(Status.NEEDS_WORK) ||
+            (hasNotStarted(statuses) && !statuses.every(isNotStarted))
         ) {
-            if (hasNotStarted(statuses)) {
-                return Status.NEEDS_WORK;
-            }
-            return Status.PARTIALLY_IMPLEMENTED;
+            return Status.NEEDS_WORK;
         }
 
+        // When any implemented it's considered failed for the entire security requirement
         if (statuses.includes(Status.NOT_IMPLEMENTED)) {
             return Status.NOT_IMPLEMENTED;
         }
 
+        // For all are N/A
         if (statuses.every((s) => s === Status.NOT_APPLICABLE)) {
             return Status.NOT_APPLICABLE;
         }
 
         if (
             statuses.every((s) =>
-                [Status.NOT_APPLICABLE, Status.IMPLEMENTED].includes(s)
+                // Cases that allow for points to be given
+                [
+                    Status.NOT_APPLICABLE,
+                    Status.IMPLEMENTED,
+                    Status.PARTIALLY_IMPLEMENTED,
+                ].includes(s),
             )
         ) {
+            // Partial should take precedence over implemented
+            if (statuses.includes(Status.PARTIALLY_IMPLEMENTED)) {
+                return Status.PARTIALLY_IMPLEMENTED;
+            }
             return Status.IMPLEMENTED;
         }
     }
