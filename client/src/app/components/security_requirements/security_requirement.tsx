@@ -1,4 +1,5 @@
 "use client";
+import { SecurityRequirementValue } from "@/api/entities/RequirementValues";
 import { Revision, useRevisionContext } from "@/app/context/revision";
 import { renderNumber } from "@/app/utils/number";
 import Link from "next/link";
@@ -24,6 +25,8 @@ export const SecurityRequirement = ({
     statuses,
     value,
     evidence,
+}: {
+    value: SecurityRequirementValue;
 }) => {
     const revision = useRevisionContext();
     return (
@@ -60,6 +63,38 @@ export const SecurityRequirement = ({
                             title: (
                                 <>
                                     <button
+                                        popoverTarget="value-popover"
+                                        className="uppercase flex items-center"
+                                    >
+                                        <span className="mr-2">POAMable</span>{" "}
+                                        <IconInfo />
+                                    </button>
+                                    <Popover id="value-popover">
+                                        <IconInfo />
+                                        <span>
+                                            A security requirement can only be
+                                            used in the POA&M when it has a
+                                            value of 1. The only exception is
+                                            03.13.11 wherein encryption is used
+                                            but not FIPS-validated. If the
+                                            requirement is not met and cannot be
+                                            POA&M-ed then you cannot achieve
+                                            CMMC L2 certification.
+                                        </span>
+                                    </Popover>
+                                </>
+                            ),
+                            visible: !!value?.value,
+                            value:
+                                value?.value === 1 ||
+                                requirementId === "03.13.11"
+                                    ? "Yes"
+                                    : "No",
+                        },
+                        {
+                            title: (
+                                <>
+                                    <button
                                         popoverTarget="revision-popover"
                                         className="uppercase flex items-center"
                                     >
@@ -77,7 +112,7 @@ export const SecurityRequirement = ({
                             ),
                             visible:
                                 revision === Revision.V3 &&
-                                value?.revision?.length,
+                                !!value?.revision?.length,
                             value: value?.revision?.join(", "),
                         },
                         {
