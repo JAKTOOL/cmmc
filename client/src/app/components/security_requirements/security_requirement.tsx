@@ -63,13 +63,13 @@ export const SecurityRequirement = ({
                             title: (
                                 <>
                                     <button
-                                        popoverTarget="value-popover"
+                                        popoverTarget="poamable-popover"
                                         className="uppercase flex items-center"
                                     >
                                         <span className="mr-2">POAMable</span>{" "}
                                         <IconInfo />
                                     </button>
-                                    <Popover id="value-popover">
+                                    <Popover id="poamable-popover">
                                         <IconInfo />
                                         <span>
                                             A security requirement can only be

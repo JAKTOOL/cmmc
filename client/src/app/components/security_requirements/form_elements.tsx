@@ -7,6 +7,7 @@ import { Status, StatusState } from "../status";
 export interface SecurityRequirementProps {
     securityRequirement: ElementWrapper;
     initialState: Record<string, string>;
+    hasPartialValue: boolean;
     isPending: boolean;
     idx?: number;
 }
@@ -15,27 +16,29 @@ export const SelectStatus = ({
     id,
     defaultValue,
     isPending,
+    hasPartialValue,
 }: {
     id: string;
     defaultValue: string;
     isPending: boolean;
+    hasPartialValue: boolean;
 }) => {
     const [hasChanged, setHasChanged] = useState(!!defaultValue);
     const inputRef = useRef<HTMLSelectElement>(null);
     const setToChanged = useMemo(
         () => () => !hasChanged && setHasChanged(true),
-        [hasChanged]
+        [hasChanged],
     );
     const emitChange = useMemo(
         () => () => {
             if (inputRef?.current) {
                 inputRef?.current?.dispatchEvent(
-                    new Event("change", { bubbles: true })
+                    new Event("change", { bubbles: true }),
                 );
                 setToChanged();
             }
         },
-        [inputRef, setToChanged]
+        [inputRef, setToChanged],
     );
 
     return (
@@ -52,10 +55,15 @@ export const SelectStatus = ({
                 defaultValue={defaultValue}
                 tabIndex={20}
             >
-                <option value="not-implemented">Not Implemented</option>
-                <option value="implemented">Implemented</option>
-                <option value="not-applicable">Not Applicable</option>
-                <option value="not-started">Not Started</option>
+                <option value={Status.NOT_IMPLEMENTED}>Not Implemented</option>
+                <option value={Status.IMPLEMENTED}>Implemented</option>
+                {hasPartialValue && (
+                    <option value={Status.PARTIALLY_IMPLEMENTED}>
+                        Partially Implemented
+                    </option>
+                )}
+                <option value={Status.NOT_APPLICABLE}>Not Applicable</option>
+                <option value={Status.NOT_STARTED}>Not Started</option>
             </select>
             {/* 
                 NOTE: Don't allow status to be stored until an actual change has occurred (first committed to as user by clicking on the select parent element)
@@ -72,6 +80,7 @@ export const SelectStatus = ({
 export const SecurityRequirementSelect = ({
     securityRequirement,
     initialState,
+    hasPartialValue,
     isPending,
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.status`;
@@ -87,6 +96,7 @@ export const SecurityRequirementSelect = ({
                 id={key}
                 isPending={isPending}
                 defaultValue={initialState[key]}
+                hasPartialValue={hasPartialValue}
             />
         </div>
     );
@@ -109,18 +119,18 @@ export const SecurityRequirementNote = ({
             setShowOutput(false);
             textareaRef?.current?.focus();
         },
-        []
+        [],
     );
     const syncOutput = useMemo(
         () => async () => {
             if (mdRef?.current && textareaRef?.current) {
                 setShowOutput(true);
                 mdRef.current.innerHTML = await marked(
-                    textareaRef?.current?.value
+                    textareaRef?.current?.value,
                 );
             }
         },
-        []
+        [],
     );
 
     useEffect(() => {
@@ -198,6 +208,7 @@ export const SecurityRequirementNote = ({
 export const SecurityRequirement = ({
     securityRequirement,
     initialState,
+    hasPartialValue,
     isPending,
     idx,
 }: SecurityRequirementProps) => {
@@ -221,6 +232,7 @@ export const SecurityRequirement = ({
                     <SecurityRequirementSelect
                         securityRequirement={securityRequirement}
                         initialState={initialState}
+                        hasPartialValue={hasPartialValue}
                         isPending={isPending}
                         idx={idx}
                     />

@@ -1,5 +1,6 @@
 "use client";
 import { IDB, IDBSecurityRequirement } from "@/app/db";
+import { useRequirementValue } from "@/app/hooks/requirementValues";
 import { useActionState, useMemo, useState } from "react";
 import { Status } from "../status";
 import { Form } from "./form";
@@ -31,7 +32,7 @@ export const saveState = async (requirementId: string, formData: FormData) => {
                 statuses.push(record.status as Status);
                 return acc;
             },
-            {}
+            {},
         ),
     });
 
@@ -48,6 +49,7 @@ export const SecurityForm = ({
     prev,
     next,
 }) => {
+    const { partial_value } = useRequirementValue(requirement.id);
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
     async function action(prevState, formData) {
@@ -66,7 +68,7 @@ export const SecurityForm = ({
                 const formData = new FormData(event.target.form);
                 await action(null, formData);
             }, 250),
-        [requirement.id, setStatuses, setInitialState]
+        [requirement.id, setStatuses, setInitialState],
     );
 
     const [_, formAction, isPending] = useActionState(action, initialState);
@@ -87,6 +89,7 @@ export const SecurityForm = ({
                             <SecurityRequirement
                                 key={securityRequirement.element_identifier}
                                 securityRequirement={securityRequirement}
+                                hasPartialValue={partial_value > 0}
                                 initialState={initialState}
                                 isPending={isPending || isHydrating}
                                 idx={idx}
