@@ -3,23 +3,23 @@ import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
 import { Navigation } from "@/app/components/navigation";
 import { ToastContainer } from "@/app/components/toast";
-import { ManifestV3Component } from "@/app/context/manifest";
+import { ManifestV2Component } from "@/app/context/manifest";
 import { ToastNotificationProvider } from "@/app/context/notification";
-import { RevisionV3Component } from "@/app/context/revision";
+import { RevisionV2Component } from "@/app/context/revision";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
-        title: "CMMC | SP NIST 800-171 Rev 3",
+        title: "CMMC | SP NIST 800-171 Rev 2",
         description:
-            "This application simplifies achieving NIST SP 800-171 Revision 3 compliance by providing a user-friendly interface to manage security controls, store data locally, and generate compliance summaries. ",
+            "This application simplifies achieving NIST SP 800-171 Revision 2 compliance by providing a user-friendly interface to manage security controls, store data locally, and generate compliance summaries. ",
     };
 }
 
 export default async function Page() {
     return (
-        <ManifestV3Component>
-            <RevisionV3Component>
+        <ManifestV2Component>
+            <RevisionV2Component>
                 <ToastNotificationProvider>
                     <ToastContainer />
                     <Navigation />
@@ -28,7 +28,7 @@ export default async function Page() {
                     </Main>
                     <Footer />
                 </ToastNotificationProvider>
-            </RevisionV3Component>
-        </ManifestV3Component>
+            </RevisionV2Component>
+        </ManifestV2Component>
     );
 }
