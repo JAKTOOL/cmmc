@@ -11,6 +11,10 @@ import { Popover } from "../popover";
 import { StatusState } from "../status";
 import { SecurityForm } from "./security_form";
 
+const re = new RegExp(/\d{1,2}\.\d{1,2}\.\d{1,2}/, "gm");
+const linkify = (str: string) =>
+    str.replaceAll(re, (match) => `<a href="#?element=${match}">${match}</a>`);
+
 export const SecurityRequirement = ({
     groupings,
     initialState,
@@ -29,6 +33,8 @@ export const SecurityRequirement = ({
     value: SecurityRequirementValue;
 }) => {
     const revision = useRevisionContext();
+    const discussion =
+        manifest.discussions.byRequirements[requirementId]?.[0]?.text || "";
     return (
         <>
             <Breadcrumbs requirementId={requirementId} />
@@ -41,9 +47,7 @@ export const SecurityRequirement = ({
             <p
                 className="text-base discussion"
                 dangerouslySetInnerHTML={{
-                    __html:
-                        manifest.discussions.byRequirements[requirementId]?.[0]
-                            ?.text || "",
+                    __html: linkify(discussion),
                 }}
             ></p>
             <aside className="flex flex-wrap justify-between items-center w-full mx-auto">
