@@ -231,7 +231,5 @@ export class Manifest {
     }
 }
 
-export const manifestV3 = new Manifest(frameworkV2);
+export const manifestV3 = new Manifest(frameworkV3);
 export const manifestV2 = new Manifest(frameworkV2);
-
-// typeof window !== undefined && (window.manifestV2 = manifestV2);
