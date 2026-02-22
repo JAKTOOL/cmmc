@@ -1,0 +1,16 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.09.a",
+        "title": "a",
+        "text": "privacy and security notices required by CUI-specified rules are identified, consistent, and associated with the specific CUI category",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.09.b",
+        "title": "b",
+        "text": "privacy and security notices are displayed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

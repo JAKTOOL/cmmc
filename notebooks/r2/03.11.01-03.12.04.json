@@ -1,0 +1,163 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.01.a",
+        "title": "a",
+        "text": "the frequency to assess risk to organizational operations, organizational assets, and individuals is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.01.b",
+        "title": "b",
+        "text": "risk to organizational operations, organizational assets, and individuals resulting from the operation of an organizational system that processes, stores, or transmits CUI is assessed with the defined frequency",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.02.a",
+        "title": "a",
+        "text": "the frequency to scan for vulnerabilities in organizational systems and applications is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.02.b",
+        "title": "b",
+        "text": "vulnerability scans are performed on organizational systems with the defined frequency",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.02.c",
+        "title": "c",
+        "text": "vulnerability scans are performed on applications with the defined frequency",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.02.d",
+        "title": "d",
+        "text": "vulnerability scans are performed on organizational systems when new vulnerabilities are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.02.e",
+        "title": "e",
+        "text": "vulnerability scans are performed on applications when new vulnerabilities are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.03.a",
+        "title": "a",
+        "text": "vulnerabilities are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.11.03.b",
+        "title": "b",
+        "text": "vulnerabilities are remediated in accordance with risk assessments",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.01.a",
+        "title": "a",
+        "text": "the frequency of security control assessments is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.01.b",
+        "title": "b",
+        "text": "security controls are assessed with the defined frequency to determine if the controls are effective in their application",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.02.a",
+        "title": "a",
+        "text": "deficiencies and vulnerabilities to be addressed by the plan of action are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.02.b",
+        "title": "b",
+        "text": "a plan of action is developed to correct identified deficiencies and reduce or eliminate identified vulnerabilities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.02.c",
+        "title": "c",
+        "text": "the plan of action is implemented to correct identified deficiencies and reduce or eliminate identified vulnerabilities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.03.a",
+        "title": "a",
+        "text": "security controls are monitored on an ongoing basis to ensure the continued effectiveness of those controls",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.a",
+        "title": "a",
+        "text": "a system security plan is developed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.b",
+        "title": "b",
+        "text": "the system boundary is described and documented in the system security plan",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.c",
+        "title": "c",
+        "text": "the system environment of operation is described and documented in the system security plan",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.d",
+        "title": "d",
+        "text": "the security requirements identified and approved by the designated authority as non-applicable are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.e",
+        "title": "e",
+        "text": "the method of security requirement implementation is described and documented in the system security plan",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.f",
+        "title": "f",
+        "text": "the relationship with or connection to other systems is described and documented in the system security plan",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.g",
+        "title": "g",
+        "text": "the frequency to update the system security plan is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.12.04.h",
+        "title": "h",
+        "text": "system security plan is updated with the defined frequency",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

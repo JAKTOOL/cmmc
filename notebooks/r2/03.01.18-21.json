@@ -1,0 +1,100 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.18.a",
+        "title": "a",
+        "text": "mobile devices that process, store, or transmit CUI are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.18.b",
+        "title": "b",
+        "text": "mobile device connections are authorized",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.18.c",
+        "title": "c",
+        "text": "mobile device connections are monitored and logged",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.19.a",
+        "title": "a",
+        "text": "mobile devices and mobile computing platforms that process, store, or transmit CUI are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.19.b",
+        "title": "b",
+        "text": "encryption is employed to protect CUI on identified mobile devices and mobile computing platforms",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.20.a",
+        "title": "a",
+        "text": "connections to external systems are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.20.b",
+        "title": "b",
+        "text": "the use of external systems is identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.20.c",
+        "title": "c",
+        "text": "connections to external systems are verified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.20.d",
+        "title": "d",
+        "text": "the use of external systems is verified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.20.e",
+        "title": "e",
+        "text": "connections to external systems are controlled/limited",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.20.f",
+        "title": "f",
+        "text": "the use of external systems is controlled/limited",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.21.a",
+        "title": "a",
+        "text": "the use of portable storage devices containing CUI on external systems is identified and documented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.21.b",
+        "title": "b",
+        "text": "limits on the use of portable storage devices containing CUI on external systems are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.21.c",
+        "title": "c",
+        "text": "the use of portable storage devices containing CUI on external systems is limited as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

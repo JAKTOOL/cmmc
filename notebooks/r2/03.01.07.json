@@ -1,0 +1,30 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.07.a",
+        "title": "a",
+        "text": "privileged functions are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.07.b",
+        "title": "b",
+        "text": "non-privileged users are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.07.c",
+        "title": "c",
+        "text": "non-privileged users are prevented from executing privileged functions",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.07.d",
+        "title": "d",
+        "text": "the execution of privileged functions is captured in audit logs",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

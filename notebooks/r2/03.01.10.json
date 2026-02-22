@@ -1,0 +1,23 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.10.a",
+        "title": "a",
+        "text": "the period of inactivity after which the system initiates a session lock is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.10.b",
+        "title": "b",
+        "text": "access to the system and viewing of data is prevented by initiating a session lock after the defined period of inactivity",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.10.c",
+        "title": "c",
+        "text": "previously visible information is concealed via a pattern-hiding display after the defined period of inactivity",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

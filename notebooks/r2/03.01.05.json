@@ -1,0 +1,30 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.05.a",
+        "title": "a",
+        "text": "privileged accounts are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.05.b",
+        "title": "b",
+        "text": "access to privileged accounts is authorized in accordance with the principle of least privilege",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.05.c",
+        "title": "c",
+        "text": "security functions are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.05.d",
+        "title": "d",
+        "text": "access to security functions is authorized in accordance with the principle of least privilege",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

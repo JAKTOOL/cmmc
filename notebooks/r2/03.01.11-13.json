@@ -1,0 +1,58 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.11.a",
+        "title": "a",
+        "text": "conditions requiring a user session to terminate are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.11.b",
+        "title": "b",
+        "text": "a user session is automatically terminated after any of the defined conditions occur",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.12.a",
+        "title": "a",
+        "text": "remote access sessions are permitted",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.12.b",
+        "title": "b",
+        "text": "the types of permitted remote access are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.12.c",
+        "title": "c",
+        "text": "remote access sessions are controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.12.d",
+        "title": "d",
+        "text": "remote access sessions are monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.13.a",
+        "title": "a",
+        "text": "cryptographic mechanisms to protect the confidentiality of remote access sessions are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.13.b",
+        "title": "b",
+        "text": "cryptographic mechanisms to protect the confidentiality of remote access sessions are implemented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

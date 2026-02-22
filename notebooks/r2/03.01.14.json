@@ -1,0 +1,16 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.14.a",
+        "title": "a",
+        "text": "managed access control points are identified and implemented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.14.b",
+        "title": "b",
+        "text": "remote access is routed through managed network access control points",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

@@ -1,0 +1,135 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.07.a",
+        "title": "a",
+        "text": "remote devices are prevented from simultaneously establishing non-remote connections with the system and communicating via some other connection to resources in external networks (i.e., split tunneling)",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.08.a",
+        "title": "a",
+        "text": "cryptographic mechanisms intended to prevent unauthorized disclosure of CUI are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.08.b",
+        "title": "b",
+        "text": "alternative physical safeguards intended to prevent unauthorized disclosure of CUI are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.08.c",
+        "title": "c",
+        "text": "either cryptographic mechanisms or alternative physical safeguards are implemented to prevent unauthorized disclosure of CUI during transmission",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.09.a",
+        "title": "a",
+        "text": "a period of inactivity to terminate network connections associated with communications sessions is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.09.b",
+        "title": "b",
+        "text": "network connections associated with communications sessions are terminated at the end of the sessions",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.09.c",
+        "title": "c",
+        "text": "network connections associated with communications sessions are terminated after the defined period of inactivity",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.10.a",
+        "title": "a",
+        "text": "cryptographic keys are established whenever cryptography is employed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.10.b",
+        "title": "b",
+        "text": "cryptographic keys are managed whenever cryptography is employed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.11.a",
+        "title": "a",
+        "text": "FIPS-validated cryptography is employed to protect the confidentiality of CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.12.a",
+        "title": "a",
+        "text": "collaborative computing devices are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.12.b",
+        "title": "b",
+        "text": "collaborative computing devices provide indication to users of devices in use",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.12.c",
+        "title": "c",
+        "text": "remote activation of collaborative computing devices is prohibited",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.13.a",
+        "title": "a",
+        "text": "use of mobile code is controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.13.b",
+        "title": "b",
+        "text": "use of mobile code is monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.14.a",
+        "title": "a",
+        "text": "use of Voice over Internet Protocol (VoIP) technologies is controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.14.b",
+        "title": "b",
+        "text": "use of Voice over Internet Protocol (VoIP) technologies is monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.15.a",
+        "title": "a",
+        "text": "the authenticity of communications sessions is protected",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.16.a",
+        "title": "a",
+        "text": "the confidentiality of CUI at rest is protected",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

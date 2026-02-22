@@ -1,0 +1,254 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.a",
+        "title": "a",
+        "text": "an operational incident-handling capability is established",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.b",
+        "title": "b",
+        "text": "the operational incident-handling capability includes preparation",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.c",
+        "title": "c",
+        "text": "the operational incident-handling capability includes detection",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.d",
+        "title": "d",
+        "text": "the operational incident-handling capability includes analysis",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.e",
+        "title": "e",
+        "text": "the operational incident-handling capability includes containment",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.f",
+        "title": "f",
+        "text": "the operational incident-handling capability includes recovery",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.01.g",
+        "title": "g",
+        "text": "the operational incident-handling capability includes user response activities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.02.a",
+        "title": "a",
+        "text": "incidents are tracked",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.02.b",
+        "title": "b",
+        "text": "incidents are documented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.02.c",
+        "title": "c",
+        "text": "authorities to whom incidents are to be reported are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.02.d",
+        "title": "d",
+        "text": "organizational officials to whom incidents are to be reported are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.02.e",
+        "title": "e",
+        "text": "identified authorities are notified of incidents",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.02.f",
+        "title": "f",
+        "text": "identified organizational officials are notified of incidents",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.06.03.a",
+        "title": "a",
+        "text": "the incident response capability is tested",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.01.a",
+        "title": "a",
+        "text": "system maintenance is performed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.02.a",
+        "title": "a",
+        "text": "tools used to conduct system maintenance are controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.02.b",
+        "title": "b",
+        "text": "techniques used to conduct system maintenance are controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.02.c",
+        "title": "c",
+        "text": "mechanisms used to conduct system maintenance are controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.02.d",
+        "title": "d",
+        "text": "personnel used to conduct system maintenance are controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.03.a",
+        "title": "a",
+        "text": "equipment to be removed from organizational spaces for off-site maintenance is sanitized of any CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.04.a",
+        "title": "a",
+        "text": "media containing diagnostic and test programs are checked for malicious code before being used in organizational systems that process, store, or transmit CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.05.a",
+        "title": "a",
+        "text": "multifactor authentication is used to establish nonlocal maintenance sessions via external network connections",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.05.b",
+        "title": "b",
+        "text": "nonlocal maintenance sessions established via external network connections are terminated when nonlocal maintenance is complete",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.07.06.a",
+        "title": "a",
+        "text": "maintenance personnel without required access authorization are supervised during maintenance activities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.01.a",
+        "title": "a",
+        "text": "paper media containing CUI is physically controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.01.b",
+        "title": "b",
+        "text": "digital media containing CUI is physically controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.01.c",
+        "title": "c",
+        "text": "paper media containing CUI is securely stored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.01.d",
+        "title": "d",
+        "text": "digital media containing CUI is securely stored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.02.a",
+        "title": "a",
+        "text": "access to CUI on system media is limited to authorized users",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.03.a",
+        "title": "a",
+        "text": "system media containing CUI is sanitized or destroyed before disposal",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.03.b",
+        "title": "b",
+        "text": "system media containing CUI is sanitized or destroyed before disposal",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.04.a",
+        "title": "a",
+        "text": "equipment to be removed from organizational spaces for off-site maintenance is sanitized of any CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.05.a",
+        "title": "a",
+        "text": "media containing diagnostic and test programs are checked for malicious code before being used in organizational systems that process, store, or transmit CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.06.a",
+        "title": "a",
+        "text": "multifactor authentication is used to establish nonlocal maintenance sessions via external network connections",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.06.b",
+        "title": "b",
+        "text": "nonlocal maintenance sessions established via external network connections are terminated when nonlocal maintenance is complete",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.07.a",
+        "title": "a",
+        "text": "maintenance personnel without required access authorization are supervised during maintenance activities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

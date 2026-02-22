@@ -1,0 +1,23 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.04.a",
+        "title": "a",
+        "text": "the duties of individuals requiring separation are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.04.b",
+        "title": "b",
+        "text": "responsibilities for duties that require separation are assigned to separate individuals",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.04.c",
+        "title": "c",
+        "text": "access privileges that enable individuals to exercise the duties that require separation are granted to separate individuals",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

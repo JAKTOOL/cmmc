@@ -1,0 +1,100 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.22.a",
+        "title": "a",
+        "text": "individuals authorized to post or process information on publicly accessible systems are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.22.b",
+        "title": "b",
+        "text": "procedures to ensure CUI is not posted or processed on publicly accessible systems are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.22.c",
+        "title": "c",
+        "text": "a review process is in place prior to posting of any content to publicly accessible systems",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.22.d",
+        "title": "d",
+        "text": "content on publicly accessible systems is reviewed to ensure that it does not include CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.22.e",
+        "title": "e",
+        "text": "mechanisms are in place to remove and address improper posting of CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.01.a",
+        "title": "a",
+        "text": "security risks associated with organizational activities involving CUI are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.01.b",
+        "title": "b",
+        "text": "policies, standards, and procedures related to the security of the system are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.01.c",
+        "title": "c",
+        "text": "managers, systems administrators, and users of the system are made aware of the security risks associated with their activities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.01.d",
+        "title": "d",
+        "text": "managers, systems administrators, and users of the system are made aware of the applicable policies, standards, and procedures related to the security of the system",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.02.a",
+        "title": "a",
+        "text": "information security-related duties, roles, and responsibilities are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.02.b",
+        "title": "b",
+        "text": "information security-related duties, roles, and responsibilities are assigned to designated personnel",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.02.c",
+        "title": "c",
+        "text": "personnel are adequately trained to carry out their assigned information security-related duties, roles, and responsibilities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.03.a",
+        "title": "a",
+        "text": "potential indicators associated with insider threats are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.02.03.b",
+        "title": "b",
+        "text": "security awareness training on recognizing and reporting potential indicators of insider threat is provided to managers and employees",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

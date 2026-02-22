@@ -1,0 +1,282 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.09.a",
+        "title": "a",
+        "text": "a subset of privileged users granted access to manage audit logging functionality is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.09.b",
+        "title": "b",
+        "text": "management of audit logging functionality is limited to the defined subset of privileged users",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.01.a",
+        "title": "a",
+        "text": "a baseline configuration is established",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.01.b",
+        "title": "b",
+        "text": "the baseline configuration includes hardware, software, firmware, and documentation",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.01.c",
+        "title": "c",
+        "text": "the baseline configuration is maintained (reviewed and updated) throughout the system development life cycle",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.01.d",
+        "title": "d",
+        "text": "a system inventory is established",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.01.e",
+        "title": "e",
+        "text": "the system inventory includes hardware, software, firmware, and documentation",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.01.f",
+        "title": "f",
+        "text": "the inventory is maintained (reviewed and updated) throughout the system development life cycle",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.02.a",
+        "title": "a",
+        "text": "security configuration settings for information technology products employed in the system are established and included in the baseline configuration",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.02.b",
+        "title": "b",
+        "text": "security configuration settings for information technology products employed in the system are enforced",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.03.a",
+        "title": "a",
+        "text": "changes to the system are tracked",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.03.b",
+        "title": "b",
+        "text": "changes to the system are reviewed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.03.c",
+        "title": "c",
+        "text": "changes to the system are approved or disapproved",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.03.d",
+        "title": "d",
+        "text": "changes to the system are logged",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.04.a",
+        "title": "a",
+        "text": "the security impact of changes to the system is analyzed prior to implementation",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.a",
+        "title": "a",
+        "text": "physical access restrictions associated with changes to the system are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.b",
+        "title": "b",
+        "text": "physical access restrictions associated with changes to the system are documented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.c",
+        "title": "c",
+        "text": "physical access restrictions associated with changes to the system are approved",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.d",
+        "title": "d",
+        "text": "physical access restrictions associated with changes to the system are enforced",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.e",
+        "title": "e",
+        "text": "logical access restrictions associated with changes to the system are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.f",
+        "title": "f",
+        "text": "logical access restrictions associated with changes to the system are documented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.g",
+        "title": "g",
+        "text": "logical access restrictions associated with changes to the system are approved",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.05.h",
+        "title": "h",
+        "text": "logical access restrictions associated with changes to the system are enforced",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.06.a",
+        "title": "a",
+        "text": "essential system capabilities are defined based on the principle of least functionality",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.06.b",
+        "title": "b",
+        "text": "the system is configured to provide only the defined essential capabilities",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.a",
+        "title": "a",
+        "text": "essential programs are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.b",
+        "title": "b",
+        "text": "the use of nonessential programs is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.c",
+        "title": "c",
+        "text": "the use of nonessential programs is restricted, disabled, or prevented as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.d",
+        "title": "d",
+        "text": "essential functions are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.e",
+        "title": "e",
+        "text": "the use of nonessential functions is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.f",
+        "title": "f",
+        "text": "the use of nonessential functions is restricted, disabled, or prevented as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.g",
+        "title": "g",
+        "text": "essential ports are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.h",
+        "title": "h",
+        "text": "the use of nonessential ports is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.i",
+        "title": "i",
+        "text": "the use of nonessential ports is restricted, disabled, or prevented as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.j",
+        "title": "j",
+        "text": "essential protocols are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.k",
+        "title": "k",
+        "text": "the use of nonessential protocols is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.l",
+        "title": "l",
+        "text": "the use of nonessential protocols is restricted, disabled, or prevented as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.m",
+        "title": "m",
+        "text": "essential services are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.n",
+        "title": "n",
+        "text": "the use of nonessential services is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.07.o",
+        "title": "o",
+        "text": "the use of nonessential services is restricted, disabled, or prevented as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

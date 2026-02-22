@@ -1,0 +1,16 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.02.a",
+        "title": "a",
+        "text": "the types of transactions and functions that authorized users are permitted to execute are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.02.b",
+        "title": "b",
+        "text": "system access is limited to the defined types of transactions and functions for authorized users",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

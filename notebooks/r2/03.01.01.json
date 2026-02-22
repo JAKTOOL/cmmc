@@ -1,0 +1,44 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.01.a",
+        "title": "a",
+        "text": "authorized users are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.01.b",
+        "title": "b",
+        "text": "processes acting on behalf of authorized users are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.01.c",
+        "title": "c",
+        "text": "devices (and other systems) authorized to connect to the system are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.01.d",
+        "title": "d",
+        "text": "system access is limited to authorized users",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.01.e",
+        "title": "e",
+        "text": "system access is limited to processes acting on behalf of authorized users",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.01.f",
+        "title": "f",
+        "text": "system access is limited to authorized devices (including other systems)",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

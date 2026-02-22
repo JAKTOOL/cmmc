@@ -1,0 +1,233 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.08.a",
+        "title": "a",
+        "text": "a policy specifying whether whitelisting or blacklisting is to be implemented is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.08.b",
+        "title": "b",
+        "text": "the software allowed to execute under whitelisting or denied use under blacklisting is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.08.c",
+        "title": "c",
+        "text": "whitelisting to allow the execution of authorized software or blacklisting to prevent the use of unauthorized software is implemented as specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.09.a",
+        "title": "a",
+        "text": "a policy for controlling the installation of software by users is established",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.09.b",
+        "title": "b",
+        "text": "installation of software by users is controlled based on the established policy",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.04.09.c",
+        "title": "c",
+        "text": "installation of software by users is monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.01.a",
+        "title": "a",
+        "text": "system users are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.01.b",
+        "title": "b",
+        "text": "processes acting on behalf of users are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.01.c",
+        "title": "c",
+        "text": "devices accessing the system are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.02.a",
+        "title": "a",
+        "text": "the identity of each user is authenticated or verified as a prerequisite to system access",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.02.b",
+        "title": "b",
+        "text": "the identity of each process acting on behalf of a user is authenticated or verified as a prerequisite to system access",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.02.c",
+        "title": "c",
+        "text": "the identity of each device accessing or connecting to the system is authenticated or verified as a prerequisite to system access",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.03.a",
+        "title": "a",
+        "text": "privileged accounts are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.03.b",
+        "title": "b",
+        "text": "multifactor authentication is implemented for local access to privileged accounts",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.03.c",
+        "title": "c",
+        "text": "multifactor authentication is implemented for network access to privileged accounts",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.03.d",
+        "title": "d",
+        "text": "multifactor authentication is implemented for network access to non-privileged accounts",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.04.a",
+        "title": "a",
+        "text": "replay-resistant authentication mechanisms are implemented for network account access to privileged and non-privileged accounts",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.05.a",
+        "title": "a",
+        "text": "a period within which identifiers cannot be reused is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.05.b",
+        "title": "b",
+        "text": "reuse of identifiers is prevented within the defined period",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.06.a",
+        "title": "a",
+        "text": "a period of inactivity after which an identifier is disabled is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.06.b",
+        "title": "b",
+        "text": "identifiers are disabled after the defined period of inactivity",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.07.a",
+        "title": "a",
+        "text": "password complexity requirements are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.07.b",
+        "title": "b",
+        "text": "password change of character requirements are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.07.c",
+        "title": "c",
+        "text": "minimum password complexity requirements as defined are enforced when new passwords are created",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.07.d",
+        "title": "d",
+        "text": "minimum password change of character requirements as defined are enforced when new passwords are created",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.08.a",
+        "title": "a",
+        "text": "the number of generations during which a password cannot be reused is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.08.b",
+        "title": "b",
+        "text": "reuse of passwords is prohibited during the specified number of generations",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.09.a",
+        "title": "a",
+        "text": "an immediate change to a permanent password is required when a temporary password is used for system logon",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.10.a",
+        "title": "a",
+        "text": "passwords are cryptographically protected in storage",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.10.b",
+        "title": "b",
+        "text": "passwords are cryptographically protected in storage",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.11.a",
+        "title": "a",
+        "text": "authentication mechanisms are regularly reviewed and updated",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.11.b",
+        "title": "b",
+        "text": "authentication mechanisms are tested for effectiveness",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.05.11.c",
+        "title": "c",
+        "text": "authentication mechanisms are monitored for unauthorized access attempts",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

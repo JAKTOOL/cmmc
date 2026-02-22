@@ -1,0 +1,142 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.01.a",
+        "title": "a",
+        "text": "the time within which to identify system flaws is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.01.b",
+        "title": "b",
+        "text": "system flaws are identified within the specified time frame",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.01.c",
+        "title": "c",
+        "text": "the time within which to report system flaws is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.01.d",
+        "title": "d",
+        "text": "system flaws are reported within the specified time frame",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.01.e",
+        "title": "e",
+        "text": "the time within which to correct system flaws is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.01.f",
+        "title": "f",
+        "text": "system flaws are corrected within the specified time frame",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.02.a",
+        "title": "a",
+        "text": "designated locations for malicious code protection are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.02.b",
+        "title": "b",
+        "text": "protection from malicious code at designated locations is provided",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.03.a",
+        "title": "a",
+        "text": "response actions to system security alerts and advisories are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.03.b",
+        "title": "b",
+        "text": "system security alerts and advisories are monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.03.c",
+        "title": "c",
+        "text": "actions in response to system security alerts and advisories are taken",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.04.a",
+        "title": "a",
+        "text": "malicious code protection mechanisms are updated when new releases are available",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.05.a",
+        "title": "a",
+        "text": "the frequency for malicious code scans is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.05.b",
+        "title": "b",
+        "text": "malicious code scans are performed with the defined frequency",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.05.c",
+        "title": "c",
+        "text": "real-time malicious code scans of files from external sources as files are downloaded, opened, or executed are performed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.06.a",
+        "title": "a",
+        "text": "the system is monitored to detect attacks and indicators of potential attacks",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.06.b",
+        "title": "b",
+        "text": "inbound communications traffic is monitored to detect attacks and indicators of potential attacks",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.06.c",
+        "title": "c",
+        "text": "outbound communications traffic is monitored to detect attacks and indicators of potential attacks",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.07.a",
+        "title": "a",
+        "text": "authorized use of the system is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.14.07.b",
+        "title": "b",
+        "text": "unauthorized use of the system is identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

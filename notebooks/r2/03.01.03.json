@@ -1,0 +1,37 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.03.a",
+        "title": "a",
+        "text": "information flow control policies are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.03.b",
+        "title": "b",
+        "text": "methods and enforcement mechanisms for controlling the flow of CUI are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.03.c",
+        "title": "c",
+        "text": "designated sources and destinations (e.g., networks, individuals, and devices) for CUI within the system and between interconnected systems are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.03.d",
+        "title": "d",
+        "text": "authorizations for controlling the flow of CUI are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.03.e",
+        "title": "e",
+        "text": "approved authorizations for controlling the flow of CUI are enforced",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

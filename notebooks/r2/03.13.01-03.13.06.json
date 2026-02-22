@@ -1,0 +1,156 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.a",
+        "title": "a",
+        "text": "the external system boundary is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.b",
+        "title": "b",
+        "text": "key internal system boundaries are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.c",
+        "title": "c",
+        "text": "communications are monitored at the external system boundary",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.d",
+        "title": "d",
+        "text": "communications are monitored at key internal boundaries",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.e",
+        "title": "e",
+        "text": "communications are controlled at the external system boundary",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.f",
+        "title": "f",
+        "text": "communications are controlled at key internal boundaries",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.g",
+        "title": "g",
+        "text": "communications are protected at the external system boundary",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.01.h",
+        "title": "h",
+        "text": "communications are protected at key internal boundaries",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.02.a",
+        "title": "a",
+        "text": "architectural designs that promote effective information security are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.02.b",
+        "title": "b",
+        "text": "software development techniques that promote effective information security are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.02.c",
+        "title": "c",
+        "text": "systems engineering principles that promote effective information security are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.02.d",
+        "title": "d",
+        "text": "identified architectural designs that promote effective information security are employed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.02.e",
+        "title": "e",
+        "text": "identified software development techniques that promote effective information security are employed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.02.f",
+        "title": "f",
+        "text": "identified systems engineering principles that promote effective information security are employed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.03.a",
+        "title": "a",
+        "text": "user functionality is identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.03.b",
+        "title": "b",
+        "text": "system management functionality is identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.03.c",
+        "title": "c",
+        "text": "user functionality is separated from system management functionality",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.04.a",
+        "title": "a",
+        "text": "unauthorized and unintended information transfer via shared system resources is prevented",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.05.a",
+        "title": "a",
+        "text": "publicly accessible system components are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.05.b",
+        "title": "b",
+        "text": "subnetworks for publicly accessible system components are physically or logically separated from internal networks",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.06.a",
+        "title": "a",
+        "text": "network communications traffic is denied by default",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.13.06.b",
+        "title": "b",
+        "text": "network communications traffic is allowed by exception",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

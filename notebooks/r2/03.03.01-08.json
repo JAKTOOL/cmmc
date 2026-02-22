@@ -1,0 +1,191 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.01.a",
+        "title": "a",
+        "text": "audit logs needed (i.e., event types to be logged) to enable the monitoring, analysis, investigation, and reporting of unlawful or unauthorized system activity are specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.01.b",
+        "title": "b",
+        "text": "the content of audit records needed to support monitoring, analysis, investigation, and reporting of unlawful or unauthorized system activity is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.01.c",
+        "title": "c",
+        "text": "audit records are created (generated)",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.01.d",
+        "title": "d",
+        "text": "audit records, once created, contain the defined content",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.01.e",
+        "title": "e",
+        "text": "retention requirements for audit records are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.01.f",
+        "title": "f",
+        "text": "audit records are retained as defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.02.a",
+        "title": "a",
+        "text": "the content of the audit records needed to support the ability to uniquely trace users to their actions is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.02.b",
+        "title": "b",
+        "text": "audit records, once created, contain the defined content",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.03.a",
+        "title": "a",
+        "text": "a process for determining when to review logged events is defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.03.b",
+        "title": "b",
+        "text": "event types being logged are reviewed in accordance with the defined review process",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.03.c",
+        "title": "c",
+        "text": "event types being logged are updated based on the review",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.04.a",
+        "title": "a",
+        "text": "personnel or roles to be alerted in the event of an audit logging process failure are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.04.b",
+        "title": "b",
+        "text": "types of audit logging process failures for which alert will be generated are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.04.c",
+        "title": "c",
+        "text": "identified personnel or roles are alerted in the event of an audit logging process failure",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.05.a",
+        "title": "a",
+        "text": "audit record review, analysis, and reporting processes for investigation and response to indications of unlawful, unauthorized, suspicious, or unusual activity are defined",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.05.b",
+        "title": "b",
+        "text": "defined audit record review, analysis, and reporting processes are correlated",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.06.a",
+        "title": "a",
+        "text": "an audit record reduction capability that supports on-demand analysis is provided",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.06.b",
+        "title": "b",
+        "text": "a report generation capability that supports on-demand reporting is provided",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.07.a",
+        "title": "a",
+        "text": "internal system clocks are used to generate time stamps for audit records",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.07.b",
+        "title": "b",
+        "text": "an authoritative source with which to compare and synchronize internal system clocks is specified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.07.c",
+        "title": "c",
+        "text": "internal system clocks used to generate time stamps for audit records are compared to and synchronized with the specified authoritative time source",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.08.a",
+        "title": "a",
+        "text": "audit information is protected from unauthorized access",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.08.b",
+        "title": "b",
+        "text": "audit information is protected from unauthorized modification",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.08.c",
+        "title": "c",
+        "text": "audit information is protected from unauthorized deletion",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.08.d",
+        "title": "d",
+        "text": "audit logging tools are protected from unauthorized access",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.08.e",
+        "title": "e",
+        "text": "audit logging tools are protected from unauthorized modification",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.03.08.f",
+        "title": "f",
+        "text": "audit logging tools are protected from unauthorized deletion",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

@@ -1,0 +1,58 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.15.a",
+        "title": "a",
+        "text": "privileged commands authorized for remote execution are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.15.b",
+        "title": "b",
+        "text": "security-relevant information authorized to be accessed remotely is identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.15.c",
+        "title": "c",
+        "text": "the execution of the identified privileged commands via remote access is authorized",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.15.d",
+        "title": "d",
+        "text": "access to the identified security-relevant information via remote access is authorized",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.16.a",
+        "title": "a",
+        "text": "wireless access points are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.16.b",
+        "title": "b",
+        "text": "wireless access is authorized prior to allowing such connections",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.17.a",
+        "title": "a",
+        "text": "wireless access to the system is protected using authentication",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.01.17.b",
+        "title": "b",
+        "text": "wireless access to the system is protected using encryption",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]

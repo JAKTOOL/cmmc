@@ -1,0 +1,149 @@
+[
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.09.a",
+        "title": "a",
+        "text": "the confidentiality of backup CUI is protected at storage locations",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.09.01.a",
+        "title": "a",
+        "text": "individuals are screened prior to authorizing access to organizational systems containing CUI",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.09.02.a",
+        "title": "a",
+        "text": "a policy and/or process for terminating system access and any credentials coincident with personnel actions is established",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.09.02.b",
+        "title": "b",
+        "text": "system access and credentials are terminated consistent with personnel actions such as termination or transfer",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.09.02.c",
+        "title": "c",
+        "text": "the system is protected during and after personnel transfer actions",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.01.a",
+        "title": "a",
+        "text": "authorized individuals allowed physical access are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.01.b",
+        "title": "b",
+        "text": "physical access to organizational systems is limited to authorized individuals",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.01.c",
+        "title": "c",
+        "text": "physical access to equipment is limited to authorized individuals",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.01.d",
+        "title": "d",
+        "text": "physical access to operating environments is limited to authorized individuals",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.02.a",
+        "title": "a",
+        "text": "the physical facility where organizational systems reside is protected",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.02.b",
+        "title": "b",
+        "text": "the support infrastructure for organizational systems is protected",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.02.c",
+        "title": "c",
+        "text": "the physical facility where organizational systems reside is monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.02.d",
+        "title": "d",
+        "text": "the support infrastructure for organizational systems is monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.03.a",
+        "title": "a",
+        "text": "visitors are escorted",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.03.b",
+        "title": "b",
+        "text": "visitor activity is monitored",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.04.a",
+        "title": "a",
+        "text": "audit logs of physical access are maintained",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.05.a",
+        "title": "a",
+        "text": "physical access devices are identified",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.05.b",
+        "title": "b",
+        "text": "physical access devices are controlled",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.05.c",
+        "title": "c",
+        "text": "physical access devices are managed",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.06.a",
+        "title": "a",
+        "text": "safeguarding measures for CUI are defined for alternate work sites",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.10.06.b",
+        "title": "b",
+        "text": "safeguarding measures for CUI are enforced for alternate work sites",
+        "doc_identifier": "SP_800_171_2_0_0"
+    }
+]
