@@ -1978,28 +1978,28 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.17",
-                    "title": "Wireless Authentication and Encryption",
+                    "title": "Wireless Access Protection",
                     "text": "Protect wireless access using authentication and encryption.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.13",
-                    "title": "Cryptographic Mechanisms",
+                    "title": "Remote Access Confidentiality",
                     "text": "Employ cryptographic mechanisms to protect the confidentiality of remote access sessions.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.14",
-                    "title": "Remote Access",
+                    "title": "Remote Access Routing",
                     "text": "Route remote access via managed access control points.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.15",
-                    "title": "Remote Access - Privileged Commands",
+                    "title": "Privileged Remote Access",
                     "text": "Authorize remote execution of privileged commands and remote access to security-relevant information.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2013,14 +2013,14 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.21",
-                    "title": "Limit Portable Storage",
+                    "title": "Portable Storage Use",
                     "text": "Limit use of portable storage devices on external systems.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.01.19",
-                    "title": "Mobile Device Encryption",
+                    "title": "Encrypt CUI on Mobile",
                     "text": "Encrypt CUI on mobile devices and mobile computing platforms.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2118,14 +2118,14 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.04.09",
-                    "title": "User-installed Software",
+                    "title": "Application Execution Policy",
                     "text": "Control and monitor user-installed software.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.04.07",
-                    "title": "Non-essential Services",
+                    "title": "Nonessential Functionality",
                     "text": "Restrict, disable, or prevent the use of nonessential programs, functions, ports, protocols, and services.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2153,7 +2153,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.13.16",
-                    "title": "CUI at Rest Confidentiality",
+                    "title": "Data at Rest",
                     "text": "Protect the confidentiality of CUI at rest.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2251,14 +2251,14 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.13.03",
-                    "title": "User and System Functionality",
+                    "title": "Role Separation",
                     "text": "Separate user functionality from system management functionality.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.13.05",
-                    "title": "Subnetworks",
+                    "title": "Public-Access System Separation",
                     "text": "Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2293,7 +2293,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.13.02",
-                    "title": "System Security Engineering",
+                    "title": "Security Engineering",
                     "text": "Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational systems.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2412,7 +2412,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.03.09",
-                    "title": "Audit Management Authorization",
+                    "title": "Audit Management",
                     "text": "Limit management of audit logging functionality to a subset of privileged users.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2433,21 +2433,21 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.10.04",
-                    "title": "Physical Access Audit Logs",
+                    "title": "Physical Access Logs",
                     "text": "Maintain audit logs of physical access.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.10.05",
-                    "title": "Physical Access Controls",
+                    "title": "Manage Physical Access",
                     "text": "Control and manage physical access devices.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.07.01",
-                    "title": "System Maintenance",
+                    "title": "Perform Maintenance",
                     "text": "Perform maintenance on organizational systems.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2475,7 +2475,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.07.03",
-                    "title": "Off-site Sanitization",
+                    "title": "Equipment Sanitization",
                     "text": "Ensure equipment removed for off-site maintenance is sanitized of any CUI.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2496,7 +2496,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.05.06",
-                    "title": "Identifier Disablement",
+                    "title": "Identifier Handling",
                     "text": "Disable identifiers after a defined period of inactivity.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2510,7 +2510,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.05.08",
-                    "title": "Password Generation Reuse",
+                    "title": "Password Reuse",
                     "text": "Prohibit password reuse for a specified number of generations.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2524,7 +2524,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.05.10",
-                    "title": "Stored Passwords",
+                    "title": "Cryptographically-Protected Passwords",
                     "text": "Store and transmit only cryptographically-protected passwords.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2573,7 +2573,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.02.03",
-                    "title": "Insider Threat Training",
+                    "title": "Insider Threat Awareness",
                     "text": "Provide security awareness training on recognizing and reporting potential indicators of insider threat.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2636,7 +2636,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.08.08",
-                    "title": "Portable Storage Accountability",
+                    "title": "Portable Storage Encryption",
                     "text": "Prohibit the use of portable storage devices when such devices have no identifiable owner.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2706,7 +2706,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.14.05",
-                    "title": "File Scanning",
+                    "title": "System & File Scanning",
                     "text": "Perform periodic scans of organizational systems and real-time scans of files from external sources as files are downloaded, opened, or executed.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
