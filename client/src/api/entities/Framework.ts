@@ -212,7 +212,7 @@ export class Manifest {
             ElementType.Requirement,
             (element) => {
                 // Remove withdrawn
-                return !!element.title;
+                return !!(element.title || element.text);
             },
         );
         this.securityRequirements = ElementMapper.fromElements(
@@ -231,5 +231,7 @@ export class Manifest {
     }
 }
 
-export const manifestV3 = new Manifest(frameworkV3);
+export const manifestV3 = new Manifest(frameworkV2);
 export const manifestV2 = new Manifest(frameworkV2);
+
+// typeof window !== undefined && (window.manifestV2 = manifestV2);

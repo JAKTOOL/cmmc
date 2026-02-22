@@ -20,7 +20,7 @@ export const Requirements = ({ familyId }: { familyId: string }) => {
     const family = manifest.families.byId[familyId];
     const familyStatus = useFamilyStatus(familyId);
     const familyEvidence = useFamilyEvidence(familyId);
-
+    debugger;
     const [prev, next] = useMemo(() => {
         const families = manifest?.families?.elements;
         const familyIdx = families?.findIndex((r) => r.id === familyId);
