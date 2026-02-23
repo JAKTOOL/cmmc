@@ -109,6 +109,7 @@ export const SecurityRequirementNote = ({
 }: SecurityRequirementProps) => {
     const key = `${securityRequirement.subSubRequirement}.description`;
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const growAreaRef = useRef<HTMLDivElement>(null);
     const mdRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLDivElement>(null);
     const [showOutput, setShowOutput] = useState(true);
@@ -133,11 +134,19 @@ export const SecurityRequirementNote = ({
         [],
     );
 
+    const replicateGrowArea = () => {
+        if (growAreaRef?.current && textareaRef?.current) {
+            growAreaRef.current.dataset.replicatedValue =
+                textareaRef?.current?.value;
+        }
+    };
+
     useEffect(() => {
         (async () => {
             if (showOutput && currentState !== initialState[key]) {
                 setCurrentState(initialState[key]);
                 await syncOutput();
+                replicateGrowArea();
             }
         })();
     }, [currentState, initialState]);
@@ -172,12 +181,14 @@ export const SecurityRequirementNote = ({
             >
                 Description
             </label>
-            <div className="relative">
+            <div className="relative grow-wrap" ref={growAreaRef}>
                 <textarea
                     ref={textareaRef}
                     tabIndex={20}
                     name={key}
                     id={key}
+                    onInput={replicateGrowArea}
+                    onFocus={replicateGrowArea}
                     className={`min-h-32 grow z-0 w-full rounded-md border border-input bg-transparent px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm ${
                         showOutput && textareaRef?.current?.value
                             ? "absolute opacity-0"
@@ -185,11 +196,6 @@ export const SecurityRequirementNote = ({
                     }`}
                     disabled={isPending}
                     defaultValue={initialState[key]}
-                    style={{
-                        height: mdRef?.current?.offsetHeight
-                            ? `${mdRef?.current?.offsetHeight}px`
-                            : "auto",
-                    }}
                 ></textarea>
                 <div
                     ref={mdRef}

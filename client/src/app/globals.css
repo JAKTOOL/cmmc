@@ -75,3 +75,22 @@ body > div {
     font-size: 3rem; /* 48px */
     line-height: 1;
 }
+
+.grow-wrap {
+    display: grid;
+}
+.grow-wrap::after {
+    content: attr(data-replicated-value) " ";
+    white-space: pre-wrap;
+    visibility: hidden;
+}
+.grow-wrap > textarea {
+    resize: none;
+    overflow: hidden;
+}
+.grow-wrap > textarea,
+.grow-wrap > div,
+.grow-wrap::after {
+    font: inherit;
+    grid-area: 1 / 1 / 2 / 2;
+}
