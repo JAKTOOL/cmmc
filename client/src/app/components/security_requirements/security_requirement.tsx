@@ -47,7 +47,10 @@ export const SecurityRequirement = ({
             <p
                 className="text-base discussion"
                 dangerouslySetInnerHTML={{
-                    __html: linkify(discussion),
+                    __html:
+                        revision === Revision.V2
+                            ? linkify(discussion)
+                            : discussion,
                 }}
             ></p>
             <aside className="flex flex-wrap justify-between items-center w-full mx-auto">
