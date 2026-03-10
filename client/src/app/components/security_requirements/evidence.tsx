@@ -16,7 +16,7 @@ import {
     useState,
 } from "react";
 
-const createEvidence = async ({
+const deriveEvidence = async ({
     type,
     name,
     data,
@@ -110,7 +110,7 @@ export const Files = ({
         }
         for (const file of e.target.files) {
             const data = await toBuffer(file);
-            const evidence: IDBEvidenceV2 = await createEvidence({
+            const evidence: IDBEvidenceV2 = await deriveEvidence({
                 name: file.name,
                 type: file.type,
                 data,
@@ -445,11 +445,14 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
 
                 if (blob) {
                     const data = await toBuffer(blob);
-                    const evidence: IDBEvidenceV2 = await createEvidence({
+                    const evidence: IDBEvidenceV2 = await deriveEvidence({
                         type: blob.type,
                         data,
                     });
-                    await IDB.evidence.put(evidence);
+                    const [existing] = await IDB.evidence.getAll(evidence.id);
+                    if (!existing) {
+                        await IDB.evidence.put(evidence);
+                    }
                     await IDB.evidenceRequirements.put({
                         evidence_id: evidence.id,
                         requirement_id: requirementId,
@@ -486,7 +489,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
             const href = formData.get("url") as string;
             const url = new URL(href);
             const data = new TextEncoder().encode(href);
-            const evidence: IDBEvidenceV2 = await createEvidence({
+            const evidence: IDBEvidenceV2 = await deriveEvidence({
                 name: url.host || url.href,
                 type: "url",
                 data: data.buffer,
