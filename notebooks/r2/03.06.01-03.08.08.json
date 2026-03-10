@@ -250,5 +250,12 @@
         "title": "a",
         "text": "maintenance personnel without required access authorization are supervised during maintenance activities",
         "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.08.a",
+        "title": "a",
+        "text": "the use of portable storage devices is prohibited when such devices have no identifiable owner",
+        "doc_identifier": "SP_800_171_2_0_0"
     }
 ]
