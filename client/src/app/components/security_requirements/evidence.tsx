@@ -3,7 +3,7 @@ import {
     toDataURL,
 } from "@/app/components/security_requirements/utils";
 import { useNotification } from "@/app/context/notification";
-import { IDB, IDBEvidence } from "@/app/db";
+import { IDB, IDBEvidenceV2 } from "@/app/db";
 import {
     ChangeEvent,
     Dispatch,
@@ -17,17 +17,15 @@ import {
 } from "react";
 
 const createEvidence = async ({
-    requirementId,
     type,
     name,
     data,
 }: {
-    requirementId: string;
     type: string;
     name?: string;
     data: ArrayBuffer;
-}): Promise<IDBEvidence> => {
-    const uuid = [
+}): Promise<IDBEvidenceV2> => {
+    const id = [
         ...new Uint8Array(await window.crypto.subtle.digest("SHA-1", data)),
     ]
         .map((x) => x.toString(16).padStart(2, "0"))
@@ -37,14 +35,13 @@ const createEvidence = async ({
         ? `.${type.replace("image/", "")}`
         : "";
 
-    const filename = name || `${uuid.slice(0, 8)}${suffix}`;
+    const filename = name || `${id.slice(0, 8)}${suffix}`;
 
     return {
-        uuid,
+        id,
         filename,
         type: type,
         data,
-        requirement_id: requirementId,
     };
 };
 
@@ -113,11 +110,14 @@ export const Files = ({
         }
         for (const file of e.target.files) {
             const data = await toBuffer(file);
-            const evidence: IDBEvidence = await createEvidence({
+            const evidence: IDBEvidenceV2 = await createEvidence({
                 name: file.name,
                 type: file.type,
                 data,
-                requirementId: requirementId,
+            });
+            await IDB.evidenceRequirements.put({
+                evidence_id: evidence.id,
+                requirement_id: requirementId,
             });
             await IDB.evidence.put(evidence);
         }
@@ -162,7 +162,7 @@ export const Files = ({
     );
 };
 
-const NameChange = ({ artifact }: { artifact: IDBEvidence }) => {
+const NameChange = ({ artifact }: { artifact: IDBEvidenceV2 }) => {
     const suffixIdx =
         artifact.type !== "url" ? artifact.filename.lastIndexOf(".") : -1;
     const nameWithoutSuffix =
@@ -182,8 +182,8 @@ const NameChange = ({ artifact }: { artifact: IDBEvidence }) => {
             <input
                 type="text"
                 className="py-0.5 pl-2.5"
-                id={`name.${artifact.uuid}`}
-                name={`name.${artifact.uuid}`}
+                id={`name.${artifact.id}`}
+                name={`name.${artifact.id}`}
                 placeholder={nameWithoutSuffix}
                 defaultValue={nameWithoutSuffix}
                 ref={input}
@@ -219,7 +219,7 @@ const Badge = ({
 }: {
     children: ReactNode;
     onDelete: CallableFunction;
-    artifact: IDBEvidence;
+    artifact: IDBEvidenceV2;
     lastResetAt: null | number;
 }) => {
     const [isShowing, setShowing] = useState(false);
@@ -268,7 +268,7 @@ const Badge = ({
     );
 };
 
-export const FileBadge = ({ artifact }: { artifact: IDBEvidence }) => {
+export const FileBadge = ({ artifact }: { artifact: IDBEvidenceV2 }) => {
     const viewFile = async () => {
         const file = new File([artifact.data], artifact.filename, {
             type: artifact.type,
@@ -293,7 +293,7 @@ export const FileBadge = ({ artifact }: { artifact: IDBEvidence }) => {
         </button>
     );
 };
-export const LinkBadge = ({ artifact }: { artifact: IDBEvidence }) => {
+export const LinkBadge = ({ artifact }: { artifact: IDBEvidenceV2 }) => {
     const url = new TextDecoder().decode(artifact.data);
 
     const onClick = async () => {
@@ -321,16 +321,28 @@ export const EvidenceBadge = ({
     setEvidence,
     evidence,
     lastResetAt,
+    requirementId,
 }: {
-    artifact: IDBEvidence;
-    evidence: IDBEvidence[];
-    setEvidence: Dispatch<SetStateAction<IDBEvidence[]>>;
+    artifact: IDBEvidenceV2;
+    evidence: IDBEvidenceV2[];
+    setEvidence: Dispatch<SetStateAction<IDBEvidenceV2[]>>;
     lastResetAt: null | number;
+    requirementId: string;
 }) => {
     const onDelete = async () => {
-        if (await IDB.evidence.delete(IDBKeyRange.only(artifact.uuid))) {
-            setEvidence(evidence.filter((e) => e.uuid !== artifact.uuid));
+        const evidenceRequirementRecords =
+            await IDB.evidenceRequirements.getAll(
+                IDBKeyRange.only(artifact.id),
+                "evidence_id",
+            );
+
+        await IDB.evidenceRequirements.delete([artifact.id, requirementId]);
+
+        if (evidenceRequirementRecords.length === 1) {
+            await IDB.evidence.delete(IDBKeyRange.only(artifact.id));
         }
+
+        setEvidence(evidence.filter((e) => e.id !== artifact.id));
     };
 
     return (
@@ -351,27 +363,39 @@ export const EvidenceBadges = ({
     evidence,
     setEvidence,
     lastResetAt,
+    requirementId,
 }: {
-    evidence: IDBEvidence[];
-    setEvidence: Dispatch<SetStateAction<IDBEvidence[]>>;
+    evidence: IDBEvidenceV2[];
+    setEvidence: Dispatch<SetStateAction<IDBEvidenceV2[]>>;
     lastResetAt: null | number;
+    requirementId: string;
 }) => {
     return evidence?.map((artifact) => (
         <EvidenceBadge
-            key={artifact.uuid}
+            key={artifact.id}
             artifact={artifact}
             evidence={evidence}
             setEvidence={setEvidence}
             lastResetAt={lastResetAt}
+            requirementId={requirementId}
         />
     ));
 };
 
 async function fetchEvidence(requirementId, setEvidence) {
-    const evidenceRecords = await IDB.evidence.getAll(
+    const evidenceRequirementRecords = await IDB.evidenceRequirements.getAll(
         IDBKeyRange.only(requirementId),
         "requirement_id",
     );
+
+    const evidenceRecords = (
+        await Promise.all(
+            evidenceRequirementRecords.flatMap((record) =>
+                IDB.evidence.getAll(IDBKeyRange.only(record.evidence_id)),
+            ),
+        )
+    ).flat();
+
     setEvidence(evidenceRecords);
 }
 
@@ -404,12 +428,15 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
 
                 if (blob) {
                     const data = await toBuffer(blob);
-                    const evidence: IDBEvidence = await createEvidence({
+                    const evidence: IDBEvidenceV2 = await createEvidence({
                         type: blob.type,
                         data,
-                        requirementId: requirementId,
                     });
                     await IDB.evidence.put(evidence);
+                    await IDB.evidenceRequirements.put({
+                        evidence_id: evidence.id,
+                        requirement_id: requirementId,
+                    });
                 }
             }
         } finally {
@@ -419,7 +446,7 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
 }
 
 export const Evidence = ({ requirementId }: { requirementId: string }) => {
-    const [evidence, setEvidence] = useState<IDBEvidence[]>([]);
+    const [evidence, setEvidence] = useState<IDBEvidenceV2[]>([]);
     const [uploading, setUploading] = useState(false);
     const [formLastReset, setFormLastReset] = useState<number | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
@@ -428,10 +455,10 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
     const evidenceById = useMemo(() => {
         return evidence.reduce(
             (acc, artifact) => {
-                acc[artifact.uuid] = artifact;
+                acc[artifact.id] = artifact;
                 return acc;
             },
-            {} as Record<string, IDBEvidence>,
+            {} as Record<string, IDBEvidenceV2>,
         );
     }, [evidence]);
 
@@ -442,19 +469,22 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
             const href = formData.get("url") as string;
             const url = new URL(href);
             const data = new TextEncoder().encode(href);
-            const evidence: IDBEvidence = await createEvidence({
+            const evidence: IDBEvidenceV2 = await createEvidence({
                 name: url.host || url.href,
                 type: "url",
                 data: data.buffer,
-                requirementId,
+            });
+            await IDB.evidenceRequirements.put({
+                evidence_id: evidence.id,
+                requirement_id: requirementId,
             });
             await IDB.evidence.put(evidence);
             triggerReset = true;
         } else {
             for (const key of formData.keys()) {
                 if (key.startsWith("name.")) {
-                    const uuid = key.slice(5);
-                    const artifact = evidenceById[uuid] as IDBEvidence;
+                    const id = key.slice(5);
+                    const artifact = evidenceById[id] as IDBEvidenceV2;
                     let suffix = "";
                     if (artifact.type !== "url") {
                         const suffixIdx = artifact.filename.lastIndexOf(".");
@@ -467,6 +497,10 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                     await IDB.evidence.put({
                         ...artifact,
                         filename: `${value}${suffix}`,
+                    });
+                    await IDB.evidenceRequirements.put({
+                        evidence_id: artifact.id,
+                        requirement_id: requirementId,
                     });
                     triggerReset = true;
                 }
@@ -552,6 +586,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                         evidence={evidence}
                         setEvidence={setEvidence}
                         lastResetAt={formLastReset}
+                        requirementId={requirementId}
                     />
                 </div>
             </form>

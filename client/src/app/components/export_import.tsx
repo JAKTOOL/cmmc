@@ -3,19 +3,21 @@ import { Status } from "@/app/components/status";
 import { toNum, useRevisionContext } from "@/app/context/revision";
 import {
     IDB,
-    IDBEvidence,
+    IDBEvidenceRequirement,
+    IDBEvidenceV2,
     IDBRequirement,
     IDBSecurityRequirement,
 } from "@/app/db";
 import { useActionState, useRef } from "react";
 
-type PortableIDBEvidence = Omit<IDBEvidence, "data"> & {
+type PortableIDBEvidence = Omit<IDBEvidenceV2, "data"> & {
     data: Array<number>;
 };
 
 interface ImportExportPayload {
     securityRequirements: IDBSecurityRequirement[];
     evidence?: PortableIDBEvidence[];
+    evidenceRequirements?: IDBEvidenceRequirement[];
     version: number;
 }
 
@@ -24,6 +26,7 @@ export const Export = () => {
     const action = async () => {
         const idbSecurityRequirements = await IDB.securityRequirements.getAll();
         const idbEvidence = await IDB.evidence.getAll();
+        const idbEvidenceRequirements = await IDB.evidenceRequirements.getAll();
         const evidence = idbEvidence.map((artifact) => ({
             ...artifact,
             data: [...new Uint8Array(artifact.data)],
@@ -35,6 +38,7 @@ export const Export = () => {
         const payload: ImportExportPayload = {
             securityRequirements: validSecurityRequirements,
             evidence,
+            evidenceRequirements: idbEvidenceRequirements,
             version: IDB.version,
         };
 
@@ -118,6 +122,8 @@ export const Import = () => {
 
                         await IDB.securityRequirements.clear();
                         await IDB.requirements.clear();
+                        await IDB.evidenceRequirements.clear();
+                        await IDB.evidence.clear();
 
                         const requirements: Record<string, IDBRequirement> = {};
 
@@ -145,6 +151,13 @@ export const Import = () => {
                                 data: new Uint8Array(artifact.data).buffer,
                             };
                             await IDB.evidence.put(_artifact);
+                        }
+
+                        for (const evidenceRequirement of payload?.evidenceRequirements ||
+                            []) {
+                            await IDB.evidenceRequirements.put(
+                                evidenceRequirement,
+                            );
                         }
 
                         resolve(payload);

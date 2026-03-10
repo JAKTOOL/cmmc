@@ -7,7 +7,7 @@ enum Table {
     SECURITY_REQUIREMENTS = "security_requirements",
     REQUIREMENTS = "requirements",
     EVIDENCE = "evidence",
-    EVIDENCE_SECURITY_REQUIREMENTS = "evidence_security_requirements",
+    EVIDENCE_REQUIREMENTS = "evidence_requirements",
 }
 
 const migrations = {
@@ -70,7 +70,7 @@ const migrations = {
         const tx = event.target.transaction as IDBTransaction;
 
         const evidenceSecReqs = db.createObjectStore(
-            Table.EVIDENCE_SECURITY_REQUIREMENTS,
+            Table.EVIDENCE_REQUIREMENTS,
             {
                 keyPath: ["evidence_id", "requirement_id"],
             },
@@ -96,8 +96,8 @@ const migrations = {
             unique: false,
         });
 
-        const addToIntermediary = put<IDBEvidenceSecurityRequirement>(
-            Table.EVIDENCE_SECURITY_REQUIREMENTS,
+        const addToIntermediary = put<IDBEvidenceRequirement>(
+            Table.EVIDENCE_REQUIREMENTS,
             tx,
         );
 
@@ -112,7 +112,7 @@ const migrations = {
             await addToTemp({
                 id: e.uuid,
                 filename: e.filename,
-                data: e.data,
+                data: e.data.slice(0, e.data.byteLength),
                 type: e.type,
             });
         }
@@ -139,7 +139,7 @@ const migrations = {
             await addToEvidence({
                 id: e.id,
                 filename: e.filename,
-                data: e.data,
+                data: e.data.slice(0, e.data.byteLength),
                 type: e.type,
             });
         }
@@ -201,7 +201,7 @@ export interface IDBEvidenceV2 {
     data: ArrayBuffer;
 }
 
-export interface IDBEvidenceSecurityRequirement {
+export interface IDBEvidenceRequirement {
     requirement_id: string;
     evidence_id: string;
 }
@@ -329,11 +329,10 @@ export class IDB {
     static securityRequirements = new StoreWrapper<IDBSecurityRequirement>(
         Table.SECURITY_REQUIREMENTS,
     );
-    static evidence = new StoreWrapper<IDBEvidence>(Table.EVIDENCE);
-    static evidence_security_requirements =
-        new StoreWrapper<IDBEvidenceSecurityRequirement>(
-            Table.EVIDENCE_SECURITY_REQUIREMENTS,
-        );
+    static evidence = new StoreWrapper<IDBEvidenceV2>(Table.EVIDENCE);
+    static evidenceRequirements = new StoreWrapper<IDBEvidenceRequirement>(
+        Table.EVIDENCE_REQUIREMENTS,
+    );
 
     static version = version;
 }

@@ -1,8 +1,7 @@
 "use client";
 import { useManifestContext } from "@/app/context/manifest";
-import { IDBEvidence } from "@/app/db";
 import { useMemo } from "react";
-import { useDBEvidence } from "./db";
+import { useDBEvidenceRequirements } from "./db";
 
 export class FamilyEvidence {
     requirementsEvidence: Record<string, boolean>;
@@ -30,10 +29,10 @@ export const useGlobalEvidence = () => {
     const manifest = useManifestContext();
     const families = manifest?.families?.elements;
     const requirementsById = manifest.requirements.byRequirements;
-    const idbEvidence = useDBEvidence();
+    const idbEvidenceRequirements = useDBEvidenceRequirements();
 
     return useMemo(() => {
-        if (!families?.length || !idbEvidence) {
+        if (!families?.length || !idbEvidenceRequirements) {
             return;
         }
 
@@ -42,12 +41,12 @@ export const useGlobalEvidence = () => {
             return acc;
         }, {} as GlobalEvidence);
 
-        const storedEvidence = idbEvidence?.reduce(
+        const evidenceByRequirementId = idbEvidenceRequirements?.reduce(
             (acc, cur) => {
-                acc[cur.requirement_id] = cur;
+                acc[cur.requirement_id] = true;
                 return acc;
             },
-            {} as Record<string, IDBEvidence>,
+            {} as Record<string, boolean>,
         );
 
         for (const [requirementId, requirement] of Object.entries(
@@ -57,11 +56,11 @@ export const useGlobalEvidence = () => {
             const familyEvidence = familiesEvidence[family];
             familyEvidence.setRequirementEvidence(
                 requirementId,
-                !!storedEvidence?.[requirementId],
+                !!evidenceByRequirementId?.[requirementId],
             );
         }
         return familiesEvidence;
-    }, [families, requirementsById, idbEvidence]);
+    }, [families, requirementsById, idbEvidenceRequirements]);
 };
 
 export const useFamilyEvidence = (familyId: string) => {

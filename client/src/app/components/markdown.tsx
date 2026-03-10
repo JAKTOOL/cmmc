@@ -3,7 +3,7 @@ import { toDataURL } from "@/app/components/security_requirements/utils";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context/manifest";
 import { toNum, toPath, useRevisionContext } from "@/app/context/revision";
-import { IDB, IDBEvidence, IDBSecurityRequirement } from "@/app/db";
+import { IDB, IDBEvidenceV2, IDBSecurityRequirement } from "@/app/db";
 import { useActionState } from "react";
 
 const toStatus = (status?: Status) => {
@@ -19,7 +19,7 @@ const toStatus = (status?: Status) => {
     }
 };
 
-const embeddable = (artifact: IDBEvidence) => {
+const embeddable = (artifact: IDBEvidenceV2) => {
     switch (artifact.type) {
         case "image/png":
         case "image/gif":
@@ -32,7 +32,7 @@ const embeddable = (artifact: IDBEvidence) => {
     }
 };
 
-const snippetable = (artifact: IDBEvidence) => {
+const snippetable = (artifact: IDBEvidenceV2) => {
     switch (artifact.type) {
         case "text/plain":
         case "text/javascript":

@@ -1,14 +1,14 @@
 "use client";
-import { IDB, IDBEvidence } from "@/app/db";
+import { IDB, IDBEvidenceV2 } from "@/app/db";
 import { useActionState } from "react";
 
-const download = async (artifact: IDBEvidence) => {
+const download = async (artifact: IDBEvidenceV2) => {
     const file = new File([artifact.data], artifact.filename, {
         type: artifact.type,
     });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(file);
-    link.download = `${artifact.requirement_id}-${artifact.filename}`;
+    link.download = `${artifact.id}-${artifact.filename}`;
     document.body.appendChild(link);
     link.click();
 
@@ -20,14 +20,14 @@ export const ExportEvidence = () => {
     const onClick = async () => {
         if (
             window.confirm(
-                "This will download all uploaded evidence. Continue?"
+                "This will download all uploaded evidence. Continue?",
             )
         ) {
             const evidence = await IDB.evidence.getAll();
             await Promise.all(
                 evidence
                     .filter((artifact) => artifact.type !== "url")
-                    .map(download)
+                    .map(download),
             );
         }
     };

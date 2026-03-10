@@ -1,7 +1,8 @@
 "use client";
 import {
     IDB,
-    IDBEvidence,
+    IDBEvidenceRequirement,
+    IDBEvidenceV2,
     IDBRequirement,
     IDBSecurityRequirement,
 } from "@/app/db";
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react";
 
 export const useDBRequirements = () => {
     const [dbRequirements, setDBRequirements] = useState(
-        undefined as IDBRequirement[] | undefined
+        undefined as IDBRequirement[] | undefined,
     );
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export const useDBRequirements = () => {
 };
 export const useDBSecurityRequirements = () => {
     const [dbRequirements, setDBRequirements] = useState(
-        undefined as IDBSecurityRequirement[] | undefined
+        undefined as IDBSecurityRequirement[] | undefined,
     );
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export const useDBSecurityRequirements = () => {
 };
 export const useDBEvidence = () => {
     const [dbEvidence, setDBEvidence] = useState(
-        undefined as IDBEvidence[] | undefined
+        undefined as IDBEvidenceV2[] | undefined,
     );
 
     useEffect(() => {
@@ -51,4 +52,20 @@ export const useDBEvidence = () => {
     }, []);
 
     return dbEvidence;
+};
+
+export const useDBEvidenceRequirements = () => {
+    const [dbEvidenceRequirements, setDBEvidenceRequirements] = useState(
+        undefined as IDBEvidenceRequirement[] | undefined,
+    );
+
+    useEffect(() => {
+        async function fetchInitialState() {
+            const reqs = await IDB.evidenceRequirements.getAll();
+            setDBEvidenceRequirements(reqs);
+        }
+        fetchInitialState();
+    }, []);
+
+    return dbEvidenceRequirements;
 };
