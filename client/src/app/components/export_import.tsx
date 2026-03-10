@@ -3,6 +3,7 @@ import { Status } from "@/app/components/status";
 import { toNum, useRevisionContext } from "@/app/context/revision";
 import {
     IDB,
+    IDBEvidence,
     IDBEvidenceRequirement,
     IDBEvidenceV2,
     IDBRequirement,
@@ -10,13 +11,16 @@ import {
 } from "@/app/db";
 import { useActionState, useRef } from "react";
 
-type PortableIDBEvidence = Omit<IDBEvidenceV2, "data"> & {
+type PortableIDBEvidence = Omit<IDBEvidence, "data"> & {
+    data: Array<number>;
+};
+type PortableIDBEvidenceV2 = Omit<IDBEvidenceV2, "data"> & {
     data: Array<number>;
 };
 
 interface ImportExportPayload {
     securityRequirements: IDBSecurityRequirement[];
-    evidence?: PortableIDBEvidence[];
+    evidence?: PortableIDBEvidence[] | PortableIDBEvidenceV2[];
     evidenceRequirements?: IDBEvidenceRequirement[];
     version: number;
 }
@@ -110,7 +114,39 @@ export const Import = () => {
                         ) as ImportExportPayload;
 
                         if (payload.version !== IDB.version) {
-                            throw new Error("Database version mismatch");
+                            if (payload.version === 3 && IDB.version === 4) {
+                                const evidenceV1 = payload.evidence as
+                                    | PortableIDBEvidence[]
+                                    | undefined;
+
+                                const evidenceRequirements = evidenceV1?.map(
+                                    (artifact) => ({
+                                        evidence_id: artifact.uuid,
+                                        requirement_id:
+                                            artifact.requirement_id as string,
+                                    }),
+                                );
+                                const evidenceV2 = evidenceV1?.map(
+                                    (artifact) =>
+                                        ({
+                                            id: artifact.uuid,
+                                            type: artifact.type,
+                                            filename: artifact.filename,
+                                            data: artifact.data,
+                                        }) as PortableIDBEvidenceV2,
+                                );
+
+                                if (evidenceRequirements?.length) {
+                                    payload.evidenceRequirements =
+                                        evidenceRequirements;
+                                }
+
+                                if (evidenceV2?.length) {
+                                    payload.evidence = evidenceV2;
+                                }
+                            } else {
+                                throw new Error("Database version mismatch");
+                            }
                         }
 
                         const confirm = window.confirm(

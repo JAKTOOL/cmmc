@@ -29,7 +29,7 @@ const createEvidence = async ({
         ...new Uint8Array(await window.crypto.subtle.digest("SHA-1", data)),
     ]
         .map((x) => x.toString(16).padStart(2, "0"))
-        .join(""); // TODO: Rename uuid since its a hash now
+        .join("");
 
     const suffix = type.includes("image/")
         ? `.${type.replace("image/", "")}`
