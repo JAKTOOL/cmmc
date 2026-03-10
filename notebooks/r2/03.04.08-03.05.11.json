@@ -206,7 +206,7 @@
         "element_type": "security_requirement",
         "element_identifier": "SR-03.05.10.b",
         "title": "b",
-        "text": "passwords are cryptographically protected in storage",
+        "text": "passwords are cryptographically protected in transit",
         "doc_identifier": "SP_800_171_2_0_0"
     },
     {
