@@ -4,6 +4,7 @@ import {
 } from "@/app/components/security_requirements/utils";
 import { useNotification } from "@/app/context/notification";
 import { IDB, IDBEvidenceV2 } from "@/app/db";
+import { isImage } from "@/app/utils/file";
 import {
     ChangeEvent,
     Dispatch,
@@ -417,30 +418,33 @@ async function fetchEvidence(requirementId, setEvidence) {
 }
 
 function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
-    return async function handleImagePaste(event: Event) {
+    const isStorable = () => {};
+    return async function handleImagePaste(event: Event): Promise<boolean> {
         try {
-            if (["TEXTAREA", "INPUT"].includes(event?.target?.nodeName)) {
-                return;
-            }
             event.preventDefault();
 
-            const clipboardItems =
+            const clipboardItems: ClipboardItems | undefined =
                 typeof navigator?.clipboard?.read === "function"
                     ? await navigator.clipboard.read()
                     : event?.clipboardData?.files;
 
+            if (
+                !clipboardItems?.length ||
+                !clipboardItems.every((item) => item.types.some(isImage))
+            ) {
+                return false;
+            }
+
+            debugger;
+
             setUploading(true);
             for (const clipboardItem of clipboardItems) {
                 let blob: Blob | undefined;
-                if (clipboardItem.type?.startsWith("image/")) {
+                if (isImage(clipboardItem?.type)) {
                     blob = clipboardItem;
                 } else {
-                    const imageTypes = clipboardItem.types?.filter((type) =>
-                        type.startsWith("image/"),
-                    );
-                    for (const imageType of imageTypes) {
-                        blob = await clipboardItem.getType(imageType);
-                    }
+                    const [imageType] = clipboardItem.types?.filter(isImage);
+                    blob = await clipboardItem.getType(imageType);
                 }
 
                 if (blob) {
@@ -459,8 +463,11 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
                     });
                 }
             }
-        } finally {
             setUploading(false);
+            return true;
+        } catch (e) {
+            console.error(e);
+            return false;
         }
     };
 }
@@ -546,9 +553,10 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
             setEvidence,
             setUploading,
         );
-        const handlerWithNotifcation = (e: Event) => {
-            handler(e);
-            addNotification({ text: "Successfully pasted evidence" });
+        const handlerWithNotifcation = async (e: Event) => {
+            if (await handler(e)) {
+                addNotification({ text: "Successfully pasted evidence" });
+            }
         };
         document.addEventListener("paste", handlerWithNotifcation);
         return () => {

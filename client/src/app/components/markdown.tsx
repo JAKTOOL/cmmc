@@ -3,8 +3,8 @@ import { toDataURL } from "@/app/components/security_requirements/utils";
 import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context/manifest";
 import { toNum, toPath, useRevisionContext } from "@/app/context/revision";
-import { IDB, IDBEvidenceV2, IDBSecurityRequirement } from "@/app/db";
-import { toFSName } from "@/app/utils/file";
+import { IDB, IDBSecurityRequirement } from "@/app/db";
+import { embeddable, snippetable, toFSName } from "@/app/utils/file";
 import { useActionState } from "react";
 
 const toStatus = (status?: Status) => {
@@ -17,33 +17,6 @@ const toStatus = (status?: Status) => {
             return "⚫ Not Applicable";
         default:
             return "⚪ Unknown";
-    }
-};
-
-const embeddable = (artifact: IDBEvidenceV2) => {
-    switch (artifact.type) {
-        case "image/png":
-        case "image/gif":
-        case "image/svg+xml":
-        case "image/jpeg":
-        case "image/webp":
-            return true;
-        default:
-            return false;
-    }
-};
-
-const snippetable = (artifact: IDBEvidenceV2) => {
-    switch (artifact.type) {
-        case "text/plain":
-        case "text/javascript":
-        case "application/json":
-        case "text/css":
-        case "text/html":
-        case "text/xml":
-            return true;
-        default:
-            return false;
     }
 };
 
