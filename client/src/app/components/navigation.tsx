@@ -49,7 +49,7 @@ export const Navigation = () => {
     return [
         <nav
             key="nav"
-            className="bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-600"
+            className="bg-gray-900 fixed w-full z-40 top-0 start-0 border-b border-gray-600"
         >
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a

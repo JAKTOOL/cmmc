@@ -15,7 +15,7 @@ export const Form = ({
     return (
         <>
             <ContentNavigation previous={prev} next={next} />
-            <div className="sticky top-36 left-full flex flex-row-reverse items-center shrink-0 w-1/4 pb-4 z-20 -translate-y-full">
+            <div className="sticky top-36 left-full flex flex-row-reverse items-center shrink-0 w-1/4 pb-4 z-10 -translate-y-full">
                 <button
                     type="submit"
                     className="shrink w-24 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"

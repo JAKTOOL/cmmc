@@ -144,7 +144,7 @@ export const ToastContainer = () => {
     const { notificationsList, removeNotification } = useNotification();
 
     return (
-        <aside className="fixed flex flex-col items-center w-full max-w-xs p-4 text-body bg-neutral-primary-soft rounded-base top-20 end-5 z-40">
+        <aside className="fixed flex flex-col items-center w-full max-w-xs p-4 text-body bg-neutral-primary-soft rounded-base top-20 end-5 z-20">
             {notificationsList.map((notification) => {
                 return (
                     <Toast
