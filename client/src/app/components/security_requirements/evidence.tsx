@@ -336,10 +336,27 @@ export const EvidenceBadge = ({
                 "evidence_id",
             );
 
-        await IDB.evidenceRequirements.delete([artifact.id, requirementId]);
-
-        if (evidenceRequirementRecords.length === 1) {
+        if (evidenceRequirementRecords.length > 1) {
+            const shouldDeleteAll = window.confirm(
+                "The same evidence is attached to more than one requirement. Delete from all?",
+            );
+            if (shouldDeleteAll) {
+                for (const record of evidenceRequirementRecords) {
+                    await IDB.evidenceRequirements.delete([
+                        record.evidence_id,
+                        record.requirement_id,
+                    ]);
+                }
+                await IDB.evidence.delete(IDBKeyRange.only(artifact.id));
+            } else {
+                await IDB.evidenceRequirements.delete([
+                    artifact.id,
+                    requirementId,
+                ]);
+            }
+        } else {
             await IDB.evidence.delete(IDBKeyRange.only(artifact.id));
+            await IDB.evidenceRequirements.delete([artifact.id, requirementId]);
         }
 
         setEvidence(evidence.filter((e) => e.id !== artifact.id));
