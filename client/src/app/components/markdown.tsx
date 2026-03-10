@@ -156,12 +156,13 @@ export const Markdown = () => {
 
                                 return `\`\`\`${type}
                                 ${new TextDecoder().decode(artifact.data)}
-                                \`\`\``;
+
+\`\`\``;
                             } else {
                                 console.warn(
                                     `No work to do for ${artifact.type}: ${artifact.filename}`,
                                 );
-                                return `[${artifact.filename}](${artifact.requirement_id}-${artifact.filename})`;
+                                return `[${artifact.filename}](${artifact.filename})`;
                             }
                         }),
                     );
