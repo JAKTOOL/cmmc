@@ -4,6 +4,7 @@ import { Status } from "@/app/components/status";
 import { useManifestContext } from "@/app/context/manifest";
 import { toNum, toPath, useRevisionContext } from "@/app/context/revision";
 import { IDB, IDBEvidenceV2, IDBSecurityRequirement } from "@/app/db";
+import { toFSName } from "@/app/utils/file";
 import { useActionState } from "react";
 
 const toStatus = (status?: Status) => {
@@ -129,7 +130,7 @@ export const Markdown = () => {
                         const embedLinks = fileArtifacts
                             .map(
                                 (artifact) =>
-                                    `- [${artifact.filename}](${artifact.requirement_id}-${artifact.filename})`,
+                                    `- [${artifact.filename}](${toFSName(artifact)})`,
                             )
                             .join("\n");
 
@@ -162,7 +163,7 @@ export const Markdown = () => {
                                 console.warn(
                                     `No work to do for ${artifact.type}: ${artifact.filename}`,
                                 );
-                                return `[${artifact.filename}](${artifact.filename})`;
+                                return `[${artifact.filename}](${toFSName(artifact)})`;
                             }
                         }),
                     );

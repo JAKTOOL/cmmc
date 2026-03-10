@@ -1,17 +1,16 @@
 "use client";
 import { IDB, IDBEvidenceV2 } from "@/app/db";
+import { toFSName } from "@/app/utils/file";
 import { useActionState } from "react";
 
 const download = async (artifact: IDBEvidenceV2) => {
     const file = new File([artifact.data], artifact.filename, {
         type: artifact.type,
     });
-    const filename =
-        artifact.id === artifact.filename ? artifact.id : artifact.filename;
 
     const link = document.createElement("a");
     link.href = URL.createObjectURL(file);
-    link.download = `${filename}`;
+    link.download = toFSName(artifact);
     document.body.appendChild(link);
     link.click();
 
