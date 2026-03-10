@@ -615,7 +615,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.08.07",
-                    "title": "Removeable Media",
+                    "title": "Removable Media",
                     "text": "Control the use of removable media on system components.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -720,7 +720,7 @@
                 {
                     "element_type": "requirement",
                     "element_identifier": "03.12.02",
-                    "title": "operational Plan of Action",
+                    "title": "Plan of Action",
                     "text": "Develop and implement plans of action designed to correct deficiencies and reduce or eliminate vulnerabilities in organizational systems.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
@@ -2898,7 +2898,7 @@
                     "element_type": "security_requirement",
                     "element_identifier": "SR-03.05.10.b",
                     "title": "b",
-                    "text": "Passwords are cryptographically protected in storage",
+                    "text": "Passwords are cryptographically protected in transit",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
@@ -3172,6 +3172,13 @@
                     "element_identifier": "SR-03.08.07.a",
                     "title": "a",
                     "text": "Maintenance personnel without required access authorization are supervised during maintenance activities",
+                    "doc_identifier": "SP_800_171_2_0_0"
+                },
+                {
+                    "element_type": "security_requirement",
+                    "element_identifier": "SR-03.08.08.a",
+                    "title": "a",
+                    "text": "The use of portable storage devices is prohibited when such devices have no identifiable owner",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
