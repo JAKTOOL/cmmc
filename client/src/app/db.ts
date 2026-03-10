@@ -1,22 +1,23 @@
 "use client";
 import { Status } from "@/app/components/status";
-export const version = 3;
+export const version = 4;
 let loader: Promise<IDBDatabase> | undefined;
 
 enum Table {
     SECURITY_REQUIREMENTS = "security_requirements",
     REQUIREMENTS = "requirements",
     EVIDENCE = "evidence",
+    EVIDENCE_SECURITY_REQUIREMENTS = "evidence_security_requirements",
 }
 
 const migrations = {
-    "1": (event: IDBVersionChangeEvent) => {
+    "1": async (event: IDBVersionChangeEvent) => {
         const db = event.target.result as IDBDatabase;
         const securityRequirementsStore = db.createObjectStore(
             Table.SECURITY_REQUIREMENTS,
             {
                 keyPath: "id",
-            }
+            },
         );
 
         securityRequirementsStore.createIndex("status", "status", {
@@ -35,10 +36,10 @@ const migrations = {
             "security_requirements",
             {
                 unique: false,
-            }
+            },
         );
     },
-    "2": (event: IDBVersionChangeEvent) => {
+    "2": async (event: IDBVersionChangeEvent) => {
         const db = event.target.result as IDBDatabase;
         const evidence = db.createObjectStore(Table.EVIDENCE, {
             keyPath: "uuid",
@@ -54,15 +55,96 @@ const migrations = {
         });
         return evidence;
     },
-    "3": (event: IDBVersionChangeEvent) => {
+    "3": async (event: IDBVersionChangeEvent) => {
         const db = event.target.result as IDBDatabase;
         db.deleteObjectStore(Table.EVIDENCE);
 
-        const evidence = migrations["2"](event);
+        const evidence = await migrations["2"](event);
 
         evidence.createIndex("type", "type", {
             unique: false,
         });
+    },
+    "4": async (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
+        const tx = event.target.transaction as IDBTransaction;
+
+        const evidenceSecReqs = db.createObjectStore(
+            Table.EVIDENCE_SECURITY_REQUIREMENTS,
+            {
+                keyPath: ["evidence_id", "requirement_id"],
+            },
+        );
+
+        evidenceSecReqs.createIndex("evidence_id", "evidence_id", {
+            unique: false,
+        });
+        evidenceSecReqs.createIndex("requirement_id", "requirement_id", {
+            unique: false,
+        });
+
+        const evidenceTemp = db.createObjectStore("evidence_temp", {
+            keyPath: "id",
+        });
+        evidenceTemp.createIndex("filename", "filename", {
+            unique: false,
+        });
+        evidenceTemp.createIndex("type", "type", {
+            unique: false,
+        });
+        evidenceTemp.createIndex("data", "data", {
+            unique: false,
+        });
+
+        const addToIntermediary = put<IDBEvidenceSecurityRequirement>(
+            Table.EVIDENCE_SECURITY_REQUIREMENTS,
+            tx,
+        );
+
+        const addToTemp = put<IDBEvidenceV2>("evidence_temp", tx);
+        const evidenceRecords = await getAll<IDBEvidence>(Table.EVIDENCE, tx)();
+
+        for (const e of evidenceRecords) {
+            await addToIntermediary({
+                evidence_id: e.uuid,
+                requirement_id: e.requirement_id,
+            });
+            await addToTemp({
+                id: e.uuid,
+                filename: e.filename,
+                data: e.data,
+                type: e.type,
+            });
+        }
+
+        db.deleteObjectStore(Table.EVIDENCE);
+
+        const evidence = db.createObjectStore(Table.EVIDENCE, {
+            keyPath: "id",
+        });
+        evidence.createIndex("filename", "filename", {
+            unique: false,
+        });
+        evidence.createIndex("data", "data", {
+            unique: false,
+        });
+        evidence.createIndex("type", "type", {
+            unique: false,
+        });
+
+        const tempRecords = await getAll<IDBEvidenceV2>("evidence_temp", tx)();
+        const addToEvidence = put<IDBEvidenceV2>(Table.EVIDENCE, tx);
+
+        for (const e of tempRecords) {
+            await addToEvidence({
+                id: e.id,
+                filename: e.filename,
+                data: e.data,
+                type: e.type,
+            });
+        }
+
+        db.deleteObjectStore("evidence_temp");
     },
 };
 
@@ -79,9 +161,11 @@ if (typeof window !== "undefined") {
             resolve(db);
         };
 
-        request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
+        request.onupgradeneeded = async function (
+            event: IDBVersionChangeEvent,
+        ) {
             for (let v = event.oldVersion + 1; v <= event.newVersion; v++) {
-                migrations?.[`${v}`]?.(event);
+                await migrations?.[`${v}`]?.(event);
             }
         };
     });
@@ -110,26 +194,46 @@ export interface IDBEvidence {
     data: ArrayBuffer;
 }
 
+export interface IDBEvidenceV2 {
+    id: string;
+    filename: string;
+    type: string;
+    data: ArrayBuffer;
+}
+
+export interface IDBEvidenceSecurityRequirement {
+    requirement_id: string;
+    evidence_id: string;
+}
+
 enum Permission {
     READONLY = "readonly",
     READWRITE = "readwrite",
 }
 
-export const getStore = async (table: string, permission: Permission) => {
+export const getStore = async (
+    table: string,
+    permission: Permission,
+    tx?: IDBTransaction,
+) => {
+    if (tx) {
+        return tx.objectStore(table);
+    }
     const db = await getDB();
     return db.transaction(table, permission).objectStore(table);
 };
 
 export const getAll =
-    <T>(table: string) =>
+    <T>(table: string, tx?: IDBTransaction) =>
     async (
         query: IDBKeyRange | IDBValidKey | null = null,
         index?: string,
-        count?: number
+        count?: number,
     ): Promise<T[]> => {
         let store: IDBObjectStore | IDBIndex = await getStore(
             table,
-            Permission.READONLY
+            Permission.READONLY,
+            tx,
         );
 
         if (index) {
@@ -149,11 +253,12 @@ export const getAll =
     };
 
 export const remove =
-    (table: string) =>
+    (table: string, tx?: IDBTransaction) =>
     async (query: IDBKeyRange | IDBValidKey): Promise<boolean> => {
         const store: IDBObjectStore = await getStore(
             table,
-            Permission.READWRITE
+            Permission.READWRITE,
+            tx,
         );
 
         const request = store.delete(query);
@@ -169,11 +274,11 @@ export const remove =
     };
 
 export const put =
-    <T>(table: string) =>
-    async (data: T): Promise<T[]> => {
-        const store = await getStore(table, Permission.READWRITE);
+    <T>(table: string, tx?: IDBTransaction) =>
+    async (data: T, key?: Array<string>): Promise<T[]> => {
+        const store = await getStore(table, Permission.READWRITE, tx);
         return new Promise<T[]>((resolve, reject) => {
-            const request = store.put(data);
+            const request = store.put(data, key);
             request.onsuccess = () => {
                 resolve(request.result as T[]);
             };
@@ -201,10 +306,10 @@ class StoreWrapper<T> {
     getAll: (
         query?: IDBKeyRange | IDBValidKey | null,
         index?: string,
-        count?: number
+        count?: number,
     ) => Promise<T[]>;
     delete: (query: IDBKeyRange | IDBValidKey) => Promise<boolean>;
-    put: (data: T) => Promise<T[]>;
+    put: (data: T, key?: Array<string>) => Promise<T[]>;
     clear: () => Promise<boolean>;
     store: (permission: Permission) => Promise<IDBObjectStore>;
 
@@ -222,9 +327,13 @@ class StoreWrapper<T> {
 export class IDB {
     static requirements = new StoreWrapper<IDBRequirement>(Table.REQUIREMENTS);
     static securityRequirements = new StoreWrapper<IDBSecurityRequirement>(
-        Table.SECURITY_REQUIREMENTS
+        Table.SECURITY_REQUIREMENTS,
     );
     static evidence = new StoreWrapper<IDBEvidence>(Table.EVIDENCE);
+    static evidence_security_requirements =
+        new StoreWrapper<IDBEvidenceSecurityRequirement>(
+            Table.EVIDENCE_SECURITY_REQUIREMENTS,
+        );
 
     static version = version;
 }
