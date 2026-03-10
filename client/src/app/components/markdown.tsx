@@ -82,10 +82,19 @@ export const Markdown = () => {
                     `### ${requirement.element_identifier}: ${requirement.title}`,
                 );
 
-                const artifacts = await IDB.evidence.getAll(
-                    IDBKeyRange.only(requirement.element_identifier),
-                    "requirement_id",
-                );
+                const evidenceRequirementRecords =
+                    await IDB.evidenceRequirements.getAll(
+                        IDBKeyRange.only(requirement.id),
+                        "requirement_id",
+                    );
+
+                const artifacts = (
+                    await Promise.all(
+                        evidenceRequirementRecords.map((record) =>
+                            IDB.evidence.getAll(record.evidence_id),
+                        ),
+                    )
+                ).flat();
 
                 const linkArtifacts = artifacts.filter(
                     (artifact) => artifact.type === "url",
