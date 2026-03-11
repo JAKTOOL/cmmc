@@ -1,3 +1,4 @@
+import { SearchDropdown } from "@/app/components/search_dropdown";
 import {
     toBuffer,
     toDataURL,
@@ -418,7 +419,6 @@ async function fetchEvidence(requirementId, setEvidence) {
 }
 
 function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
-    const isStorable = () => {};
     return async function handleImagePaste(event: Event): Promise<boolean> {
         try {
             event.preventDefault();
@@ -434,8 +434,6 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
             ) {
                 return false;
             }
-
-            debugger;
 
             setUploading(true);
             for (const clipboardItem of clipboardItems) {
@@ -577,6 +575,34 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
         };
     }, [formRef]);
 
+    const evidenceOptions = useMemo(async () => {
+        const evidence = await IDB.evidence.getAll();
+        return evidence.reduce(
+            (acc, artifact) => {
+                if (!evidenceById[artifact.id]) {
+                    acc.push({
+                        label: artifact.filename,
+                        value: artifact.id,
+                    });
+                }
+                return acc;
+            },
+            [] as Record<string, string>[],
+        );
+    }, [evidenceById]);
+
+    const onEvidenceSelect = useMemo(() => {
+        return async (option: any, fn: CallableFunction) => {
+            setUploading(true);
+            await IDB.evidenceRequirements.put({
+                evidence_id: option.value,
+                requirement_id: requirementId,
+            });
+            fn("");
+            setUploading(false);
+        };
+    }, [requirementId]);
+
     return (
         <>
             <h4 className="text-2xl block sm:flex mb-6 items-center -translate-y-full">
@@ -599,7 +625,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                             name="url"
                             id="url"
                             className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                            placeholder="URL for evidence"
+                            placeholder="Add URL to evidence"
                         />
                         <button
                             type="submit"
@@ -607,6 +633,13 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                         >
                             <IconLink />
                         </button>
+                    </div>
+                    <div className="relative w-full mt-4">
+                        <SearchDropdown
+                            placeholder="Attach previously uploaded evidence"
+                            options={evidenceOptions}
+                            onSelect={onEvidenceSelect}
+                        />
                     </div>
                 </div>
                 <div className="flex flex-wrap shrink basis-full md:basis-2/3 content-center">
