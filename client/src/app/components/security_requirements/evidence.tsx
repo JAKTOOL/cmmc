@@ -421,6 +421,9 @@ async function fetchEvidence(requirementId, setEvidence) {
 function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
     return async function handleImagePaste(event: Event): Promise<boolean> {
         try {
+            if (["TEXTAREA", "INPUT"].includes(event?.target?.nodeName)) {
+                return false;
+            }	
             event.preventDefault();
 
             const clipboardItems: ClipboardItems | undefined =
