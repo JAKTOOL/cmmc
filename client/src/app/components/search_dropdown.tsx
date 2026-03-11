@@ -86,8 +86,8 @@ export function SearchDropdown({
     }, []);
 
     function select(option: Option) {
-        setQuery(option.label);
         setOpen(false);
+        setQuery(option.label);
         setActiveIndex(-1);
         onSelect?.(option, setQuery);
     }
