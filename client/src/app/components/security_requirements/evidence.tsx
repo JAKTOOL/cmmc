@@ -149,7 +149,7 @@ export const Files = ({
                 </svg>
 
                 <p className="mb-2 text-sm text-gray-500 p-2">
-                    Click or drop evidence for {requirementId}
+                    Click or drop file evidence
                 </p>
             </div>
             <input
@@ -625,7 +625,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                             name="url"
                             id="url"
                             className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                            placeholder="Add URL to evidence"
+                            placeholder={`Add URL to evidence`}
                         />
                         <button
                             type="submit"
@@ -636,7 +636,7 @@ export const Evidence = ({ requirementId }: { requirementId: string }) => {
                     </div>
                     <div className="relative w-full mt-4">
                         <SearchDropdown
-                            placeholder="Attach previously uploaded evidence"
+                            placeholder={`Attach other requirement evidence to ${requirementId}`}
                             options={evidenceOptions}
                             onSelect={onEvidenceSelect}
                         />
