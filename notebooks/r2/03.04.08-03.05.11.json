@@ -213,21 +213,7 @@
         "element_type": "security_requirement",
         "element_identifier": "SR-03.05.11.a",
         "title": "a",
-        "text": "authentication mechanisms are regularly reviewed and updated",
-        "doc_identifier": "SP_800_171_2_0_0"
-    },
-    {
-        "element_type": "security_requirement",
-        "element_identifier": "SR-03.05.11.b",
-        "title": "b",
-        "text": "authentication mechanisms are tested for effectiveness",
-        "doc_identifier": "SP_800_171_2_0_0"
-    },
-    {
-        "element_type": "security_requirement",
-        "element_identifier": "SR-03.05.11.c",
-        "title": "c",
-        "text": "authentication mechanisms are monitored for unauthorized access attempts",
+        "text": "authentication information is obscured during the authentication process.",
         "doc_identifier": "SP_800_171_2_0_0"
     }
 ]
