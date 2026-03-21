@@ -220,7 +220,14 @@
         "element_type": "security_requirement",
         "element_identifier": "SR-03.08.04.a",
         "title": "a",
-        "text": "equipment to be removed from organizational spaces for off-site maintenance is sanitized of any CUI",
+        "text": "media containing CUI is marked with applicable CUI markings",
+        "doc_identifier": "SP_800_171_2_0_0"
+    },
+    {
+        "element_type": "security_requirement",
+        "element_identifier": "SR-03.08.04.b",
+        "title": "b",
+        "text": "media containing CUI is marked with distribution limitations",
         "doc_identifier": "SP_800_171_2_0_0"
     },
     {
