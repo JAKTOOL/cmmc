@@ -3129,35 +3129,42 @@
                     "element_type": "security_requirement",
                     "element_identifier": "SR-03.08.04.a",
                     "title": "a",
-                    "text": "Equipment to be removed from organizational spaces for off-site maintenance is sanitized of any cui",
+                    "text": "Media containing cui is marked with applicable cui markings",
+                    "doc_identifier": "SP_800_171_2_0_0"
+                },
+                {
+                    "element_type": "security_requirement",
+                    "element_identifier": "SR-03.08.04.b",
+                    "title": "b",
+                    "text": "Media containing cui is marked with distribution limitations",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "security_requirement",
                     "element_identifier": "SR-03.08.05.a",
                     "title": "a",
-                    "text": "Media containing diagnostic and test programs are checked for malicious code before being used in organizational systems that process, store, or transmit cui",
+                    "text": "Access to media containing cui is controlled",
+                    "doc_identifier": "SP_800_171_2_0_0"
+                },
+                {
+                    "element_type": "security_requirement",
+                    "element_identifier": "SR-03.08.05.b",
+                    "title": "a",
+                    "text": "Accountability for media containing cui is maintained during transport outside of controlled areas",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "security_requirement",
                     "element_identifier": "SR-03.08.06.a",
                     "title": "a",
-                    "text": "Multifactor authentication is used to establish nonlocal maintenance sessions via external network connections",
-                    "doc_identifier": "SP_800_171_2_0_0"
-                },
-                {
-                    "element_type": "security_requirement",
-                    "element_identifier": "SR-03.08.06.b",
-                    "title": "b",
-                    "text": "Nonlocal maintenance sessions established via external network connections are terminated when nonlocal maintenance is complete",
+                    "text": "The confidentiality of cui stored on digital media is protected during transport using cryptographic mechanisms or alternative physical safeguards.",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
                     "element_type": "security_requirement",
                     "element_identifier": "SR-03.08.07.a",
                     "title": "a",
-                    "text": "Maintenance personnel without required access authorization are supervised during maintenance activities",
+                    "text": "The use of removable media on system components is controlled",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
