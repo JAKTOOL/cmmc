@@ -25,6 +25,25 @@ interface ImportExportPayload {
     version: number;
 }
 
+const toJSON = (payload: ImportExportPayload) => {
+    const arrays: string[] = [];
+
+    const json = JSON.stringify(
+        payload,
+        (key, value) => {
+            if (Array.isArray(value) && value.every(isFinite)) {
+                const id = arrays.length;
+                arrays.push(JSON.stringify(value));
+                return `__ARRAY_${id}__`;
+            }
+            return value;
+        },
+        2,
+    );
+
+    return json.replace(/"__ARRAY_(\d+)__"/g, (_, i) => arrays[i]);
+};
+
 export const Export = () => {
     const revision = useRevisionContext();
     const action = async () => {
@@ -47,7 +66,7 @@ export const Export = () => {
         };
 
         // Create a Blob object with the text data
-        const blob = new Blob([JSON.stringify(payload, null, 2)], {
+        const blob = new Blob([toJSON(payload)], {
             type: "application/json",
         });
 
