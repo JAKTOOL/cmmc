@@ -1,3 +1,4 @@
+import { EvidenceTable } from "@/app/components/evidence_table";
 import { Families } from "@/app/components/families";
 import { Footer } from "@/app/components/footer";
 import { Main } from "@/app/components/main";
@@ -25,6 +26,7 @@ export default async function Page() {
                     <Navigation />
                     <Main>
                         <Families />
+                        <EvidenceTable />
                     </Main>
                     <Footer />
                 </ToastNotificationProvider>
