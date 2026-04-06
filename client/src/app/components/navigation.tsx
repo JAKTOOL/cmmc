@@ -2,7 +2,7 @@
 import { toPath, useRevisionContext } from "@/app/context/revision";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ClearDB } from "./clear_db";
-import { ExportEvidence } from "./export_evidence";
+import { ExportEvidence, ViewEvidence } from "./export_evidence";
 import { Export, Import } from "./export_import";
 import { Markdown } from "./markdown";
 import { POAM } from "./poam";
@@ -135,6 +135,7 @@ export const Navigation = () => {
                                     <Import />
                                 </div>
                                 <div className="py-1" role="none">
+                                    <ViewEvidence path={path} />
                                     <ExportEvidence />
                                 </div>
                                 <div className="py-1" role="none">
