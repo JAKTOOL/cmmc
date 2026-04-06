@@ -71,17 +71,16 @@ export const EvidenceTable = () => {
             {
                 text: "Type",
                 filterable: true,
-                className: "text-center",
+                className: "max-md:hidden",
             },
             {
                 text: "Requirements",
                 filterable: false,
-                className: "max-md:hidden",
             },
             {
                 text: "File Hash",
                 filterable: false,
-                className: "max-md:hidden",
+                className: "max-lg:hidden",
             },
         ],
         [],
@@ -112,9 +111,20 @@ export const EvidenceTable = () => {
                             {requirement}
                         </Link>
                     )),
-                    artifact.id,
+                    <div
+                        key={artifact.id}
+                        className="truncate w-full"
+                        title={artifact.id}
+                    >
+                        {artifact.id}
+                    </div>,
                 ],
-                classNames: [null, null, "max-md:hidden", "max-md:hidden"],
+                classNames: [
+                    null,
+                    "max-md:hidden",
+                    null,
+                    "max-lg:hidden md:max-w-48 xl:max-w-full",
+                ],
             })) ?? [],
         [evidenceWithRequirements, path],
     );
