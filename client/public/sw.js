@@ -1,4 +1,4 @@
-const cacheName = "v18";
+const cacheName = "v19";
 
 const deleteCache = async (key) => {
   await caches.delete(key);
