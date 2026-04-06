@@ -1,6 +1,7 @@
 "use client";
 import { IDB, IDBEvidenceV2 } from "@/app/db";
 import { toFSName } from "@/app/utils/file";
+import Link from "next/link";
 import { useActionState } from "react";
 
 const download = async (artifact: IDBEvidenceV2) => {
@@ -17,6 +18,29 @@ const download = async (artifact: IDBEvidenceV2) => {
     URL.revokeObjectURL(link.href);
     document.body.removeChild(link);
 };
+
+export const ViewEvidence = ({ path }) => (
+    <Link
+        href={`${path}/evidence`}
+        className="block px-4 py-2 text-sm text-gray-700 w-full text-left flex items-center justify-between w-full"
+        tabIndex={-1}
+    >
+        <span>View Evidence</span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            aria-hidden="true"
+            className="h-4"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke="currentColor"
+                strokeWidth="2"
+                d="M3 11h18M3 15h18m-9-4v8m-8 0h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
+            />
+        </svg>
+    </Link>
+);
 
 export const ExportEvidence = () => {
     const onClick = async () => {
