@@ -1,69 +1,21 @@
 "use client";
-import { toDataURL } from "@/app/components/security_requirements/utils";
+import { FileBadge, LinkBadge } from "@/app/components/evidence";
+import {
+    defaultFilter,
+    defaultSort,
+    Order,
+    Table,
+} from "@/app/components/table";
+import { toPath, useRevisionContext } from "@/app/context/revision";
+import { IDB, IDBEvidenceV2 } from "@/app/db";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { IDB, IDBEvidenceV2 } from "../db";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface Requirements {
     requirements: string[];
 }
 
 interface EvidenceWithRequirements extends IDBEvidenceV2, Requirements {}
-
-interface EvidenceRowProps {
-    evidence: EvidenceWithRequirements;
-}
-
-export const FileBadge = ({
-    artifact,
-}: {
-    artifact: EvidenceWithRequirements;
-}) => {
-    const viewFile = async () => {
-        const file = new File([artifact.data], artifact.filename, {
-            type: artifact.type,
-        });
-        const url = await toDataURL(file);
-
-        Object.assign(document.createElement("a"), {
-            target: "_blank",
-            rel: "noopener noreferrer",
-            href: url,
-        }).click();
-    };
-
-    return (
-        <button
-            className="border-r border-blue-200 pr-2 flex"
-            title={`${artifact.data.byteLength} bytes | ${artifact.type}`}
-            onClick={viewFile}
-        >
-            <span>{artifact.filename}</span>
-        </button>
-    );
-};
-
-const EvidenceRow: React.FC<EvidenceRowProps> = ({ evidence }) => {
-    return (
-        <tr>
-            <td className="px-4 py-3">
-                <FileBadge artifact={evidence} />
-            </td>
-            <td className="px-4 py-3">{evidence.type}</td>
-            <td className="px-4 py-3">
-                {evidence.requirements.map((requirement) => (
-                    <Link
-                        key={`${evidence.id}-${requirement}`}
-                        href={`/r2/requirement/${requirement}`}
-                    >
-                        {requirement}
-                    </Link>
-                ))}
-            </td>
-            <td className="px-4 py-3">{evidence.id}</td>
-        </tr>
-    );
-};
 
 async function fetchEvidence(): Promise<EvidenceWithRequirements[]> {
     const evidenceRequirementRecords = await IDB.evidenceRequirements.getAll();
@@ -80,21 +32,26 @@ async function fetchEvidence(): Promise<EvidenceWithRequirements[]> {
 
     const evidence = await IDB.evidence.getAll();
 
-    debugger;
-
     return evidence.map(
         (artifact) =>
             ({
                 ...artifact,
-                requirements: requirementsByEvidenceId[artifact.id] || [],
+                requirements: (
+                    requirementsByEvidenceId[artifact.id] || []
+                ).sort(),
             }) as EvidenceWithRequirements,
     );
 }
+
+const nestedSort = (a?: string[], b?: string[]) => defaultSort(a?.[0], b?.[0]);
+const sorters = [defaultSort, defaultSort, nestedSort, defaultSort];
+const filters = [defaultFilter, defaultFilter, null, null];
 
 export const EvidenceTable = () => {
     const [evidenceWithRequirements, setEvidenceWithRequirements] = useState<
         EvidenceWithRequirements[]
     >([]);
+    const formRef = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
         (async function () {
@@ -102,31 +59,85 @@ export const EvidenceTable = () => {
         })();
     }, []);
 
+    const revision = useRevisionContext();
+    const path = toPath(revision);
+
+    const tableHeaders = useMemo(
+        () => [
+            {
+                text: "Filename",
+                filterable: true,
+            },
+            {
+                text: "Type",
+                filterable: true,
+                className: "text-center",
+            },
+            {
+                text: "Requirements",
+                filterable: false,
+                className: "max-md:hidden",
+            },
+            {
+                text: "File Hash",
+                filterable: false,
+                className: "max-md:hidden",
+            },
+        ],
+        [],
+    );
+
+    const tableBody = useMemo(
+        () =>
+            evidenceWithRequirements?.map((artifact) => ({
+                values: [
+                    artifact.filename,
+                    artifact.type,
+                    artifact.requirements,
+                    artifact.id,
+                ],
+                columns: [
+                    artifact.type === "url" ? (
+                        <LinkBadge artifact={artifact} hideIcon />
+                    ) : (
+                        <FileBadge artifact={artifact} hideIcon />
+                    ),
+                    artifact.type,
+                    artifact.requirements.map((requirement) => (
+                        <Link
+                            key={`${artifact.id}-${requirement}`}
+                            href={`${path}/requirement/${requirement}`}
+                            className="mr-2 text-blue-400"
+                        >
+                            {requirement}
+                        </Link>
+                    )),
+                    artifact.id,
+                ],
+                classNames: [null, null, "max-md:hidden", "max-md:hidden"],
+            })) ?? [],
+        [evidenceWithRequirements, path],
+    );
+
     return (
-        <div className="overflow-x-auto relative sm:rounded-lg border shadow-md">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-4 py-3">
-                            Filename
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                            Type
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                            Requirements
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                            Hash
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {evidenceWithRequirements.map((evidence) => (
-                        <EvidenceRow key={evidence.id} evidence={evidence} />
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
+            <section className="w-full flex flex-col">
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <Table
+                        sorters={sorters}
+                        filters={filters}
+                        tableHeaders={tableHeaders}
+                        tableBody={tableBody}
+                        initialOrders={[
+                            Order.NONE,
+                            Order.NONE,
+                            Order.NONE,
+                            Order.NONE,
+                        ]}
+                        formRef={formRef}
+                    />
+                </div>
+            </section>
+        </form>
     );
 };

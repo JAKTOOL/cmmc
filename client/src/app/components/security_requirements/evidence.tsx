@@ -28,7 +28,7 @@ const deriveEvidence = async ({
     data: ArrayBuffer;
 }): Promise<IDBEvidenceV2> => {
     const id = [
-        ...new Uint8Array(await window.crypto.subtle.digest("SHA-1", data)),
+        ...new Uint8Array(await window.crypto.subtle.digest("SHA-256", data)),
     ]
         .map((x) => x.toString(16).padStart(2, "0"))
         .join("");
@@ -423,7 +423,7 @@ function pasteImageFromClipboard(requirementId, setEvidence, setUploading) {
         try {
             if (["TEXTAREA", "INPUT"].includes(event?.target?.nodeName)) {
                 return false;
-            }	
+            }
             event.preventDefault();
 
             const clipboardItems: ClipboardItems | undefined =
