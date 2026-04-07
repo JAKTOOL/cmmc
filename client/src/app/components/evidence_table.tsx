@@ -159,7 +159,7 @@ export const EvidenceTable = () => {
                         tableHeaders={tableHeaders}
                         tableBody={tableBody}
                         initialOrders={[
-                            Order.NONE,
+                            Order.ASC,
                             Order.NONE,
                             Order.NONE,
                             Order.NONE,
