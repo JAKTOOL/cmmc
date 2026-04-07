@@ -71,7 +71,7 @@ export const EvidenceTable = () => {
             {
                 text: "Type",
                 filterable: true,
-                className: "max-md:hidden",
+                className: "min-w-[195px] max-md:hidden",
             },
             {
                 text: "Requirements",
@@ -130,7 +130,11 @@ export const EvidenceTable = () => {
     );
 
     return (
-        <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
+        <form
+            ref={formRef}
+            onSubmit={(e) => e.preventDefault()}
+            className="w-full"
+        >
             <section className="w-full flex flex-col">
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <Table
