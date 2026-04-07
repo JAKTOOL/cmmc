@@ -106,7 +106,7 @@ export const EvidenceTable = () => {
                         <Link
                             key={`${artifact.id}-${requirement}`}
                             href={`${path}/requirement/${requirement}`}
-                            className="mr-2 text-blue-400"
+                            className="text-blue-400"
                         >
                             {requirement}
                         </Link>
@@ -122,7 +122,7 @@ export const EvidenceTable = () => {
                 classNames: [
                     null,
                     "max-md:hidden",
-                    null,
+                    "flex flex-col",
                     "max-lg:hidden md:max-w-48 xl:max-w-full",
                 ],
             })) ?? [],
