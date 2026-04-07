@@ -17,6 +17,18 @@ interface Requirements {
 
 interface EvidenceWithRequirements extends IDBEvidenceV2, Requirements {}
 
+const hashType = (hash: string) => {
+    if (hash.includes("-")) {
+        return "uuid"; // Legacy
+    }
+
+    if (hash.length === 40) {
+        return "sha1"; // Legacy
+    }
+
+    return "sha256";
+};
+
 async function fetchEvidence(): Promise<EvidenceWithRequirements[]> {
     const evidenceRequirementRecords = await IDB.evidenceRequirements.getAll();
     const requirementsByEvidenceId = evidenceRequirementRecords.reduce(
@@ -45,7 +57,10 @@ async function fetchEvidence(): Promise<EvidenceWithRequirements[]> {
 
 const nestedSort = (a?: string[], b?: string[]) => defaultSort(a?.[0], b?.[0]);
 const sorters = [defaultSort, defaultSort, nestedSort, defaultSort];
-const filters = [defaultFilter, defaultFilter, null, null];
+
+const nestedFilter = (search: string) => (values: string[]) =>
+    values.some((value) => value.includes(search));
+const filters = [defaultFilter, defaultFilter, nestedFilter, null];
 
 export const EvidenceTable = () => {
     const [evidenceWithRequirements, setEvidenceWithRequirements] = useState<
@@ -75,7 +90,8 @@ export const EvidenceTable = () => {
             },
             {
                 text: "Requirements",
-                filterable: false,
+                filterable: true,
+                className: "min-w-[250px] max-w-[250px]",
             },
             {
                 text: "File Hash",
@@ -106,7 +122,7 @@ export const EvidenceTable = () => {
                         <Link
                             key={`${artifact.id}-${requirement}`}
                             href={`${path}/requirement/${requirement}`}
-                            className="text-blue-400"
+                            className="text-blue-400 mr-2"
                         >
                             {requirement}
                         </Link>
@@ -116,13 +132,13 @@ export const EvidenceTable = () => {
                         className="truncate w-full"
                         title={artifact.id}
                     >
-                        {artifact.id}
+                        {hashType(artifact.id)}:{artifact.id}
                     </div>,
                 ],
                 classNames: [
                     null,
                     "max-md:hidden",
-                    "flex flex-col",
+                    "flex flex-wrap",
                     "max-lg:hidden md:max-w-48 xl:max-w-full",
                 ],
             })) ?? [],
