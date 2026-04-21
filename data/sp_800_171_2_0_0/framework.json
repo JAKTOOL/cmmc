@@ -3122,7 +3122,7 @@
                     "element_type": "security_requirement",
                     "element_identifier": "SR-03.08.03.b",
                     "title": "b",
-                    "text": "System media containing cui is sanitized or destroyed before disposal",
+                    "text": "System media containing cui before it is released for reuse",
                     "doc_identifier": "SP_800_171_2_0_0"
                 },
                 {
