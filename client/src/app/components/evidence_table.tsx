@@ -8,6 +8,7 @@ import {
 } from "@/app/components/table";
 import { toPath, useRevisionContext } from "@/app/context/revision";
 import { IDB, IDBEvidenceV2 } from "@/app/db";
+import { hashType } from "@/app/utils/file";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -16,18 +17,6 @@ interface Requirements {
 }
 
 interface EvidenceWithRequirements extends IDBEvidenceV2, Requirements {}
-
-const hashType = (hash: string) => {
-    if (hash.includes("-")) {
-        return "uuid"; // Legacy
-    }
-
-    if (hash.length === 40) {
-        return "sha1"; // Legacy
-    }
-
-    return "sha256";
-};
 
 async function fetchEvidence(): Promise<EvidenceWithRequirements[]> {
     const evidenceRequirementRecords = await IDB.evidenceRequirements.getAll();

@@ -77,6 +77,10 @@ export const Markdown = () => {
                     (artifact) => artifact.type !== "url",
                 );
 
+                const path = requirement.element_identifier
+                    .split(".")
+                    .join("/");
+
                 if (
                     (shouldIncludeLinks || shouldEmbedArtifacts) &&
                     (linkArtifacts.length || fileArtifacts.length)
@@ -103,7 +107,7 @@ export const Markdown = () => {
                         const embedLinks = fileArtifacts
                             .map(
                                 (artifact) =>
-                                    `- [${artifact.filename}](${toFSName(artifact)})`,
+                                    `- [${artifact.filename}](./${path}/${toFSName(artifact)})`,
                             )
                             .join("\n");
 
@@ -160,7 +164,7 @@ export const Markdown = () => {
                         payload.push(
                             `**${toStatus()} [${secReq.subSubRequirement}](${
                                 window.location.origin
-                            }${path}/requirement/${secReq.requirement}#${
+                            }/${path}/requirement/${secReq.requirement}#${
                                 secReq.subSubRequirement
                             })**`,
                         );

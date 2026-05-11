@@ -4,6 +4,24 @@ import { IDBEvidenceV2 } from "@/app/db";
 export const toFSName = (artifact: IDBEvidenceV2) =>
     `${artifact.id}-${artifact.filename}`;
 
+export enum HashType {
+    SHA256 = "sha256",
+    SHA1 = "sha1",
+    UUID = "uuid",
+}
+
+export const hashType = (hash: string) => {
+    if (hash.includes("-")) {
+        return HashType.UUID; // Legacy
+    }
+
+    if (hash.length === 40) {
+        return HashType.SHA1; // Legacy
+    }
+
+    return HashType.SHA256;
+};
+
 export const isImage = (type: string) => {
     switch (type) {
         case "image/png":
