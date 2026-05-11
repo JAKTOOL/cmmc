@@ -1,4 +1,5 @@
 "use client";
+import { useManifestContext } from "@/app/context/manifest";
 import { Revision, toNum, useRevisionContext } from "@/app/context/revision";
 import { IDB, IDBEvidenceV2 } from "@/app/db";
 import { hashType, HashType, toFSName } from "@/app/utils/file";
@@ -34,15 +35,21 @@ const download = async (mapping: EvidenceMapping, revision: Revision) => {
 };
 
 export const ExportEvidenceMap = () => {
+    const manifest = useManifestContext();
     const revision = useRevisionContext();
     const onClick = async () => {
         if (window.confirm("This will download evidence mapping. Continue?")) {
+            const requirements = manifest.requirements.byId;
             const evidence = await IDB.evidence.getAll();
             const evidenceRequirements =
                 await IDB.evidenceRequirements.getAll();
 
             const evidenceRequirementsMapping = evidenceRequirements.reduce(
                 (acc, evidenceRequirement) => {
+                    if (!requirements[evidenceRequirement.requirement_id]) {
+                        return acc;
+                    }
+
                     if (acc[evidenceRequirement.evidence_id]) {
                         acc[evidenceRequirement.evidence_id].push(
                             evidenceRequirement.requirement_id,
@@ -59,6 +66,10 @@ export const ExportEvidenceMap = () => {
 
             const requirementsMapping = evidenceRequirements.reduce(
                 (acc, evidenceRequirement) => {
+                    if (!requirements[evidenceRequirement.requirement_id]) {
+                        return acc;
+                    }
+
                     if (acc[evidenceRequirement.requirement_id]) {
                         acc[evidenceRequirement.requirement_id].push(
                             evidenceRequirement.evidence_id,
