@@ -111,6 +111,8 @@ export const ExportEvidenceMap = () => {
                 byRequirements: requirementsMapping,
             };
 
+            debugger;
+
             await download(evidenceMapping, revision);
         }
     };
