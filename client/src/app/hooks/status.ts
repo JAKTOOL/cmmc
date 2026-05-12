@@ -53,6 +53,7 @@ export const useGlobalStatus = () => {
     const families = manifest?.families?.elements;
     const securityRequirementsByRequirements =
         manifest.securityRequirements.byRequirements;
+    const requirements = manifest.requirements.byId;
     const idbRequirements = useDBRequirements();
 
     return useMemo(() => {
@@ -67,7 +68,9 @@ export const useGlobalStatus = () => {
 
         const storedRequirements = idbRequirements?.reduce(
             (acc, cur) => {
-                acc[cur.id] = cur;
+                if (requirements[cur.id]) {
+                    acc[cur.id] = cur;
+                }
                 return acc;
             },
             {} as Record<string, IDBRequirement>,
@@ -88,10 +91,20 @@ export const useGlobalStatus = () => {
             );
 
             if (storedRequirements[requirementId]) {
+                const storedSubSecurityRequirements = Object.entries(
+                    storedRequirements[requirementId].bySecurityRequirementId,
+                ).reduce(
+                    (acc, [key, value]) => {
+                        if (subSecurityStatuses[key]) {
+                            acc[key] = value;
+                        }
+                        return acc;
+                    },
+                    {} as Record<string, Status>,
+                );
                 subSecurityStatuses = {
                     ...subSecurityStatuses,
-                    ...storedRequirements[requirementId]
-                        .bySecurityRequirementId,
+                    ...storedSubSecurityRequirements,
                 };
             }
             familyStatus[family].subSecurityRequirementStatuses = {
@@ -100,7 +113,12 @@ export const useGlobalStatus = () => {
             };
         }
         return familyStatus;
-    }, [families, securityRequirementsByRequirements, idbRequirements]);
+    }, [
+        families,
+        securityRequirementsByRequirements,
+        idbRequirements,
+        requirements,
+    ]);
 };
 
 export const useFamilyStatus = (familyId: string) => {

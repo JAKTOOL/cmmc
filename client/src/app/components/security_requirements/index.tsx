@@ -104,10 +104,12 @@ export const SecurityRequirements = ({
             const nextStatuses: Status[] = [];
             const state = idbSecurityRequirements?.reduce(
                 (acc, requirement) => {
-                    acc[`${requirement.id}.status`] = requirement.status;
-                    acc[`${requirement.id}.description`] =
-                        requirement.description;
-                    nextStatuses.push(requirement.status as Status);
+                    if (ids.includes(requirement.id)) {
+                        acc[`${requirement.id}.status`] = requirement.status;
+                        acc[`${requirement.id}.description`] =
+                            requirement.description;
+                        nextStatuses.push(requirement.status as Status);
+                    }
                     return acc;
                 },
                 {},
