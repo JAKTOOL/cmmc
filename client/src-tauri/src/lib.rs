@@ -223,8 +223,89 @@ async fn save_files(
     }
 }
 
+// Stderr breadcrumbs for the local-AI path. The webview's console is
+// invisible in release builds on webkitgtk, and the web-process crash under
+// investigation takes the console down with it — stderr from the host
+// process survives and shows in the launching terminal. Timestamped so
+// stages can be correlated with the crash moment.
+#[tauri::command]
+fn ai_debug_log(message: String) {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default();
+    eprintln!("[ai {}.{:03}] {message}", now.as_secs(), now.subsec_millis());
+}
+
+// Model weights ship as bundle resources (resource_dir()/models — see
+// tauri.conf.json), NOT as embedded frontend assets: generate_context!
+// compiles everything under ../out into the binary, and gigabytes of
+// weights there blow rustc's memory (OOM SIGKILL) and would bloat the
+// executable. The webview reads the files through this command instead.
+// async so a large read never blocks the main thread.
+// Returns the bytes base64-encoded, matching the app's other large IPC
+// payloads (see decode_base64 above): a raw-bytes tauri::ipc::Response of a
+// 300 MB weight file killed the WebKitWebProcess outright, while base64
+// strings are the pattern this app already ships >100 MB exports through.
+// Optional offset/len window a chunked read: the engine reads big weight
+// files in bounded slices so no single IPC message carries hundreds of MB.
+#[tauri::command]
+async fn read_model_file(
+    app: tauri::AppHandle,
+    path: String,
+    offset: Option<u64>,
+    len: Option<u64>,
+) -> Result<String, String> {
+    use tauri::Manager;
+    // Relative, forward-slash paths from the manifest only — reject anything
+    // that could escape the models directory.
+    let valid = !path.is_empty()
+        && !path.contains('\\')
+        && !path.starts_with('/')
+        && path
+            .split('/')
+            .all(|part| !part.is_empty() && part != "." && part != "..");
+    if !valid {
+        return Err(format!("invalid model path: {path}"));
+    }
+    let file = app
+        .path()
+        .resource_dir()
+        .map_err(|err| err.to_string())?
+        .join("models")
+        .join(&path);
+    let data = match (offset, len) {
+        (Some(offset), Some(len)) => {
+            use std::io::{Read, Seek, SeekFrom};
+            let mut handle =
+                std::fs::File::open(&file).map_err(|err| format!("{path}: {err}"))?;
+            handle
+                .seek(SeekFrom::Start(offset))
+                .map_err(|err| format!("{path}: {err}"))?;
+            let mut buffer = Vec::with_capacity(len as usize);
+            handle
+                .take(len)
+                .read_to_end(&mut buffer)
+                .map_err(|err| format!("{path}: {err}"))?;
+            buffer
+        }
+        _ => std::fs::read(&file).map_err(|err| format!("{path}: {err}"))?,
+    };
+    Ok(base64::engine::general_purpose::STANDARD.encode(data))
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // WebKitGTK's memory-pressure monitor kills the web process at
+    // conservative thresholds, and loading the local-AI model weights
+    // (hundreds of MB in the inference worker + ONNX Runtime's heap) trips
+    // it even with plenty of free RAM. Must be set before the first webview
+    // spawns. The Nix wrapper also sets it, but .deb/.rpm installs launch
+    // the binary directly.
+    #[cfg(target_os = "linux")]
+    if std::env::var_os("WEBKIT_DISABLE_MEMORY_PRESSURE_MONITOR").is_none() {
+        std::env::set_var("WEBKIT_DISABLE_MEMORY_PRESSURE_MONITOR", "1");
+    }
+
     let builder = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init());
@@ -238,9 +319,11 @@ pub fn run() {
 
     builder
         .invoke_handler(tauri::generate_handler![
+            ai_debug_log,
             open_external,
             open_evidence,
             open_json_file,
+            read_model_file,
             save_file,
             save_files,
             license::license_status,

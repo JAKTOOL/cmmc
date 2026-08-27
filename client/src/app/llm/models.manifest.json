@@ -1,5 +1,5 @@
 {
-    "note": "Pinned model-weight manifest. Every file is identified by URL, revision, size, and sha256. flake.nix fetches these as fixed-output derivations for the desktop bundle; the browser downloader verifies the same hashes before caching. Regenerate an entry with: node scripts/update-model-manifest.mjs --id <id>. Empty sha256 values mean the entry is not yet pinned — both Nix and the runtime refuse to use it.",
+    "note": "Pinned model-weight manifest. Every file is identified by URL, revision, size, and sha256. Weights are a build-time input only: flake.nix fetches these as fixed-output derivations, and scripts/fetch-model-weights.mjs does the same (with sha256 verification) for non-Nix desktop builds. The app never downloads weights at runtime. Regenerate an entry with: node scripts/update-model-manifest.mjs --id <id>. Empty sha256 values mean the entry is not yet pinned and is excluded from builds.",
     "models": [
         {
             "id": "llama-3.2-1b-instruct",
@@ -11,7 +11,7 @@
             "license": "Llama 3.2 Community License",
             "licenseNotice": "Built with Llama",
             "licenseUrl": "https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct",
-            "totalBytes": 11780334,
+            "totalBytes": 1101385966,
             "files": [
                 {
                     "path": "config.json",
@@ -42,6 +42,12 @@
                     "url": "https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct/resolve/14007543b6dc92de88daf96a9aa85d2f95ace6ef/onnx/model_q4f16.onnx",
                     "size": 149790,
                     "sha256": "fccc573530dbefac92a36797262e4228dc6fb474734d80f6781e37744550333c"
+                },
+                {
+                    "path": "onnx/model_q4f16.onnx_data",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct/resolve/14007543b6dc92de88daf96a9aa85d2f95ace6ef/onnx/model_q4f16.onnx_data",
+                    "size": 1089605632,
+                    "sha256": "3f11fd184cd0b34f359cc2696c898026dfc0e169e56c3a2505ae964948a873f1"
                 }
             ]
         },
@@ -55,7 +61,7 @@
             "license": "Gemma Terms of Use",
             "licenseNotice": "Gemma is provided under and subject to the Gemma Terms of Use",
             "licenseUrl": "https://ai.google.dev/gemma/terms",
-            "totalBytes": 20569702,
+            "totalBytes": 343502950,
             "files": [
                 {
                     "path": "config.json",
@@ -86,6 +92,12 @@
                     "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_q4.onnx",
                     "size": 242522,
                     "sha256": "cb3615746a988839308507933d4e0501ff695e747a0a0ce15c0ef53083f8ec54"
+                },
+                {
+                    "path": "onnx/model_q4.onnx_data",
+                    "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_q4.onnx_data",
+                    "size": 322933248,
+                    "sha256": "25c4a14af32fc1011a90504076024b0e1f65f915e9690b44a5484200d2e20851"
                 }
             ]
         }

@@ -1,47 +1,53 @@
 "use client";
-// Main-thread side of the local inference runtime: worker lifecycle, weight
-// download with hash verification, and a status store for React. Lazy
-// singleton, following utils/pdf.ts — nothing loads until the feature is
-// first used.
+// Main-thread side of the local inference runtime: worker lifecycle and a
+// status store for React. Lazy singleton, following utils/pdf.ts — nothing
+// loads until the feature is first used.
 //
-// Weight sourcing has two modes, decided per build at load time:
-//   - "local": the desktop build bundles weights at /models/ (see flake.nix);
-//     the worker reads them from the app's own origin. No network at all.
-//   - "cache": the browser build downloads each manifest-pinned URL once,
-//     verifies its sha256, and stores it in the Cache API under the exact URL
-//     transformers.js will request — so the worker is always served from
-//     cache and never performs a real network fetch.
+// Weights are a build-time input only. Every build that has the AI feature
+// ships them as static assets under /models/ (flake.nix for the Nix desktop
+// package, scripts/fetch-model-weights.mjs for non-Nix desktop builds). The
+// app never fetches weights at runtime; a build without the bundled tree
+// simply reports the feature as unavailable.
 
 import { registerLocalModel } from "@/app/ai/model";
+import { aiDebugLog, isTauri, readModelFile } from "@/app/utils/tauri";
 import {
     CONTEXT_TOKENS,
     LlmDevice,
     LlmModel,
     MAX_NEW_TOKENS,
+    externalDataChunks,
     hasBundledWeights,
-    isPinned,
 } from "./config";
 import { getDeviceCapabilities } from "./capabilities";
-import type { ChatMessage, FromWorker, ToWorker, WeightSource } from "./protocol";
+import type { ChatMessage, FromWorker, ToWorker } from "./protocol";
 
-// transformers.js's own Cache API bucket. Deliberately not the service
-// worker's build-stamped cache: sw.js purges that on every release, and the
-// weights must survive upgrades.
-const TRANSFORMERS_CACHE = "transformers-cache";
+/** Where this build keeps the weights: "origin" = fetchable from the app's
+ *  own origin (dev server serving public/models); "ipc" = Tauri bundle
+ *  resources, read through read_model_file; null = not in this build. */
+type WeightSource = "origin" | "ipc" | null;
 
-export type LlmPhase =
-    | "idle"
-    | "downloading"
-    | "loading"
-    | "ready"
-    | "generating"
-    | "error";
+const resolveWeightSource = async (model: LlmModel): Promise<WeightSource> => {
+    if (await hasBundledWeights(model)) {
+        return "origin";
+    }
+    if (isTauri() && (await readModelFile(`${model.repo}/config.json`))) {
+        return "ipc";
+    }
+    return null;
+};
+
+/** True when this build ships the model's weights (either form). */
+export const weightsAvailable = async (model: LlmModel): Promise<boolean> =>
+    (await resolveWeightSource(model)) !== null;
+
+export type LlmPhase = "idle" | "loading" | "ready" | "generating" | "error";
 
 export interface LlmStatus {
     phase: LlmPhase;
     modelId?: string;
     device?: LlmDevice;
-    /** 0..1 for downloading/loading phases. */
+    /** 0..1 while the model initializes. */
     progress?: number;
     error?: string;
 }
@@ -67,137 +73,65 @@ export const getLlmStatus = (): LlmStatus => status;
 export const subscribeLlmStatus = (listener: Listener): (() => void) => {
     listeners.add(listener);
     listener(status);
-    return () => listeners.delete(listener);
+    return () => {
+        listeners.delete(listener);
+    };
 };
-
-const sha256Hex = async (data: ArrayBuffer): Promise<string> => {
-    const digest = await crypto.subtle.digest("SHA-256", data);
-    return [...new Uint8Array(digest)]
-        .map((byte) => byte.toString(16).padStart(2, "0"))
-        .join("");
-};
-
-/** True when every manifest file for the model sits in the weights cache. */
-export const isDownloaded = async (model: LlmModel): Promise<boolean> => {
-    if (!isPinned(model)) {
-        return false;
-    }
-    const cache = await caches.open(TRANSFORMERS_CACHE);
-    for (const file of model.files) {
-        if (!(await cache.match(file.url))) {
-            return false;
-        }
-    }
-    return true;
-};
-
-/** Download every manifest file, verify its sha256, and cache it under the
- *  URL transformers.js will request. Rejects (and caches nothing for the
- *  failing file) on any hash mismatch — a changed upstream file must fail
- *  loudly, never run silently. */
-export const downloadModel = async (
-    model: LlmModel,
-    onProgress?: (loaded: number, total: number) => void,
-): Promise<void> => {
-    if (!isPinned(model)) {
-        throw new Error(
-            `Model ${model.id} is not pinned in models.manifest.json`,
-        );
-    }
-    const cache = await caches.open(TRANSFORMERS_CACHE);
-    const total = model.totalBytes;
-    let doneBytes = 0;
-    setStatus({ phase: "downloading", modelId: model.id, progress: 0 });
-    try {
-        for (const file of model.files) {
-            if (await cache.match(file.url)) {
-                doneBytes += file.size;
-                onProgress?.(doneBytes, total);
-                continue;
-            }
-            const response = await fetch(file.url);
-            if (!response.ok || !response.body) {
-                throw new Error(`${response.status} fetching ${file.path}`);
-            }
-            const reader = response.body.getReader();
-            const parts: Uint8Array[] = [];
-            let received = 0;
-            for (;;) {
-                const { done, value } = await reader.read();
-                if (done) {
-                    break;
-                }
-                parts.push(value);
-                received += value.byteLength;
-                onProgress?.(doneBytes + received, total);
-                setStatus({
-                    phase: "downloading",
-                    modelId: model.id,
-                    progress: total ? (doneBytes + received) / total : 0,
-                });
-            }
-            const buffer = new Uint8Array(received);
-            let offset = 0;
-            for (const part of parts) {
-                buffer.set(part, offset);
-                offset += part.byteLength;
-            }
-            const digest = await sha256Hex(buffer.buffer);
-            if (digest !== file.sha256) {
-                throw new Error(
-                    `Hash mismatch for ${file.path}: expected ${file.sha256}, got ${digest}. The upstream file changed — re-pin with scripts/update-model-manifest.mjs after review.`,
-                );
-            }
-            await cache.put(
-                file.url,
-                new Response(buffer, {
-                    headers: {
-                        "Content-Type": "application/octet-stream",
-                        "Content-Length": String(received),
-                    },
-                }),
-            );
-            doneBytes += file.size;
-        }
-        setStatus({ phase: "idle", modelId: model.id });
-    } catch (error) {
-        setStatus({
-            phase: "error",
-            modelId: model.id,
-            error: error instanceof Error ? error.message : String(error),
-        });
-        throw error;
-    }
-};
-
-export const deleteModel = async (model: LlmModel): Promise<void> => {
-    const cache = await caches.open(TRANSFORMERS_CACHE);
-    for (const file of model.files) {
-        await cache.delete(file.url);
-    }
-    if (loadedModelId === model.id) {
-        worker?.terminate();
-        worker = undefined;
-        loadedModelId = undefined;
-        registerLocalModel(undefined);
-    }
-    setStatus({ phase: "idle" });
-};
-
-/** Bytes the model occupies locally: manifest total when downloaded, zero
- *  otherwise (bundled desktop weights live in the app install, not here). */
-export const downloadedBytes = async (model: LlmModel): Promise<number> =>
-    (await isDownloaded(model)) ? model.totalBytes : 0;
 
 let worker: Worker | undefined;
 let loadedModelId: string | undefined;
 let loadPromise: Promise<void> | undefined;
 let requestCounter = 0;
 let activeGeneration = false;
+/** Model being served to the worker — read-file requests resolve against
+ *  its manifest entry (paths, sizes for progress). */
+let currentModel: LlmModel | undefined;
+let ipcReadBytes = 0;
+
+// Weight files cross the IPC bridge in bounded slices: webviews cap (or
+// crash on) very large single messages, and slicing also gives real
+// progress on the multi-hundred-MB shards. 32 MB binary is ~43 MB as the
+// base64 the bridge actually carries — inside the envelope the app's
+// exports already proved out.
+const IPC_CHUNK_BYTES = 32 * 1024 * 1024;
+
+/** Read a resource file over IPC, chunked when the manifest knows it is
+ *  large. onChunk reports bytes as they arrive (for progress). */
+const readResourceFile = async (
+    repo: string,
+    path: string,
+    size: number | undefined,
+    onChunk: (bytes: number) => void,
+): Promise<ArrayBuffer | null> => {
+    if (!size || size <= IPC_CHUNK_BYTES) {
+        const data = await readModelFile(`${repo}/${path}`);
+        if (data) {
+            onChunk(data.byteLength);
+        }
+        return data;
+    }
+    const assembled = new Uint8Array(size);
+    for (let offset = 0; offset < size; offset += IPC_CHUNK_BYTES) {
+        const len = Math.min(IPC_CHUNK_BYTES, size - offset);
+        const part = await readModelFile(`${repo}/${path}`, offset, len);
+        if (!part || part.byteLength !== len) {
+            aiDebugLog(
+                `engine: chunk read failed ${path} @${offset} (${part?.byteLength ?? "null"}/${len})`,
+            );
+            return null;
+        }
+        assembled.set(new Uint8Array(part), offset);
+        onChunk(len);
+    }
+    return assembled.buffer;
+};
 
 interface PendingRequest {
     onToken: (text: string) => void;
-    resolve: (value: { text: string; stats: { tokens: number; ms: number } }) => void;
+    resolve: (value: {
+        text: string;
+        stats: { tokens: number; ms: number };
+    }) => void;
     reject: (reason: Error) => void;
 }
 const pending = new Map<number, PendingRequest>();
@@ -209,9 +143,74 @@ const getWorker = (): Worker => {
         worker = new Worker(new URL("./worker.ts", import.meta.url), {
             type: "module",
         });
+        // Fires when the worker script itself dies (load failure, uncaught
+        // throw) — distinct from a whole-web-process crash, which kills this
+        // handler too. Either way the breadcrumb trail on stderr tells the
+        // two apart: script death logs here; process death just stops.
+        worker.onerror = (event) => {
+            aiDebugLog(
+                `worker onerror: ${event.message ?? "?"} @ ${event.filename ?? "?"}:${event.lineno ?? "?"}`,
+            );
+        };
         worker.onmessage = (event: MessageEvent<FromWorker>) => {
             const message = event.data;
             switch (message.type) {
+                case "log": {
+                    aiDebugLog(message.message);
+                    break;
+                }
+                case "read-file": {
+                    // Desktop ipc mode: stream one weight file to the worker.
+                    // The buffer is transferred (zero-copy) and nothing is
+                    // retained here, so peak memory stays at a single file.
+                    (async () => {
+                        const model = currentModel;
+                        // Serve any path under the model's resource dir (the
+                        // Rust command confines it) — transformers.js probes
+                        // optional files beyond the manifest. Only manifest
+                        // entries count toward progress.
+                        const known = model?.files.find(
+                            (file) => file.path === message.path,
+                        );
+                        const data = model
+                            ? await readResourceFile(
+                                  model.repo,
+                                  message.path,
+                                  known?.size,
+                                  (bytes) => {
+                                      if (!known) {
+                                          return;
+                                      }
+                                      ipcReadBytes += bytes;
+                                      setStatus({
+                                          phase: "loading",
+                                          modelId: loadedModelId,
+                                          device: status.device,
+                                          progress: model.totalBytes
+                                              ? Math.min(
+                                                    1,
+                                                    ipcReadBytes /
+                                                        model.totalBytes,
+                                                )
+                                              : undefined,
+                                      });
+                                  },
+                              )
+                            : null;
+                        aiDebugLog(
+                            `engine: read ${message.path} -> ${data ? data.byteLength : "null"} bytes`,
+                        );
+                        send(
+                            {
+                                type: "file-data",
+                                fileId: message.fileId,
+                                data,
+                            },
+                            data ? [data] : [],
+                        );
+                    })();
+                    break;
+                }
                 case "progress": {
                     setStatus({
                         phase: "loading",
@@ -223,6 +222,7 @@ const getWorker = (): Worker => {
                     break;
                 }
                 case "ready": {
+                    aiDebugLog("engine: worker reports ready");
                     onWorkerReady?.();
                     break;
                 }
@@ -246,6 +246,7 @@ const getWorker = (): Worker => {
                     break;
                 }
                 case "error": {
+                    aiDebugLog(`engine: worker error: ${message.message}`);
                     const error = new Error(message.message);
                     if (message.requestId !== undefined) {
                         const request = pending.get(message.requestId);
@@ -268,10 +269,11 @@ const getWorker = (): Worker => {
     return worker;
 };
 
-const send = (message: ToWorker) => getWorker().postMessage(message);
+const send = (message: ToWorker, transfer: Transferable[] = []) =>
+    getWorker().postMessage(message, transfer);
 
-/** Load the model into the worker (idempotent). Requires bundled weights or
- *  a completed, verified download — this function never downloads. */
+/** Load the model into the worker (idempotent). Requires the build to have
+ *  bundled the weights under /models/ — there is no download path. */
 export const ensureLoaded = async (model: LlmModel): Promise<void> => {
     if (loadedModelId === model.id) {
         return loadPromise;
@@ -282,6 +284,7 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
         worker.terminate();
         worker = undefined;
         loadedModelId = undefined;
+        currentModel = undefined;
         registerLocalModel(undefined);
     }
 
@@ -291,18 +294,21 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
             `${model.label} needs WebGPU, which this browser does not provide. Choose the lite model instead.`,
         );
     }
-
-    let source: WeightSource;
-    if (await hasBundledWeights(model)) {
-        source = "local";
-    } else if (await isDownloaded(model)) {
-        source = "cache";
-    } else {
-        throw new Error(`Weights for ${model.label} are not downloaded yet`);
+    const source = await resolveWeightSource(model);
+    aiDebugLog(
+        `engine: ensureLoaded ${model.id} device=${device} source=${source}`,
+    );
+    if (!source) {
+        throw new Error(
+            `${model.label} is not included in this build. Desktop builds bundle the weights; see docs/local-ai.md.`,
+        );
     }
 
     loadedModelId = model.id;
-    setStatus({ phase: "loading", modelId: model.id, device });
+    currentModel = model;
+    ipcReadBytes = 0;
+    setStatus({ phase: "loading", modelId: model.id, device, progress: 0 });
+
     loadPromise = new Promise<void>((resolve, reject) => {
         onWorkerReady = () => {
             onWorkerReady = undefined;
@@ -328,7 +334,8 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
             revision: model.revision,
             dtype: model.dtype,
             device,
-            source,
+            externalDataChunks: externalDataChunks(model),
+            ipc: source === "ipc",
         });
     });
     return loadPromise;
@@ -348,7 +355,11 @@ export const generate = (
     }
     activeGeneration = true;
     const requestId = ++requestCounter;
-    setStatus({ phase: "generating", modelId: loadedModelId, device: status.device });
+    setStatus({
+        phase: "generating",
+        modelId: loadedModelId,
+        device: status.device,
+    });
     const result = new Promise<{
         text: string;
         stats: { tokens: number; ms: number };

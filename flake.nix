@@ -126,8 +126,18 @@
         linuxEnv = ''
           export WEBKIT_DISABLE_COMPOSITING_MODE=1
           export WEBKIT_DISABLE_DMABUF_RENDERER=1
+          # WebKitGTK's memory-pressure monitor kills the web process at
+          # conservative thresholds; loading local-AI model weights (hundreds
+          # of MB in the worker + ONNX Runtime heap) trips it even with
+          # plenty of free RAM.
+          export WEBKIT_DISABLE_MEMORY_PRESSURE_MONITOR=1
           export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS_PATH''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
           export GIO_MODULE_DIR="${pkgs.glib-networking}/lib/gio/modules/"
+          # onnxruntime-node (transformers.js dependency, Linux x64 only)
+          # downloads CUDA binaries from GitHub in its install script. The app
+          # only uses onnxruntime-web in the browser, so skip it — it would
+          # also fail in any sandboxed/offline npm ci.
+          export ONNXRUNTIME_NODE_INSTALL_CUDA=skip
         '';
 
         # pkg-config with the Tauri system libraries' search path baked in.
@@ -217,15 +227,21 @@
               # next.config.ts footer stamps: no .git in the sandbox, so feed it
               # the version and (when the tree is clean enough to know) the rev.
               APP_VERSION = appVersion;
+              # onnxruntime-node's install script downloads CUDA binaries from
+              # GitHub — impossible in the build sandbox and unused anyway
+              # (inference runs on onnxruntime-web in the webview).
+              ONNXRUNTIME_NODE_INSTALL_CUDA = "skip";
             } // lib.optionalAttrs (self ? rev || self ? dirtyRev) {
               GITHUB_SHA = self.rev or self.dirtyRev;
             };
 
-            # Bundle the pinned model weights into the static export so the
-            # desktop app runs the summarizer fully offline (the runtime
-            # probes /models/ and skips its downloader when this tree exists).
-            # copy-ort-assets.mjs (npm prebuild) needs a writable public/, so
-            # the weights are plain copies, not store symlinks.
+            # Stage the pinned model weights at public/models — the source
+            # tauri.conf.json maps into the bundle's resources
+            # (resource_dir()/models, read over IPC at runtime). They do NOT
+            # ship inside the frontend export: npm postbuild strips
+            # out/models (scripts/strip-model-assets.mjs) because embedding
+            # gigabytes via generate_context! OOM-kills rustc. Plain copies,
+            # not store symlinks, so the tree stays writable.
             # The hook may have entered src-tauri/ by preBuild time, so find
             # the frontend root (where public/ lives) relative to either cwd.
             preBuild = lib.optionalString (pinnedModels != [ ]) ''
@@ -260,6 +276,9 @@
               gappsWrapperArgs+=(
                 --set WEBKIT_DISABLE_COMPOSITING_MODE 1
                 --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+                # Model loading trips webkit's memory-pressure kill threshold
+                # (see linuxEnv above).
+                --set WEBKIT_DISABLE_MEMORY_PRESSURE_MONITOR 1
                 --set GIO_MODULE_DIR "${pkgs.glib-networking}/lib/gio/modules/"
                 --unset GIO_EXTRA_MODULES
               )

@@ -5,9 +5,10 @@
 // single source of truth for three consumers:
 //   - flake.nix fetches each file as a fixed-output derivation and bundles
 //     the weights into the desktop app.
-//   - The runtime downloader (client/src/app/llm/engine.ts) fetches the same
-//     URLs in the browser and rejects any file whose sha256 does not match.
+//   - scripts/fetch-model-weights.mjs fetches and verifies the same files
+//     for desktop builds that run outside Nix (Windows/macOS CI, local dev).
 //   - client/src/app/llm/config.ts renders sizes and license notices.
+// The app itself never downloads weights: they are a build-time input only.
 //
 // Run inside `nix develop` (needs node >= 18 and network access):
 //   node scripts/update-model-manifest.mjs --id llama-3.2-1b-instruct
@@ -44,14 +45,38 @@ const manifest = JSON.parse(readFileSync(MANIFEST_PATH, "utf8"));
 const dtypeSuffix = (dtype) =>
     dtype === "fp32" ? "" : dtype === "q8" ? "_quantized" : `_${dtype}`;
 
+// The ONNX graph file is often tiny: onnx-community repos keep the actual
+// weights in external-data siblings (model_<dtype>.onnx_data, possibly
+// sharded as _data_1, _data_2, ...). Enumerate the repo's onnx/ tree so the
+// manifest pins every shard — a manifest with only the .onnx graph would
+// build an app whose model cannot load.
+const listOnnxFiles = async (repo, revision, dtype) => {
+    const response = await fetchOk(
+        `https://huggingface.co/api/models/${repo}/tree/${revision}/onnx`,
+    );
+    const entries = await response.json();
+    const base = `onnx/model${dtypeSuffix(dtype)}.onnx`;
+    const files = entries
+        .map((entry) => entry.path)
+        .filter((path) => path === base || path.startsWith(`${base}_data`))
+        .sort();
+    if (!files.includes(base)) {
+        const available = entries.map((entry) => entry.path).join(", ");
+        throw new Error(
+            `${base} not found in ${repo}@${revision}. Available: ${available}`,
+        );
+    }
+    return files;
+};
+
 // The exact file set transformers.js requests for a text-generation model:
-// tokenizer + config + the single quantized ONNX graph named by dtype.
-const requiredFiles = (dtype) => [
+// tokenizer + config + the quantized ONNX graph and its external data.
+const requiredFiles = async (repo, revision, dtype) => [
     "config.json",
     "generation_config.json",
     "tokenizer.json",
     "tokenizer_config.json",
-    `onnx/model${dtypeSuffix(dtype)}.onnx`,
+    ...(await listOnnxFiles(repo, revision, dtype)),
 ];
 
 const resolveUrl = (repo, revision, path) =>
@@ -100,7 +125,7 @@ const updateModel = async (id) => {
     console.log(`${model.repo} @ ${revision}`);
 
     const files = [];
-    for (const path of requiredFiles(model.dtype)) {
+    for (const path of await requiredFiles(model.repo, revision, model.dtype)) {
         const url = resolveUrl(model.repo, revision, path);
         process.stdout.write(`  ${path} ... `);
         const { size, sha256 } = await hashRemote(url);

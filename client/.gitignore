@@ -20,9 +20,12 @@
 # production
 /build
 
-# build-copied AI runtime assets (copy-ort-assets.mjs) and Nix-bundled weights
+# build-copied AI runtime assets (copy-ort-assets.mjs) and fetched model
+# weights. The .gitkeep stays tracked so the Tauri bundle's resource source
+# (tauri.conf.json) exists even on a fresh clone.
 /public/ort/
-/public/models/
+/public/models/*
+!/public/models/.gitkeep
 
 # misc
 .DS_Store

@@ -7,13 +7,12 @@ import { DEFAULT_MODEL_ID } from "./config";
 
 const ENABLED_KEY = "llm.enabled";
 const MODEL_KEY = "llm.model";
-const CONSENT_KEY_PREFIX = "llm.consent.";
 
 const storage = (): Storage | undefined =>
     typeof window !== "undefined" ? window.localStorage : undefined;
 
 /** Master switch for the AI feature; on by default (the feature still does
- *  nothing until weights exist and consent is recorded). */
+ *  nothing unless the build bundled model weights). */
 export const isAiEnabled = (): boolean =>
     storage()?.getItem(ENABLED_KEY) !== "false";
 
@@ -25,11 +24,3 @@ export const getSelectedModelId = (): string =>
 
 export const setSelectedModelId = (id: string): void =>
     storage()?.setItem(MODEL_KEY, id);
-
-/** Per-model download consent: the user explicitly approved the one-time
- *  weight download for this model id. Bundled desktop weights never need it. */
-export const hasDownloadConsent = (modelId: string): boolean =>
-    storage()?.getItem(CONSENT_KEY_PREFIX + modelId) === "true";
-
-export const setDownloadConsent = (modelId: string): void =>
-    storage()?.setItem(CONSENT_KEY_PREFIX + modelId, "true");

@@ -5,14 +5,9 @@
 
 import { ElementWrapper } from "@/api/entities/Framework";
 import { IDB, TABLE_CHANGED_EVENT } from "@/app/db";
-import {
-    LlmModel,
-    getModel,
-    hasBundledWeights,
-    isPinned,
-} from "@/app/llm/config";
+import { getModel, isPinned } from "@/app/llm/config";
 import { getDeviceCapabilities } from "@/app/llm/capabilities";
-import { isDownloaded, subscribeLlmStatus } from "@/app/llm/engine";
+import { weightsAvailable } from "@/app/llm/engine";
 import { getSelectedModelId, isAiEnabled } from "@/app/llm/settings";
 import { FREE_TIER } from "@/app/utils/tier";
 import { useEffect, useState } from "react";
@@ -62,7 +57,7 @@ export const SummarizeButton = ({
             return;
         }
         let cancelled = false;
-        const refreshWeights = async () => {
+        (async () => {
             const model = getModel(getSelectedModelId());
             if (!model || !isPinned(model)) {
                 if (!cancelled) {
@@ -72,26 +67,17 @@ export const SummarizeButton = ({
                 return;
             }
             const { device } = await getDeviceCapabilities();
-            const deviceOk =
-                device === "webgpu" || model.minDevice === "wasm";
-            const ready =
-                deviceOk &&
-                ((await hasBundledWeights(model)) ||
-                    (await isDownloaded(model as LlmModel)));
+            const deviceOk = device === "webgpu" || model.minDevice === "wasm";
+            // Weights are build-time assets; their presence cannot change
+            // while the page is open, so one probe is enough.
+            const ready = deviceOk && (await weightsAvailable(model));
             if (!cancelled) {
                 setSupported(deviceOk);
                 setWeightsReady(ready);
             }
-        };
-        refreshWeights();
-        // Re-check when the engine's status moves (a download finished, a
-        // model was deleted from settings).
-        const unsubscribe = subscribeLlmStatus(() => {
-            refreshWeights();
-        });
+        })();
         return () => {
             cancelled = true;
-            unsubscribe();
         };
     }, []);
 

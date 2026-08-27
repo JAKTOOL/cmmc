@@ -46,6 +46,14 @@ export const isPinned = (model: LlmModel): boolean =>
     model.files.length > 0 &&
     model.files.every((file) => file.sha256 !== "");
 
+/** How many external-data shards the ONNX graph references
+ *  (onnx/model_<dtype>.onnx_data, _data_1, ...). ONNX Runtime cannot
+ *  discover these in a browser — transformers.js must be told to fetch
+ *  them, so the count is threaded into the worker's load options. Zero
+ *  means the graph is self-contained. */
+export const externalDataChunks = (model: LlmModel): number =>
+    model.files.filter((file) => file.path.includes(".onnx_data")).length;
+
 /** Models eligible on a device, pinned entries only. */
 export const availableModels = (device: LlmDevice): LlmModel[] =>
     MODELS.filter(
@@ -53,14 +61,17 @@ export const availableModels = (device: LlmDevice): LlmModel[] =>
             isPinned(model) && (device === "webgpu" || model.minDevice === "wasm"),
     );
 
-// Where the desktop build bundles weights (see flake.nix: model-weights is
-// copied into public/models/ before the frontend build). transformers.js
-// resolves local models as `${localModelPath}/${repo}/<file>`.
+// Weights live in client/public/models/. The dev server serves them from
+// the app origin at this path; production desktop builds instead strip them
+// from the export (scripts/strip-model-assets.mjs — embedding gigabytes
+// breaks rustc) and ship them as Tauri bundle resources read over IPC (see
+// engine.ts resolveWeightSource). transformers.js still keys local files as
+// `${localModelPath}${repo}/<file>`.
 export const LOCAL_MODEL_PATH = "/models/";
 
-/** True when this build ships the model's weights as static assets (desktop
- *  Nix/CI builds). Probes the smallest manifest file; the web build has no
- *  /models/ directory and 404s. */
+/** True when the weights are fetchable from the app's own origin (dev
+ *  server, or any hosting that serves public/models). Probes the smallest
+ *  manifest file. Production desktop uses the IPC path instead. */
 export const hasBundledWeights = async (model: LlmModel): Promise<boolean> => {
     try {
         const response = await fetch(

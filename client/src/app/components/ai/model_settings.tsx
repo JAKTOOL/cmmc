@@ -1,9 +1,10 @@
 "use client";
-// "AI Assistant" settings: model choice, one-time weight download with
-// explicit consent, engine status, and the master switch. The menu item only
-// dispatches an open event; the modal itself is mounted at the app level
-// (layout.tsx) because the nav dropdown unmounts its children on any outside
-// click (same pattern as the License modal).
+// "AI Assistant" settings: model choice, engine status, and the master
+// switch. Weights are bundled at build time — there is nothing to download
+// or delete here; a build without bundled weights shows the feature as
+// unavailable. The menu item only dispatches an open event; the modal itself
+// is mounted at the app level (layout.tsx) because the nav dropdown unmounts
+// its children on any outside click (same pattern as the License modal).
 
 import { useEffect, useMemo, useState } from "react";
 import { FREE_TIER } from "@/app/utils/tier";
@@ -13,27 +14,22 @@ import {
     LlmModel,
     MODELS,
     getModel,
-    hasBundledWeights,
     isPinned,
 } from "@/app/llm/config";
 import { getDeviceCapabilities } from "@/app/llm/capabilities";
 import {
     LlmStatus,
-    deleteModel,
-    downloadModel,
-    isDownloaded,
     subscribeLlmStatus,
+    weightsAvailable,
 } from "@/app/llm/engine";
 import {
     getSelectedModelId,
-    hasDownloadConsent,
     isAiEnabled,
     setAiEnabled,
-    setDownloadConsent,
     setSelectedModelId,
 } from "@/app/llm/settings";
 import { InfoModal } from "../modal";
-import { Badge, Button, Label, Select, menuItemClasses } from "../ui";
+import { Badge, Label, Select, menuItemClasses } from "../ui";
 
 export const AI_SETTINGS_OPEN_EVENT = "ai-settings-open";
 
@@ -78,8 +74,8 @@ export const AiMenuItem = () => {
     );
 };
 
-/** Weight state for the selected model on this device/build. */
-type WeightState = "checking" | "bundled" | "downloaded" | "absent";
+/** Weight state for the selected model in this build. */
+type WeightState = "checking" | "bundled" | "missing";
 
 export const AiSettingsModal = () => {
     const [open, setOpen] = useState(false);
@@ -88,18 +84,13 @@ export const AiSettingsModal = () => {
     const [modelId, setModelId] = useState(DEFAULT_MODEL_ID);
     const [weights, setWeights] = useState<WeightState>("checking");
     const [status, setStatus] = useState<LlmStatus>({ phase: "idle" });
-    const [error, setError] = useState<string | null>(null);
 
-    const model = useMemo(
-        () => getModel(modelId) ?? MODELS[0],
-        [modelId],
-    );
+    const model = useMemo(() => getModel(modelId) ?? MODELS[0], [modelId]);
 
     useEffect(() => {
         const onOpen = () => {
             setEnabled(isAiEnabled());
             setModelId(getSelectedModelId());
-            setError(null);
             setOpen(true);
         };
         window.addEventListener(AI_SETTINGS_OPEN_EVENT, onOpen);
@@ -120,47 +111,23 @@ export const AiSettingsModal = () => {
                 return;
             }
             setDevice(capabilities.device);
-            if (await hasBundledWeights(model)) {
-                if (!cancelled) setWeights("bundled");
-            } else if (await isDownloaded(model)) {
-                if (!cancelled) setWeights("downloaded");
-            } else if (!cancelled) {
-                setWeights("absent");
+            const bundled = await weightsAvailable(model);
+            if (!cancelled) {
+                setWeights(bundled ? "bundled" : "missing");
             }
         })();
         return () => {
             cancelled = true;
         };
-    }, [open, model, status.phase === "downloading"]);
+    }, [open, model]);
 
     if (FREE_TIER || !model) {
         return null;
     }
 
-    const downloading =
-        status.phase === "downloading" && status.modelId === model.id;
-    const deviceOk = device === "webgpu" || model.minDevice === "wasm";
-
-    const onDownload = async () => {
-        setError(null);
-        setDownloadConsent(model.id);
-        try {
-            await downloadModel(model);
-            setWeights("downloaded");
-        } catch (downloadError) {
-            setError(
-                downloadError instanceof Error
-                    ? downloadError.message
-                    : String(downloadError),
-            );
-        }
-    };
-
-    const onDelete = async () => {
-        setError(null);
-        await deleteModel(model);
-        setWeights("absent");
-    };
+    const loadedHere =
+        status.modelId === model.id &&
+        (status.phase === "ready" || status.phase === "generating");
 
     return (
         <InfoModal
@@ -171,8 +138,9 @@ export const AiSettingsModal = () => {
             <div className="flex flex-col gap-4">
                 <p>
                     Drafts control narratives from your attached evidence. The
-                    model runs entirely on this device — your evidence and
-                    notes are never uploaded anywhere.
+                    model ships with the app and runs entirely on this device —
+                    your evidence and notes are never uploaded anywhere, and
+                    nothing is downloaded at runtime.
                 </p>
 
                 <label className="flex items-center justify-between gap-4">
@@ -237,77 +205,30 @@ export const AiSettingsModal = () => {
                 <div className="flex flex-col gap-2 border-t border-border pt-3">
                     {weights === "checking" && <p>Checking model weights…</p>}
                     {weights === "bundled" && (
-                        <p>
-                            Model weights are bundled with this app — nothing
-                            to download.
-                        </p>
-                    )}
-                    {weights === "downloaded" && (
                         <div className="flex items-center justify-between gap-4">
                             <span>
-                                {formatBytes(model.totalBytes)} stored locally.
+                                Bundled with this app (
+                                {formatBytes(model.totalBytes)}).
                             </span>
-                            <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={onDelete}
-                            >
-                                Delete weights
-                            </Button>
-                        </div>
-                    )}
-                    {weights === "absent" && !downloading && (
-                        <>
-                            {isPinned(model) ? (
-                                <>
-                                    <p>
-                                        One-time download of{" "}
-                                        {formatBytes(model.totalBytes)} of
-                                        public model weights from
-                                        huggingface.co. Your evidence and notes
-                                        are never uploaded — all AI runs on
-                                        this device.
-                                    </p>
-                                    <Button
-                                        size="sm"
-                                        onClick={onDownload}
-                                        disabled={!deviceOk || !isAiEnabled()}
-                                    >
-                                        Download model
-                                    </Button>
-                                </>
-                            ) : (
-                                <p>
-                                    This model is not pinned in this build. Run{" "}
-                                    <code>
-                                        node scripts/update-model-manifest.mjs
-                                    </code>{" "}
-                                    to pin it.
-                                </p>
+                            {loadedHere && (
+                                <Badge variant="success">Loaded</Badge>
                             )}
-                        </>
-                    )}
-                    {downloading && (
-                        <div className="flex flex-col gap-1">
-                            <p>
-                                Downloading…{" "}
-                                {Math.round((status.progress ?? 0) * 100)}%
-                            </p>
-                            <div className="h-2 w-full overflow-hidden rounded bg-secondary">
-                                <div
-                                    className="h-full bg-primary transition-all"
-                                    style={{
-                                        width: `${Math.round((status.progress ?? 0) * 100)}%`,
-                                    }}
-                                />
-                            </div>
                         </div>
                     )}
-                    {error && (
-                        <p role="alert" className="text-red-600">
-                            {error}
+                    {weights === "missing" && (
+                        <p>
+                            This build does not include the model weights, so
+                            the AI feature is unavailable. Desktop builds
+                            bundle them automatically — see{" "}
+                            <code>docs/local-ai.md</code>.
                         </p>
                     )}
+                    {status.phase === "error" &&
+                        status.modelId === model.id && (
+                            <p role="alert" className="text-red-600">
+                                {status.error}
+                            </p>
+                        )}
                 </div>
 
                 <p className="border-t border-border pt-3 text-xs">

@@ -2,7 +2,7 @@
 // build, so nothing here pulls in a Tauri dependency — we talk to the plugin
 // through the IPC bridge Tauri injects at runtime.
 
-import { toBase64 } from "./base64";
+import { fromBase64, toBase64 } from "./base64";
 
 interface TauriInternals {
     invoke<T = unknown>(
@@ -64,6 +64,50 @@ const toLicenseError = (error: unknown): LicenseError => {
         return error as LicenseError;
     }
     return { code: "API_ERROR", message: String(error) };
+};
+
+/**
+ * Local-AI breadcrumb: stderr in the desktop shell (visible in the
+ * launching terminal, survives a web-process crash), console elsewhere.
+ * Fire-and-forget.
+ */
+export const aiDebugLog = (message: string): void => {
+    console.log(`[ai] ${message}`);
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    internals?.invoke("ai_debug_log", { message })?.catch?.(() => {});
+};
+
+/**
+ * Read one bundled model-weight file from the desktop resources
+ * (resource_dir()/models — see src-tauri's read_model_file). Returns the raw
+ * bytes, or `null` in the browser build or when the file is absent. Weights
+ * come over IPC rather than the frontend origin because they are bundle
+ * resources, not embedded assets (embedding gigabytes breaks rustc).
+ */
+export const readModelFile = async (
+    path: string,
+    offset?: number,
+    len?: number,
+): Promise<ArrayBuffer | null> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return null;
+    }
+    try {
+        // Base64 string, like the app's other large IPC payloads — raw-bytes
+        // responses of this size crash webkitgtk. fromBase64 decodes through
+        // the engine's native data-URL path, so it stays fast.
+        const data = await internals.invoke<string>("read_model_file", {
+            path,
+            offset,
+            len,
+        });
+        return await fromBase64(data);
+    } catch {
+        return null;
+    }
 };
 
 /** Current license state, or `null` in the browser build. Offline and fast. */

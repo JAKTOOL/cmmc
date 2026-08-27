@@ -6,10 +6,12 @@
     "scripts": {
         "predev": "node scripts/copy-ort-assets.mjs",
         "dev": "next dev",
+        "models": "node ../scripts/fetch-model-weights.mjs",
+        "models:sync": "node ../scripts/sync-models.mjs",
         "dev:free": "NEXT_PUBLIC_TIER=free next dev",
         "prebuild": "node scripts/copy-ort-assets.mjs",
         "build": "next build",
-        "postbuild": "node scripts/stamp-sw.mjs",
+        "postbuild": "node scripts/stamp-sw.mjs && node scripts/strip-model-assets.mjs",
         "start": "next start",
         "lint": "next lint",
         "tauri": "cargo-tauri",

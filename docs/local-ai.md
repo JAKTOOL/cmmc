@@ -2,52 +2,93 @@
 
 ## Overview
 
-The app can draft a control narrative from the evidence that is attached to a requirement. A small language model runs fully on the user's device. Evidence and notes never leave the machine. The models are US-developed (Meta Llama, Google Gemma). The feature is available on full-tier builds only. The free web tier does not register a model.
+The app can draft a control narrative from the evidence that is attached to a requirement. A small language model runs fully on the user's device. The models are US-developed (Meta Llama, Google Gemma). Evidence and notes never leave the machine.
+
+Model weights are a build-time input only. Builds that include the AI feature ship the weights as static assets. The app never downloads weights at runtime. A build without bundled weights shows the feature as unavailable. The free web tier does not include the feature at all.
 
 ## Architecture
 
-- Runtime: `@huggingface/transformers` (ONNX Runtime Web) in a Web Worker (`client/src/app/llm/worker.ts`). The runtime uses WebGPU when available, with a WASM fallback.
+- Runtime: `@huggingface/transformers` (ONNX Runtime Web) in a Web Worker (`client/src/app/llm/worker.ts`). The runtime uses WebGPU when available, with a WASM fallback. The worker reads weights only from the app's own `/models/` tree (`env.allowRemoteModels = false`).
 - The ONNX WASM binaries ship in the app bundle at `/ort/`. The script `client/scripts/copy-ort-assets.mjs` copies them from node_modules on each build. The runtime never fetches them from a CDN.
 - Weights: pinned in `client/src/app/llm/models.manifest.json` (URL, revision, size, sha256 for each file). This manifest is the single source of truth for:
-  - `flake.nix` — fetches each file as a fixed-output derivation and bundles the weights into the desktop app at `public/models/`.
-  - `client/src/app/llm/engine.ts` — the browser downloader. It verifies each file's sha256 before it caches the file.
-  - `scripts/fetch-model-weights.mjs` — verified weight fetch for the Windows and macOS CI jobs.
+  - `flake.nix` — fetches each file as a fixed-output derivation (`nix build .#model-weights`) and copies the tree into `public/models/` before the frontend build of the desktop package.
+  - `scripts/fetch-model-weights.mjs` — verified fetch into `client/public/models/` for desktop builds outside Nix (Windows/macOS CI jobs, local `cargo tauri` builds). Run it with `npm run models` in `client/`.
+  - `client/src/app/llm/config.ts` — sizes and license notices in the UI.
+- Desktop delivery: the weights are Tauri **bundle resources** (`tauri.conf.json` maps `../public/models` to `resource_dir()/models`), NOT embedded frontend assets. Tauri's `generate_context!` compiles everything in `out/` into the binary, and gigabytes of weights there make rustc run out of memory (OOM SIGKILL) — so `scripts/strip-model-assets.mjs` (npm postbuild) removes `out/models` after every static export. At runtime the engine reads each file over IPC (`read_model_file` in `src-tauri/src/lib.rs`, raw-byte responses) and transfers the buffers into the worker, which serves them to transformers.js through a custom cache. In `next dev` the files are simply fetched from the dev server origin instead.
 - Consumers reach the model through the `LocalModel` seam in `client/src/app/ai/model.ts`. The engine registers itself there when the weights load. The RAG review layer (`docs/rag-review-plan.md`) builds on the same seam.
 - Prompt assembly (`client/src/app/llm/prompt.ts`): evidence text comes from the `evidence_text` IndexedDB store. Chunks are ranked with the hand-rolled BM25 index (`TextIndex.searchAny`). The budget is 4,096 context tokens with 512 reserved for output.
-- UI: a "Draft from evidence" button on the requirement page opens the draft panel (`client/src/app/components/ai/draft_panel.tsx`). The user reviews the streamed draft, then inserts it into a description field. Insertion goes through the normal autosave path. Nothing persists until the user inserts. Model download and deletion live in the "AI Assistant" menu entry.
+- UI: a "Draft from evidence" button on the requirement page opens the draft panel (`client/src/app/components/ai/draft_panel.tsx`). The user reviews the streamed draft, then inserts it into a description field. Insertion goes through the normal autosave path. Nothing persists until the user inserts. The "AI Assistant" menu entry shows the model choice, the engine status, and the master switch.
 
-## One-time setup after this change
+## Manifest maintenance
 
-The build sandbox for this change had no network. Complete these steps in `nix develop`:
+For routine maintenance, run one command in `client/` (network required):
 
-1. Run `cd client && npm install`. This updates `package-lock.json` for `@huggingface/transformers`. Confirm that the pinned version exists. If npm reports that version `3.7.5` does not exist, pick the latest 3.x version and pin it exactly.
-2. Pin the models:
-   - `node scripts/update-model-manifest.mjs --id llama-3.2-1b-instruct`
-   - `node scripts/update-model-manifest.mjs --id gemma-3-270m-it`
-3. Review the manifest diff. Commit it like a lockfile change.
-4. If a repo name or file layout changed upstream, correct the `repo` or `dtype` field in the manifest first. Then run the script again.
+```
+npm run models:sync              # re-pin every model at its current revision, then fetch weights
+npm run models:sync -- --latest  # bump every model to upstream HEAD instead
+```
 
-## Service worker
+`scripts/sync-models.mjs` re-pins each manifest entry through `update-model-manifest.mjs`, then fetches and verifies the weights into `client/public/models/` (with pruning of files the manifest no longer lists). `--id <id>` limits it to one model. `--no-fetch` updates the manifest only. Review the manifest diff like a lockfile change before you commit.
 
-`client/public/sw.js` does not cache requests to huggingface.co or hf.co hosts. The engine stores verified weights in the persistent `transformers-cache` bucket instead. The release purge of the build-stamped cache must not evict weights.
+The lower-level script is `node scripts/update-model-manifest.mjs --id <id>`. It:
+
+1. Resolves the repo's current revision through the Hugging Face API, unless `--revision` pins one.
+2. Enumerates the repo's `onnx/` tree and includes the graph file and every external-data shard (`model_<dtype>.onnx_data*`). The graph file alone is often only a few hundred KB — the weights live in the shards. A manifest without the shards builds an app whose model cannot load.
+3. Downloads and hashes each file, then rewrites the entry.
+
+Review the diff like a lockfile change. `--verify` re-checks every recorded hash against upstream.
+
+A correct entry for these repos contains the small `onnx/model_*.onnx` graph plus its large `.onnx_data` shard(s). An entry whose ONNX files total well under the model's parameter size is missing shards — run `npm run models:sync` to repair it. The runtime reads the shard count from the manifest (`use_external_data_format`), so a wrong manifest cannot load.
+
+## Where weights come from, per build
+
+| Build | Weight source | Runtime access |
+|---|---|---|
+| `nix build` (Linux desktop) | `model-weights` derivation, copied into `public/models/` in `preBuild` | Tauri resources, IPC |
+| Windows/macOS CI | "Fetch model weights" step in `deploy.yml` (`scripts/fetch-model-weights.mjs`) | Tauri resources, IPC |
+| Local desktop dev | `npm run models` in `client/`, once, before `npm run dev` / `cargo tauri dev` | Dev-server origin fetch |
+| Web (GitHub Pages, free tier) | None — the feature is absent (`FREE_TIER`), and GitHub Pages cannot host >100 MB files anyway | — |
+
+`client/public/models/` and `client/public/ort/` are gitignored build artifacts.
+
+Build note: `onnxruntime-node` (a transformers.js dependency, Linux x64 only) tries to download CUDA binaries from GitHub in its npm install script. The app never uses it — inference runs on `onnxruntime-web`. `ONNXRUNTIME_NODE_INSTALL_CUDA=skip` disables the download. The flake sets it for the Nix package and for the dev shells. Set it manually for any `npm ci` outside those shells on Linux x64 without network.
 
 ## Device policy
 
 - The 1B model requires WebGPU. Chromium, WebView2, and recent WKWebView provide it.
 - Linux webkitgtk has no WebGPU. Those machines can use the lite model on WASM only.
-- GitHub Pages cannot set COOP/COEP headers, so threaded WASM is not available on the web build.
+- Linux memory: webkitgtk's memory-pressure monitor kills the web process at conservative thresholds, which model loading trips. The app sets `WEBKIT_DISABLE_MEMORY_PRESSURE_MONITOR=1` at startup (src-tauri `run()`), and the desktop IPC path streams one weight file at a time so peak memory stays near a single copy per file plus the ONNX Runtime heap.
+- IPC transport: `read_model_file` returns base64 strings in 32 MB binary slices (`offset`/`len`), the same pattern as the app's other large payloads. A raw-bytes `tauri::ipc::Response` of a 300 MB weight file crashed the webkitgtk web process outright — do not switch back without testing that exact case on Linux.
 
 ## Verification checklist
 
-1. Privacy audit (critical). Complete the model download. Set DevTools to offline mode. Run a full summarize. It must succeed with zero network requests. During the download, only huggingface hosts appear, with GET requests only. Repeat once inside Tauri behind a proxy such as mitmproxy.
-2. Fresh-profile flow. Open the AI Assistant menu entry. Consent, download, generate, insert. Reload and confirm that the inserted note persisted. Delete the model and confirm that the download button returns. Inspect `caches.keys()`: weights live only in `transformers-cache`, never in the build-stamped cache.
-3. Release-upgrade simulation. Bump the build id and reload. Confirm that the service worker purge does not evict the weights.
-4. Nix. Run `nix build .#model-weights`. It must fetch and verify the pinned files. Run `nix build`. The desktop app must summarize with no network access. Corrupt one hash in the manifest and confirm that the build fails with a hash mismatch.
-5. Matrix. Test Chrome with WebGPU, Chrome with `--disable-features=WebGPU` (WASM plus lite model), the free-tier build (feature absent), and Tauri on each OS.
-6. Regression. Confirm that evidence attach, text extraction, search, and exports are unaffected. The feature is additive and lazy.
+1. Privacy audit (critical). Open the app, attach evidence, and run a full summarize with DevTools network open. Zero network requests must occur at any point — the weights load from the app's own origin. Repeat once inside Tauri behind a proxy such as mitmproxy.
+2. Nix. Run `nix build .#model-weights`. It must fetch and verify the pinned files. Run `nix build`. The desktop app must summarize with no network access. Corrupt one hash in the manifest and confirm that the build fails with a hash mismatch.
+3. Flow. Generate a draft, insert it, reload, and confirm that the note persisted through autosave. Stop mid-generation and confirm that the partial draft is insertable.
+4. Matrix. Test Chrome with WebGPU, Chrome with `--disable-features=WebGPU` (WASM plus lite model), the free-tier build (feature absent), and Tauri on each OS.
+5. Regression. Confirm that evidence attach, text extraction, search, and exports are unaffected. The feature is additive and lazy.
+
+## Debugging a web-process crash (Linux)
+
+The webview console is invisible in release builds. The AI path therefore logs breadcrumbs to stderr through the `ai_debug_log` command: engine stages, every weight-file transfer with byte counts, worker stages (WASM SIMD support, tokenizer, session creation), and worker errors. A web-process crash cuts the trail — the last line names the failing stage.
+
+1. Run `nix run .#cmmc 2>&1 | tee /tmp/cmmc-ai.log` and trigger the model load.
+2. Read the tail of the log:
+   - trail ends after `engine: read ... bytes` or `cache: requesting ...` — the crash is in the IPC transfer or the message channel.
+   - trail ends after `load: tokenizer ready; model starting ...` — the crash is in ONNX Runtime WASM startup or session creation (the JavaScriptCore WASM JIT is the prime suspect).
+   - `worker onerror: ...` appears — the worker script died with a real error; the message tells you why.
+3. Get the crash signal and stack: `coredumpctl list | tail`, then `coredumpctl info <PID>` for the newest `WebKitWebProcess` entry. SIGSEGV/SIGILL inside JSC WASM frames confirms a JIT fault.
+4. Bisect JavaScriptCore behavior with env vars on the app process (the web process inherits them). Test one at a time:
+   - `JSC_useOMGJIT=0` — disable the top WASM JIT tier.
+   - `JSC_useBBQJIT=0` — also disable the mid tier (slow, interpreter-only).
+   - `JSC_useWebAssemblySIMD=0` — a clean "validation failed" error instead of a crash confirms the SIMD path.
+   - `WEBKIT_FORCE_SANDBOX=0` — rule out the web-process sandbox.
+
+If a JIT tier is the culprit, the fix is to pin that option in the app wrapper for webkitgtk until the upstream JSC fix ships. The 270M lite model is the only model this affects — WebGPU platforms never run the WASM path.
 
 ## Known limits
 
 - The summarizer reads extracted text only. Image-only evidence appears in the panel as "no readable text".
 - A stopped generation keeps the partial draft. The user can still insert or regenerate.
 - One generation runs at a time. The engine rejects a second concurrent request.
+- Desktop installers grow by the bundled weight size (roughly the manifest's `totalBytes` per included model).
