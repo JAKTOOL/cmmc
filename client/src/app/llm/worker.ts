@@ -271,11 +271,28 @@ self.onmessage = async (event: MessageEvent<ToWorker>) => {
     } catch (error) {
         loading = message.type === "load" ? undefined : loading;
         // ONNX Runtime's WASM build throws bare numbers (abort pointers) for
-        // C++ exceptions — most often a graph whose external weight data is
-        // missing. Translate instead of surfacing "10736416" to the user.
+        // C++ exceptions with no message — seen for missing external weight
+        // data and for allocation failure (std::bad_alloc) when the engine
+        // caps WASM memory. On a numeric throw, probe how much WASM memory
+        // this engine will actually grant, so the log pins down whether the
+        // heap ceiling is the culprit.
+        if (typeof error === "number") {
+            for (const mb of [256, 512, 1024, 2048]) {
+                try {
+                    // 64 KB pages.
+                    new WebAssembly.Memory({ initial: (mb * 1024) / 64 });
+                    log(`probe: ${mb} MB WebAssembly.Memory allocated OK`);
+                } catch (probeError) {
+                    log(
+                        `probe: ${mb} MB WebAssembly.Memory FAILED: ${String(probeError)}`,
+                    );
+                    break;
+                }
+            }
+        }
         const description =
             typeof error === "number"
-                ? `ONNX Runtime error ${error}. This usually means the model's external weight data (.onnx_data) is missing from the bundle or not declared in models.manifest.json.`
+                ? `ONNX Runtime error ${error} (a C++ exception with no message — commonly an out-of-memory in the WASM heap while loading weights, or missing external weight data; see the probe lines in the debug log).`
                 : error instanceof Error
                   ? error.message
                   : String(error);
