@@ -10,7 +10,7 @@ import type { RetrievedChunk } from "./retrieval";
 
 /** Bump when the prompt or parser changes shape; part of the review
  *  fingerprint. */
-export const PROMPT_VERSION = 1;
+export const PROMPT_VERSION = 2;
 
 /** Tokens held back for the model's tagged response. */
 const OUTPUT_RESERVE_TOKENS = 256;
@@ -29,15 +29,19 @@ Objective ${objective.citation}: ${objective.text}
 Evidence excerpts (the only material you may rely on):
 `;
 
+// REASON before QUOTE on purpose: small models degrade toward the end of a
+// format and stop early, and the reason must survive that — a cut-off quote
+// only loses the citation, a cut-off reason loses the verdict's grounds.
 const promptTail = (objective: ReviewObjective): string =>
     `
 Decide whether the evidence demonstrates this objective. Respond with exactly
 these lines and nothing else:
 VERDICT: met | partially-met | not-met | no-evidence
 CITATION: ${objective.citation}
-QUOTE: <verbatim sentence copied from one excerpt> (SOURCE: <filename#n>)
 REASON: <one or two sentences naming what is present or missing>
-If no excerpt is relevant, use VERDICT: no-evidence and omit QUOTE.`;
+QUOTE: <verbatim sentence copied from one excerpt> (SOURCE: <filename#n>)
+Always include VERDICT and REASON. If no excerpt is relevant, use
+VERDICT: no-evidence and omit QUOTE.`;
 
 export interface BuiltPrompt {
     prompt: string;
@@ -186,7 +190,9 @@ export const parseReviewResponse = (
 ): ParsedReview => {
     const verdictLine = taggedLine("VERDICT", raw);
     const verdict = verdictLine ? normalizeVerdict(verdictLine) : undefined;
-    const reason = taggedLine("REASON", raw) ?? "";
+    // Accept the tag drift small models produce for this field.
+    const reason =
+        taggedLine("(?:REASON(?:ING)?|RATIONALE|EXPLANATION)", raw) ?? "";
     const quoteLine = taggedLine("QUOTE", raw);
     const quote = quoteLine ? resolveQuote(quoteLine, included) : undefined;
     if (!verdict) {

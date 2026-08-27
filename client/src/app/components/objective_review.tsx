@@ -7,7 +7,6 @@
 import {
     LocalModel,
     MODEL_CHANGED_EVENT,
-    aiReviewAvailable,
     getLocalModel,
 } from "@/app/ai/model";
 import { ReviewObjective, objectivesForRequirement } from "@/app/ai/objectives";
@@ -15,6 +14,15 @@ import { ReviewProgress, reviewRequirement } from "@/app/ai/review";
 import { useRevisionContext } from "@/app/context/revision";
 import { IDBObjectiveReview } from "@/app/db";
 import { useObjectiveReviews } from "@/app/hooks/objectiveReviews";
+import { getDeviceCapabilities } from "@/app/llm/capabilities";
+import { getModel, isPinned } from "@/app/llm/config";
+import {
+    ensureLoaded,
+    subscribeLlmStatus,
+    weightsAvailable,
+} from "@/app/llm/engine";
+import { getSelectedModelId, isAiEnabled } from "@/app/llm/settings";
+import { isUnlocked } from "@/app/utils/tier";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { IconChevronDown } from "./icons";
 import { Badge, BadgeVariant, Button } from "./ui";
@@ -111,7 +119,7 @@ export const ObjectiveReview = ({
     locked?: boolean;
 }) => {
     const revision = useRevisionContext();
-    useLocalModel();
+    const model = useLocalModel();
     const objectives = useMemo(
         () => objectivesForRequirement(revision, requirementId),
         [revision, requirementId],
@@ -120,12 +128,54 @@ export const ObjectiveReview = ({
 
     const [running, setRunning] = useState(false);
     const [progress, setProgress] = useState<ReviewProgress | null>(null);
+    const [loadNote, setLoadNote] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    // True when this build bundles usable weights for the selected model, so
+    // the panel can offer to load the engine itself instead of staying
+    // hidden until the draft feature loads it (same probe as
+    // summarize_button.tsx; weights cannot appear while the page is open).
+    const [weightsReady, setWeightsReady] = useState(false);
     const abortRef = useRef<AbortController | null>(null);
 
     useEffect(() => () => abortRef.current?.abort(), []);
 
-    if (!objectives.length || !aiReviewAvailable(requirementId)) {
+    useEffect(() => {
+        let cancelled = false;
+        (async () => {
+            const selected = getModel(getSelectedModelId());
+            if (!selected || !isPinned(selected)) {
+                return;
+            }
+            const { device } = await getDeviceCapabilities();
+            const deviceOk =
+                device === "webgpu" || selected.minDevice === "wasm";
+            const ready = deviceOk && (await weightsAvailable(selected));
+            if (!cancelled) {
+                setWeightsReady(ready);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    useEffect(
+        () =>
+            subscribeLlmStatus((status) => {
+                setLoadNote(
+                    status.phase === "loading"
+                        ? `Loading model… ${Math.round((status.progress ?? 0) * 100)}%`
+                        : null,
+                );
+            }),
+        [],
+    );
+
+    if (
+        !objectives.length ||
+        !isUnlocked(requirementId) ||
+        (model === undefined && !(isAiEnabled() && weightsReady))
+    ) {
         return null;
     }
 
@@ -136,6 +186,15 @@ export const ObjectiveReview = ({
         const controller = new AbortController();
         abortRef.current = controller;
         try {
+            // Load the engine on first use; it registers the LocalModel and
+            // stays loaded for later runs (and for the draft feature).
+            if (!getLocalModel()) {
+                const selected = getModel(getSelectedModelId());
+                if (!selected) {
+                    throw new Error("No model selected");
+                }
+                await ensureLoaded(selected);
+            }
             await reviewRequirement(revision, requirementId, {
                 signal: controller.signal,
                 onProgress: setProgress,
@@ -235,9 +294,10 @@ export const ObjectiveReview = ({
                                 aria-live="polite"
                                 className="text-sm text-muted-foreground"
                             >
-                                {progress
-                                    ? `Objective ${Math.min(progress.done + 1, progress.total)} of ${progress.total}…`
-                                    : "Preparing…"}
+                                {loadNote ??
+                                    (progress
+                                        ? `Objective ${Math.min(progress.done + 1, progress.total)} of ${progress.total}…`
+                                        : "Preparing…")}
                             </span>
                         </>
                     )}

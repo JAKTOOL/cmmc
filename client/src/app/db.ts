@@ -2,7 +2,7 @@
 import { examineIdsForStoredItem } from "@/api/entities/ExamineItemIds";
 import { showLoader } from "@/app/components/loader";
 import { Status } from "@/app/components/status";
-export const version = 13;
+export const version = 12;
 let loader: Promise<IDBDatabase> | undefined;
 
 enum Table {
@@ -324,18 +324,6 @@ const migrations = {
             unique: false,
         });
     },
-    "13": async (event: IDBVersionChangeEvent) => {
-        const db = event.target.result as IDBDatabase;
-
-        // Repair pass. A dev hot-reload window existed where the version
-        // constant read 12 before migration "12" was in the compiled module;
-        // the runner skipped the missing step silently and IndexedDB still
-        // stamped version 12, leaving databases without objective_reviews.
-        // Recreate the store when it is missing; no-op otherwise.
-        if (!db.objectStoreNames.contains(Table.OBJECTIVE_REVIEWS)) {
-            await migrations["12"](event);
-        }
-    },
 };
 
 if (typeof window !== "undefined") {
@@ -372,20 +360,7 @@ if (typeof window !== "undefined") {
         ) {
             hideMigrationLoader = showLoader("Updating local database…");
             for (let v = event.oldVersion + 1; v <= event.newVersion; v++) {
-                const migration = migrations?.[`${v}`];
-                if (!migration) {
-                    // Never stamp a version the code cannot migrate to: a
-                    // committed upgrade with a skipped step leaves the store
-                    // set silently diverged from the code (and the version
-                    // match means it is never revisited). Abort so the old
-                    // version stays and a reload with complete code retries.
-                    console.error(
-                        `Missing IndexedDB migration ${v}; aborting upgrade`,
-                    );
-                    (event.target.transaction as IDBTransaction).abort();
-                    return;
-                }
-                await migration(event);
+                await migrations?.[`${v}`]?.(event);
             }
         };
     });

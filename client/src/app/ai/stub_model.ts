@@ -27,8 +27,8 @@ const composeResponse = (prompt: string): string => {
     return [
         "VERDICT: met",
         `CITATION: ${citation}`,
-        `QUOTE: ${quote} (SOURCE: ${source})`,
         `REASON: Stub verdict — the excerpt from ${source.split("#")[0]} was retrieved for this objective.`,
+        `QUOTE: ${quote} (SOURCE: ${source})`,
     ].join("\n");
 };
 
