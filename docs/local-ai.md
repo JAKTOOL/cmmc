@@ -86,6 +86,8 @@ The webview console is invisible in release builds. The AI path therefore logs b
 
 If a JIT tier is the culprit, the fix is to pin that option in the app wrapper for webkitgtk until the upstream JSC fix ships. The 270M lite model is the only model this affects — WebGPU platforms never run the WASM path.
 
+Case history (2026-08-27): session creation aborted with a messageless C++ exception on BOTH webkitgtk and Chrome after all files transferred correctly. The worker's abort decoder recovered the real text: `Unrecognized attribute: bits for operator GatherBlockQuantized` — the upstream q4 export required a newer ONNX Runtime than the one transformers.js bundled. Lesson: a numeric ORT abort usually has a real message in the WASM heap (the worker decodes it now), and a model revision can require a newer runtime than the pinned `@huggingface/transformers` — check both sides of that version pair when bumping either. Along the way, CPU-only sessions were switched to the plain (non-JSEP) `ort-wasm-simd-threaded` pair (`copy-ort-assets.mjs` ships both variants) — kept, since CPU sessions need none of the JSEP machinery.
+
 ## Known limits
 
 - The summarizer reads extracted text only. Image-only evidence appears in the panel as "no readable text".

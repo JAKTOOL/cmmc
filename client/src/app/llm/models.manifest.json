@@ -56,12 +56,12 @@
             "label": "Gemma 3 270M Instruct (lite)",
             "repo": "onnx-community/gemma-3-270m-it-ONNX",
             "revision": "2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0",
-            "dtype": "q4",
+            "dtype": "q8",
             "minDevice": "wasm",
             "license": "Gemma Terms of Use",
             "licenseNotice": "Gemma is provided under and subject to the Gemma Terms of Use",
             "licenseUrl": "https://ai.google.dev/gemma/terms",
-            "totalBytes": 343502950,
+            "totalBytes": 565602064,
             "files": [
                 {
                     "path": "config.json",
@@ -88,16 +88,16 @@
                     "sha256": "8ae5c9297e0ca85077c0f4952f85251b4773af7abc4673b62b54bc0b609a9667"
                 },
                 {
-                    "path": "onnx/model_q4.onnx",
-                    "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_q4.onnx",
-                    "size": 242522,
-                    "sha256": "cb3615746a988839308507933d4e0501ff695e747a0a0ce15c0ef53083f8ec54"
+                    "path": "onnx/model_quantized.onnx",
+                    "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_quantized.onnx",
+                    "size": 246276,
+                    "sha256": "d3adc9c1ac5d18f616b30b2a31da256530fdeee688426e6e852d3ccf47b867c8"
                 },
                 {
-                    "path": "onnx/model_q4.onnx_data",
-                    "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_q4.onnx_data",
-                    "size": 322933248,
-                    "sha256": "25c4a14af32fc1011a90504076024b0e1f65f915e9690b44a5484200d2e20851"
+                    "path": "onnx/model_quantized.onnx_data",
+                    "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_quantized.onnx_data",
+                    "size": 545028608,
+                    "sha256": "7ea038442b555b1782786da8be96d2805f04b7b94b21e553f6eda74e7d62bfff"
                 }
             ]
         }

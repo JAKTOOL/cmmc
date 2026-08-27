@@ -42,16 +42,128 @@ for (const level of ["error", "warn", "info", "log"] as const) {
     };
 }
 
+// ONNX Runtime's WASM throws C++ exceptions into JS as bare heap pointers
+// with no message — but the message text lives in the WASM heap. Capture
+// the module memory at instantiation so a numeric abort can be decoded by
+// scanning around (and through pointers near) the exception object.
+let ortMemory: WebAssembly.Memory | undefined;
+
+const findMemory = (value: unknown, depth: number): WebAssembly.Memory | undefined => {
+    if (value instanceof WebAssembly.Memory) {
+        return value;
+    }
+    // Instance.exports is a prototype accessor — Object.values() misses it.
+    if (value instanceof WebAssembly.Instance) {
+        return findMemory(value.exports, 2);
+    }
+    if (depth > 0 && value && typeof value === "object") {
+        for (const child of Object.values(value)) {
+            const memory = findMemory(child, depth - 1);
+            if (memory) {
+                return memory;
+            }
+        }
+    }
+    return undefined;
+};
+
+const captureMemory = (result: unknown, imports: unknown) => {
+    const memory = findMemory(result, 3) ?? findMemory(imports, 3);
+    if (memory) {
+        ortMemory = memory;
+        log("worker: captured WASM memory for abort decoding");
+    }
+};
+
+const originalInstantiate = WebAssembly.instantiate.bind(WebAssembly);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(WebAssembly as any).instantiate = async (a: any, b: any) => {
+    const result = await originalInstantiate(a, b);
+    captureMemory(result, b);
+    return result;
+};
+if ("instantiateStreaming" in WebAssembly) {
+    const originalStreaming = WebAssembly.instantiateStreaming.bind(WebAssembly);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (WebAssembly as any).instantiateStreaming = async (a: any, b: any) => {
+        const result = await originalStreaming(a, b);
+        captureMemory(result, b);
+        return result;
+    };
+}
+
+/** Best-effort recovery of the C++ exception text behind a numeric abort:
+ *  printable ASCII runs at the pointer itself (SSO strings) and behind any
+ *  plausible heap pointers stored in the object's first words. */
+const decodeAbort = (pointer: number): string[] => {
+    try {
+        if (!ortMemory) {
+            return [];
+        }
+        const heap = new Uint8Array(ortMemory.buffer);
+        const view = new DataView(ortMemory.buffer);
+        if (pointer <= 0 || pointer >= heap.length - 128) {
+            return [];
+        }
+        const found = new Set<string>();
+        const runAt = (address: number) => {
+            let text = "";
+            for (
+                let i = address;
+                i < Math.min(address + 300, heap.length);
+                i++
+            ) {
+                const byte = heap[i];
+                if (byte >= 32 && byte < 127) {
+                    text += String.fromCharCode(byte);
+                } else {
+                    break;
+                }
+            }
+            if (text.length >= 8 && /[a-zA-Z]{4}/.test(text)) {
+                found.add(text);
+            }
+        };
+        for (let offset = 0; offset <= 96; offset += 4) {
+            const word = view.getUint32(pointer + offset, true);
+            if (word > 1024 && word < heap.length - 8) {
+                runAt(word);
+            }
+        }
+        for (let offset = 0; offset <= 64; offset++) {
+            runAt(pointer + offset);
+        }
+        // Overlapping scans produce suffixes of the same string — keep only
+        // maximal ones.
+        const texts = [...found];
+        return texts
+            .filter(
+                (text) =>
+                    !texts.some(
+                        (other) => other !== text && other.includes(text),
+                    ),
+            )
+            .slice(0, 4);
+    } catch {
+        return [];
+    }
+};
+
 log("worker: script evaluated");
 
 // ONNX Runtime's WASM binaries ship in the app bundle at /ort/ (copied from
 // node_modules by client/scripts/copy-ort-assets.mjs). Without this,
-// transformers.js loads them from a CDN — forbidden here.
+// transformers.js loads them from a CDN — forbidden here. The default prefix
+// resolves the JSEP (WebGPU) build; load() overrides it with the plain pair
+// for CPU-only sessions.
 env.backends.onnx.wasm.wasmPaths = new URL("/ort/", self.location.origin).href;
 // Weights are build-time assets under /models/{repo}/ — never remote. The
 // browser cache is pointless for same-origin files (and the service worker
-// already caches the app shell), so it stays off.
-env.localModelPath = new URL("/models/", self.location.origin).href;
+// already caches the app shell), so it stays off. localModelPath must stay a
+// RELATIVE path: transformers.js v4's file-metadata probe treats an
+// http(s)-shaped localModelPath as "not local" and skips it, which surfaced
+// as "Cannot read properties of undefined (reading 'tokenizer_class')".
+env.localModelPath = "/models/";
 env.allowLocalModels = true;
 env.allowRemoteModels = false;
 env.useBrowserCache = false;
@@ -90,6 +202,22 @@ const load = async (message: Extract<ToWorker, { type: "load" }>) => {
     log(
         `load: repo=${message.repo} dtype=${message.dtype} device=${message.device} ipc=${!!message.ipc} externalDataChunks=${message.externalDataChunks} wasmSimd=${simd} sab=${typeof SharedArrayBuffer !== "undefined"} cores=${navigator.hardwareConcurrency}`,
     );
+
+    // CPU-only sessions use the plain (non-JSEP) ONNX Runtime build. The
+    // JSEP build's asyncify trampolines for WebGPU bridging abort on
+    // JavaScriptCore during session creation; the plain build has none of
+    // that machinery. WebGPU devices keep the prefix default (JSEP glue).
+    if (message.device === "wasm") {
+        env.backends.onnx.wasm.wasmPaths = {
+            mjs: new URL("/ort/ort-wasm-simd-threaded.mjs", self.location.origin)
+                .href,
+            wasm: new URL(
+                "/ort/ort-wasm-simd-threaded.wasm",
+                self.location.origin,
+            ).href,
+        };
+        log("load: using plain (non-JSEP) ONNX Runtime WASM build");
+    }
     if (message.ipc) {
         // Desktop path: weights are Tauri bundle resources, unreachable by
         // URL from the webview. A custom cache asks the engine for each file
@@ -276,23 +404,18 @@ self.onmessage = async (event: MessageEvent<ToWorker>) => {
         // caps WASM memory. On a numeric throw, probe how much WASM memory
         // this engine will actually grant, so the log pins down whether the
         // heap ceiling is the culprit.
+        let decoded: string[] = [];
         if (typeof error === "number") {
-            for (const mb of [256, 512, 1024, 2048]) {
-                try {
-                    // 64 KB pages.
-                    new WebAssembly.Memory({ initial: (mb * 1024) / 64 });
-                    log(`probe: ${mb} MB WebAssembly.Memory allocated OK`);
-                } catch (probeError) {
-                    log(
-                        `probe: ${mb} MB WebAssembly.Memory FAILED: ${String(probeError)}`,
-                    );
-                    break;
-                }
+            decoded = decodeAbort(error);
+            for (const text of decoded) {
+                log(`abort-decode: ${text}`);
             }
         }
         const description =
             typeof error === "number"
-                ? `ONNX Runtime error ${error} (a C++ exception with no message — commonly an out-of-memory in the WASM heap while loading weights, or missing external weight data; see the probe lines in the debug log).`
+                ? decoded.length
+                    ? `ONNX Runtime: ${decoded[0]}`
+                    : `ONNX Runtime error ${error} (a C++ exception whose message could not be decoded — see the debug log).`
                 : error instanceof Error
                   ? error.message
                   : String(error);

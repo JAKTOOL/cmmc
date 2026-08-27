@@ -6,23 +6,37 @@
 import { copyFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-const SOURCE = "node_modules/@huggingface/transformers/dist";
+// Two sources: transformers.js ships only the JSEP (WebGPU-bridging) build;
+// onnxruntime-web's own dist adds the plain ort-wasm-simd-threaded pair the
+// worker prefers for CPU-only sessions (the JSEP build's async machinery
+// crashes JavaScriptCore — see docs/local-ai.md). Same onnxruntime-web
+// version either way, so glue and JS stay compatible.
+const SOURCES = [
+    "node_modules/@huggingface/transformers/dist",
+    "node_modules/onnxruntime-web/dist",
+];
 const TARGET = "public/ort";
+// All runtime variants: plain (CPU), jsep (WebGPU), and onnxruntime-web
+// 1.26+'s jspi/asyncify splits — the runtime picks one at load time and
+// only the chosen pair is ever fetched.
+const WANTED = /^ort-wasm-simd-threaded(\.jsep|\.jspi|\.asyncify)?\.(wasm|mjs)$/;
 
-let assets;
-try {
-    assets = readdirSync(SOURCE).filter(
-        (name) => name.endsWith(".wasm") || name.endsWith(".mjs"),
-    );
-} catch {
-    // Dependency not installed yet (fresh checkout mid-setup): the app still
-    // builds, and the AI feature reports the missing runtime at use time.
-    console.warn(`copy-ort-assets: ${SOURCE} not found, skipping`);
-    process.exit(0);
-}
-
+let copied = 0;
 mkdirSync(TARGET, { recursive: true });
-for (const name of assets) {
-    copyFileSync(join(SOURCE, name), join(TARGET, name));
+for (const source of SOURCES) {
+    let names;
+    try {
+        names = readdirSync(source).filter((name) => WANTED.test(name));
+    } catch {
+        // Dependency not installed yet (fresh checkout mid-setup): the app
+        // still builds, and the AI feature reports the missing runtime at
+        // use time.
+        console.warn(`copy-ort-assets: ${source} not found, skipping`);
+        continue;
+    }
+    for (const name of names) {
+        copyFileSync(join(source, name), join(TARGET, name));
+        copied++;
+    }
 }
-console.log(`copy-ort-assets: copied ${assets.length} file(s) to ${TARGET}`);
+console.log(`copy-ort-assets: copied ${copied} file(s) to ${TARGET}`);

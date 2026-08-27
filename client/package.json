@@ -19,7 +19,7 @@
         "tauri:mac": "tauri"
     },
     "dependencies": {
-        "@huggingface/transformers": "3.7.5",
+        "@huggingface/transformers": "4.2.0",
         "exceljs": "^4.4.0",
         "marked": "^15.0.3",
         "next": "15.4.10",
