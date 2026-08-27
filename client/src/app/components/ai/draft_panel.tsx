@@ -56,6 +56,7 @@ export const DraftPanel = ({
     const [targetId, setTargetId] = useState(subStatements[0]?.id ?? "");
     const [mode, setMode] = useState<"append" | "replace">("append");
     const [showSources, setShowSources] = useState(false);
+    const [prompt, setPrompt] = useState("");
     const [copied, setCopied] = useState(false);
     const handleRef = useRef<GenerateHandle | null>(null);
     const outputRef = useRef<HTMLDivElement>(null);
@@ -129,16 +130,23 @@ export const DraftPanel = ({
             if (runId !== runIdRef.current) {
                 return;
             }
+            const messages = buildMessages({
+                requirementId,
+                title,
+                statement,
+                objectives,
+                chunks: selected,
+            });
+            // Expose exactly what the model receives ("Show prompt" below),
+            // so grounding problems are inspectable instead of guessed at.
+            setPrompt(
+                messages
+                    .map((message) => `[${message.role}]\n${message.content}`)
+                    .join("\n\n"),
+            );
             setPhase("generating");
-            const handle = generate(
-                buildMessages({
-                    requirementId,
-                    title,
-                    statement,
-                    objectives,
-                    chunks: selected,
-                }),
-                (token) => setDraft((current) => current + token),
+            const handle = generate(messages, (token) =>
+                setDraft((current) => current + token),
             );
             handleRef.current = handle;
             await handle.result;
@@ -267,6 +275,16 @@ export const DraftPanel = ({
 
                     {phase === "preparing" && (
                         <p aria-live="polite">{statusNote}</p>
+                    )}
+                    {prompt && (
+                        <details className="text-muted-foreground">
+                            <summary className="cursor-pointer">
+                                Show prompt sent to the model
+                            </summary>
+                            <pre className="mt-1 max-h-64 overflow-y-auto whitespace-pre-wrap break-words rounded-md border border-input bg-surface px-3 py-2 font-mono text-xs">
+                                {prompt}
+                            </pre>
+                        </details>
                     )}
                     {phase === "error" && (
                         <p role="alert" className="text-red-600">

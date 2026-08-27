@@ -195,22 +195,28 @@ export const summarizeQuery = (
 
 export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
     const objectives = input.objectives.length
-        ? `\nAssessment objectives:\n${input.objectives
+        ? `\n${input.objectives
               .map((objective) => `- ${objective}`)
               .join("\n")}\n`
         : "";
     const excerpts = input.chunks
         .map((chunk) => `--- [${chunk.filename}] (excerpt)\n${chunk.text}`)
         .join("\n");
+    // Prompt shape tuned for small local models: the objectives are labeled
+    // as a checklist and explicitly fenced off from the output, because their
+    // ready-made compliance phrasing is exactly what a small model will
+    // otherwise paraphrase instead of reading the excerpts. The grounding
+    // instruction demands concrete nouns from the excerpts, which generic
+    // boilerplate cannot satisfy.
     return [
         {
             role: "system",
             content:
-                "You draft compliance narratives for NIST SP 800-171 / CMMC self-assessments. Write only what the provided evidence excerpts support. Cite evidence by [filename]. Do not invent tools, policies, or facts. Where the evidence does not address part of the requirement, say so plainly.",
+                "You draft implementation narratives for NIST SP 800-171 / CMMC self-assessments. Every sentence you write must be grounded in the evidence excerpts: use the specific system names, tool names, policy titles, settings, and frequencies they contain, and cite the source as [filename] after each claim. Never restate the requirement or the assessment objectives in generic terms. If the excerpts do not address something, say so instead of inventing it.",
         },
         {
             role: "user",
-            content: `Requirement ${input.requirementId} — ${input.title}\n${input.statement}\n${objectives}\nEvidence excerpts:\n${excerpts}\n\nWrite a draft implementation narrative (150-250 words, markdown) describing how the organization meets this requirement, citing [filenames]. End with a "Gaps:" bullet list of aspects not covered by the evidence, or "Gaps: none evident."`,
+            content: `Requirement ${input.requirementId} — ${input.title}\n${input.statement}\n${objectives ? `\nAssessment objectives (a checklist to assess coverage against — do NOT copy their wording into the narrative):${objectives}` : ""}\nEvidence excerpts:\n${excerpts}\n\nWrite a draft implementation narrative (150-250 words, markdown) describing how the organization meets this requirement. Every paragraph must quote or closely paraphrase concrete details from the excerpts, each cited as [filename]. A sentence that could apply to any organization is a wasted sentence — be specific to this evidence. End with a "Gaps:" bullet list of objectives the excerpts do not cover, or "Gaps: none evident."`,
         },
     ];
 };
