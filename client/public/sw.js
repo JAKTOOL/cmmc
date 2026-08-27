@@ -46,8 +46,24 @@ const cacheFirst = async (request, event) => {
   return responseFromNetwork;
 };
 
+// Model-weight downloads bypass the build-stamped cache: the engine verifies
+// and stores them itself in the persistent "transformers-cache" bucket
+// (client/src/app/llm/engine.ts). Caching them here too would double ~800 MB
+// of storage and force a re-download every release when the activate handler
+// purges this cache. huggingface.co redirects weight files to its LFS/xet
+// CDNs, so match by suffix across those hosts.
+const isModelWeightHost = (host) =>
+  host === "huggingface.co" ||
+  host.endsWith(".huggingface.co") ||
+  host === "hf.co" ||
+  host.endsWith(".hf.co");
+
 self.addEventListener("fetch", (event) => {
-  if (event.request.url.startsWith("https:")) {
-    event.respondWith(cacheFirst(event.request, event));
+  if (!event.request.url.startsWith("https:")) {
+    return;
   }
+  if (isModelWeightHost(new URL(event.request.url).host)) {
+    return;
+  }
+  event.respondWith(cacheFirst(event.request, event));
 });

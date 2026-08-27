@@ -181,6 +181,69 @@ export class TextIndex {
             .slice(0, limit);
     }
 
+    /** Ranked OR search: each doc scores the sum of its best expansion per
+     *  matching query term, times (matchedTerms / queryTerms) so broader
+     *  coverage wins. For long natural-language queries (e.g. a whole
+     *  assessment objective) where the AND semantics of search() would
+     *  return nothing. */
+    searchAny(query: string, limit = 10): TextIndexHit[] {
+        const queryTerms = [...new Set(tokenize(query))];
+        if (!queryTerms.length || !this.docs.size) {
+            return [];
+        }
+
+        const docCount = this.docs.size;
+        const avgLength = this.totalLength.map(
+            (total) => total / docCount || 1,
+        );
+
+        const scores = new Map<string, number>();
+        const matched = new Map<string, number>();
+        for (const queryTerm of queryTerms) {
+            const byDoc = new Map<string, number>();
+            for (const [term, docTfs] of this.postings) {
+                const weight = this.matchWeight(queryTerm, term);
+                if (weight === 0) {
+                    continue;
+                }
+                const idf = Math.log(
+                    1 + (docCount - docTfs.size + 0.5) / (docTfs.size + 0.5),
+                );
+                for (const [id, counts] of docTfs) {
+                    const lengths = this.docs.get(id)!;
+                    let score = 0;
+                    counts.forEach((tf, fieldIndex) => {
+                        if (!tf) {
+                            return;
+                        }
+                        const norm =
+                            tf +
+                            K1 *
+                                (1 -
+                                    B +
+                                    (B * lengths[fieldIndex]) /
+                                        avgLength[fieldIndex]);
+                        score += this.boosts[fieldIndex] * ((tf * idf) / norm);
+                    });
+                    score *= weight;
+                    byDoc.set(id, Math.max(byDoc.get(id) ?? 0, score));
+                }
+            }
+            for (const [id, score] of byDoc) {
+                scores.set(id, (scores.get(id) ?? 0) + score);
+                matched.set(id, (matched.get(id) ?? 0) + 1);
+            }
+        }
+
+        return [...scores]
+            .map(([id, score]) => ({
+                id,
+                score: score * (matched.get(id)! / queryTerms.length),
+            }))
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit);
+    }
+
     private matchWeight(queryTerm: string, term: string): number {
         if (term === queryTerm) {
             return 1;

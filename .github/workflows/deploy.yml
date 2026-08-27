@@ -96,7 +96,7 @@ jobs:
           # AppImage omitted for now: upstream linuxdeploy/FUSE breakage
           # (tauri-apps/tauri). Re-enable by adding `appimage` to bundleArgs below.
           - runner: ubuntu-24.04 # x86_64 linux: .deb / .rpm
-            bundleArgs: "--bundles deb rpm"
+            bundleArgs: "--bundles deb rpm appimage"
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -150,6 +150,7 @@ jobs:
             set -euo pipefail
             cd client
             npm ci
+            node ../scripts/fetch-model-weights.mjs
             cargo tauri build --no-bundle --config "{\"version\":\"$APP_VERSION\"}"
             patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 --remove-rpath src-tauri/target/release/cmmc
             cargo tauri bundle ${{ matrix.bundleArgs }} --config "{\"version\":\"$APP_VERSION\"}"
@@ -168,7 +169,7 @@ jobs:
           files=(
             client/src-tauri/target/release/bundle/deb/*.deb
             client/src-tauri/target/release/bundle/rpm/*.rpm
-            # client/src-tauri/target/release/bundle/appimage/*.AppImage
+            client/src-tauri/target/release/bundle/appimage/*.AppImage
           )
           gh release upload "${{ github.ref_name }}" "${files[@]}" --clobber
 
@@ -246,6 +247,12 @@ jobs:
       - name: Install dependencies
         working-directory: ./client
         run: npm ci
+
+      # Same pinned weights the Nix build bundles; verified by sha256 against
+      # models.manifest.json before they enter the desktop bundle.
+      - name: Fetch model weights
+        shell: bash
+        run: node scripts/fetch-model-weights.mjs
 
       # App version = release tag (leading "v" stripped), shared by the bundle
       # name (--config below) and the footer (next.config reads APP_VERSION).
@@ -363,6 +370,11 @@ jobs:
       - name: Install dependencies
         working-directory: ./client
         run: npm ci
+
+      # Same pinned weights the Nix build bundles; verified by sha256 against
+      # models.manifest.json before they enter the desktop bundle.
+      - name: Fetch model weights
+        run: node scripts/fetch-model-weights.mjs
 
       # App version = release tag (leading "v" stripped), shared by the bundle
       # name (--config below) and the footer (next.config reads APP_VERSION).

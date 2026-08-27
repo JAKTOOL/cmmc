@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { AiSettingsModal } from "./components/ai/model_settings";
 import { CommandPalette } from "./components/command_palette";
 import { ExternalLinkHandler } from "./components/external_link_handler";
 import { LicenseGate } from "./components/license_gate";
@@ -69,6 +70,7 @@ export default function RootLayout({
                 <LoaderHost />
                 <UpgradePrompt />
                 <CommandPalette />
+                <AiSettingsModal />
             </body>
         </html>
     );

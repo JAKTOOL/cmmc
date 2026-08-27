@@ -2,6 +2,10 @@
 import { ElementWrapper } from "@/api/entities/Framework";
 import { marked } from "marked";
 import { useEffect, useMemo, useRef, useState } from "react";
+import {
+    DraftInsertDetail,
+    LLM_DRAFT_INSERT_EVENT,
+} from "../ai/draft_insert";
 import { StatementText } from "../odp_values";
 import { Status, StatusState } from "../status";
 import { Label, Select, Textarea } from "../ui";
@@ -148,6 +152,32 @@ export const SecurityRequirementNote = ({
             }
         })();
     }, [currentState, initialState]);
+
+    // Accept a draft from the AI panel: set the textarea through the normal
+    // DOM path, then bubble a change event so the form's debounced autosave
+    // persists it exactly like a manual edit (see SelectStatus above for the
+    // same dispatch idiom).
+    useEffect(() => {
+        const onInsert = (event: Event) => {
+            const detail = (event as CustomEvent<DraftInsertDetail>).detail;
+            if (detail?.key !== key || !textareaRef.current) {
+                return;
+            }
+            const existing = textareaRef.current.value;
+            textareaRef.current.value =
+                detail.mode === "append" && existing
+                    ? `${existing}\n\n${detail.text}`
+                    : detail.text;
+            replicateGrowArea();
+            syncOutput();
+            textareaRef.current.dispatchEvent(
+                new Event("change", { bubbles: true }),
+            );
+        };
+        window.addEventListener(LLM_DRAFT_INSERT_EVENT, onInsert);
+        return () =>
+            window.removeEventListener(LLM_DRAFT_INSERT_EVENT, onInsert);
+    }, [key]);
 
     useEffect(() => {
         if (textareaRef?.current) {

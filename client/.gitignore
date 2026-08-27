@@ -20,6 +20,10 @@
 # production
 /build
 
+# build-copied AI runtime assets (copy-ort-assets.mjs) and Nix-bundled weights
+/public/ort/
+/public/models/
+
 # misc
 .DS_Store
 *.pem

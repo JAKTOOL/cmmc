@@ -85,6 +85,35 @@
         appVersion =
           (builtins.fromJSON (builtins.readFile ./client/package.json)).version;
 
+        # Local-AI model weights, pinned in the same manifest the runtime
+        # downloader verifies against (single source of truth; regenerate an
+        # entry with scripts/update-model-manifest.mjs). Each file is a
+        # fixed-output fetch, so the build fails loudly if upstream content
+        # ever changes. Entries without hashes are placeholders and are
+        # skipped — the app then falls back to its verified runtime download.
+        modelManifest = builtins.fromJSON
+          (builtins.readFile ./client/src/app/llm/models.manifest.json);
+        pinnedModels = builtins.filter
+          (model:
+            model.revision != "" && model.files != [ ]
+            && builtins.all (file: file.sha256 != "") model.files)
+          modelManifest.models;
+
+        # Laid out as {repo}/{path} — exactly what transformers.js requests
+        # under env.localModelPath ("/models/") in the bundled desktop app.
+        modelWeights = pkgs.runCommand "cmmc-model-weights-${appVersion}" { } ''
+          mkdir -p $out
+          ${lib.concatMapStrings (model:
+            lib.concatMapStrings (file: ''
+              install -D -m 444 ${
+                pkgs.fetchurl {
+                  url = file.url;
+                  sha256 = file.sha256;
+                }
+              } "$out/${model.repo}/${file.path}"
+            '') model.files) pinnedModels}
+        '';
+
         # WebKitGTK on NixOS: avoid GPU-compositing crashes and make TLS modules
         # resolvable so the Tauri webview can render and reach the network.
         # XDG_DATA_DIRS is *prefixed*, not replaced: children the app spawns
@@ -136,13 +165,18 @@
             "crates.io" = "*";
             "keygen.sh" = "*";
             "defense.gov" = "*";
+            "huggingface.co" = "*";
           };
         };
       in
       {
         # `nix build` / `nix run` — the installable desktop app. Linux-only:
         # macOS builds go through the normal `cargo tauri build` .app/.dmg path.
-        packages = lib.optionalAttrs isLinux rec {
+        # `nix build .#model-weights` works on every system — CI and non-Nix
+        # desktop builds use it to prefetch verified weights.
+        packages = {
+          model-weights = modelWeights;
+        } // lib.optionalAttrs isLinux rec {
           default = cmmc;
 
           cmmc = rustPlatform.buildRustPackage {
@@ -186,6 +220,23 @@
             } // lib.optionalAttrs (self ? rev || self ? dirtyRev) {
               GITHUB_SHA = self.rev or self.dirtyRev;
             };
+
+            # Bundle the pinned model weights into the static export so the
+            # desktop app runs the summarizer fully offline (the runtime
+            # probes /models/ and skips its downloader when this tree exists).
+            # copy-ort-assets.mjs (npm prebuild) needs a writable public/, so
+            # the weights are plain copies, not store symlinks.
+            # The hook may have entered src-tauri/ by preBuild time, so find
+            # the frontend root (where public/ lives) relative to either cwd.
+            preBuild = lib.optionalString (pinnedModels != [ ]) ''
+              frontend=.
+              if [ ! -d "$frontend/public" ] && [ -d ../public ]; then
+                frontend=..
+              fi
+              mkdir -p "$frontend/public/models"
+              cp -r ${modelWeights}/. "$frontend/public/models/"
+              chmod -R u+w "$frontend/public/models"
+            '';
 
             # No Rust tests, and `cargo test` would recompile the app with the
             # embedded frontend a second time for nothing.

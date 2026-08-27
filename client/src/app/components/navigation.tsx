@@ -8,6 +8,7 @@ import { ExportEvidence, ViewEvidence } from "./export_evidence";
 import { ExportEvidenceMap } from "./export_evidence_map";
 import { Export, Import } from "./export_import";
 import { ViewHeatmap } from "./heatmap";
+import { AiMenuItem } from "./ai/model_settings";
 import { LicenseMenuItem } from "./license_settings";
 import { Markdown } from "./markdown";
 import { POAM } from "./poam";
@@ -176,6 +177,7 @@ export const Navigation = () => {
                                     <ExportEvidenceMap />
                                 </div>
                                 <div className="py-1" role="none">
+                                    <AiMenuItem />
                                     <LicenseMenuItem />
                                     <TourMenuItem />
                                 </div>

@@ -4,8 +4,10 @@
     "private": true,
     "license": "Elastic-2.0",
     "scripts": {
+        "predev": "node scripts/copy-ort-assets.mjs",
         "dev": "next dev",
         "dev:free": "NEXT_PUBLIC_TIER=free next dev",
+        "prebuild": "node scripts/copy-ort-assets.mjs",
         "build": "next build",
         "postbuild": "node scripts/stamp-sw.mjs",
         "start": "next start",
@@ -15,6 +17,7 @@
         "tauri:mac": "tauri"
     },
     "dependencies": {
+        "@huggingface/transformers": "3.7.5",
         "exceljs": "^4.4.0",
         "marked": "^15.0.3",
         "next": "15.4.10",

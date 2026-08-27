@@ -78,6 +78,15 @@ export const SecurityForm = ({
     );
 
     const [_, formAction, isPending] = useActionState(action, initialState);
+    // The requirement's sub-statements, for the AI draft panel: prompt text
+    // and the insertion-target list (description field keys derive from
+    // subSubRequirement, same as form_elements.tsx).
+    const subStatements = Object.values(groupings ?? {})
+        .flat()
+        .map((securityRequirement) => ({
+            id: securityRequirement.subSubRequirement,
+            text: securityRequirement.text,
+        }));
     return (
         <Form
             debouncedSave={debouncedSave}
@@ -87,6 +96,7 @@ export const SecurityForm = ({
             next={next}
             prev={prev}
             requirement={requirement}
+            subStatements={subStatements}
             locked={locked}
         >
             <>

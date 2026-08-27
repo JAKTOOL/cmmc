@@ -1,4 +1,5 @@
 "use client";
+import { SummarizeButton } from "../ai/summarize_button";
 import { ContentNavigation } from "../content_navigation";
 import { Button } from "../ui";
 import { Evidence } from "./evidence";
@@ -12,6 +13,7 @@ export const Form = ({
     next,
     prev,
     requirement,
+    subStatements,
     locked,
 }) => {
     return (
@@ -43,6 +45,15 @@ export const Form = ({
                 requirementId={requirement.element_identifier}
                 locked={locked}
             />
+            {!locked && (
+                <div className="mb-4 flex w-full justify-end">
+                    <SummarizeButton
+                        requirement={requirement}
+                        subStatements={subStatements ?? []}
+                        locked={locked}
+                    />
+                </div>
+            )}
             <form
                 id={requirement.element_identifier}
                 action={formAction}
