@@ -7,6 +7,8 @@
 
 import { ElementWrapper } from "@/api/entities/Framework";
 import { getAssessmentGuidance } from "@/api/entities/AssessmentGuide";
+import { expectedReviewState } from "@/app/ai/review";
+import { IDB } from "@/app/db";
 import { getModel } from "@/app/llm/config";
 import {
     GenerateHandle,
@@ -16,6 +18,7 @@ import {
 } from "@/app/llm/engine";
 import {
     EvidenceChunk,
+    ReviewFinding,
     buildMessages,
     gatherEvidence,
     selectChunks,
@@ -38,12 +41,17 @@ export interface DraftPanelProps {
     requirement: ElementWrapper;
     /** The requirement's sub-statements: insertion targets and prompt text. */
     subStatements: { id: string; text: string }[];
+    /** When set, the draft targets this one control: the prompt scopes to
+     *  its statement and objective, and its stored objective review grounds
+     *  the narrative. */
+    focusId?: string;
     onClose: () => void;
 }
 
 export const DraftPanel = ({
     requirement,
     subStatements,
+    focusId,
     onClose,
 }: DraftPanelProps) => {
     const requirementId = requirement.element_identifier;
@@ -52,8 +60,12 @@ export const DraftPanel = ({
     const [draft, setDraft] = useState("");
     const [chunks, setChunks] = useState<EvidenceChunk[]>([]);
     const [unreadable, setUnreadable] = useState<string[]>([]);
+    const [findings, setFindings] = useState<ReviewFinding[]>([]);
+    const [staleFindings, setStaleFindings] = useState(0);
     const [error, setError] = useState<string | null>(null);
-    const [targetId, setTargetId] = useState(subStatements[0]?.id ?? "");
+    const [targetId, setTargetId] = useState(
+        focusId ?? subStatements[0]?.id ?? "",
+    );
     const [mode, setMode] = useState<"append" | "replace">("append");
     const [showSources, setShowSources] = useState(false);
     const [prompt, setPrompt] = useState("");
@@ -100,11 +112,54 @@ export const DraftPanel = ({
                 );
             }
 
-            const objectives = Object.values(
+            // Stored objective-review verdicts for this requirement (or just
+            // the focused control): extra grounding beyond the raw excerpts.
+            // Skip failed rows, and rows whose fingerprint says the evidence
+            // or pipeline changed since the review ran.
+            const reviewRows = (
+                await IDB.objectiveReviews.getAll(
+                    IDBKeyRange.only(requirementId),
+                    "requirement_id",
+                )
+            )
+                .filter(
+                    (row) =>
+                        row.verdict !== "error" && row.verdict !== "unparsed",
+                )
+                .filter((row) => !focusId || row.objective_id === focusId)
+                .sort((a, b) =>
+                    a.objective_id.localeCompare(b.objective_id),
+                );
+            const { fingerprint } = await expectedReviewState(requirementId);
+            const freshRows = fingerprint
+                ? reviewRows.filter((row) => row.fingerprint === fingerprint)
+                : reviewRows;
+            setStaleFindings(reviewRows.length - freshRows.length);
+            const reviewFindings: ReviewFinding[] = freshRows.map((row) => ({
+                citation: row.citation,
+                verdict: row.verdict,
+                reason: row.reason,
+                quote: row.quote
+                    ? {
+                          text: row.quote.text,
+                          filename: row.quote.filename,
+                          verified: row.quote.verified,
+                      }
+                    : undefined,
+            }));
+            setFindings(reviewFindings);
+
+            // The letter after the requirement id ("03.01.01.a" → "a") keys
+            // the assessment objectives; a focused draft only gets its own.
+            const focusLetter = focusId?.startsWith(`${requirementId}.`)
+                ? focusId.slice(requirementId.length + 1)
+                : undefined;
+            const objectives = Object.entries(
                 getAssessmentGuidance(requirementId)?.requirement
                     .assessment_objectives ?? {},
             )
-                .map((objective) => objective.trim())
+                .filter(([letter]) => !focusLetter || letter === focusLetter)
+                .map(([, objective]) => objective.trim())
                 .filter(Boolean);
             while (
                 objectives.join(" ").length > MAX_OBJECTIVE_CHARS &&
@@ -121,9 +176,19 @@ export const DraftPanel = ({
                 .slice(0, MAX_STATEMENT_CHARS);
             const title = requirement.title ?? "";
 
+            // Verified quotes are known-relevant passages: their chunks are
+            // pinned into the prompt, and their wording sharpens the BM25
+            // query so retrieval stops surfacing filler excerpts.
+            const verifiedQuotes = reviewFindings
+                .filter((finding) => finding.quote?.verified)
+                .map((finding) => finding.quote!.text);
             const selected = selectChunks(
                 docs,
-                summarizeQuery({ title, statement, objectives }),
+                [
+                    summarizeQuery({ title, statement, objectives }),
+                    ...verifiedQuotes,
+                ].join(" "),
+                { pinnedQuotes: verifiedQuotes },
             );
             setChunks(selected);
 
@@ -136,6 +201,8 @@ export const DraftPanel = ({
                 statement,
                 objectives,
                 chunks: selected,
+                findings: reviewFindings,
+                focusId,
             });
             // Expose exactly what the model receives ("Show prompt" below),
             // so grounding problems are inspectable instead of guessed at.
@@ -226,7 +293,8 @@ export const DraftPanel = ({
             >
                 <div className="flex items-center justify-between border-b border-border px-6 py-4">
                     <h2 className="text-lg font-semibold tracking-tight">
-                        AI draft — review before use
+                        AI draft{focusId ? ` for ${focusId}` : ""} — review
+                        before use
                     </h2>
                     <button
                         onClick={onClose}
@@ -273,6 +341,17 @@ export const DraftPanel = ({
                         </div>
                     )}
 
+                    {(findings.length > 0 || staleFindings > 0) && (
+                        <p className="text-muted-foreground">
+                            {findings.length > 0
+                                ? `Grounded in ${findings.length} evidence-review finding${findings.length === 1 ? "" : "s"}`
+                                : "No current evidence-review findings"}
+                            {staleFindings > 0
+                                ? ` (${staleFindings} stale finding${staleFindings === 1 ? "" : "s"} ignored — re-run the evidence review)`
+                                : ""}
+                            .
+                        </p>
+                    )}
                     {phase === "preparing" && (
                         <p aria-live="polite">{statusNote}</p>
                     )}
@@ -306,24 +385,36 @@ export const DraftPanel = ({
 
                     {finished && subStatements.length > 0 && (
                         <div className="flex flex-wrap items-end gap-2 border-t border-border pt-3">
-                            <div className="flex flex-col">
-                                <Label htmlFor="draft-target" className="my-1">
-                                    Insert into
-                                </Label>
-                                <Select
-                                    id="draft-target"
-                                    value={targetId}
-                                    onChange={(event) =>
-                                        setTargetId(event.target.value)
-                                    }
-                                >
-                                    {subStatements.map((sub) => (
-                                        <option key={sub.id} value={sub.id}>
-                                            {sub.id}
-                                        </option>
-                                    ))}
-                                </Select>
-                            </div>
+                            {subStatements.length > 1 ? (
+                                <div className="flex flex-col">
+                                    <Label
+                                        htmlFor="draft-target"
+                                        className="my-1"
+                                    >
+                                        Insert into
+                                    </Label>
+                                    <Select
+                                        id="draft-target"
+                                        value={targetId}
+                                        onChange={(event) =>
+                                            setTargetId(event.target.value)
+                                        }
+                                    >
+                                        {subStatements.map((sub) => (
+                                            <option
+                                                key={sub.id}
+                                                value={sub.id}
+                                            >
+                                                {sub.id}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </div>
+                            ) : (
+                                <span className="mb-2 text-muted-foreground">
+                                    Insert into {targetId}
+                                </span>
+                            )}
                             <div className="flex flex-col">
                                 <Label htmlFor="draft-mode" className="my-1">
                                     Mode

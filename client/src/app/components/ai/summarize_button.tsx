@@ -18,10 +18,13 @@ import { openAiSettings } from "./model_settings";
 export const SummarizeButton = ({
     requirement,
     subStatements,
+    focusId,
     locked,
 }: {
     requirement: ElementWrapper;
     subStatements: { id: string; text: string }[];
+    /** Scope the draft to this one control (see DraftPanel). */
+    focusId?: string;
     locked?: boolean;
 }) => {
     const [open, setOpen] = useState(false);
@@ -123,6 +126,7 @@ export const SummarizeButton = ({
                 <DraftPanel
                     requirement={requirement}
                     subStatements={subStatements}
+                    focusId={focusId}
                     onClose={() => setOpen(false)}
                 />
             )}

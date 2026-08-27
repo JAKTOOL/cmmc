@@ -56,6 +56,16 @@ export const gatherEvidence = async (
     return { docs, unreadable };
 };
 
+/** One stored objective-review verdict, reshaped for the draft prompt.
+ *  The caller (draft_panel.tsx) filters out error/unparsed/stale rows. */
+export interface ReviewFinding {
+    /** CMMC citation, e.g. "AC.L2-3.1.1[a]". */
+    citation: string;
+    verdict: string;
+    reason: string;
+    quote?: { text: string; filename: string; verified: boolean };
+}
+
 const TARGET_CHUNK_CHARS = 1000;
 const MAX_CHUNK_CHARS = 2000;
 const MAX_CHUNKS_PER_DOC = 3;
@@ -112,14 +122,19 @@ export const chunkDoc = (doc: EvidenceDoc): EvidenceChunk[] => {
     }));
 };
 
-/** Pick the evidence excerpts for the prompt: the first chunk of every
- *  artifact (each attached document gets represented), then the best
- *  BM25 matches for the control text, round-robin across artifacts, until
- *  the character budget runs out. */
+const normalizeForMatch = (text: string): string =>
+    text.replace(/\s+/g, " ").trim().toLowerCase();
+
+/** Pick the evidence excerpts for the prompt, in priority order: chunks that
+ *  contain a pinned quote (sentences the objective review verified against
+ *  this evidence — proven relevant, so they beat any BM25 guess), then the
+ *  first chunk of every artifact (each attached document gets represented),
+ *  then the best BM25 matches for the control text, until the character
+ *  budget runs out. */
 export const selectChunks = (
     docs: EvidenceDoc[],
     query: string,
-    budget = EVIDENCE_CHAR_BUDGET,
+    { budget = EVIDENCE_CHAR_BUDGET, pinnedQuotes = [] as string[] } = {},
 ): EvidenceChunk[] => {
     const chunks = docs.flatMap(chunkDoc);
     if (!chunks.length) {
@@ -155,7 +170,20 @@ export const selectChunks = (
         return true;
     };
 
-    // Every artifact's opening chunk first — even a low-scoring document
+    // Quote-bearing chunks first: the review already tied these passages to
+    // the objective, so they must survive the budget cut.
+    const quotes = pinnedQuotes.map(normalizeForMatch).filter(Boolean);
+    if (quotes.length) {
+        for (const chunk of chunks) {
+            const haystack = normalizeForMatch(chunk.text);
+            if (quotes.some((quote) => haystack.includes(quote))) {
+                if (!take(chunk)) {
+                    break;
+                }
+            }
+        }
+    }
+    // Then every artifact's opening chunk — even a low-scoring document
     // should be visible to the model (and to the user in the excerpt list).
     for (const doc of docs) {
         const first = byId.get(`${doc.evidenceId}#0`);
@@ -185,6 +213,11 @@ export interface SummarizeInput {
     /** Assessment objective prose, when the revision has it. */
     objectives: string[];
     chunks: EvidenceChunk[];
+    /** Stored objective-review verdicts to ground the draft in. */
+    findings?: ReviewFinding[];
+    /** Sub-statement id when the draft targets one control (e.g.
+     *  "03.01.01.a") instead of the whole requirement. */
+    focusId?: string;
 }
 
 /** The retrieval query: control title + statement + objectives. */
@@ -197,6 +230,21 @@ export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
     const objectives = input.objectives.length
         ? `\n${input.objectives
               .map((objective) => `- ${objective}`)
+              .join("\n")}\n`
+        : "";
+    // Review findings are secondary grounding: verdicts and reasons steer
+    // what the narrative claims (and what lands under "Gaps:"), and each
+    // verified quote points at the excerpt that proves it.
+    const findings = input.findings?.length
+        ? `\nPrior evidence-review findings (one per objective, from the same excerpts):\n${input.findings
+              .map(
+                  (finding) =>
+                      `- ${finding.citation}: ${finding.verdict}` +
+                      (finding.reason ? ` — ${finding.reason}` : "") +
+                      (finding.quote?.verified
+                          ? `\n  Supporting quote: "${finding.quote.text}" [${finding.quote.filename}]`
+                          : ""),
+              )
               .join("\n")}\n`
         : "";
     const excerpts = input.chunks
@@ -216,7 +264,7 @@ export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
         },
         {
             role: "user",
-            content: `Requirement ${input.requirementId} — ${input.title}\n${input.statement}\n${objectives ? `\nAssessment objectives (a checklist to assess coverage against — do NOT copy their wording into the narrative):${objectives}` : ""}\nEvidence excerpts:\n${excerpts}\n\nWrite a draft implementation narrative (150-250 words, markdown) describing how the organization meets this requirement. Every paragraph must quote or closely paraphrase concrete details from the excerpts, each cited as [filename]. A sentence that could apply to any organization is a wasted sentence — be specific to this evidence. End with a "Gaps:" bullet list of objectives the excerpts do not cover, or "Gaps: none evident."`,
+            content: `Requirement ${input.requirementId} — ${input.title}\n${input.statement}\n${objectives ? `\nAssessment objectives (a checklist to assess coverage against — do NOT copy their wording into the narrative):${objectives}` : ""}${findings}\nEvidence excerpts:\n${excerpts}\n\nWrite a draft implementation narrative (${input.focusId ? "100-200" : "150-250"} words, markdown) describing how the organization meets ${input.focusId ? `statement ${input.focusId} of this requirement` : "this requirement"}. Every paragraph must quote or closely paraphrase concrete details from the excerpts, each cited as [filename]. Where a review finding above supplies a supporting quote, build the narrative around that passage. A sentence that could apply to any organization is a wasted sentence — be specific to this evidence. End with a "Gaps:" bullet list of objectives the excerpts do not cover${input.findings?.length ? " (the not-met and no-evidence findings above belong here)" : ""}, or "Gaps: none evident."`,
         },
     ];
 };

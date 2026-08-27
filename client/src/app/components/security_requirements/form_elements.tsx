@@ -6,6 +6,7 @@ import {
     DraftInsertDetail,
     LLM_DRAFT_INSERT_EVENT,
 } from "../ai/draft_insert";
+import { SummarizeButton } from "../ai/summarize_button";
 import { StatementText } from "../odp_values";
 import { Status, StatusState } from "../status";
 import { Label, Select, Textarea } from "../ui";
@@ -16,6 +17,9 @@ export interface SecurityRequirementProps {
     hasPartialValue: boolean;
     isPending: boolean;
     idx?: number;
+    /** The parent requirement, for the per-control AI draft button. */
+    requirement?: ElementWrapper;
+    locked?: boolean;
 }
 
 export const SelectStatus = ({
@@ -245,6 +249,8 @@ export const SecurityRequirement = ({
     hasPartialValue,
     isPending,
     idx,
+    requirement,
+    locked,
 }: SecurityRequirementProps) => {
     return (
         <li className="mb-6">
@@ -270,6 +276,21 @@ export const SecurityRequirement = ({
                         statementId={securityRequirement.subSubRequirement}
                     />
                 </p>
+                {requirement && (
+                    <div className="mb-1 flex w-full justify-end">
+                        <SummarizeButton
+                            requirement={requirement}
+                            subStatements={[
+                                {
+                                    id: securityRequirement.subSubRequirement,
+                                    text: securityRequirement.text,
+                                },
+                            ]}
+                            focusId={securityRequirement.subSubRequirement}
+                            locked={locked}
+                        />
+                    </div>
+                )}
                 <div className="flex flex-col md:flex-row">
                     <SecurityRequirementSelect
                         securityRequirement={securityRequirement}
