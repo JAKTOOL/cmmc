@@ -126,6 +126,17 @@ const readResourceFile = async (
     return assembled.buffer;
 };
 
+/** Drop the worker and every handle to it. The next ensureLoaded starts a
+ *  fresh worker and reloads the model from scratch. */
+const disposeWorker = () => {
+    worker?.terminate();
+    worker = undefined;
+    loadedModelId = undefined;
+    currentModel = undefined;
+    loadPromise = undefined;
+    registerLocalModel(undefined);
+};
+
 interface PendingRequest {
     onToken: (text: string) => void;
     resolve: (value: {
@@ -252,11 +263,26 @@ const getWorker = (): Worker => {
                         const request = pending.get(message.requestId);
                         pending.delete(message.requestId);
                         activeGeneration = false;
-                        setStatus({
-                            phase: "ready",
-                            modelId: loadedModelId,
-                            device: status.device,
-                        });
+                        if (message.fatal) {
+                            // The session is poisoned (lost WebGPU device /
+                            // failed OrtRun) — every later run on it would
+                            // fail too. Discard the worker; the next use
+                            // reloads the model into a fresh one.
+                            const failedModelId = loadedModelId;
+                            disposeWorker();
+                            setStatus({
+                                phase: "error",
+                                modelId: failedModelId,
+                                device: status.device,
+                                error: message.message,
+                            });
+                        } else {
+                            setStatus({
+                                phase: "ready",
+                                modelId: loadedModelId,
+                                device: status.device,
+                            });
+                        }
                         request?.reject(error);
                     } else {
                         onWorkerLoadError?.(error);
@@ -281,11 +307,7 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
     if (worker) {
         // One model at a time: replacing means a fresh worker so the old
         // graph's memory is actually released.
-        worker.terminate();
-        worker = undefined;
-        loadedModelId = undefined;
-        currentModel = undefined;
-        registerLocalModel(undefined);
+        disposeWorker();
     }
 
     const { device } = await getDeviceCapabilities();

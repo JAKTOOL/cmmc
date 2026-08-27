@@ -175,5 +175,13 @@ const run = async (
         }
         await IDB.objectiveReviews.put(row);
         onProgress?.({ ...progress, done: ++progress.done });
+        // A fatal engine failure (lost WebGPU device, failed OrtRun)
+        // unregisters the model; without it every remaining objective would
+        // fail identically. Surface the failure and stop instead.
+        if (row.verdict === "error" && !getLocalModel()) {
+            throw new Error(
+                `Evidence review stopped — the model failed and was unloaded (${row.raw}). Run again to reload it.`,
+            );
+        }
     }
 };

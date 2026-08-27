@@ -291,8 +291,30 @@ const load = async (message: Extract<ToWorker, { type: "load" }>) => {
         },
     });
     log("load: model session created");
+    // Best effort: when the runtime exposes its GPUDevice, log why it dies.
+    // A lost device is the usual story behind "Mapping WebGPU buffer failed:
+    // Invalid buffer" during Download, and the reason string names the
+    // culprit (GPU process reset, out of memory, driver timeout).
+    try {
+        // The repo types WebGPU by hand (capabilities.ts) — same here.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const device = (env.backends.onnx as any)?.webgpu?.device as
+            | { lost?: Promise<{ reason: string; message: string }> }
+            | undefined;
+        device?.lost?.then((info) =>
+            log(`webgpu device lost: ${info.reason} — ${info.message}`),
+        );
+    } catch {
+        // Diagnostics only.
+    }
     return { tokenizer, model };
 };
+
+/** Errors after which the ONNX session cannot be trusted: a lost WebGPU
+ *  device (all buffers invalid from then on) or any OrtRun failure, which
+ *  leaves the autoregressive loop's KV-cache state undefined. */
+const isFatalGenerateError = (description: string): boolean =>
+    /OrtRun|webgpu|device.*lost|invalid buffer/i.test(description);
 
 const generate = async (
     message: Extract<ToWorker, { type: "generate" }>,
@@ -423,6 +445,9 @@ self.onmessage = async (event: MessageEvent<ToWorker>) => {
             type: "error",
             requestId: "requestId" in message ? message.requestId : undefined,
             message: description,
+            fatal:
+                message.type === "generate" &&
+                isFatalGenerateError(description),
         });
     }
 };

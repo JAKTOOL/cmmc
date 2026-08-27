@@ -67,4 +67,13 @@ export type FromWorker =
           text: string;
           stats: { tokens: number; ms: number };
       }
-    | { type: "error"; requestId?: number; message: string };
+    | {
+          type: "error";
+          requestId?: number;
+          message: string;
+          /** True when the failure poisons the ONNX session (e.g. a WebGPU
+           *  device loss or OrtRun failure): every later run on it would
+           *  fail too, so the engine must discard the worker and reload on
+           *  next use. */
+          fatal?: boolean;
+      };
