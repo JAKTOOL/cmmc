@@ -2,7 +2,7 @@
 import { examineIdsForStoredItem } from "@/api/entities/ExamineItemIds";
 import { showLoader } from "@/app/components/loader";
 import { Status } from "@/app/components/status";
-export const version = 11;
+export const version = 13;
 let loader: Promise<IDBDatabase> | undefined;
 
 enum Table {
@@ -16,6 +16,7 @@ enum Table {
     REQUIREMENT_EXAMINE_ITEMS = "requirement_examine_items",
     EVIDENCE_TEXT = "evidence_text",
     EVIDENCE_DATA = "evidence_data",
+    OBJECTIVE_REVIEWS = "objective_reviews",
 }
 
 const migrations = {
@@ -310,6 +311,31 @@ const migrations = {
             request.onerror = () => reject(request.error);
         });
     },
+    "12": async (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
+
+        // AI evidence-review verdicts, one row per assessment objective.
+        // Derived data (evidence + model output): never exported, cleared on
+        // import, staleness detected via the fingerprint field.
+        const reviews = db.createObjectStore(Table.OBJECTIVE_REVIEWS, {
+            keyPath: "objective_id",
+        });
+        reviews.createIndex("requirement_id", "requirement_id", {
+            unique: false,
+        });
+    },
+    "13": async (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
+
+        // Repair pass. A dev hot-reload window existed where the version
+        // constant read 12 before migration "12" was in the compiled module;
+        // the runner skipped the missing step silently and IndexedDB still
+        // stamped version 12, leaving databases without objective_reviews.
+        // Recreate the store when it is missing; no-op otherwise.
+        if (!db.objectStoreNames.contains(Table.OBJECTIVE_REVIEWS)) {
+            await migrations["12"](event);
+        }
+    },
 };
 
 if (typeof window !== "undefined") {
@@ -346,7 +372,20 @@ if (typeof window !== "undefined") {
         ) {
             hideMigrationLoader = showLoader("Updating local database…");
             for (let v = event.oldVersion + 1; v <= event.newVersion; v++) {
-                await migrations?.[`${v}`]?.(event);
+                const migration = migrations?.[`${v}`];
+                if (!migration) {
+                    // Never stamp a version the code cannot migrate to: a
+                    // committed upgrade with a skipped step leaves the store
+                    // set silently diverged from the code (and the version
+                    // match means it is never revisited). Abort so the old
+                    // version stays and a reload with complete code retries.
+                    console.error(
+                        `Missing IndexedDB migration ${v}; aborting upgrade`,
+                    );
+                    (event.target.transaction as IDBTransaction).abort();
+                    return;
+                }
+                await migration(event);
             }
         };
     });
@@ -428,6 +467,41 @@ export interface IDBEvidenceExamineItem {
     evidence_id: string;
     /** Frozen slug from examine-shared-items.json (e.g. "system-security-plan"). */
     examine_id: string;
+}
+
+/** AI review verdict for one assessment objective. Derived data (evidence +
+ *  model output): never exported; cleared on import; staleness detected via
+ *  `fingerprint`. One row per objective — the latest run wins. */
+export interface IDBObjectiveReview {
+    /** Objective id, e.g. "03.01.01.a". */
+    objective_id: string;
+    requirement_id: string;
+    /** CMMC citation, e.g. "AC.L2-3.1.1[a]". */
+    citation: string;
+    verdict:
+        | "met"
+        | "partially-met"
+        | "not-met"
+        | "no-evidence"
+        | "unparsed"
+        | "error";
+    reason: string;
+    quote?: {
+        text: string;
+        evidence_id: string;
+        chunk: number;
+        filename: string;
+        /** True when the quote is a verbatim (whitespace-normalized)
+         *  substring of a chunk that was in the prompt. */
+        verified: boolean;
+    };
+    /** Full model output, for the "unparsed" fallback display. */
+    raw: string;
+    /** sha256 over sorted evidence ids + EXTRACTOR_VERSION + CHUNKER_VERSION
+     *  + PROMPT_VERSION + model id; see ai/review.ts. */
+    fingerprint: string;
+    model: string;
+    created: number;
 }
 
 /** Text extracted from an evidence artifact for content search. Derived from
@@ -812,6 +886,9 @@ export class IDB {
     );
     static evidenceText = new StoreWrapper<IDBEvidenceText>(
         Table.EVIDENCE_TEXT,
+    );
+    static objectiveReviews = new StoreWrapper<IDBObjectiveReview>(
+        Table.OBJECTIVE_REVIEWS,
     );
 
     static version = version;

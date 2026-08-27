@@ -806,6 +806,8 @@ const Badge = ({
 
     return (
         <span
+            // Anchor target for the AI review panel's quote citations.
+            id={`evidence-${artifact.id}`}
             className={badgeClasses(variant, "me-2 mb-2 shrink")}
             onContextMenu={onContextMenu}
         >

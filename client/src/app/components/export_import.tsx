@@ -218,6 +218,8 @@ const importDatabase = async (text: string): Promise<void> => {
         // Derived text is not in the payload; clearing it lets the reconciler
         // rebuild from the imported artifacts after the reload.
         await IDB.evidenceText.clear();
+        // AI review verdicts derive from the evidence being replaced.
+        await IDB.objectiveReviews.clear();
         await IDB.evidenceData.clear();
 
         const requirements: Record<string, IDBRequirement> = {};

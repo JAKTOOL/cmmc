@@ -5,6 +5,7 @@
 // path registers through the same call. Consumers never import the runtime.
 
 import { isUnlocked } from "@/app/utils/tier";
+import { stubModel } from "./stub_model";
 
 export interface GenerateOptions {
     signal?: AbortSignal;
@@ -39,7 +40,12 @@ export const registerLocalModel = (model: LocalModel | undefined): void => {
     }
 };
 
-export const getLocalModel = (): LocalModel | undefined => current;
+/** The registered model — or the deterministic stub when
+ *  NEXT_PUBLIC_AI_STUB=1 (`npm run dev:ai`) and no real model has loaded.
+ *  The flag is inlined at build time, same as NEXT_PUBLIC_TIER. */
+export const getLocalModel = (): LocalModel | undefined =>
+    current ??
+    (process.env.NEXT_PUBLIC_AI_STUB === "1" ? stubModel : undefined);
 
 /** Single gating seam for AI features on a requirement: the build tier must
  *  unlock the requirement and a model must be registered. The free web build
