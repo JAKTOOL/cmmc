@@ -10,10 +10,18 @@ import type { RetrievedChunk } from "./retrieval";
 
 /** Bump when the prompt or parser changes shape; part of the review
  *  fingerprint. */
-export const PROMPT_VERSION = 2;
+export const PROMPT_VERSION = 3;
 
 /** Tokens held back for the model's tagged response. */
 const OUTPUT_RESERVE_TOKENS = 256;
+
+/** Ceiling on the review prompt, regardless of the model's window. GPU
+ *  memory during a run scales with prompt length (prefill logits are
+ *  sequence x vocab, the KV cache is sequence x layers), and a review fires
+ *  many generations back to back — full-window prompts drove the WebGPU
+ *  device out of memory mid-run. A verdict on one objective does not need
+ *  the whole window; ~4 chunks still fit under this cap. */
+const REVIEW_PROMPT_TOKENS = 2048;
 /** Floor for a lone truncated chunk, so some evidence is always shown. */
 const MIN_CHUNK_CHARS = 400;
 
@@ -62,7 +70,7 @@ export const buildReviewPrompt = (
     const head = promptHead(objective);
     const tail = promptTail(objective);
     let budget =
-        model.contextTokens -
+        Math.min(model.contextTokens, REVIEW_PROMPT_TOKENS) -
         count(head) -
         count(tail) -
         OUTPUT_RESERVE_TOKENS;

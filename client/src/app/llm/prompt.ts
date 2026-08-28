@@ -183,16 +183,18 @@ export const selectChunks = (
             }
         }
     }
-    // Then every artifact's opening chunk — even a low-scoring document
-    // should be visible to the model (and to the user in the excerpt list).
-    for (const doc of docs) {
-        const first = byId.get(`${doc.evidenceId}#0`);
-        if (first && !take(first)) {
+    // Then the BM25 matches. Opening chunks come last: they are mostly
+    // purpose/title boilerplate, and under a tight budget the
+    // every-artifact-visible guarantee was crowding out the chunks with
+    // actual implementation detail.
+    for (const chunk of ranked) {
+        if (!take(chunk)) {
             break;
         }
     }
-    for (const chunk of ranked) {
-        if (!take(chunk)) {
+    for (const doc of docs) {
+        const first = byId.get(`${doc.evidenceId}#0`);
+        if (first && !take(first)) {
             break;
         }
     }
@@ -255,16 +257,37 @@ export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
     // ready-made compliance phrasing is exactly what a small model will
     // otherwise paraphrase instead of reading the excerpts. The grounding
     // instruction demands concrete nouns from the excerpts, which generic
-    // boilerplate cannot satisfy.
+    // boilerplate cannot satisfy. The output rules are blunt and repeated
+    // ("only the narrative", "no headings", "start with the first sentence")
+    // because the observed failure is the model echoing the context sections
+    // back — headings, statement, excerpt list — and running out of output
+    // tokens before the narrative finishes.
     return [
         {
             role: "system",
             content:
-                "You draft implementation narratives for NIST SP 800-171 / CMMC self-assessments. Every sentence you write must be grounded in the evidence excerpts: use the specific system names, tool names, policy titles, settings, and frequencies they contain, and cite the source as [filename] after each claim. Never restate the requirement or the assessment objectives in generic terms. If the excerpts do not address something, say so instead of inventing it.",
+                "You draft implementation narratives for NIST SP 800-171 / CMMC self-assessments. Your entire response is the narrative and a closing gaps list — nothing else. Every sentence must be grounded in the evidence excerpts: use the specific system names, tool names, policy titles, settings, and frequencies they contain, and cite the source as [filename] after each claim. Only cite a file whose excerpt actually contains that detail. Never restate the requirement or the assessment objectives in generic terms. If the excerpts do not address something, say so instead of inventing it.",
         },
         {
             role: "user",
-            content: `Requirement ${input.requirementId} — ${input.title}\n${input.statement}\n${objectives ? `\nAssessment objectives (a checklist to assess coverage against — do NOT copy their wording into the narrative):${objectives}` : ""}${findings}\nEvidence excerpts:\n${excerpts}\n\nWrite a draft implementation narrative (${input.focusId ? "100-200" : "150-250"} words, markdown) describing how the organization meets ${input.focusId ? `statement ${input.focusId} of this requirement` : "this requirement"}. Every paragraph must quote or closely paraphrase concrete details from the excerpts, each cited as [filename]. Where a review finding above supplies a supporting quote, build the narrative around that passage. A sentence that could apply to any organization is a wasted sentence — be specific to this evidence. End with a "Gaps:" bullet list of objectives the excerpts do not cover${input.findings?.length ? " (the not-met and no-evidence findings above belong here)" : ""}, or "Gaps: none evident."`,
+            content: `Context — reference material only; do not repeat any of it in your response.
+
+Requirement ${input.requirementId} — ${input.title}
+${input.statement}
+${objectives ? `\nAssessment objectives (a coverage checklist — do NOT copy their wording):${objectives}` : ""}${findings}
+Evidence excerpts:
+${excerpts}
+
+Task: write the draft implementation narrative (${input.focusId ? "100-200" : "150-250"} words) describing how the organization meets ${input.focusId ? `statement ${input.focusId} of this requirement` : "this requirement"}.
+
+Output rules:
+- Output ONLY the narrative paragraphs and then the gaps list. No title, no headings, no introduction, no repetition of the statement, objectives, or excerpts.
+- Every paragraph quotes or closely paraphrases concrete details from the excerpts, each cited as [filename] — and only the file whose excerpt contains that detail.
+- [filename] copied exactly from an excerpt header is the ONLY citation form. Never write page numbers, section numbers, or links — the excerpts have none, so any you write are invented.${input.findings?.some((finding) => finding.quote?.verified) ? "\n- Build the narrative around the supporting quotes in the review findings." : ""}
+- A sentence that could apply to any organization is a wasted sentence — be specific to this evidence.
+- End with "Gaps:" followed by plain-text bullets — no citations, no objective ids beyond those given above — each naming something ${input.focusId ? "this statement's objective requires" : "the objectives require"} that the excerpts do not demonstrate${input.findings?.length ? " (the not-met and no-evidence findings belong here)" : ""}. If nothing is missing, end with "Gaps: none evident."
+
+Start your response with a specific fact from the excerpts.`,
         },
     ];
 };

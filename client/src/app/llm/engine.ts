@@ -134,6 +134,13 @@ const disposeWorker = () => {
     loadedModelId = undefined;
     currentModel = undefined;
     loadPromise = undefined;
+    // Settle every request still waiting on the dead worker. Nothing will
+    // ever answer them, and one unsettled request pins activeGeneration
+    // true, which blocks all future runs until a page reload.
+    const failure = new Error("The model worker was shut down.");
+    pending.forEach((request) => request.reject(failure));
+    pending.clear();
+    activeGeneration = false;
     registerLocalModel(undefined);
 };
 
@@ -158,10 +165,31 @@ const getWorker = (): Worker => {
         // throw) — distinct from a whole-web-process crash, which kills this
         // handler too. Either way the breadcrumb trail on stderr tells the
         // two apart: script death logs here; process death just stops.
+        // A dead script answers nothing, so treat it like a fatal generate
+        // error: tear the worker down and settle whoever is waiting, instead
+        // of leaving the engine wedged behind an in-flight request.
         worker.onerror = (event) => {
             aiDebugLog(
                 `worker onerror: ${event.message ?? "?"} @ ${event.filename ?? "?"}:${event.lineno ?? "?"}`,
             );
+            const error = new Error(
+                event.message || "The model worker crashed.",
+            );
+            const failedModelId = loadedModelId;
+            const rejectLoad = onWorkerLoadError;
+            disposeWorker();
+            if (rejectLoad) {
+                // Mid-load crash: fail the ensureLoaded promise (this also
+                // sets the error status).
+                rejectLoad(error);
+            } else {
+                setStatus({
+                    phase: "error",
+                    modelId: failedModelId,
+                    device: status.device,
+                    error: error.message,
+                });
+            }
         };
         worker.onmessage = (event: MessageEvent<FromWorker>) => {
             const message = event.data;

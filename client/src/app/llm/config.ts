@@ -91,14 +91,24 @@ export const hasBundledWeights = async (model: LlmModel): Promise<boolean> => {
     }
 };
 
-// Generation budget. Both candidate models accept far larger windows, but 4K
-// caps KV-cache memory in the browser and keeps WASM latency tolerable.
-export const CONTEXT_TOKENS = 4096;
+// Generation budget. Both candidate models accept far larger windows, but
+// the window caps KV-cache memory in the browser and keeps WASM latency
+// tolerable. 2,560 (input <= 2,048 after the 512 output reserve) is a WebGPU
+// memory bound, not a latency choice: prefill logits are sequence x vocab
+// (~0.5 MB per input token on the 1B model), and near-4K prompts drove real
+// devices out of GPU memory (webgpu_context "device error(3): Out of
+// memory"). The worker enforces this by trimming input to
+// CONTEXT_TOKENS - MAX_NEW_TOKENS, so no prompt-builder mistake can exceed
+// it.
+export const CONTEXT_TOKENS = 2560;
 export const MAX_NEW_TOKENS = 512;
 /** Conservative chars-per-token estimate for budget math done outside the
  *  tokenizer; the worker re-checks with the real tokenizer and trims. */
 export const CHARS_PER_TOKEN = 4;
-/** Token budget for evidence excerpts (instructions ~250 + control and
- *  objectives ~600 + output 512 leaves ~2,600 of 4,096). */
-export const EVIDENCE_TOKEN_BUDGET = 2600;
+/** Token budget for evidence excerpts: what the input cap leaves after
+ *  instructions ~250, control and objectives ~600, and review findings ~200
+ *  (2,048 input of the 2,560 window). Carries ~3 excerpts; the pinned
+ *  verified-quote chunks go in first, so the proven-relevant material is
+ *  what survives the cut. */
+export const EVIDENCE_TOKEN_BUDGET = 1000;
 export const EVIDENCE_CHAR_BUDGET = EVIDENCE_TOKEN_BUDGET * CHARS_PER_TOKEN;
