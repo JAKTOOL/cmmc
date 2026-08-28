@@ -9,7 +9,7 @@ import { ElementWrapper } from "@/api/entities/Framework";
 import { getAssessmentGuidance } from "@/api/entities/AssessmentGuide";
 import { expectedReviewState } from "@/app/ai/review";
 import { IDB } from "@/app/db";
-import { getModel } from "@/app/llm/config";
+import { DRAFT_MAX_NEW_TOKENS, getModel } from "@/app/llm/config";
 import {
     GenerateHandle,
     ensureLoaded,
@@ -31,6 +31,35 @@ import { Button, Label, Select } from "../ui";
 import { dispatchDraftInsert } from "./draft_insert";
 
 type Phase = "preparing" | "generating" | "done" | "error";
+
+/** The deterministic tail of a draft: a gaps list derived from the stored
+ *  review verdicts and the list of files the excerpts came from. Kept out of
+ *  the model's hands — it dropped, truncated, or embellished both whenever
+ *  it was asked to write them. */
+const draftAppendix = (
+    findings: ReviewFinding[],
+    chunks: EvidenceChunk[],
+): string => {
+    const gaps = findings.filter((finding) => finding.verdict !== "met");
+    const parts: string[] = [];
+    if (findings.length) {
+        parts.push(
+            gaps.length
+                ? `Gaps (from the evidence review):\n${gaps
+                      .map(
+                          (finding) =>
+                              `- ${finding.citation} — ${finding.verdict}${finding.reason ? `: ${finding.reason}` : ""}`,
+                      )
+                      .join("\n")}`
+                : "Gaps: none evident (per the evidence review).",
+        );
+    }
+    if (chunks.length) {
+        const files = [...new Set(chunks.map((chunk) => chunk.filename))];
+        parts.push(`Sources: ${files.join(", ")}`);
+    }
+    return parts.join("\n\n");
+};
 
 // Objectives can be long; cap what enters the prompt (~600 tokens shared
 // with the statement, see llm/config.ts budget notes).
@@ -212,12 +241,25 @@ export const DraftPanel = ({
                     .join("\n\n"),
             );
             setPhase("generating");
-            const handle = generate(messages, (token) =>
-                setDraft((current) => current + token),
+            const handle = generate(
+                messages,
+                (token) => setDraft((current) => current + token),
+                { maxNewTokens: DRAFT_MAX_NEW_TOKENS },
             );
             handleRef.current = handle;
             await handle.result;
             if (runId === runIdRef.current) {
+                // The model only writes the narrative prose. Gaps and sources
+                // are appended here, in code: the gaps come straight from the
+                // review verdicts and the source list from the excerpts that
+                // were actually in the prompt, so neither can be invented or
+                // truncated away by the model.
+                const appendix = draftAppendix(reviewFindings, selected);
+                if (appendix) {
+                    setDraft(
+                        (current) => `${current.trimEnd()}\n\n${appendix}`,
+                    );
+                }
                 setPhase("done");
             }
         } catch (runError) {

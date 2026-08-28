@@ -102,6 +102,11 @@ export const hasBundledWeights = async (model: LlmModel): Promise<boolean> => {
 // it.
 export const CONTEXT_TOKENS = 2560;
 export const MAX_NEW_TOKENS = 512;
+/** Output budget for the draft narrative. The model writes ~120 words of
+ *  prose (the app appends gaps and sources itself); a short leash also cuts
+ *  the meta-openers and summary paragraphs the 1B model pads with when it
+ *  has room. */
+export const DRAFT_MAX_NEW_TOKENS = 300;
 /** Conservative chars-per-token estimate for budget math done outside the
  *  tokenizer; the worker re-checks with the real tokenizer and trims. */
 export const CHARS_PER_TOKEN = 4;

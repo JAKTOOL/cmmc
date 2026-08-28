@@ -396,6 +396,7 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
 export const generate = (
     messages: ChatMessage[],
     onToken: (text: string) => void,
+    { maxNewTokens = MAX_NEW_TOKENS }: { maxNewTokens?: number } = {},
 ): GenerateHandle => {
     if (!loadedModelId) {
         throw new Error("No model loaded");
@@ -420,7 +421,7 @@ export const generate = (
         type: "generate",
         requestId,
         messages,
-        maxNewTokens: MAX_NEW_TOKENS,
+        maxNewTokens,
         contextTokens: CONTEXT_TOKENS,
     });
     return {
@@ -435,15 +436,22 @@ export const generate = (
 const makeLocalModel = (model: LlmModel) => ({
     id: `${model.id}@${model.revision.slice(0, 12)}`,
     contextTokens: CONTEXT_TOKENS,
-    async *generate(prompt: string, opts?: { signal?: AbortSignal }) {
+    async *generate(
+        prompt: string,
+        opts?: { signal?: AbortSignal; maxNewTokens?: number },
+    ) {
         const queue: string[] = [];
         let notify: (() => void) | undefined;
         let finished = false;
         let failure: Error | undefined;
-        const handle = generate([{ role: "user", content: prompt }], (text) => {
-            queue.push(text);
-            notify?.();
-        });
+        const handle = generate(
+            [{ role: "user", content: prompt }],
+            (text) => {
+                queue.push(text);
+                notify?.();
+            },
+            { maxNewTokens: opts?.maxNewTokens },
+        );
         opts?.signal?.addEventListener("abort", () => handle.abort(), {
             once: true,
         });
