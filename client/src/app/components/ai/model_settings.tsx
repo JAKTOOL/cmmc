@@ -10,13 +10,17 @@ import { useEffect, useMemo, useState } from "react";
 import { FREE_TIER } from "@/app/utils/tier";
 import {
     DEFAULT_MODEL_ID,
-    LlmDevice,
     LlmModel,
     MODELS,
     getModel,
     isPinned,
+    resolveUsableModel,
+    usableDevice,
 } from "@/app/llm/config";
-import { getDeviceCapabilities } from "@/app/llm/capabilities";
+import {
+    DeviceCapabilities,
+    getDeviceCapabilities,
+} from "@/app/llm/capabilities";
 import {
     LlmStatus,
     subscribeLlmStatus,
@@ -84,7 +88,7 @@ type WeightState = "checking" | "bundled" | "missing";
 
 export const AiSettingsModal = () => {
     const [open, setOpen] = useState(false);
-    const [device, setDevice] = useState<LlmDevice>();
+    const [capabilities, setCapabilities] = useState<DeviceCapabilities>();
     const [enabled, setEnabled] = useState(true);
     const [modelId, setModelId] = useState(DEFAULT_MODEL_ID);
     const [weights, setWeights] = useState<WeightState>("checking");
@@ -111,11 +115,11 @@ export const AiSettingsModal = () => {
         let cancelled = false;
         setWeights("checking");
         (async () => {
-            const capabilities = await getDeviceCapabilities();
+            const detected = await getDeviceCapabilities();
             if (cancelled) {
                 return;
             }
-            setDevice(capabilities.device);
+            setCapabilities(detected);
             const bundled = await weightsAvailable(model);
             if (!cancelled) {
                 setWeights(bundled ? "bundled" : "missing");
@@ -171,9 +175,9 @@ export const AiSettingsModal = () => {
 
                 <div className="flex items-center justify-between gap-4">
                     <span className="text-muted-foreground">Engine</span>
-                    {device === undefined ? (
+                    {capabilities === undefined ? (
                         <Badge variant="neutral">Detecting…</Badge>
-                    ) : device === "webgpu" ? (
+                    ) : capabilities.device === "webgpu" ? (
                         <Badge variant="success">WebGPU</Badge>
                     ) : (
                         <Badge variant="warning">
@@ -192,26 +196,39 @@ export const AiSettingsModal = () => {
                             setSelectedModelId(event.target.value);
                         }}
                     >
-                        {MODELS.map((candidate: LlmModel) => (
-                            <option
-                                key={candidate.id}
-                                value={candidate.id}
-                                disabled={
-                                    !isPinned(candidate) ||
-                                    (candidate.minDevice === "webgpu" &&
-                                        device === "wasm")
-                                }
-                            >
-                                {candidate.label}
-                                {!isPinned(candidate)
-                                    ? " (not available in this build)"
-                                    : candidate.minDevice === "webgpu" &&
-                                        device === "wasm"
-                                      ? " (needs WebGPU)"
-                                      : ""}
-                            </option>
-                        ))}
+                        {MODELS.map((candidate: LlmModel) => {
+                            const unusable =
+                                capabilities !== undefined &&
+                                usableDevice(candidate, capabilities) === null;
+                            return (
+                                <option
+                                    key={candidate.id}
+                                    value={candidate.id}
+                                    disabled={!isPinned(candidate) || unusable}
+                                >
+                                    {candidate.label}
+                                    {!isPinned(candidate)
+                                        ? " (not available in this build)"
+                                        : !unusable
+                                          ? ""
+                                          : capabilities?.device === "webgpu"
+                                            ? " (needs more GPU memory)"
+                                            : " (needs WebGPU)"}
+                                </option>
+                            );
+                        })}
                     </Select>
+                    {(() => {
+                        const effective = capabilities
+                            ? resolveUsableModel(modelId, capabilities)
+                            : undefined;
+                        return effective && effective.id !== modelId ? (
+                            <p className="text-xs text-muted-foreground">
+                                This device cannot run the selected model, so
+                                the {effective.label} runs instead.
+                            </p>
+                        ) : null;
+                    })()}
                 </div>
 
                 <div className="flex flex-col gap-2 border-t border-border pt-3">

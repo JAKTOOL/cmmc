@@ -118,19 +118,37 @@ const LOGIT_BYTES_PER_TOKEN: Record<string, number> = {
     "gemma-3-270m-it": 262144 * 4,
 };
 const FALLBACK_LOGIT_BYTES = 262144 * 4;
-/** The logits tensor may claim at most 1/3 of the largest allocatable
- *  buffer. The rest of the picture (weights ~1.1 GB, KV cache, activations)
- *  shares the same GPU memory, and the adapter limit is an upper bound on
- *  buffer size, not a free-memory report — near-4K prompts OOMed real
- *  devices, so the divisor errs conservative. Tune here if field results
- *  allow. */
-const LOGIT_HEADROOM_DIVISOR = 3;
+export const logitBytesPerToken = (model: LlmModel): number =>
+    LOGIT_BYTES_PER_TOKEN[model.id] ?? FALLBACK_LOGIT_BYTES;
+/** To RAISE the window past the floor, the logits tensor may claim at most
+ *  1/3 of the largest allocatable buffer. The rest of the picture (weights
+ *  ~1.1 GB, KV cache, activations) shares the same GPU memory, and the
+ *  adapter limit is an upper bound on buffer size, not a free-memory
+ *  report — near-4K prompts OOMed real devices, so the divisor errs
+ *  conservative. Tune here if field results allow. */
+const RAISE_HEADROOM_DIVISOR = 3;
+/** To KEEP the floor, its logits must fit in 1/2 of the limit; adapters
+ *  below that shrink to what 1/2 allows. Half, not a third, because the
+ *  floor has field history: it ran on adapters whose limit gave its logits
+ *  2x headroom. A 1 GiB adapter proved the need to shrink at all — its
+ *  ~1002 MiB floor logits OOMed against a 1024 MiB max buffer. */
+const SHRINK_HEADROOM_DIVISOR = 2;
+/** Window below which the prompts stop working: 1,048 tokens of fixed
+ *  overhead plus the 512 output reserve leave under ~500 tokens of
+ *  evidence. usableDevice treats WebGPU windows below this as unusable
+ *  rather than reviewing evidence it cannot see. */
+export const MIN_CONTEXT_TOKENS = 2048;
 
-/** Context window for this model on this device. WASM (and adapters that
- *  report no limits) stay at the CONTEXT_TOKENS floor — the WASM path is
- *  latency-bound and 32-bit, so a larger window only buys slower prompts.
- *  On WebGPU the window grows with the adapter's buffer limit, never
- *  shrinks below the floor, and is rounded down to a 128-token step. */
+const roundWindow = (inputTokens: number): number =>
+    Math.floor((inputTokens + MAX_NEW_TOKENS) / 128) * 128;
+
+/** Context window for this model on this device, in either direction from
+ *  the floor. WASM (and adapters that report no limits) stay at the
+ *  CONTEXT_TOKENS floor — the WASM path is latency-bound and 32-bit, so a
+ *  larger window only buys slower prompts. On WebGPU the window grows with
+ *  the adapter's buffer limit, or shrinks below the floor when the limit
+ *  proves the floor cannot fit. The result can be under
+ *  MIN_CONTEXT_TOKENS — callers gate through usableDevice. */
 export const contextTokensFor = (
     model: LlmModel,
     capabilities: { device: LlmDevice; maxBufferBytes?: number },
@@ -138,13 +156,65 @@ export const contextTokensFor = (
     if (capabilities.device !== "webgpu" || !capabilities.maxBufferBytes) {
         return CONTEXT_TOKENS;
     }
-    const bytesPerToken =
-        LOGIT_BYTES_PER_TOKEN[model.id] ?? FALLBACK_LOGIT_BYTES;
-    const inputTokens = Math.floor(
-        capabilities.maxBufferBytes / LOGIT_HEADROOM_DIVISOR / bytesPerToken,
+    const perToken = logitBytesPerToken(model);
+    const raised = roundWindow(
+        Math.floor(
+            capabilities.maxBufferBytes / RAISE_HEADROOM_DIVISOR / perToken,
+        ),
     );
-    const total = Math.floor((inputTokens + MAX_NEW_TOKENS) / 128) * 128;
-    return Math.max(CONTEXT_TOKENS, Math.min(MAX_CONTEXT_TOKENS, total));
+    if (raised >= CONTEXT_TOKENS) {
+        return Math.min(MAX_CONTEXT_TOKENS, raised);
+    }
+    const floorLogitBytes = (CONTEXT_TOKENS - MAX_NEW_TOKENS) * perToken;
+    if (
+        floorLogitBytes <=
+        capabilities.maxBufferBytes / SHRINK_HEADROOM_DIVISOR
+    ) {
+        return CONTEXT_TOKENS;
+    }
+    return roundWindow(
+        Math.floor(
+            capabilities.maxBufferBytes / SHRINK_HEADROOM_DIVISOR / perToken,
+        ),
+    );
+};
+
+/** The device this model can run on here, or null when it cannot run at
+ *  all. WebGPU counts only when its window still fits a working prompt;
+ *  models that allow WASM fall back to it (CPU memory, no GPU buffer
+ *  limits), and WebGPU-only models report unusable. The engine and the UI
+ *  gates share this so they agree. */
+export const usableDevice = (
+    model: LlmModel,
+    capabilities: { device: LlmDevice; maxBufferBytes?: number },
+): LlmDevice | null => {
+    if (
+        capabilities.device === "webgpu" &&
+        contextTokensFor(model, capabilities) >= MIN_CONTEXT_TOKENS
+    ) {
+        return "webgpu";
+    }
+    return model.minDevice === "wasm" ? "wasm" : null;
+};
+
+/** The model this device will actually run: the user's selection when it
+ *  is pinned and usable here, else the pinned lite model. Null when
+ *  neither fits — only then do the AI features hide. The stored preference
+ *  is never rewritten, so a later session on stronger hardware honors it
+ *  again. Every feature gate and load path must resolve through this, or
+ *  a device that cannot run the selected model loses the feature instead
+ *  of falling back. */
+export const resolveUsableModel = (
+    selectedId: string,
+    capabilities: { device: LlmDevice; maxBufferBytes?: number },
+): LlmModel | null => {
+    for (const id of [selectedId, LITE_MODEL_ID]) {
+        const model = getModel(id);
+        if (model && isPinned(model) && usableDevice(model, capabilities)) {
+            return model;
+        }
+    }
+    return null;
 };
 /** Output budget for the draft narrative. The model writes ~120 words of
  *  prose (the app appends gaps and sources itself); a short leash also cuts

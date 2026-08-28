@@ -331,6 +331,7 @@ const generate = async (
         add_generation_prompt: true,
         return_dict: true,
     }) as { input_ids: { dims: number[] } };
+    const untrimmedTokens = inputs.input_ids.dims[1];
     for (
         let pass = 0;
         pass < 3 && inputs.input_ids.dims[1] > inputBudget;
@@ -349,6 +350,25 @@ const generate = async (
             return_dict: true,
         }) as { input_ids: { dims: number[] } };
     }
+
+    // Size breadcrumb for OOM reports: the prefill logits buffer is
+    // input x vocab x 4 bytes fp32 — the allocation that dies first when
+    // the window outruns GPU memory. Vocab comes from the loaded model's
+    // own config, so the estimate matches what ONNX Runtime allocates.
+    const inputTokens = inputs.input_ids.dims[1];
+    const vocab = (model as { config?: { vocab_size?: number } }).config
+        ?.vocab_size;
+    log(
+        `generate: input=${inputTokens} tokens` +
+            (inputTokens === untrimmedTokens
+                ? ""
+                : ` (trimmed from ${untrimmedTokens})`) +
+            ` budget=${inputBudget} window=${message.contextTokens}` +
+            ` maxNew=${message.maxNewTokens}` +
+            (vocab
+                ? ` prefillLogits~${Math.round((inputTokens * vocab * 4) / 2 ** 20)}MiB (vocab=${vocab})`
+                : ""),
+    );
 
     let text = "";
     let tokens = 0;

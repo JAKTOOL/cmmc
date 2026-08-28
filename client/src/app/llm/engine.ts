@@ -19,6 +19,8 @@ import {
     contextTokensFor,
     externalDataChunks,
     hasBundledWeights,
+    logitBytesPerToken,
+    usableDevice,
 } from "./config";
 import { getDeviceCapabilities } from "./capabilities";
 import type { ChatMessage, FromWorker, ToWorker } from "./protocol";
@@ -350,17 +352,40 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
     }
 
     const capabilities = await getDeviceCapabilities();
-    const { device } = capabilities;
-    if (model.minDevice === "webgpu" && device !== "webgpu") {
+    // The effective device can differ from the probe: a WebGPU adapter
+    // whose buffer limit cannot fit a working window sends WASM-capable
+    // models to WASM and rejects WebGPU-only models.
+    const device = usableDevice(model, capabilities);
+    if (!device) {
         throw new Error(
-            `${model.label} needs WebGPU, which this browser does not provide. Choose the lite model instead.`,
+            capabilities.device === "webgpu"
+                ? `${model.label} needs more GPU memory than this device provides. Choose the lite model instead.`
+                : `${model.label} needs WebGPU, which this browser does not provide. Choose the lite model instead.`,
         );
     }
     const source = await resolveWeightSource(model);
-    activeContextTokens = contextTokensFor(model, capabilities);
+    activeContextTokens = contextTokensFor(model, {
+        ...capabilities,
+        device,
+    });
+    // Size breadcrumb for OOM reports: the adapter limits the window was
+    // derived from, and the worst-case prefill logits buffer that window
+    // implies (input budget x vocab x 4 bytes fp32).
+    const inputBudget = activeContextTokens - MAX_NEW_TOKENS;
+    const logitsMiB = Math.round(
+        (inputBudget * logitBytesPerToken(model)) / 2 ** 20,
+    );
+    const limits = capabilities.bufferLimits;
     aiDebugLog(
-        `engine: ensureLoaded ${model.id} device=${device} source=${source} ` +
-            `context=${activeContextTokens} maxBuffer=${capabilities.maxBufferBytes ?? "?"}`,
+        `engine: ensureLoaded ${model.id} device=${device}` +
+            (device === capabilities.device
+                ? ""
+                : ` (probe said ${capabilities.device})`) +
+            ` source=${source} ` +
+            `context=${activeContextTokens} (input ${inputBudget}, ` +
+            `max prefill logits ~${logitsMiB} MiB) ` +
+            `maxBufferSize=${limits?.maxBufferSize ?? "?"} ` +
+            `maxStorageBufferBindingSize=${limits?.maxStorageBufferBindingSize ?? "?"}`,
     );
     if (!source) {
         throw new Error(

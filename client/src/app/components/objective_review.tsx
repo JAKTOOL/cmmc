@@ -11,7 +11,7 @@ import { useRevisionContext } from "@/app/context/revision";
 import { IDBObjectiveReview } from "@/app/db";
 import { useObjectiveReviews } from "@/app/hooks/objectiveReviews";
 import { getDeviceCapabilities } from "@/app/llm/capabilities";
-import { getModel, isPinned } from "@/app/llm/config";
+import { resolveUsableModel } from "@/app/llm/config";
 import {
     ensureLoaded,
     subscribeLlmStatus,
@@ -144,14 +144,15 @@ export const ObjectiveReview = ({
     useEffect(() => {
         let cancelled = false;
         (async () => {
-            const selected = getModel(getSelectedModelId());
-            if (!selected || !isPinned(selected)) {
-                return;
-            }
-            const { device } = await getDeviceCapabilities();
-            const deviceOk =
-                device === "webgpu" || selected.minDevice === "wasm";
-            const ready = deviceOk && (await weightsAvailable(selected));
+            const capabilities = await getDeviceCapabilities();
+            // The selection falls back to the lite model when this device
+            // cannot run it — the review must stay available either way.
+            const resolved = resolveUsableModel(
+                getSelectedModelId(),
+                capabilities,
+            );
+            const ready =
+                resolved !== null && (await weightsAvailable(resolved));
             if (!cancelled) {
                 setWeightsReady(ready);
             }
@@ -191,11 +192,14 @@ export const ObjectiveReview = ({
             // Load the engine on first use; it registers the LocalModel and
             // stays loaded for later runs (and for the draft feature).
             if (!getLocalModel()) {
-                const selected = getModel(getSelectedModelId());
-                if (!selected) {
-                    throw new Error("No model selected");
+                const resolved = resolveUsableModel(
+                    getSelectedModelId(),
+                    await getDeviceCapabilities(),
+                );
+                if (!resolved) {
+                    throw new Error("No model can run on this device.");
                 }
-                await ensureLoaded(selected);
+                await ensureLoaded(resolved);
             }
             await reviewRequirement(revision, requirementId, {
                 signal: controller.signal,

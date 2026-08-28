@@ -5,7 +5,7 @@
 
 import { ElementWrapper } from "@/api/entities/Framework";
 import { IDB, TABLE_CHANGED_EVENT } from "@/app/db";
-import { getModel, isPinned } from "@/app/llm/config";
+import { resolveUsableModel } from "@/app/llm/config";
 import { getDeviceCapabilities } from "@/app/llm/capabilities";
 import { weightsAvailable } from "@/app/llm/engine";
 import { getSelectedModelId, isAiEnabled } from "@/app/llm/settings";
@@ -61,21 +61,25 @@ export const SummarizeButton = ({
         }
         let cancelled = false;
         (async () => {
-            const model = getModel(getSelectedModelId());
-            if (!model || !isPinned(model)) {
+            // The selection falls back to the lite model when this device
+            // cannot run it; only a device with no usable model disables
+            // the feature.
+            const model = resolveUsableModel(
+                getSelectedModelId(),
+                await getDeviceCapabilities(),
+            );
+            if (!model) {
                 if (!cancelled) {
                     setSupported(false);
                     setWeightsReady(false);
                 }
                 return;
             }
-            const { device } = await getDeviceCapabilities();
-            const deviceOk = device === "webgpu" || model.minDevice === "wasm";
             // Weights are build-time assets; their presence cannot change
             // while the page is open, so one probe is enough.
-            const ready = deviceOk && (await weightsAvailable(model));
+            const ready = await weightsAvailable(model);
             if (!cancelled) {
-                setSupported(deviceOk);
+                setSupported(true);
                 setWeightsReady(ready);
             }
         })();

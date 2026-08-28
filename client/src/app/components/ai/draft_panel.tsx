@@ -15,8 +15,9 @@ import { IDB } from "@/app/db";
 import {
     DRAFT_MAX_NEW_TOKENS,
     evidenceCharBudget,
-    getModel,
+    resolveUsableModel,
 } from "@/app/llm/config";
+import { getDeviceCapabilities } from "@/app/llm/capabilities";
 import {
     GenerateHandle,
     ensureLoaded,
@@ -145,9 +146,15 @@ export const DraftPanel = ({
         setDraft("");
         setError(null);
         try {
-            const model = getModel(getSelectedModelId());
+            // The selection falls back to the lite model when this device
+            // cannot run it. Summaries below are stamped with the resolved
+            // model's id, and review.ts looks them up the same way.
+            const model = resolveUsableModel(
+                getSelectedModelId(),
+                await getDeviceCapabilities(),
+            );
             if (!model) {
-                throw new Error("No model selected");
+                throw new Error("No model can run on this device.");
             }
             setStatusNote("Loading model…");
             await ensureLoaded(model);

@@ -6,7 +6,8 @@
 
 import { Revision } from "@/app/context/revision";
 import { IDB, IDBObjectiveReview } from "@/app/db";
-import { getModel } from "@/app/llm/config";
+import { getDeviceCapabilities } from "@/app/llm/capabilities";
+import { resolveUsableModel } from "@/app/llm/config";
 import { EvidenceDoc, gatherEvidence } from "@/app/llm/prompt";
 import { getSelectedModelId } from "@/app/llm/settings";
 import { DocSummary, freshDocSummaries } from "@/app/llm/summarize";
@@ -45,11 +46,15 @@ export const reviewFingerprint = (
 
 /** The stored document summaries a review would use right now: complete and
  *  fresh only, and never generated here — the draft flow owns creating
- *  them, so review latency stays predictable. Keyed by the manifest model
- *  id (the id the draft flow stamps them with). */
-const storedSummaries = (docs: EvidenceDoc[]): Promise<DocSummary[]> => {
-    const modelId = getModel(getSelectedModelId())?.id;
-    return modelId ? freshDocSummaries(docs, modelId) : Promise.resolve([]);
+ *  them, so review latency stays predictable. Keyed by the manifest id of
+ *  the model this device actually runs (the id the draft flow stamps them
+ *  with — both sides resolve through resolveUsableModel). */
+const storedSummaries = async (docs: EvidenceDoc[]): Promise<DocSummary[]> => {
+    const model = resolveUsableModel(
+        getSelectedModelId(),
+        await getDeviceCapabilities(),
+    );
+    return model ? freshDocSummaries(docs, model.id) : [];
 };
 
 export interface ExpectedReviewState {

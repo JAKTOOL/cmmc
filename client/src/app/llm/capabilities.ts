@@ -28,6 +28,13 @@ export interface DeviceCapabilities {
      *  bounds the usable context window (config.ts contextTokensFor).
      *  Undefined on WASM or when the adapter does not report limits. */
     maxBufferBytes?: number;
+    /** The raw adapter numbers behind maxBufferBytes, for the load-time
+     *  breadcrumb log only — OOM reports need to show which of the two
+     *  limits governed. */
+    bufferLimits?: {
+        maxBufferSize: number;
+        maxStorageBufferBindingSize: number;
+    };
 }
 
 let cached: Promise<DeviceCapabilities> | undefined;
@@ -44,13 +51,20 @@ const detect = async (): Promise<DeviceCapabilities> => {
         }
         const { maxBufferSize, maxStorageBufferBindingSize } =
             adapter.limits ?? {};
+        const bufferLimits =
+            maxBufferSize && maxStorageBufferBindingSize
+                ? { maxBufferSize, maxStorageBufferBindingSize }
+                : undefined;
         return {
             device: "webgpu",
             shaderF16: adapter.features.has("shader-f16"),
-            maxBufferBytes:
-                maxBufferSize && maxStorageBufferBindingSize
-                    ? Math.min(maxBufferSize, maxStorageBufferBindingSize)
-                    : undefined,
+            maxBufferBytes: bufferLimits
+                ? Math.min(
+                      bufferLimits.maxBufferSize,
+                      bufferLimits.maxStorageBufferBindingSize,
+                  )
+                : undefined,
+            bufferLimits,
         };
     } catch {
         return { device: "wasm", shaderF16: false };
