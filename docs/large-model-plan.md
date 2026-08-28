@@ -87,7 +87,7 @@ Do not add a `shaderF16` hard gate. Without shader-f16 the model runs slower thr
 cd client && npm run models:sync -- --id llama-3.2-3b-instruct
 ```
 
-The script resolves upstream HEAD, hashes the files, writes `revision`, `files`, and `totalBytes`, then fetches into `client/public/models/`. Expect seven files (four config/tokenizer and three ONNX) at ~2.4 GB total. The process streams ~2.4 GB twice (one hash pass, one fetch pass). Review the manifest diff like a lockfile.
+The script resolves upstream HEAD, hashes the files, writes `revision`, `files`, and `totalBytes`, then fetches into `client/public/models/`. Expect seven files (four config/tokenizer and three ONNX) at ~2.4 GB total. On a Nix machine, the hash pass runs through `nix store prefetch-file`, so the ~2.4 GB downloads once into the Nix store and the fetch pass copies from there. Without Nix, the process streams ~2.4 GB twice (one hash pass, one fetch pass). Review the manifest diff like a lockfile.
 
 ### 6. `docs/local-ai.md` — update
 

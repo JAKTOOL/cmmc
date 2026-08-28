@@ -17,12 +17,16 @@
 //
 // With --id, the script resolves the repo's current revision through the
 // Hugging Face API (unless --revision pins one), downloads each required
-// file, hashes it, and rewrites that model's entry in place. Treat the diff
-// like a lockfile change. With --verify, the script re-downloads every file
-// in the manifest and confirms the recorded hashes still match.
+// file, hashes it, and rewrites that model's entry in place. Where the
+// `nix` CLI exists, the download goes through `nix store prefetch-file`,
+// so the pinned bytes land in the Nix store and later builds reuse them.
+// Treat the diff like a lockfile change. With --verify, the script
+// re-downloads every file in the manifest and confirms the recorded hashes
+// still match.
 
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -92,7 +96,7 @@ const fetchOk = async (url, options) => {
 
 // Stream-download a file, returning its size and sha256 without buffering
 // the whole payload (ONNX graphs are hundreds of MB).
-const hashRemote = async (url) => {
+const hashRemoteDirect = async (url) => {
     const response = await fetchOk(url);
     const hash = createHash("sha256");
     let size = 0;
@@ -102,6 +106,35 @@ const hashRemote = async (url) => {
     }
     return { size, sha256: hash.digest("hex") };
 };
+
+// Preferred: `nix store prefetch-file` downloads the file once into the Nix
+// store and reports its hash. flake.nix fetches the same URL with fetchurl
+// (same flat sha256, same store name), so the pinned bytes are already in
+// the store — `nix build .#model-weights` and fetch-model-weights.mjs then
+// reuse them without a second download.
+const hashViaNixStore = (url) => {
+    const result = spawnSync(
+        "nix",
+        ["store", "prefetch-file", "--json", "--hash-type", "sha256", url],
+        { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] },
+    );
+    if (result.status !== 0) {
+        throw new Error(`nix store prefetch-file failed for ${url}`);
+    }
+    const { hash, storePath } = JSON.parse(result.stdout);
+    // Nix reports an SRI hash (sha256-<base64>); the manifest records hex.
+    const sha256 = Buffer.from(
+        hash.replace(/^sha256-/, ""),
+        "base64",
+    ).toString("hex");
+    return { size: statSync(storePath).size, sha256 };
+};
+
+const nixAvailable = (() => {
+    const probe = spawnSync("nix", ["--version"], { stdio: "ignore" });
+    return !probe.error && probe.status === 0;
+})();
+const hashRemote = nixAvailable ? hashViaNixStore : hashRemoteDirect;
 
 const updateModel = async (id) => {
     const model = manifest.models.find((entry) => entry.id === id);

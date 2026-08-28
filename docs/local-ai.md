@@ -12,7 +12,7 @@ Model weights are a build-time input only. Builds that include the AI feature sh
 - The ONNX WASM binaries ship in the app bundle at `/ort/`. The script `client/scripts/copy-ort-assets.mjs` copies them from node_modules on each build. The runtime never fetches them from a CDN.
 - Weights: pinned in `client/src/app/llm/models.manifest.json` (URL, revision, size, sha256 for each file). This manifest is the single source of truth for:
   - `flake.nix` — fetches each file as a fixed-output derivation (`nix build .#model-weights`) and copies the tree into `public/models/` before the frontend build of the desktop package.
-  - `scripts/fetch-model-weights.mjs` — verified fetch into `client/public/models/` for desktop builds outside Nix (Windows/macOS CI jobs, local `cargo tauri` builds). Run it with `npm run models` in `client/`.
+  - `scripts/fetch-model-weights.mjs` — stages verified weights into `client/public/models/` for builds outside the Nix package and for local dev. Run it with `npm run models` in `client/`. Where the `nix` CLI exists, the script builds `.#model-weights` and copies from the Nix store, so each file downloads once and stays cached in the store. Without Nix (Windows/macOS CI, non-Nix dev machines), the script downloads each file directly and verifies it against the manifest.
   - `client/src/app/llm/config.ts` — sizes and license notices in the UI.
 - Desktop delivery: the weights are Tauri **bundle resources** (`tauri.conf.json` maps `../public/models` to `resource_dir()/models`), NOT embedded frontend assets. Tauri's `generate_context!` compiles everything in `out/` into the binary, and gigabytes of weights there make rustc run out of memory (OOM SIGKILL) — so `scripts/strip-model-assets.mjs` (npm postbuild) removes `out/models` after every static export. At runtime the engine reads each file over IPC (`read_model_file` in `src-tauri/src/lib.rs`, raw-byte responses) and transfers the buffers into the worker, which serves them to transformers.js through a custom cache. In `next dev` the files are simply fetched from the dev server origin instead.
 - Consumers reach the model through the `LocalModel` seam in `client/src/app/ai/model.ts`. The engine registers itself there when the weights load. The RAG review layer (`docs/rag-review-plan.md`) builds on the same seam.
@@ -34,7 +34,7 @@ The lower-level script is `node scripts/update-model-manifest.mjs --id <id>`. It
 
 1. Resolves the repo's current revision through the Hugging Face API, unless `--revision` pins one.
 2. Enumerates the repo's `onnx/` tree and includes the graph file and every external-data shard (`model_<dtype>.onnx_data*`). The graph file alone is often only a few hundred KB — the weights live in the shards. A manifest without the shards builds an app whose model cannot load.
-3. Downloads and hashes each file, then rewrites the entry.
+3. Downloads and hashes each file, then rewrites the entry. Where the `nix` CLI exists, the download runs through `nix store prefetch-file`. The bytes then sit in the Nix store under the same name and hash that `flake.nix` uses. The later `nix build .#model-weights` and `npm run models` reuse them without a second download.
 
 Review the diff like a lockfile change. `--verify` re-checks every recorded hash against upstream.
 
@@ -45,8 +45,9 @@ A correct entry for these repos contains the small `onnx/model_*.onnx` graph plu
 | Build | Weight source | Runtime access |
 |---|---|---|
 | `nix build` (Linux desktop) | `model-weights` derivation, copied into `public/models/` in `preBuild` | Tauri resources, IPC |
-| Windows/macOS CI | "Fetch model weights" step in `deploy.yml` (`scripts/fetch-model-weights.mjs`) | Tauri resources, IPC |
-| Local desktop dev | `npm run models` in `client/`, once, before `npm run dev` / `cargo tauri dev` | Dev-server origin fetch |
+| Linux release CI (`desktop-nix`) | `scripts/fetch-model-weights.mjs`, which copies from the `model-weights` derivation (the Nix store cache carries the weights between runs) | Tauri resources, IPC |
+| Windows/macOS CI | "Fetch model weights" step in `deploy.yml` (`scripts/fetch-model-weights.mjs`, direct download — no Nix on those runners) | Tauri resources, IPC |
+| Local desktop dev | `npm run models` in `client/`, once, before `npm run dev` / `cargo tauri dev` (copies from the Nix store on Nix machines) | Dev-server origin fetch |
 | Web (GitHub Pages, free tier) | None — the feature is absent (`FREE_TIER`), and GitHub Pages cannot host >100 MB files anyway | — |
 
 `client/public/models/` and `client/public/ort/` are gitignored build artifacts.

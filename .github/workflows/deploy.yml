@@ -107,7 +107,13 @@ jobs:
       - name: Cache Nix store
         uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
-          primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock', 'flake.nix') }}
+          # The manifest is in the key because the model weights live in the
+          # Nix store as fixed-output derivations (fetch-model-weights.mjs
+          # runs `nix build .#model-weights`). A model bump must produce a
+          # new cache entry. The web job's key above stays manifest-free on
+          # purpose: its store has no weights, and a shared key would let
+          # that job claim the entry first with a weight-less store.
+          primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock', 'flake.nix', 'client/src/app/llm/models.manifest.json') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Cache cargo (registry + target)

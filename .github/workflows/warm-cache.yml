@@ -6,7 +6,8 @@ name: Warm cache
 # main — so without this every release recompiles all Rust dependencies (the
 # slow part of a Tauri build) from scratch.
 #
-# Gated to Cargo.lock changes, which is when the dependency cache goes stale. The
+# Gated to Cargo.lock changes (when the dependency cache goes stale) and model
+# manifest changes (when the Nix store cache needs new weight files). The
 # cache keys, paths and toolchains here must stay identical to the matching jobs
 # in deploy.yml, otherwise the release restore won't hit. Each job compiles the
 # Rust crate (deps + app) but skips bundling and publishing — that's all the
@@ -16,6 +17,7 @@ on:
     branches: [main]
     paths:
       - client/src-tauri/Cargo.lock
+      - client/src/app/llm/models.manifest.json
 
 permissions:
   contents: read
@@ -38,7 +40,8 @@ jobs:
       - name: Cache Nix store
         uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
-          primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock', 'flake.nix') }}
+          # Must match the desktop-nix key in deploy.yml (see header comment).
+          primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock', 'flake.nix', 'client/src/app/llm/models.manifest.json') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Cache cargo (registry + target)
@@ -56,6 +59,13 @@ jobs:
         working-directory: ./client
         run: |
           echo NEXT_PUBLIC_FRAMEWORK_VERSION=$(sha1sum public/data/sp_800_171_3_0_0/framework.json | awk '{print $1}') >> .env
+
+      # The weights are fixed-output store paths. Build them here so the
+      # saved store cache carries them — the cache key includes the manifest,
+      # and the release job restores an exact hit without a Hugging Face
+      # download.
+      - name: Warm model weights
+        run: nix build .#model-weights --no-link
 
       # npm run build produces the frontend that generate_context! embeds; cargo
       # build (not tauri build) compiles the same deps without the bundling step.
