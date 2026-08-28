@@ -218,7 +218,10 @@ export const ObjectiveReview = ({
     const reviewed = objectives.some((objective) => reviews.has(objective.id));
 
     return (
-        <details className="mb-6 w-full rounded-lg border border-border bg-card text-card-foreground shadow-sm">
+        <details
+            className="mb-6 w-full rounded-lg border border-border bg-card text-card-foreground shadow-sm"
+            data-tour="evidence-review"
+        >
             <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg px-4 py-3 font-semibold tracking-tight marker:content-none hover:bg-secondary">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -104,6 +104,7 @@ export const SummarizeButton = ({
                 disabled={disabled}
                 title={title}
                 onClick={() => (weightsReady ? setOpen(true) : openAiSettings())}
+                data-tour="draft-evidence"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
