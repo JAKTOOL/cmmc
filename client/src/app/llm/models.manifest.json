@@ -8,7 +8,10 @@
             "revision": "14007543b6dc92de88daf96a9aa85d2f95ace6ef",
             "dtype": "q4f16",
             "minDevice": "webgpu",
-            "bundlePlatforms": ["darwin", "win32"],
+            "bundlePlatforms": [
+                "darwin",
+                "win32"
+            ],
             "license": "Llama 3.2 Community License",
             "licenseNotice": "Built with Llama",
             "licenseUrl": "https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct",
@@ -165,31 +168,49 @@
             "id": "llama-3.2-1b-instruct-gguf",
             "label": "Llama 3.2 1B Instruct (desktop native)",
             "repo": "bartowski/Llama-3.2-1B-Instruct-GGUF",
-            "revision": "",
+            "revision": "067b946cf014b7c697f3654f621d577a3e3afd1c",
             "dtype": "Q4_K_M",
             "format": "gguf",
             "minDevice": "native",
-            "bundlePlatforms": ["linux"],
+            "bundlePlatforms": [
+                "linux"
+            ],
             "license": "Llama 3.2 Community License",
             "licenseNotice": "Built with Llama",
             "licenseUrl": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF",
-            "totalBytes": 0,
-            "files": []
+            "totalBytes": 807694464,
+            "files": [
+                {
+                    "path": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+                    "url": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/067b946cf014b7c697f3654f621d577a3e3afd1c/Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+                    "size": 807694464,
+                    "sha256": "6f85a640a97cf2bf5b8e764087b1e83da0fdb51d7c9fab7d0fece9385611df83"
+                }
+            ]
         },
         {
             "id": "llama-3.2-3b-instruct-gguf",
             "label": "Llama 3.2 3B Instruct (large, desktop native)",
             "repo": "bartowski/Llama-3.2-3B-Instruct-GGUF",
-            "revision": "",
+            "revision": "5ab33fa94d1d04e903623ae72c95d1696f09f9e8",
             "dtype": "Q4_K_M",
             "format": "gguf",
             "minDevice": "native",
-            "bundlePlatforms": ["linux"],
+            "bundlePlatforms": [
+                "linux"
+            ],
             "license": "Llama 3.2 Community License",
             "licenseNotice": "Built with Llama",
             "licenseUrl": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF",
-            "totalBytes": 0,
-            "files": []
+            "totalBytes": 2019377696,
+            "files": [
+                {
+                    "path": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+                    "url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/5ab33fa94d1d04e903623ae72c95d1696f09f9e8/Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+                    "size": 2019377696,
+                    "sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff"
+                }
+            ]
         }
     ]
 }

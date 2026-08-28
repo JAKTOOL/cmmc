@@ -57,9 +57,14 @@
           openssl
           dbus
           # Native inference (llama.cpp, src-tauri feature native-llm-vulkan):
-          # the Vulkan loader links into the app; headers feed the build.
+          # the Vulkan loader links into the app; headers feed the build, and
+          # ggml-vulkan's shader pipeline find_package()s the SPIR-V cmake
+          # configs (SPIRV-Headers is a hard requirement, SPIRV-Tools its
+          # sibling).
           vulkan-loader
           vulkan-headers
+          spirv-headers
+          spirv-tools
         ];
 
         linuxNativeTools = with pkgs; [

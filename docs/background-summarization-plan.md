@@ -9,8 +9,9 @@ Three UX problems exist today:
 - The "Draft from evidence" flow (`DraftPanel`) is a full-screen blocking modal. Document summarization runs inside it, and the user must wait. The modal's unmount effect aborts the job, so navigation kills it.
 - Evidence summaries are computed lazily, on the first draft request. That is exactly when the user watches. Summaries computed at add/update time would make the draft flow hit the cache and start almost immediately.
 - The View Evidence page has no way to pre-summarize the whole corpus on demand.
+- The evidence edit modal has no way to summarize one file on demand.
 
-The fix has three parts that share one new UI element: a bottom-docked task chip area for background AI work.
+The fix has four parts that share one new UI element: a bottom-docked task chip area for background AI work.
 
 Decisions (confirmed 2026-08-28):
 
