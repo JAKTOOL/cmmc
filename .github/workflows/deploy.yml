@@ -11,9 +11,12 @@ permissions:
 jobs:
   # ---------------------------------------------------------------------------
   # Web app -> GitHub Pages. Built with the Node pinned by the flake so the
-  # hosted build is reproducible too.
+  # hosted build is reproducible too. Skipped for pre-release tags (any tag
+  # with a "-", e.g. 1.12.0-alpha1): pre-releases only produce desktop
+  # bundles and must not replace the hosted web app.
   # ---------------------------------------------------------------------------
   web:
+    if: ${{ !contains(github.ref_name, '-') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -76,7 +79,9 @@ jobs:
               return String(found.id);
             }
             const { data } = await github.rest.repos.createRelease({
-              owner, repo, tag_name: tag, name: tag, draft: true, prerelease: false,
+              owner, repo, tag_name: tag, name: tag, draft: true,
+              // A "-" in the tag (e.g. 1.12.0-alpha1) marks a pre-release.
+              prerelease: tag.includes('-'),
             });
             core.info(`Created draft release ${data.id} for ${tag}`);
             return String(data.id);
@@ -284,6 +289,13 @@ jobs:
           if [ -n "$TAURI_SIGNING_KEY" ]; then
             OVERRIDE=$(jq -c '.bundle.createUpdaterArtifacts = true' <<< "$OVERRIDE")
           fi
+          # The msi target rejects pre-release identifiers unless they are
+          # numeric-only (Windows Installer limitation), so a tag like
+          # 1.12.0-alpha1 fails the bundle step. Pre-release builds ship the
+          # NSIS installer only; the auto-updater serves -setup.exe anyway.
+          if [[ "$APP_VERSION" == *-* ]]; then
+            OVERRIDE=$(jq -c '.bundle.targets = ["nsis"]' <<< "$OVERRIDE")
+          fi
           echo "$OVERRIDE" > client/version-override.json
 
       - uses: tauri-apps/tauri-action@84b9d35b5fc46c1e45415bdb6144030364f7ebc5 # v0
@@ -460,7 +472,10 @@ jobs:
   # that cohort's update checks (see docs/licensing.md for the backfill
   # recipe). publish-release depends on this job so the GitHub release only
   # goes public once Keygen can serve it. No-ops when KEYGEN_TOKEN is unset
-  # (forks, or before Keygen distribution is configured).
+  # (forks, or before Keygen distribution is configured), and for pre-release
+  # tags: uploading an alpha to the stable channel would auto-update every
+  # user onto it. The steps no-op (rather than a job-level skip) so
+  # publish-release still runs for pre-releases.
   # ---------------------------------------------------------------------------
   keygen-upload:
     needs: [create-release, desktop-nix, desktop-windows, desktop-macos]
@@ -472,13 +487,13 @@ jobs:
       KEYGEN_PACKAGE: cmmc
     steps:
       - name: Install keygen CLI
-        if: env.KEYGEN_TOKEN != ''
+        if: env.KEYGEN_TOKEN != '' && !contains(github.ref_name, '-')
         run: curl -sSL https://raw.pkg.keygen.sh/keygen/cli/latest/install.sh | sh
 
       # The release is still a draft; gh can download draft assets with the
       # job token. Patterns tolerate absence (e.g. unsigned fork builds).
       - name: Download release assets
-        if: env.KEYGEN_TOKEN != ''
+        if: env.KEYGEN_TOKEN != '' && !contains(github.ref_name, '-')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -490,7 +505,7 @@ jobs:
           ls -la assets
 
       - name: Create, upload and publish Keygen release
-        if: env.KEYGEN_TOKEN != ''
+        if: env.KEYGEN_TOKEN != '' && !contains(github.ref_name, '-')
         run: |
           set -euo pipefail
           VERSION="${GITHUB_REF_NAME#v}"
@@ -557,10 +572,12 @@ jobs:
   # After the release is published, ping the marketing site
   # (nealfennimore/cmmc-consulting-site) so it bumps its pinned download links to
   # this tag and redeploys. Needs a PAT with Contents:write on the site repo,
-  # stored here as the SITE_DISPATCH_TOKEN secret.
+  # stored here as the SITE_DISPATCH_TOKEN secret. Skipped for pre-release
+  # tags so the public download links keep pointing at the last stable tag.
   # ---------------------------------------------------------------------------
   notify-site:
     needs: publish-release
+    if: ${{ !contains(github.ref_name, '-') }}
     runs-on: ubuntu-latest
     steps:
       - name: Trigger getcmmc.consulting redeploy
