@@ -98,10 +98,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # AppImage omitted for now: upstream linuxdeploy/FUSE breakage
-          # (tauri-apps/tauri). Re-enable by adding `appimage` to bundleArgs below.
+          # AppImage omitted: linuxdeploy must copy the app's shared libraries
+          # into the image, but the binary is Nix-built and patchelf strips the
+          # /nix/store rpaths below, so the webkit/gtk deps resolve nowhere on
+          # the runner and linuxdeploy fails. An AppImage needs a host-toolchain
+          # build (apt webkit2gtk) in a separate non-Nix job — see git history.
           - runner: ubuntu-24.04 # x86_64 linux: .deb / .rpm
-            bundleArgs: "--bundles deb rpm appimage"
+            bundleArgs: "--bundles deb rpm"
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -180,7 +183,7 @@ jobs:
           files=(
             client/src-tauri/target/release/bundle/deb/*.deb
             client/src-tauri/target/release/bundle/rpm/*.rpm
-            client/src-tauri/target/release/bundle/appimage/*.AppImage
+            # client/src-tauri/target/release/bundle/appimage/*.AppImage
           )
           gh release upload "${{ github.ref_name }}" "${files[@]}" --clobber
 
