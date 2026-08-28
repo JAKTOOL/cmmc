@@ -128,9 +128,10 @@ const normalizeForMatch = (text: string): string =>
 /** Pick the evidence excerpts for the prompt, in priority order: chunks that
  *  contain a pinned quote (sentences the objective review verified against
  *  this evidence — proven relevant, so they beat any BM25 guess), then the
- *  first chunk of every artifact (each attached document gets represented),
- *  then the best BM25 matches for the control text, until the character
- *  budget runs out. */
+ *  best BM25 matches for the control text, until the character budget runs
+ *  out. Purely retrieval-driven: document opening chunks get no special
+ *  treatment, because they are mostly purpose/title boilerplate that
+ *  crowded real implementation detail out of the budget. */
 export const selectChunks = (
     docs: EvidenceDoc[],
     query: string,
@@ -183,18 +184,8 @@ export const selectChunks = (
             }
         }
     }
-    // Then the BM25 matches. Opening chunks come last: they are mostly
-    // purpose/title boilerplate, and under a tight budget the
-    // every-artifact-visible guarantee was crowding out the chunks with
-    // actual implementation detail.
     for (const chunk of ranked) {
         if (!take(chunk)) {
-            break;
-        }
-    }
-    for (const doc of docs) {
-        const first = byId.get(`${doc.evidenceId}#0`);
-        if (first && !take(first)) {
             break;
         }
     }
@@ -268,7 +259,7 @@ export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
         {
             role: "system",
             content:
-                "You draft implementation narratives for NIST SP 800-171 / CMMC self-assessments. You describe, in present tense, what the organization does today, using only concrete details found in the evidence excerpts: their specific system names, tool names, policy titles, settings, and frequencies. If the excerpts do not show something, leave it out — never speculate, never write generic compliance language, and never mention requirements, objectives, or assessments.",
+                "You draft implementation narratives for NIST SP 800-171 / CMMC self-assessments. You describe, in present tense, what the organization does today, using only concrete details found in the evidence excerpts: their specific system names, tool names, policy titles, settings, and frequencies. The subject of your sentences is the organization, by the name the excerpts use — or \"The organization\" if they never name it. Never write \"they\" or \"the company\" for it. If the excerpts do not show something, leave it out — never speculate, never write generic compliance language, and never mention requirements, objectives, or assessments.",
         },
         {
             role: "user",
@@ -282,8 +273,8 @@ ${excerpts}
 
 Task: in at most ${input.focusId ? "120" : "200"} words, describe what the organization does to meet ${input.focusId ? `statement ${input.focusId}` : "this requirement"}, using only details from the excerpts.${input.findings?.some((finding) => finding.quote?.verified) ? " Build the description around the supporting quotes in the review findings." : ""} One or two short paragraphs of plain prose — no title, no headings, no lists, no citations, no summary sentence.
 
-Example response (form only — never copy its words):
-Staff sign in to day-to-day applications with standard user accounts; separate admin accounts exist for the four IT administrators only. The help desk reviews role assignments quarterly and removes unused accounts within 30 days.
+Example response (form only — never copy its words; "Example Corp" stands in for the organization's real name):
+Example Corp issues staff standard user accounts for day-to-day applications; separate admin accounts exist for its four IT administrators only. Its help desk reviews role assignments quarterly and removes unused accounts within 30 days.
 
 Write your response now.`,
         },
