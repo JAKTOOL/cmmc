@@ -35,6 +35,11 @@
     "bundle": {
         "active": true,
         "targets": "all",
+        "linux": {
+            "rpm": {
+                "compression": { "type": "none" }
+            }
+        },
         "resources": {
             "../public/models": "models"
         },
