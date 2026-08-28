@@ -57,6 +57,80 @@ interface ImportExportPayload {
     version: number;
 }
 
+// Stepwise payload upgrades, mirroring the IDB `migrations` ladder: step N
+// takes a version N-1 payload to version N, and an import runs every step
+// from payload.version + 1 through EXPORT_VERSION. Most schema versions
+// never changed the payload shape (their stores are derived or empty in old
+// exports), so only the versions registered here do work. Evidence byte
+// encoding (number arrays before v6, base64 after) is deliberately NOT a
+// step: it converts per artifact at insert, straight to ArrayBuffer, so old
+// payloads skip a wasteful re-encode.
+const payloadMigrations: Partial<
+    Record<number, (payload: ImportExportPayload) => void>
+> = {
+    // v3 -> v4: evidence rows split into evidence + evidence_requirements.
+    4: (payload) => {
+        const evidenceV1 = payload.evidence as PortableIDBEvidence[] | undefined;
+        const evidenceRequirements = evidenceV1?.map((artifact) => ({
+            evidence_id: artifact.uuid,
+            requirement_id: artifact.requirement_id as string,
+        }));
+        const evidenceV2 = evidenceV1?.map(
+            (artifact) =>
+                ({
+                    id: artifact.uuid,
+                    type: artifact.type,
+                    filename: artifact.filename,
+                    data: artifact.data,
+                }) as PortableIDBEvidenceV2,
+        );
+        if (evidenceRequirements?.length) {
+            payload.evidenceRequirements = evidenceRequirements;
+        }
+        if (evidenceV2?.length) {
+            payload.evidence = evidenceV2;
+        }
+    },
+    // v7 -> v8: checklist ticks re-keyed from raw guide strings to examine
+    // ids (same conversion migration 8 applies to the live store).
+    8: (payload) => {
+        payload.examineEvidence = payload.examineEvidence?.flatMap((tick) =>
+            "item" in tick
+                ? examineIdsForStoredItem(tick.item).map((examineId) => ({
+                      requirement_id: tick.requirement_id,
+                      examine_id: examineId,
+                  }))
+                : [tick],
+        );
+    },
+    // v8 -> v9: the store (and payload key) renamed to
+    // requirementExamineItems.
+    9: (payload) => {
+        payload.requirementExamineItems =
+            payload.requirementExamineItems ??
+            (payload.examineEvidence as IDBRequirementExamineItem[]);
+        delete payload.examineEvidence;
+    },
+};
+
+/** Upgrade a parsed payload in place from its own version to
+ *  EXPORT_VERSION. Throws for payloads older than v3 (the oldest shape the
+ *  steps cover) or newer than this build. */
+const migratePayload = (payload: ImportExportPayload): ImportExportPayload => {
+    if (
+        !Number.isInteger(payload.version) ||
+        payload.version < 3 ||
+        payload.version > EXPORT_VERSION
+    ) {
+        throw new Error("Database version mismatch");
+    }
+    for (let v = payload.version + 1; v <= EXPORT_VERSION; v++) {
+        payloadMigrations[v]?.(payload);
+        payload.version = v;
+    }
+    return payload;
+};
+
 
 // Builds the full-database payload and saves it as JSON, behind the full-page
 // loader (the loader stays up over the native save dialog too — the write
@@ -149,50 +223,9 @@ const importDatabase = async (text: string): Promise<void> => {
     // Parsing a 100MB+ export blocks the main thread for a while, so it gets
     // its own loader stage — dropped before the confirm dialog, which the
     // overlay would otherwise sit on top of and block.
-    const payload = await withLoader("Reading backup file…", () => {
-        const payload = JSON.parse(text) as ImportExportPayload;
-
-        // v3 reshaped evidence into separate evidence + evidence_requirements
-        // stores. v4 -> v5 only added the examine_evidence store, so v4
-        // exports import as-is (just without any examine checklist data). v6
-        // only changed evidence bytes to base64, handled per artifact below.
-        // v7 added the evidence_examine_items tags; older exports simply
-        // carry none. v8 re-keyed examine_evidence rows from raw item
-        // strings to examine ids, converted per row below. v9 renamed the
-        // store (and payload key) to requirementExamineItems; the old key is
-        // still read.
-        if (payload.version === 3) {
-            const evidenceV1 = payload.evidence as
-                | PortableIDBEvidence[]
-                | undefined;
-
-            const evidenceRequirements = evidenceV1?.map((artifact) => ({
-                evidence_id: artifact.uuid,
-                requirement_id: artifact.requirement_id as string,
-            }));
-            const evidenceV2 = evidenceV1?.map(
-                (artifact) =>
-                    ({
-                        id: artifact.uuid,
-                        type: artifact.type,
-                        filename: artifact.filename,
-                        data: artifact.data,
-                    }) as PortableIDBEvidenceV2,
-            );
-
-            if (evidenceRequirements?.length) {
-                payload.evidenceRequirements = evidenceRequirements;
-            }
-
-            if (evidenceV2?.length) {
-                payload.evidence = evidenceV2;
-            }
-        } else if (payload.version < 4 || payload.version > EXPORT_VERSION) {
-            throw new Error("Database version mismatch");
-        }
-
-        return payload;
-    });
+    const payload = await withLoader("Reading backup file…", () =>
+        migratePayload(JSON.parse(text) as ImportExportPayload),
+    );
 
     const confirmed = await confirm({
         title: "Import database",
@@ -218,8 +251,10 @@ const importDatabase = async (text: string): Promise<void> => {
         // Derived text is not in the payload; clearing it lets the reconciler
         // rebuild from the imported artifacts after the reload.
         await IDB.evidenceText.clear();
-        // AI review verdicts derive from the evidence being replaced.
+        // AI review verdicts and evidence summaries derive from the evidence
+        // being replaced.
         await IDB.objectiveReviews.clear();
+        await IDB.evidenceSummaries.clear();
         await IDB.evidenceData.clear();
 
         const requirements: Record<string, IDBRequirement> = {};
@@ -268,21 +303,9 @@ const importDatabase = async (text: string): Promise<void> => {
             await IDB.evidenceRequirements.put(evidenceRequirement);
         }
 
-        const ticks =
-            payload?.requirementExamineItems ?? payload?.examineEvidence ?? [];
-        for (const tick of ticks) {
-            // Pre-v8 rows key ticks by the raw guide string; convert them the
-            // same way migration 8 converts the live store.
-            const rows: IDBRequirementExamineItem[] =
-                "item" in tick
-                    ? examineIdsForStoredItem(tick.item).map((examineId) => ({
-                          requirement_id: tick.requirement_id,
-                          examine_id: examineId,
-                      }))
-                    : [tick];
-            for (const row of rows) {
-                await IDB.requirementExamineItems.put(row);
-            }
+        // migratePayload already reshaped ticks to the current form.
+        for (const tick of payload?.requirementExamineItems || []) {
+            await IDB.requirementExamineItems.put(tick);
         }
 
         for (const tag of payload?.evidenceExamineItems || []) {

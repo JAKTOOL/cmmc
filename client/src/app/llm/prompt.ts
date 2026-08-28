@@ -206,6 +206,9 @@ export interface SummarizeInput {
     /** Assessment objective prose, when the revision has it. */
     objectives: string[];
     chunks: EvidenceChunk[];
+    /** Map-reduce document summaries (llm/summarize.ts): whole-document
+     *  context the excerpts alone cannot carry. */
+    overviews?: { filename: string; summary: string }[];
     /** Stored objective-review verdicts to ground the draft in. */
     findings?: ReviewFinding[];
     /** Sub-statement id when the draft targets one control (e.g.
@@ -240,6 +243,16 @@ export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
               )
               .join("\n")}\n`
         : "";
+    // Cap each overview so a rambling reduce cannot crowd out the excerpts;
+    // the worker's input trim is the backstop.
+    const overviews = input.overviews?.length
+        ? `\nDocument summaries (context — cite details from the excerpts, not from here):\n${input.overviews
+              .map(
+                  (overview) =>
+                      `- ${overview.filename}: ${overview.summary.slice(0, 400)}`,
+              )
+              .join("\n")}\n`
+        : "";
     const excerpts = input.chunks
         .map((chunk) => `--- [${chunk.filename}] (excerpt)\n${chunk.text}`)
         .join("\n");
@@ -267,7 +280,7 @@ export const buildMessages = (input: SummarizeInput): ChatMessage[] => {
 
 Requirement ${input.requirementId} — ${input.title}
 ${input.statement}
-${objectives ? `\nAssessment objectives (a coverage checklist — do NOT copy their wording):${objectives}` : ""}${findings}
+${objectives ? `\nAssessment objectives (a coverage checklist — do NOT copy their wording):${objectives}` : ""}${findings}${overviews}
 Evidence excerpts:
 ${excerpts}
 

@@ -12,7 +12,11 @@ import {
 } from "@/api/entities/AssessmentGuide";
 import { expectedReviewState } from "@/app/ai/review";
 import { IDB } from "@/app/db";
-import { DRAFT_MAX_NEW_TOKENS, getModel } from "@/app/llm/config";
+import {
+    DRAFT_MAX_NEW_TOKENS,
+    EVIDENCE_CHAR_BUDGET,
+    getModel,
+} from "@/app/llm/config";
 import {
     GenerateHandle,
     ensureLoaded,
@@ -27,6 +31,7 @@ import {
     selectChunks,
     summarizeQuery,
 } from "@/app/llm/prompt";
+import { ensureDocSummary } from "@/app/llm/summarize";
 import { getSelectedModelId } from "@/app/llm/settings";
 import { marked } from "marked";
 import { useEffect, useRef, useState } from "react";
@@ -103,6 +108,7 @@ export const DraftPanel = ({
     const [prompt, setPrompt] = useState("");
     const [copied, setCopied] = useState(false);
     const handleRef = useRef<GenerateHandle | null>(null);
+    const abortRef = useRef<AbortController | null>(null);
     const outputRef = useRef<HTMLDivElement>(null);
     const runIdRef = useRef(0);
 
@@ -120,6 +126,9 @@ export const DraftPanel = ({
 
     const run = async () => {
         const runId = ++runIdRef.current;
+        abortRef.current?.abort();
+        const aborter = new AbortController();
+        abortRef.current = aborter;
         setPhase("preparing");
         setDraft("");
         setError(null);
@@ -142,6 +151,27 @@ export const DraftPanel = ({
                 throw new Error(
                     "None of the attached evidence has readable text. Attach documents with text content, or wait for text extraction to finish.",
                 );
+            }
+
+            // Map-reduce document summaries: cached after the first run, so
+            // this is slow exactly once per file/model/pipeline version.
+            const overviews: { filename: string; summary: string }[] = [];
+            for (const doc of docs) {
+                setStatusNote(`Summarizing ${doc.filename}…`);
+                const row = await ensureDocSummary(doc, model.id, {
+                    signal: aborter.signal,
+                    onProgress: ({ filename, done, total }) =>
+                        setStatusNote(
+                            `Summarizing ${filename} (${done + 1}/${total})…`,
+                        ),
+                });
+                if (runId !== runIdRef.current) {
+                    return;
+                }
+                overviews.push({
+                    filename: doc.filename,
+                    summary: row.summary,
+                });
             }
 
             // Stored objective-review verdicts for this requirement (or just
@@ -223,6 +253,18 @@ export const DraftPanel = ({
                 ? considerationsForObjective(requirementId, focusLetter)
                 : (getAssessmentGuidance(requirementId)?.furtherDiscussion
                       .considerations ?? []);
+            // The overviews spend from the same input window as the
+            // excerpts. Shrink the excerpt budget by what they use — an
+            // overshoot makes the worker trim the tail of the message, which
+            // is the task and example, not the excerpts.
+            const overviewChars = overviews.reduce(
+                (total, overview) =>
+                    total +
+                    Math.min(overview.summary.length, 400) +
+                    overview.filename.length +
+                    4,
+                0,
+            );
             const selected = selectChunks(
                 docs,
                 [
@@ -230,7 +272,13 @@ export const DraftPanel = ({
                     ...considerations,
                     ...verifiedQuotes,
                 ].join(" "),
-                { pinnedQuotes: verifiedQuotes },
+                {
+                    budget: Math.max(
+                        1200,
+                        EVIDENCE_CHAR_BUDGET - overviewChars,
+                    ),
+                    pinnedQuotes: verifiedQuotes,
+                },
             );
             setChunks(selected);
 
@@ -243,6 +291,7 @@ export const DraftPanel = ({
                 statement,
                 objectives,
                 chunks: selected,
+                overviews,
                 findings: reviewFindings,
                 focusId,
             });
@@ -293,6 +342,7 @@ export const DraftPanel = ({
         run();
         return () => {
             runIdRef.current++;
+            abortRef.current?.abort();
             handleRef.current?.abort();
         };
         // Re-running is explicit (Regenerate button); the requirement cannot

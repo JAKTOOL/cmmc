@@ -2,7 +2,7 @@
 import { examineIdsForStoredItem } from "@/api/entities/ExamineItemIds";
 import { showLoader } from "@/app/components/loader";
 import { Status } from "@/app/components/status";
-export const version = 12;
+export const version = 13;
 let loader: Promise<IDBDatabase> | undefined;
 
 enum Table {
@@ -17,6 +17,7 @@ enum Table {
     EVIDENCE_TEXT = "evidence_text",
     EVIDENCE_DATA = "evidence_data",
     OBJECTIVE_REVIEWS = "objective_reviews",
+    EVIDENCE_SUMMARIES = "evidence_summaries",
 }
 
 const migrations = {
@@ -324,6 +325,17 @@ const migrations = {
             unique: false,
         });
     },
+    "13": async (event: IDBVersionChangeEvent) => {
+        const db = event.target.result as IDBDatabase;
+
+        // Map-reduce summaries of evidence documents (chunk summaries plus
+        // one reduced document summary), keyed by the artifact's content
+        // hash. Derived data (evidence + model output): never exported,
+        // cleared on import, staleness detected via the fingerprint field.
+        db.createObjectStore(Table.EVIDENCE_SUMMARIES, {
+            keyPath: "evidence_id",
+        });
+    },
 };
 
 if (typeof window !== "undefined") {
@@ -442,6 +454,23 @@ export interface IDBEvidenceExamineItem {
     evidence_id: string;
     /** Frozen slug from examine-shared-items.json (e.g. "system-security-plan"). */
     examine_id: string;
+}
+
+/** Map-reduce summary of one evidence document. Derived data (evidence +
+ *  model output): never exported; cleared on import; staleness detected via
+ *  `fingerprint`. One row per artifact — the latest run wins. */
+export interface IDBEvidenceSummary {
+    /** The artifact's content hash (IDBEvidenceV3.id). */
+    evidence_id: string;
+    /** Map step: one summary per chunk of the extracted text, in order. */
+    chunk_summaries: string[];
+    /** Reduce step: the whole-document summary. */
+    summary: string;
+    /** sha256 over evidence id + EXTRACTOR_VERSION + SUMMARY_VERSION +
+     *  model id; see llm/summarize.ts. */
+    fingerprint: string;
+    model: string;
+    created: number;
 }
 
 /** AI review verdict for one assessment objective. Derived data (evidence +
@@ -864,6 +893,9 @@ export class IDB {
     );
     static objectiveReviews = new StoreWrapper<IDBObjectiveReview>(
         Table.OBJECTIVE_REVIEWS,
+    );
+    static evidenceSummaries = new StoreWrapper<IDBEvidenceSummary>(
+        Table.EVIDENCE_SUMMARIES,
     );
 
     static version = version;
