@@ -10,7 +10,7 @@ import type { RetrievedChunk } from "./retrieval";
 
 /** Bump when the prompt or parser changes shape; part of the review
  *  fingerprint. */
-export const PROMPT_VERSION = 10;
+export const PROMPT_VERSION = 11;
 
 /** Tokens held back for the model's tagged response. */
 const OUTPUT_RESERVE_TOKENS = 256;

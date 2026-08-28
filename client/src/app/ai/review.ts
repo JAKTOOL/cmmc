@@ -134,8 +134,9 @@ const run = async (
     onProgress?.({ ...progress });
 
     // Chunk and index once — all objectives of the requirement share it.
-    const chunkIndex = buildChunkIndex(docs);
+    // Stored chunk summaries join the index as retrieval vocabulary.
     const summaries = await storedSummaries(docs);
+    const chunkIndex = buildChunkIndex(docs, summaries);
     const fingerprint = await reviewFingerprint(
         docs.map((doc) => doc.evidenceId),
         model.id,

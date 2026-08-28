@@ -142,6 +142,9 @@ export interface DocSummary {
     evidenceId: string;
     filename: string;
     summary: string;
+    /** The map-step summaries, index-aligned with chunkDoc(doc) — retrieval
+     *  searches these as extra vocabulary for their source chunks. */
+    chunkSummaries: string[];
     /** The stored row's fingerprint — callers fold it into their own
      *  staleness fingerprints so a summary appearing or changing later is
      *  detected. */
@@ -171,6 +174,7 @@ export const freshDocSummaries = async (
                 evidenceId: doc.evidenceId,
                 filename: doc.filename,
                 summary: cached.summary,
+                chunkSummaries: cached.chunk_summaries,
                 fingerprint: cached.fingerprint,
             });
         }
