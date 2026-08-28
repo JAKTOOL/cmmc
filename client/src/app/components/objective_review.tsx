@@ -73,7 +73,13 @@ const ObjectiveRow = ({
                 </span>
             </div>
             {review?.reason && (
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p
+                    className={`text-sm leading-relaxed ${
+                        review.verdict === "error"
+                            ? "text-red-600"
+                            : "text-muted-foreground"
+                    }`}
+                >
                     {review.reason}
                 </p>
             )}
@@ -100,12 +106,14 @@ const ObjectiveRow = ({
                 </blockquote>
             )}
             {review?.verdict === "unparsed" && (
-                <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-md border border-input bg-surface px-3 py-2 font-mono text-xs">
-                    {review.raw}
-                </pre>
-            )}
-            {review?.verdict === "error" && (
-                <p className="text-sm text-red-600">{review.raw}</p>
+                <details className="text-xs text-muted-foreground">
+                    <summary className="cursor-pointer">
+                        Show the model&apos;s raw output
+                    </summary>
+                    <pre className="mt-1 overflow-x-auto whitespace-pre-wrap break-words rounded-md border border-input bg-surface px-3 py-2 font-mono text-xs">
+                        {review.raw}
+                    </pre>
+                </details>
             )}
         </li>
     );
