@@ -98,10 +98,54 @@ export const hasBundledWeights = async (model: LlmModel): Promise<boolean> => {
 // (~0.5 MB per input token on the 1B model), and near-4K prompts drove real
 // devices out of GPU memory (webgpu_context "device error(3): Out of
 // memory"). The worker enforces this by trimming input to
-// CONTEXT_TOKENS - MAX_NEW_TOKENS, so no prompt-builder mistake can exceed
+// contextTokens - MAX_NEW_TOKENS, so no prompt-builder mistake can exceed
 // it.
+//
+// CONTEXT_TOKENS is the floor: every device that ran the model before ran
+// it at this window. contextTokensFor raises it only when the adapter's
+// reported buffer limit proves there is room for the larger logits tensor.
 export const CONTEXT_TOKENS = 2560;
 export const MAX_NEW_TOKENS = 512;
+/** Ceiling for the adaptive window. Beyond this, prefill latency and the
+ *  KV cache grow for little benefit — the prompt builders rarely have more
+ *  than ~5K tokens of distinct evidence to offer. */
+export const MAX_CONTEXT_TOKENS = 6144;
+
+/** fp32 logit row per input token, from each repo's config.json vocab_size.
+ *  Unknown ids get the larger vocab, which only under-sizes the window. */
+const LOGIT_BYTES_PER_TOKEN: Record<string, number> = {
+    "llama-3.2-1b-instruct": 128256 * 4,
+    "gemma-3-270m-it": 262144 * 4,
+};
+const FALLBACK_LOGIT_BYTES = 262144 * 4;
+/** The logits tensor may claim at most 1/3 of the largest allocatable
+ *  buffer. The rest of the picture (weights ~1.1 GB, KV cache, activations)
+ *  shares the same GPU memory, and the adapter limit is an upper bound on
+ *  buffer size, not a free-memory report — near-4K prompts OOMed real
+ *  devices, so the divisor errs conservative. Tune here if field results
+ *  allow. */
+const LOGIT_HEADROOM_DIVISOR = 3;
+
+/** Context window for this model on this device. WASM (and adapters that
+ *  report no limits) stay at the CONTEXT_TOKENS floor — the WASM path is
+ *  latency-bound and 32-bit, so a larger window only buys slower prompts.
+ *  On WebGPU the window grows with the adapter's buffer limit, never
+ *  shrinks below the floor, and is rounded down to a 128-token step. */
+export const contextTokensFor = (
+    model: LlmModel,
+    capabilities: { device: LlmDevice; maxBufferBytes?: number },
+): number => {
+    if (capabilities.device !== "webgpu" || !capabilities.maxBufferBytes) {
+        return CONTEXT_TOKENS;
+    }
+    const bytesPerToken =
+        LOGIT_BYTES_PER_TOKEN[model.id] ?? FALLBACK_LOGIT_BYTES;
+    const inputTokens = Math.floor(
+        capabilities.maxBufferBytes / LOGIT_HEADROOM_DIVISOR / bytesPerToken,
+    );
+    const total = Math.floor((inputTokens + MAX_NEW_TOKENS) / 128) * 128;
+    return Math.max(CONTEXT_TOKENS, Math.min(MAX_CONTEXT_TOKENS, total));
+};
 /** Output budget for the draft narrative. The model writes ~120 words of
  *  prose (the app appends gaps and sources itself); a short leash also cuts
  *  the meta-openers and summary paragraphs the 1B model pads with when it
@@ -110,10 +154,15 @@ export const DRAFT_MAX_NEW_TOKENS = 300;
 /** Conservative chars-per-token estimate for budget math done outside the
  *  tokenizer; the worker re-checks with the real tokenizer and trims. */
 export const CHARS_PER_TOKEN = 4;
-/** Token budget for evidence excerpts: what the input cap leaves after
- *  instructions ~250, control and objectives ~600, and review findings ~200
- *  (2,048 input of the 2,560 window). Carries ~3 excerpts; the pinned
- *  verified-quote chunks go in first, so the proven-relevant material is
- *  what survives the cut. */
-export const EVIDENCE_TOKEN_BUDGET = 1000;
-export const EVIDENCE_CHAR_BUDGET = EVIDENCE_TOKEN_BUDGET * CHARS_PER_TOKEN;
+/** Fixed prompt overhead around the evidence excerpts: instructions ~250,
+ *  control and objectives ~600, and review findings ~200. */
+const PROMPT_OVERHEAD_TOKENS = 1048;
+/** Token budget for evidence excerpts: what the input budget of the given
+ *  window leaves after PROMPT_OVERHEAD_TOKENS. At the floor window this is
+ *  1,000 tokens (~3 excerpts); an adaptive window raises it token for
+ *  token. The pinned verified-quote chunks go in first, so the
+ *  proven-relevant material is what survives the cut. */
+export const evidenceCharBudget = (contextTokens: number): number =>
+    (contextTokens - MAX_NEW_TOKENS - PROMPT_OVERHEAD_TOKENS) *
+    CHARS_PER_TOKEN;
+export const EVIDENCE_CHAR_BUDGET = evidenceCharBudget(CONTEXT_TOKENS);

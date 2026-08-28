@@ -16,6 +16,7 @@ import {
     LlmDevice,
     LlmModel,
     MAX_NEW_TOKENS,
+    contextTokensFor,
     externalDataChunks,
     hasBundledWeights,
 } from "./config";
@@ -40,6 +41,11 @@ const resolveWeightSource = async (model: LlmModel): Promise<WeightSource> => {
 /** True when this build ships the model's weights (either form). */
 export const weightsAvailable = async (model: LlmModel): Promise<boolean> =>
     (await resolveWeightSource(model)) !== null;
+
+/** Window of the loaded model (CONTEXT_TOKENS before any load). Prompt
+ *  builders that budget outside the LocalModel adapter (the draft panel)
+ *  read it to size their evidence budget to the device. */
+export const getContextTokens = (): number => activeContextTokens;
 
 export type LlmPhase = "idle" | "loading" | "ready" | "generating" | "error";
 
@@ -87,6 +93,10 @@ let activeGeneration = false;
  *  its manifest entry (paths, sizes for progress). */
 let currentModel: LlmModel | undefined;
 let ipcReadBytes = 0;
+/** Window for the loaded model on this device (config.ts contextTokensFor):
+ *  the CONTEXT_TOKENS floor, raised when the WebGPU adapter's buffer limit
+ *  has room for the larger prefill logits tensor. Set by ensureLoaded. */
+let activeContextTokens = CONTEXT_TOKENS;
 
 // Weight files cross the IPC bridge in bounded slices: webviews cap (or
 // crash on) very large single messages, and slicing also gives real
@@ -134,6 +144,7 @@ const disposeWorker = () => {
     loadedModelId = undefined;
     currentModel = undefined;
     loadPromise = undefined;
+    activeContextTokens = CONTEXT_TOKENS;
     // Settle every request still waiting on the dead worker. Nothing will
     // ever answer them, and one unsettled request pins activeGeneration
     // true, which blocks all future runs until a page reload.
@@ -338,15 +349,18 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
         disposeWorker();
     }
 
-    const { device } = await getDeviceCapabilities();
+    const capabilities = await getDeviceCapabilities();
+    const { device } = capabilities;
     if (model.minDevice === "webgpu" && device !== "webgpu") {
         throw new Error(
             `${model.label} needs WebGPU, which this browser does not provide. Choose the lite model instead.`,
         );
     }
     const source = await resolveWeightSource(model);
+    activeContextTokens = contextTokensFor(model, capabilities);
     aiDebugLog(
-        `engine: ensureLoaded ${model.id} device=${device} source=${source}`,
+        `engine: ensureLoaded ${model.id} device=${device} source=${source} ` +
+            `context=${activeContextTokens} maxBuffer=${capabilities.maxBufferBytes ?? "?"}`,
     );
     if (!source) {
         throw new Error(
@@ -422,7 +436,7 @@ export const generate = (
         requestId,
         messages,
         maxNewTokens,
-        contextTokens: CONTEXT_TOKENS,
+        contextTokens: activeContextTokens,
     });
     return {
         result,
@@ -435,7 +449,7 @@ export const generate = (
 // applied worker-side, so the plain prompt becomes one user turn.
 const makeLocalModel = (model: LlmModel) => ({
     id: `${model.id}@${model.revision.slice(0, 12)}`,
-    contextTokens: CONTEXT_TOKENS,
+    contextTokens: activeContextTokens,
     async *generate(
         prompt: string,
         opts?: { signal?: AbortSignal; maxNewTokens?: number },

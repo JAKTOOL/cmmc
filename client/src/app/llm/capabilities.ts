@@ -8,6 +8,10 @@ interface NavigatorGpu {
     gpu?: {
         requestAdapter(): Promise<{
             features: Set<string> | { has(name: string): boolean };
+            limits?: {
+                maxBufferSize?: number;
+                maxStorageBufferBindingSize?: number;
+            };
         } | null>;
     };
 }
@@ -18,6 +22,12 @@ export interface DeviceCapabilities {
      *  without it transformers.js falls back to fp32 emulation (slower, more
      *  memory, still functional). Surfaced for the settings badge only. */
     shaderF16: boolean;
+    /** Largest single GPU buffer the adapter can allocate AND bind:
+     *  min(maxBufferSize, maxStorageBufferBindingSize). The prefill logits
+     *  tensor (sequence x vocab, fp32) is one such buffer, so this limit
+     *  bounds the usable context window (config.ts contextTokensFor).
+     *  Undefined on WASM or when the adapter does not report limits. */
+    maxBufferBytes?: number;
 }
 
 let cached: Promise<DeviceCapabilities> | undefined;
@@ -32,7 +42,16 @@ const detect = async (): Promise<DeviceCapabilities> => {
         if (!adapter) {
             return { device: "wasm", shaderF16: false };
         }
-        return { device: "webgpu", shaderF16: adapter.features.has("shader-f16") };
+        const { maxBufferSize, maxStorageBufferBindingSize } =
+            adapter.limits ?? {};
+        return {
+            device: "webgpu",
+            shaderF16: adapter.features.has("shader-f16"),
+            maxBufferBytes:
+                maxBufferSize && maxStorageBufferBindingSize
+                    ? Math.min(maxBufferSize, maxStorageBufferBindingSize)
+                    : undefined,
+        };
     } catch {
         return { device: "wasm", shaderF16: false };
     }

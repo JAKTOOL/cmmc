@@ -14,13 +14,14 @@ import { expectedReviewState } from "@/app/ai/review";
 import { IDB } from "@/app/db";
 import {
     DRAFT_MAX_NEW_TOKENS,
-    EVIDENCE_CHAR_BUDGET,
+    evidenceCharBudget,
     getModel,
 } from "@/app/llm/config";
 import {
     GenerateHandle,
     ensureLoaded,
     generate,
+    getContextTokens,
     subscribeLlmStatus,
 } from "@/app/llm/engine";
 import {
@@ -287,7 +288,7 @@ export const DraftPanel = ({
                 {
                     budget: Math.max(
                         1200,
-                        EVIDENCE_CHAR_BUDGET - overviewChars,
+                        evidenceCharBudget(getContextTokens()) - overviewChars,
                     ),
                     pinnedQuotes: verifiedQuotes,
                 },
