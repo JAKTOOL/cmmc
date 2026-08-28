@@ -10,7 +10,7 @@ import type { RetrievedChunk } from "./retrieval";
 
 /** Bump when the prompt or parser changes shape; part of the review
  *  fingerprint. */
-export const PROMPT_VERSION = 3;
+export const PROMPT_VERSION = 6;
 
 /** Tokens held back for the model's tagged response. */
 const OUTPUT_RESERVE_TOKENS = 256;
@@ -40,6 +40,22 @@ Evidence excerpts (the only material you may rely on):
 // REASON before QUOTE on purpose: small models degrade toward the end of a
 // format and stop early, and the reason must survive that — a cut-off quote
 // only loses the citation, a cut-off reason loses the verdict's grounds.
+// The worked example is not decoration: without one, the 1B model drifts
+// into untagged essay prose on every objective (verbose meta-reasons, no
+// quote), and the parser is left salvaging. Same lesson as the draft
+// prompt — a small model imitates an example far more reliably than it
+// obeys format rules.
+
+/** The example's REASON and QUOTE strings, shared with the parser: the
+ *  model sometimes copies them verbatim into its real answer, so the parser
+ *  scrubs them. Off-domain on purpose (facilities, not access control) — an
+ *  in-domain example read as a plausible finding when copied; a generator
+ *  fuel check cannot. */
+export const EXAMPLE_REASON =
+    "The manifest lists monthly fuel checks for the backup generator, but no excerpt shows who performs them.";
+export const EXAMPLE_QUOTE =
+    "Generators are fueled on the first Monday of each month.";
+
 const promptTail = (objective: ReviewObjective): string =>
     `
 Decide whether the evidence demonstrates this objective. Respond with exactly
@@ -49,7 +65,13 @@ CITATION: ${objective.citation}
 REASON: <one or two sentences naming what is present or missing>
 QUOTE: <verbatim sentence copied from one excerpt> (SOURCE: <filename#n>)
 Always include VERDICT and REASON. If no excerpt is relevant, use
-VERDICT: no-evidence and omit QUOTE.`;
+VERDICT: no-evidence and omit QUOTE.
+
+Example response (form only — use the excerpts above, not these words):
+VERDICT: partially-met
+CITATION: ${objective.citation}
+REASON: ${EXAMPLE_REASON}
+QUOTE: "${EXAMPLE_QUOTE}" (SOURCE: facilities-manual.docx#1)`;
 
 export interface BuiltPrompt {
     prompt: string;
@@ -190,21 +212,77 @@ const resolveQuote = (
     };
 };
 
+const ANY_TAGGED_LINE =
+    /^\s*(?:VERDICT|CITATION|QUOTE|REASON(?:ING)?|RATIONALE|EXPLANATION)\s*:.*$/gim;
+
+// Whitespace-tolerant matcher for the example REASON, so a copied example
+// sentence is removed wherever it appears in the model's answer.
+const EXAMPLE_REASON_PATTERN = new RegExp(
+    EXAMPLE_REASON.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(
+        /\s+/g,
+        "\\s+",
+    ),
+    "gi",
+);
+
+const scrubExample = (text: string): string =>
+    text.replace(EXAMPLE_REASON_PATTERN, "").replace(/\s+/g, " ").trim();
+
+const MAX_REASON_CHARS = 300;
+
+/** A reason when the REASON tag is missing: the model's untagged prose if
+ *  it wrote any, else a per-verdict default. A row with an empty reason
+ *  reads as a silent judgment — every stored review must say why. */
+const fallbackReason = (raw: string, verdict: ReviewVerdict): string => {
+    const prose = scrubExample(raw.replace(ANY_TAGGED_LINE, ""));
+    if (prose) {
+        if (prose.length <= MAX_REASON_CHARS) {
+            return prose;
+        }
+        // Trim at the last complete sentence that fits — a mid-word chop
+        // reads like data loss. Word boundary for run-on text; the full
+        // output stays in `raw`.
+        const head = prose.slice(0, MAX_REASON_CHARS);
+        const sentenceEnd = Math.max(
+            head.lastIndexOf(". "),
+            head.lastIndexOf("? "),
+            head.lastIndexOf("! "),
+        );
+        return sentenceEnd > MAX_REASON_CHARS / 3
+            ? head.slice(0, sentenceEnd + 1)
+            : `${head.slice(0, head.lastIndexOf(" "))}…`;
+    }
+    return verdict === "no-evidence"
+        ? "The model found no relevant excerpt for this objective."
+        : "The model gave no reason for this verdict — verify it against the evidence before relying on it.";
+};
+
 /** Tolerant, line-anchored parse of the model's tagged response. Unknown
- *  verdicts degrade to "unparsed" with the raw text preserved for display. */
+ *  verdicts degrade to "unparsed" with the raw text preserved for display.
+ *  The reason is never empty: tagged line, else untagged prose, else a
+ *  per-verdict default. */
 export const parseReviewResponse = (
     raw: string,
     included: RetrievedChunk[],
 ): ParsedReview => {
     const verdictLine = taggedLine("VERDICT", raw);
-    const verdict = verdictLine ? normalizeVerdict(verdictLine) : undefined;
-    // Accept the tag drift small models produce for this field.
+    const verdict =
+        (verdictLine ? normalizeVerdict(verdictLine) : undefined) ??
+        "unparsed";
+    // Accept the tag drift small models produce for this field. Scrub the
+    // prompt example's sentence wherever it was copied in.
     const reason =
-        taggedLine("(?:REASON(?:ING)?|RATIONALE|EXPLANATION)", raw) ?? "";
+        scrubExample(
+            taggedLine("(?:REASON(?:ING)?|RATIONALE|EXPLANATION)", raw) ?? "",
+        ) || fallbackReason(raw, verdict);
     const quoteLine = taggedLine("QUOTE", raw);
-    const quote = quoteLine ? resolveQuote(quoteLine, included) : undefined;
-    if (!verdict) {
-        return { verdict: "unparsed", reason, quote, raw };
+    let quote = quoteLine ? resolveQuote(quoteLine, included) : undefined;
+    if (
+        quote &&
+        normalizeWhitespace(quote.text) === normalizeWhitespace(EXAMPLE_QUOTE)
+    ) {
+        // The example quote copied verbatim — it exists in no excerpt.
+        quote = undefined;
     }
     return { verdict, reason, quote, raw };
 };
@@ -240,5 +318,31 @@ if (process.env.NODE_ENV !== "production") {
     const junk = parseReviewResponse("The evidence is fine.", [chunk]);
     if (junk.verdict !== "unparsed" || junk.raw !== "The evidence is fine.") {
         console.warn("prompt.ts: junk parse failed", junk);
+    }
+    // The reason is never empty: untagged prose is salvaged, and a bare
+    // verdict gets the per-verdict default.
+    const salvaged = parseReviewResponse(
+        "VERDICT: met\nApproval is documented in the policy.",
+        [chunk],
+    );
+    if (salvaged.reason !== "Approval is documented in the policy.") {
+        console.warn("prompt.ts: reason salvage failed", salvaged);
+    }
+    const bare = parseReviewResponse("VERDICT: met", [chunk]);
+    if (!bare.reason) {
+        console.warn("prompt.ts: reason default failed", bare);
+    }
+    // Copied example text is scrubbed: the example REASON vanishes from the
+    // reason (leaving the model's own words) and the example QUOTE, which
+    // exists in no excerpt, is dropped entirely.
+    const contaminated = parseReviewResponse(
+        `VERDICT: partially-met\nREASON: ${EXAMPLE_REASON} The excerpts never name a reviewer.\nQUOTE: "${EXAMPLE_QUOTE}" (SOURCE: facilities-manual.docx#1)`,
+        [chunk],
+    );
+    if (
+        contaminated.reason !== "The excerpts never name a reviewer." ||
+        contaminated.quote !== undefined
+    ) {
+        console.warn("prompt.ts: example scrub failed", contaminated);
     }
 }

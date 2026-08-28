@@ -273,8 +273,8 @@ ${excerpts}
 
 Task: in at most ${input.focusId ? "120" : "200"} words, describe what the organization does to meet ${input.focusId ? `statement ${input.focusId}` : "this requirement"}, using only details from the excerpts.${input.findings?.some((finding) => finding.quote?.verified) ? " Build the description around the supporting quotes in the review findings." : ""} One or two short paragraphs of plain prose — no title, no headings, no lists, no citations, no summary sentence.
 
-Example response (form only — never copy its words; "Example Corp" stands in for the organization's real name):
-Example Corp issues staff standard user accounts for day-to-day applications; separate admin accounts exist for its four IT administrators only. Its help desk reviews role assignments quarterly and removes unused accounts within 30 days.
+Example response (form only — never copy its words):
+The organization issues staff standard user accounts for day-to-day applications; separate admin accounts exist for its four IT administrators only. Its help desk reviews role assignments quarterly and removes unused accounts within 30 days.
 
 Write your response now.`,
         },

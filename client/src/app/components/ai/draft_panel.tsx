@@ -6,7 +6,10 @@
 // user inserts it.
 
 import { ElementWrapper } from "@/api/entities/Framework";
-import { getAssessmentGuidance } from "@/api/entities/AssessmentGuide";
+import {
+    considerationsForObjective,
+    getAssessmentGuidance,
+} from "@/api/entities/AssessmentGuide";
 import { expectedReviewState } from "@/app/ai/review";
 import { IDB } from "@/app/db";
 import { DRAFT_MAX_NEW_TOKENS, getModel } from "@/app/llm/config";
@@ -207,14 +210,24 @@ export const DraftPanel = ({
 
             // Verified quotes are known-relevant passages: their chunks are
             // pinned into the prompt, and their wording sharpens the BM25
-            // query so retrieval stops surfacing filler excerpts.
+            // query so retrieval stops surfacing filler excerpts. The
+            // "Potential Assessment Considerations" questions bound to this
+            // control's letter join the query for the same reason — their
+            // concrete noun phrases match evidence language better than the
+            // abstract objective wording. Query only; the model never sees
+            // them.
             const verifiedQuotes = reviewFindings
                 .filter((finding) => finding.quote?.verified)
                 .map((finding) => finding.quote!.text);
+            const considerations = focusLetter
+                ? considerationsForObjective(requirementId, focusLetter)
+                : (getAssessmentGuidance(requirementId)?.furtherDiscussion
+                      .considerations ?? []);
             const selected = selectChunks(
                 docs,
                 [
                     summarizeQuery({ title, statement, objectives }),
+                    ...considerations,
                     ...verifiedQuotes,
                 ].join(" "),
                 { pinnedQuotes: verifiedQuotes },

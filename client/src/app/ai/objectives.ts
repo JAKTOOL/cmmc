@@ -3,7 +3,10 @@
 // branch (determination statements + ODP substitution) lands later with the
 // same output shape, so nothing downstream changes.
 
-import { getAssessmentGuidance } from "@/api/entities/AssessmentGuide";
+import {
+    considerationsForObjective,
+    getAssessmentGuidance,
+} from "@/api/entities/AssessmentGuide";
 import { Revision } from "@/app/context/revision";
 
 export interface ReviewObjective {
@@ -21,6 +24,11 @@ export interface ReviewObjective {
     /** Examine-method vocabulary — document names that match evidence
      *  filenames and headings, folded into the retrieval query. */
     methodTerms: string[];
+    /** "Potential Assessment Considerations" questions bound to this
+     *  objective's letter — concrete noun phrases that match evidence
+     *  language better than the objective's abstract wording. Retrieval
+     *  query only; never shown to the model. */
+    considerations: string[];
 }
 
 /** Empty for requirements without objectives (withdrawn controls, and all of
@@ -46,6 +54,7 @@ export const objectivesForRequirement = (
             text,
             requirementStatement: requirement.statement,
             methodTerms: requirement.assessment_methods.examine,
+            considerations: considerationsForObjective(requirementId, letter),
         }),
     );
 };

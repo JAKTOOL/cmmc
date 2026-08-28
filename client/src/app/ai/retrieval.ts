@@ -64,6 +64,7 @@ export const retrieveForObjective = (
         objective.text,
         objective.requirementStatement,
         ...objective.methodTerms,
+        ...objective.considerations,
     ].join(" ");
     // Every hit id comes from the index, which was populated from
     // chunksById, so the lookup always succeeds.

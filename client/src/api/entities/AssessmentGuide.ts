@@ -111,6 +111,32 @@ export const getAssessmentGuidance = (
     requirementId: string,
 ): AssessmentGuidance | undefined => guidanceByRequirement[requirementId];
 
+/** Objective-letter references inside guidance prose, e.g. "[a]" or
+ *  "[d,e,f]" (same shape linkifyObjectives renders as anchors). */
+const OBJECTIVE_LETTER_REFS = /\[([a-o](?:\s*,\s*[a-o])*)\]/g;
+
+/**
+ * The "Potential Assessment Considerations" questions bound to one
+ * objective: those whose bracketed letter references include it. 109 of the
+ * 110 Rev 2 requirements carry these references, so an empty result means
+ * the guide has no consideration for that objective — not a parsing miss.
+ */
+export const considerationsForObjective = (
+    requirementId: string,
+    letter: string,
+): string[] =>
+    (
+        guidanceByRequirement[requirementId]?.furtherDiscussion
+            .considerations ?? []
+    ).filter((question) =>
+        [...question.matchAll(OBJECTIVE_LETTER_REFS)].some((match) =>
+            match[1]
+                .split(",")
+                .map((ref) => ref.trim())
+                .includes(letter),
+        ),
+    );
+
 /** Assessment objective prose per Rev 2 requirement, joined for the search
  *  index (the objectives are the assessable statements — searching them
  *  should surface the requirement). */

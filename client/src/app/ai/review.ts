@@ -149,9 +149,12 @@ const run = async (
         };
         try {
             let raw = "";
+            // 320, not 256: the tagged format needs ~80 tokens, but when the
+            // model drifts into prose despite the example, the extra room
+            // lets the reason finish instead of cutting off mid-word.
             for await (const token of model.generate(prompt, {
                 signal,
-                maxNewTokens: 256,
+                maxNewTokens: 320,
             })) {
                 raw += token;
             }
@@ -172,6 +175,7 @@ const run = async (
             // Keep the failure visible in the row and continue with the
             // remaining objectives.
             row.raw = error instanceof Error ? error.message : String(error);
+            row.reason = `The review failed before reaching a verdict: ${row.raw}`;
         }
         await IDB.objectiveReviews.put(row);
         onProgress?.({ ...progress, done: ++progress.done });
