@@ -1,5 +1,5 @@
 {
-    "note": "Pinned model-weight manifest. Every file is identified by URL, revision, size, and sha256. Weights are a build-time input only: flake.nix fetches these as fixed-output derivations, and scripts/fetch-model-weights.mjs does the same (with sha256 verification) for non-Nix desktop builds. The app never downloads weights at runtime. Regenerate an entry with: node scripts/update-model-manifest.mjs --id <id>. Empty sha256 values mean the entry is not yet pinned and is excluded from builds.",
+    "note": "Pinned model-weight manifest. Every file is identified by URL, revision, size, and sha256. Weights are a build-time input only: flake.nix fetches these as fixed-output derivations, and scripts/fetch-model-weights.mjs does the same (with sha256 verification) for non-Nix desktop builds. The app never downloads weights at runtime. Regenerate an entry with: node scripts/update-model-manifest.mjs --id <id>. Empty sha256 values mean the entry is not yet pinned and is excluded from builds. bundlePlatforms limits which desktop bundles include a model's weights (Node process.platform values; absent = all platforms) — fetch-model-weights.mjs skips and prunes excluded models, the runtime just sees missing weights.",
     "models": [
         {
             "id": "llama-3.2-1b-instruct",
@@ -98,6 +98,66 @@
                     "url": "https://huggingface.co/onnx-community/gemma-3-270m-it-ONNX/resolve/2dbbfdb1b59bd034eb959428c6a7da9dd7ea27f0/onnx/model_quantized.onnx_data",
                     "size": 545028608,
                     "sha256": "7ea038442b555b1782786da8be96d2805f04b7b94b21e553f6eda74e7d62bfff"
+                }
+            ]
+        },
+        {
+            "id": "llama-3.2-3b-instruct",
+            "label": "Llama 3.2 3B Instruct (large)",
+            "repo": "onnx-community/Llama-3.2-3B-Instruct-ONNX",
+            "revision": "cab364e7d0e1de7aa09e3abc932be92361c5b55f",
+            "dtype": "q4f16",
+            "minDevice": "webgpu",
+            "bundlePlatforms": [
+                "darwin",
+                "linux"
+            ],
+            "license": "Llama 3.2 Community License",
+            "licenseNotice": "Built with Llama",
+            "licenseUrl": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX",
+            "totalBytes": 2419247890,
+            "files": [
+                {
+                    "path": "config.json",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/config.json",
+                    "size": 1162,
+                    "sha256": "93104420bd10292f1db7f2a0d940f431d760096b46bfa5de64cd6efa613a9e5c"
+                },
+                {
+                    "path": "generation_config.json",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/generation_config.json",
+                    "size": 218,
+                    "sha256": "8baea8f248b53e37390f42aa732068b887668357bc09fd1a3361ba91e7b67cda"
+                },
+                {
+                    "path": "tokenizer.json",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/tokenizer.json",
+                    "size": 11574638,
+                    "sha256": "3a223ade375cc1d13b04e897ce1d36a04f50140e1ba3d107021ea68d4b5e614c"
+                },
+                {
+                    "path": "tokenizer_config.json",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/tokenizer_config.json",
+                    "size": 54557,
+                    "sha256": "fb8e113b6240ab997fe87464b8b58697cc769a8df40699356e8524d0dfc60c0e"
+                },
+                {
+                    "path": "onnx/model_q4f16.onnx",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/onnx/model_q4f16.onnx",
+                    "size": 260899,
+                    "sha256": "43648be8ff45ed7bc75c75ea0d495beffa8a8632910e53d3aa824d6bfffaae46"
+                },
+                {
+                    "path": "onnx/model_q4f16.onnx_data",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/onnx/model_q4f16.onnx_data",
+                    "size": 2095929344,
+                    "sha256": "0669c8c258ea5437b82cc17e5ca87bb91a9ede5b2f5ff80675c0b8e51f1b6043"
+                },
+                {
+                    "path": "onnx/model_q4f16.onnx_data_1",
+                    "url": "https://huggingface.co/onnx-community/Llama-3.2-3B-Instruct-ONNX/resolve/cab364e7d0e1de7aa09e3abc932be92361c5b55f/onnx/model_q4f16.onnx_data_1",
+                    "size": 311427072,
+                    "sha256": "63b1b82298ad66f940b4f918f81c386fbe4e15a4e178efb14bc558d127185113"
                 }
             ]
         }

@@ -232,6 +232,13 @@ export const AiSettingsModal = () => {
                 </div>
 
                 <div className="flex flex-col gap-2 border-t border-border pt-3">
+                    {model.totalBytes >= 2e9 && (
+                        <p className="text-xs text-muted-foreground">
+                            Large model: needs roughly 4 GB of GPU memory. If
+                            generation fails with an out-of-memory error,
+                            switch back to the default model.
+                        </p>
+                    )}
                     {weights === "checking" && <p>Checking model weights…</p>}
                     {weights === "bundled" && (
                         <div className="flex items-center justify-between gap-4">

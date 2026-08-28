@@ -24,6 +24,11 @@ export interface LlmModel {
     /** Weakest device this model is usable on. "webgpu" bars slow WASM-only
      *  machines from a model that would generate at unusable speed. */
     minDevice: LlmDevice;
+    /** Node process.platform values whose desktop bundles include the
+     *  weights. Absent = all platforms. Runtime never reads this — missing
+     *  weights are detected by probing (engine.ts resolveWeightSource);
+     *  this field only drives build-time fetching. */
+    bundlePlatforms?: string[];
     license: string;
     licenseNotice: string;
     licenseUrl: string;
@@ -116,6 +121,7 @@ export const MAX_CONTEXT_TOKENS = 6144;
 const LOGIT_BYTES_PER_TOKEN: Record<string, number> = {
     "llama-3.2-1b-instruct": 128256 * 4,
     "gemma-3-270m-it": 262144 * 4,
+    "llama-3.2-3b-instruct": 128256 * 4,
 };
 const FALLBACK_LOGIT_BYTES = 262144 * 4;
 export const logitBytesPerToken = (model: LlmModel): number =>
@@ -198,17 +204,17 @@ export const usableDevice = (
 };
 
 /** The model this device will actually run: the user's selection when it
- *  is pinned and usable here, else the pinned lite model. Null when
- *  neither fits — only then do the AI features hide. The stored preference
- *  is never rewritten, so a later session on stronger hardware honors it
- *  again. Every feature gate and load path must resolve through this, or
- *  a device that cannot run the selected model loses the feature instead
- *  of falling back. */
+ *  is pinned and usable here, else the default model, else the pinned lite
+ *  model. Null when nothing fits — only then do the AI features hide. The
+ *  stored preference is never rewritten, so a later session on stronger
+ *  hardware honors it again. Every feature gate and load path must resolve
+ *  through this, or a device that cannot run the selected model loses the
+ *  feature instead of falling back. */
 export const resolveUsableModel = (
     selectedId: string,
     capabilities: { device: LlmDevice; maxBufferBytes?: number },
 ): LlmModel | null => {
-    for (const id of [selectedId, LITE_MODEL_ID]) {
+    for (const id of [selectedId, DEFAULT_MODEL_ID, LITE_MODEL_ID]) {
         const model = getModel(id);
         if (model && isPinned(model) && usableDevice(model, capabilities)) {
             return model;
