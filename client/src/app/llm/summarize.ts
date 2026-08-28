@@ -15,7 +15,7 @@ import { EvidenceDoc, chunkDoc } from "./prompt";
 import type { ChatMessage } from "./protocol";
 
 /** Bump when the summarize prompts or chunking use changes shape. */
-export const SUMMARY_VERSION = 1;
+export const SUMMARY_VERSION = 2;
 
 /** Output budgets: chunk summaries are 2-3 sentences, the document summary
  *  3-5. Small on purpose — summaries are context, not the deliverable. */
@@ -27,7 +27,36 @@ const DOC_SUMMARY_TOKENS = 200;
  *  the model's input cap. */
 const REDUCE_BATCH = 12;
 
-const SYSTEM = `You summarize excerpts of compliance evidence documents. Keep every concrete detail: system names, tool names, policy titles, settings, frequencies, and role names. Write plain present-tense prose with no preamble and no commentary.`;
+const SYSTEM = `You summarize excerpts of the user's own compliance evidence documents — summarizing them is always appropriate. Keep every concrete detail: system names, tool names, policy titles, settings, frequencies, and role names. Write plain present-tense prose. Start directly with the first fact — no preamble. Each sentence states a different fact. Never comment on what the excerpt lacks.`;
+
+// The 1B model ignores "no preamble" often enough that the output is
+// cleaned deterministically: leading chat filler is stripped, and a refusal
+// (it sometimes balks at CUI-adjacent content despite the system message)
+// falls back to verbatim opening text — grounded beats absent.
+const PREAMBLE =
+    /^\s*(?:here(?:'s| is| are)|sure|certainly|okay|below is|the following)[^:\n]*:\s*/i;
+const REFUSAL =
+    /\b(?:i\s+can(?:no|')t|i\s+cannot|i(?:'m| am)\s+(?:unable|not\s+able)|unable\s+to\s+(?:provide|summarize|assist))\b/i;
+
+const cleanSummary = (text: string): string =>
+    text.replace(PREAMBLE, "").trim();
+
+/** Verbatim fallback: the first sentences of the source text, capped. */
+const openingOf = (text: string, cap = 300): string => {
+    const flat = text.replace(/\s+/g, " ").trim();
+    if (flat.length <= cap) {
+        return flat;
+    }
+    const head = flat.slice(0, cap);
+    const sentenceEnd = Math.max(
+        head.lastIndexOf(". "),
+        head.lastIndexOf("? "),
+        head.lastIndexOf("! "),
+    );
+    return sentenceEnd > cap / 3
+        ? head.slice(0, sentenceEnd + 1)
+        : `${head.slice(0, head.lastIndexOf(" "))}…`;
+};
 
 const run = async (
     messages: ChatMessage[],
@@ -109,6 +138,46 @@ const summaryFingerprint = (evidenceId: string, modelId: string) =>
         ].join("\n"),
     );
 
+export interface DocSummary {
+    evidenceId: string;
+    filename: string;
+    summary: string;
+    /** The stored row's fingerprint — callers fold it into their own
+     *  staleness fingerprints so a summary appearing or changing later is
+     *  detected. */
+    fingerprint: string;
+}
+
+/** Stored, complete, fingerprint-fresh summaries for a set of documents.
+ *  Absent or stale entries are skipped — this never generates; the draft
+ *  flow owns creating summaries. */
+export const freshDocSummaries = async (
+    docs: EvidenceDoc[],
+    modelId: string,
+): Promise<DocSummary[]> => {
+    const summaries: DocSummary[] = [];
+    for (const doc of docs) {
+        const fingerprint = await summaryFingerprint(doc.evidenceId, modelId);
+        const [cached] = await IDB.evidenceSummaries.getAll(
+            IDBKeyRange.only(doc.evidenceId),
+        );
+        if (
+            cached &&
+            cached.fingerprint === fingerprint &&
+            cached.complete !== false &&
+            cached.summary
+        ) {
+            summaries.push({
+                evidenceId: doc.evidenceId,
+                filename: doc.filename,
+                summary: cached.summary,
+                fingerprint: cached.fingerprint,
+            });
+        }
+    }
+    return summaries;
+};
+
 export interface SummarizeProgress {
     filename: string;
     /** Chunks summarized so far in the current document. */
@@ -133,13 +202,34 @@ export const ensureDocSummary = async (
     const [cached] = await IDB.evidenceSummaries.getAll(
         IDBKeyRange.only(doc.evidenceId),
     );
-    if (cached && cached.fingerprint === fingerprint) {
+    // `!== false` keeps rows from before the `complete` field valid — they
+    // were only ever written complete.
+    if (
+        cached &&
+        cached.fingerprint === fingerprint &&
+        cached.complete !== false
+    ) {
         return cached;
     }
 
     const chunks = chunkDoc(doc);
-    const chunkSummaries: string[] = [];
-    for (const chunk of chunks) {
+    // Resume an interrupted run: the fingerprint covers the content hash and
+    // extractor version, and chunkDoc is deterministic, so the stored
+    // summaries line up with the chunk list index for index.
+    const chunkSummaries: string[] =
+        cached?.fingerprint === fingerprint
+            ? cached.chunk_summaries.slice(0, chunks.length)
+            : [];
+    const partial = (): IDBEvidenceSummary => ({
+        evidence_id: doc.evidenceId,
+        chunk_summaries: chunkSummaries,
+        summary: "",
+        complete: false,
+        fingerprint,
+        model: modelId,
+        created: Date.now(),
+    });
+    for (const chunk of chunks.slice(chunkSummaries.length)) {
         if (signal?.aborted) {
             throw new DOMException("Aborted", "AbortError");
         }
@@ -148,23 +238,30 @@ export const ensureDocSummary = async (
             done: chunkSummaries.length,
             total: chunks.length,
         });
-        chunkSummaries.push(
+        const summarized = cleanSummary(
             await summarizeChunk(doc.filename, chunk.text, signal),
         );
+        chunkSummaries.push(
+            REFUSAL.test(summarized) || !summarized
+                ? openingOf(chunk.text)
+                : summarized,
+        );
+        // Persist per chunk so closing the panel loses at most the chunk
+        // that was generating; the next run resumes here.
+        await IDB.evidenceSummaries.put(partial());
     }
-    const summary = await reduceSummaries(
-        doc.filename,
-        chunkSummaries,
-        signal,
+    const reduced = cleanSummary(
+        await reduceSummaries(doc.filename, chunkSummaries, signal),
     );
+    const summary =
+        REFUSAL.test(reduced) || !reduced
+            ? openingOf(chunkSummaries.join(" "), 600)
+            : reduced;
 
     const row: IDBEvidenceSummary = {
-        evidence_id: doc.evidenceId,
-        chunk_summaries: chunkSummaries,
+        ...partial(),
         summary,
-        fingerprint,
-        model: modelId,
-        created: Date.now(),
+        complete: true,
     };
     await IDB.evidenceSummaries.put(row);
     return row;

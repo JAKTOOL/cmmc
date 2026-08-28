@@ -47,6 +47,7 @@ type Phase = "preparing" | "generating" | "done" | "error";
 const draftAppendix = (
     findings: ReviewFinding[],
     chunks: EvidenceChunk[],
+    overviews: { filename: string; summary: string }[],
 ): string => {
     const gaps = findings.filter((finding) => finding.verdict !== "met");
     const parts: string[] = [];
@@ -65,6 +66,13 @@ const draftAppendix = (
     if (chunks.length) {
         const files = [...new Set(chunks.map((chunk) => chunk.filename))];
         parts.push(`Sources: ${files.join(", ")}`);
+    }
+    if (overviews.length) {
+        parts.push(
+            `Document summaries used: ${overviews
+                .map((overview) => overview.filename)
+                .join(", ")}`,
+        );
     }
     return parts.join("\n\n");
 };
@@ -96,6 +104,9 @@ export const DraftPanel = ({
     const [statusNote, setStatusNote] = useState("Preparing…");
     const [draft, setDraft] = useState("");
     const [chunks, setChunks] = useState<EvidenceChunk[]>([]);
+    const [usedOverviews, setUsedOverviews] = useState<
+        { filename: string; summary: string }[]
+    >([]);
     const [unreadable, setUnreadable] = useState<string[]>([]);
     const [findings, setFindings] = useState<ReviewFinding[]>([]);
     const [staleFindings, setStaleFindings] = useState(0);
@@ -173,6 +184,7 @@ export const DraftPanel = ({
                     summary: row.summary,
                 });
             }
+            setUsedOverviews(overviews);
 
             // Stored objective-review verdicts for this requirement (or just
             // the focused control): extra grounding beyond the raw excerpts.
@@ -316,7 +328,11 @@ export const DraftPanel = ({
                 // review verdicts and the source list from the excerpts that
                 // were actually in the prompt, so neither can be invented or
                 // truncated away by the model.
-                const appendix = draftAppendix(reviewFindings, selected);
+                const appendix = draftAppendix(
+                    reviewFindings,
+                    selected,
+                    overviews,
+                );
                 if (appendix) {
                     setDraft(
                         (current) => `${current.trimEnd()}\n\n${appendix}`,
@@ -411,7 +427,7 @@ export const DraftPanel = ({
                 </div>
 
                 <div className="flex flex-col gap-3 overflow-y-auto px-6 py-4 text-sm">
-                    {chunks.length > 0 && (
+                    {(chunks.length > 0 || usedOverviews.length > 0) && (
                         <div className="text-muted-foreground">
                             <button
                                 type="button"
@@ -421,6 +437,9 @@ export const DraftPanel = ({
                                 Using {chunks.length} excerpt
                                 {chunks.length === 1 ? "" : "s"} from{" "}
                                 {fileCount} file{fileCount === 1 ? "" : "s"}
+                                {usedOverviews.length
+                                    ? ` and ${usedOverviews.length} document summar${usedOverviews.length === 1 ? "y" : "ies"}`
+                                    : ""}
                                 {unreadable.length
                                     ? ` (${unreadable.length} not readable)`
                                     : ""}
@@ -431,6 +450,15 @@ export const DraftPanel = ({
                                         <li key={chunk.id}>
                                             {chunk.filename} — excerpt{" "}
                                             {chunk.seq + 1}
+                                        </li>
+                                    ))}
+                                    {usedOverviews.map((overview) => (
+                                        <li
+                                            key={`summary-${overview.filename}`}
+                                            title={overview.summary}
+                                        >
+                                            {overview.filename} — document
+                                            summary
                                         </li>
                                     ))}
                                     {unreadable.map((filename) => (

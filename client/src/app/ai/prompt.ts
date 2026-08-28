@@ -10,7 +10,7 @@ import type { RetrievedChunk } from "./retrieval";
 
 /** Bump when the prompt or parser changes shape; part of the review
  *  fingerprint. */
-export const PROMPT_VERSION = 9;
+export const PROMPT_VERSION = 10;
 
 /** Tokens held back for the model's tagged response. */
 const OUTPUT_RESERVE_TOKENS = 256;
@@ -36,7 +36,7 @@ const sourceRef = (chunk: { filename: string; seq: number }): string =>
 // verdict, and finally reasoned about its scenario in paraphrase, which no
 // scrub can catch. Format drift without an example is the lesser failure:
 // the parser salvages prose and every field degrades independently.
-const promptHead = (objective: ReviewObjective): string =>
+const promptHead = (objective: ReviewObjective, contextBlock: string): string =>
     `You are a CMMC assessor reviewing evidence for one assessment objective.
 
 Requirement ${objective.requirementId}: ${objective.requirementStatement}
@@ -56,7 +56,7 @@ excerpts leave you unsure, the verdict is no-evidence and the REASON says
 what is missing. If no excerpt is relevant, use VERDICT: no-evidence and
 omit QUOTE.
 
-Evidence excerpts (the only material you may rely on):
+${contextBlock}Evidence excerpts (the only material you may rely on):
 `;
 
 // REASON before QUOTE on purpose: small models degrade toward the end of a
@@ -80,6 +80,26 @@ export interface BuiltPrompt {
     included: RetrievedChunk[];
 }
 
+/** Per-document summary lines in the review prompt: whole-document context
+ *  a lone excerpt cannot carry (a single quoted paragraph was repeatedly
+ *  judged "insufficient" when the rest of its document covered the
+ *  objective). Bounded so the excerpts stay the bulk of the budget. */
+const MAX_CONTEXT_DOCS = 4;
+const MAX_CONTEXT_CHARS = 300;
+
+const contextBlockFor = (
+    overviews: { filename: string; summary: string }[],
+): string =>
+    overviews.length
+        ? `Document context (summaries of the attached evidence — for orientation only; quote from the excerpts below):\n${overviews
+              .slice(0, MAX_CONTEXT_DOCS)
+              .map(
+                  (overview) =>
+                      `- ${overview.filename}: ${overview.summary.slice(0, MAX_CONTEXT_CHARS)}`,
+              )
+              .join("\n")}\n\n`
+        : "";
+
 /** Assemble the prompt: fixed head/tail, then chunks in score order while
  *  they fit the token budget. When evidence exists, at least one chunk is
  *  always included, truncated to fit. */
@@ -87,9 +107,10 @@ export const buildReviewPrompt = (
     objective: ReviewObjective,
     chunks: RetrievedChunk[],
     model: { contextTokens: number; countTokens?(text: string): number },
+    overviews: { filename: string; summary: string }[] = [],
 ): BuiltPrompt => {
     const count = model.countTokens?.bind(model) ?? estimateTokens;
-    const head = promptHead(objective);
+    const head = promptHead(objective, contextBlockFor(overviews));
     const tail = promptTail(objective);
     let budget =
         Math.min(model.contextTokens, REVIEW_PROMPT_TOKENS) -

@@ -6,7 +6,10 @@
 
 import { Revision } from "@/app/context/revision";
 import { IDB, IDBObjectiveReview } from "@/app/db";
-import { gatherEvidence } from "@/app/llm/prompt";
+import { getModel } from "@/app/llm/config";
+import { EvidenceDoc, gatherEvidence } from "@/app/llm/prompt";
+import { getSelectedModelId } from "@/app/llm/settings";
+import { DocSummary, freshDocSummaries } from "@/app/llm/summarize";
 import { ensureEvidenceTextSynced } from "@/app/search/evidence_text_store";
 import { EXTRACTOR_VERSION } from "@/app/search/extract_text";
 import { sha256Hex } from "@/app/utils/hash";
@@ -20,22 +23,34 @@ import {
 } from "./prompt";
 import { buildChunkIndex, retrieveForObjective } from "./retrieval";
 
-/** What a stored verdict depends on: the reviewed evidence set and every
- *  version in the pipeline. A mismatch with the current state means the row
- *  is stale. */
+/** What a stored verdict depends on: the reviewed evidence set, every
+ *  version in the pipeline, and the document summaries that entered the
+ *  prompt (a summary appearing or changing later must flag the row stale).
+ *  A mismatch with the current state means the row is stale. */
 export const reviewFingerprint = (
     evidenceIds: string[],
     modelId: string,
+    summaryFingerprints: string[] = [],
 ): Promise<string> =>
     sha256Hex(
         [
             ...[...evidenceIds].sort(),
+            ...[...summaryFingerprints].sort().map((fp) => `summary:${fp}`),
             `extractor:${EXTRACTOR_VERSION}`,
             `chunker:${CHUNKER_VERSION}`,
             `prompt:${PROMPT_VERSION}`,
             `model:${modelId}`,
         ].join("\n"),
     );
+
+/** The stored document summaries a review would use right now: complete and
+ *  fresh only, and never generated here — the draft flow owns creating
+ *  them, so review latency stays predictable. Keyed by the manifest model
+ *  id (the id the draft flow stamps them with). */
+const storedSummaries = (docs: EvidenceDoc[]): Promise<DocSummary[]> => {
+    const modelId = getModel(getSelectedModelId())?.id;
+    return modelId ? freshDocSummaries(docs, modelId) : Promise.resolve([]);
+};
 
 export interface ExpectedReviewState {
     /** Fingerprint fresh reviews would carry now; undefined without a model. */
@@ -51,11 +66,13 @@ export const expectedReviewState = async (
 ): Promise<ExpectedReviewState> => {
     const model = getLocalModel();
     const { docs, unreadable } = await gatherEvidence(requirementId);
+    const summaries = await storedSummaries(docs);
     return {
         fingerprint: model
             ? await reviewFingerprint(
                   docs.map((doc) => doc.evidenceId),
                   model.id,
+                  summaries.map((summary) => summary.fingerprint),
               )
             : undefined,
         unreadable: unreadable.length,
@@ -118,9 +135,11 @@ const run = async (
 
     // Chunk and index once — all objectives of the requirement share it.
     const chunkIndex = buildChunkIndex(docs);
+    const summaries = await storedSummaries(docs);
     const fingerprint = await reviewFingerprint(
         docs.map((doc) => doc.evidenceId),
         model.id,
+        summaries.map((summary) => summary.fingerprint),
     );
 
     // Sequential on purpose: one generation at a time is all the engine
@@ -134,6 +153,7 @@ const run = async (
             objective,
             retrieved,
             model,
+            summaries,
         );
 
         const row: IDBObjectiveReview = {

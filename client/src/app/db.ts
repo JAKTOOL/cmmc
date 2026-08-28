@@ -462,10 +462,14 @@ export interface IDBEvidenceExamineItem {
 export interface IDBEvidenceSummary {
     /** The artifact's content hash (IDBEvidenceV3.id). */
     evidence_id: string;
-    /** Map step: one summary per chunk of the extracted text, in order. */
+    /** Map step: one summary per chunk of the extracted text, in order.
+     *  Persisted as each chunk completes, so an aborted run resumes here
+     *  instead of restarting. */
     chunk_summaries: string[];
-    /** Reduce step: the whole-document summary. */
+    /** Reduce step: the whole-document summary; "" until complete. */
     summary: string;
+    /** False while the map/reduce is still in progress (resumable). */
+    complete: boolean;
     /** sha256 over evidence id + EXTRACTOR_VERSION + SUMMARY_VERSION +
      *  model id; see llm/summarize.ts. */
     fingerprint: string;
