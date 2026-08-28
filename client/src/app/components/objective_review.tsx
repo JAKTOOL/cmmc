@@ -239,6 +239,9 @@ export const ObjectiveReview = ({
                     />
                 </svg>
                 <span className="flex-1">Evidence Review (AI)</span>
+                <Badge variant="warning" className="font-normal normal-case">
+                    Beta
+                </Badge>
                 {stale && (
                     <Badge
                         variant="warning"
@@ -262,9 +265,11 @@ export const ObjectiveReview = ({
 
             <div className="border-t border-border px-4 py-4">
                 <p className="mb-3 text-xs text-muted-foreground">
-                    Generated locally by a small on-device model from the
-                    evidence attached to this requirement. Assessor guidance,
-                    not an assessment — verify every verdict yourself.
+                    Beta: generated locally by a small on-device model from
+                    the evidence attached to this requirement, and it can be
+                    wrong — verdicts, reasons, and quotes may be inaccurate or
+                    inconsistent between runs. Assessor guidance, not an
+                    assessment — verify every verdict yourself.
                 </p>
 
                 <div className="mb-4 flex flex-wrap items-center gap-2">

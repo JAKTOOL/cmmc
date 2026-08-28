@@ -413,9 +413,12 @@ export const DraftPanel = ({
                 onClick={(event) => event.stopPropagation()}
             >
                 <div className="flex items-center justify-between border-b border-border px-6 py-4">
-                    <h2 className="text-lg font-semibold tracking-tight">
+                    <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight">
                         AI draft{focusId ? ` for ${focusId}` : ""} — review
                         before use
+                        <span className="rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-amber-700">
+                            Beta
+                        </span>
                     </h2>
                     <button
                         onClick={onClose}

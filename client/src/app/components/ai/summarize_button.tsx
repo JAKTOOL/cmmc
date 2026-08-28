@@ -122,6 +122,9 @@ export const SummarizeButton = ({
                     />
                 </svg>
                 Draft from evidence
+                <span className="rounded border border-amber-200 bg-amber-50 px-1 text-[10px] font-semibold uppercase text-amber-700">
+                    Beta
+                </span>
             </Button>
             {open && (
                 <DraftPanel

@@ -54,7 +54,12 @@ export const AiMenuItem = () => {
             onClick={openAiSettings}
             tabIndex={-1}
         >
-            <span>AI Assistant</span>
+            <span className="flex items-center gap-2">
+                AI Assistant
+                <span className="rounded border border-amber-200 bg-amber-50 px-1 text-[10px] font-semibold uppercase text-amber-700">
+                    Beta
+                </span>
+            </span>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -137,10 +142,17 @@ export const AiSettingsModal = () => {
         >
             <div className="flex flex-col gap-4">
                 <p>
-                    Drafts control narratives from your attached evidence. The
-                    model ships with the app and runs entirely on this device —
-                    your evidence and notes are never uploaded anywhere, and
+                    Drafts control narratives from your attached evidence and
+                    reviews it against the assessment objectives. The model
+                    ships with the app and runs entirely on this device — your
+                    evidence and notes are never uploaded anywhere, and
                     nothing is downloaded at runtime.
+                </p>
+                <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                    These features are in beta. A small on-device model can
+                    produce wrong or inconsistent output — treat everything it
+                    writes as a starting point and verify it against your
+                    evidence before relying on it.
                 </p>
 
                 <label className="flex items-center justify-between gap-4">

@@ -179,13 +179,13 @@ const STEPS: TourStep[] = [
               {
                   page: "requirement",
                   target: "evidence-review",
-                  title: "AI evidence review",
+                  title: "AI evidence review (beta)",
                   body: "A small AI model, running entirely on this device, reviews your attached evidence against each assessment objective: a verdict per objective, the reason, and a quote from the evidence that supports it. Your documents never leave the machine. Treat it as assessor guidance, not an assessment — and re-run it when the Stale badge appears after evidence changes.",
               },
               {
                   page: "requirement",
                   target: "draft-evidence",
-                  title: "Draft from evidence",
+                  title: "Draft from evidence (beta)",
                   body: "Each security requirement has a Draft from evidence button: the AI drafts an implementation narrative for that control, grounded in your attached evidence and the review's findings, with the gaps and sources listed. Review the draft, then insert it into the description — nothing is saved until you do.",
               },
           ] satisfies TourStep[])),
