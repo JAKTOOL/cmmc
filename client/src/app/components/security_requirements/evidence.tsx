@@ -50,7 +50,6 @@ import {
     badgeClasses,
     Button,
     buttonClasses,
-    Heading,
     Input,
     Select,
 } from "../ui";
@@ -1183,16 +1182,8 @@ export const Evidence = ({
         };
     }, [requirementId]);
 
-    let className = "mb-4 mt-4 flex items-center";
-    if (!locked) {
-        className += "mb-0 mt-0 -translate-y-full";
-    }
-
     return (
         <>
-            <Heading level={3} as="h4" className={className}>
-                Evidence
-            </Heading>
             <form
                 className="flex flex-col md:flex-row shrink mb-16"
                 action={formAction}

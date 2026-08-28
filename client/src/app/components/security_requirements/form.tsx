@@ -1,6 +1,7 @@
 "use client";
 import { ContentNavigation } from "../content_navigation";
-import { Button } from "../ui";
+import { ObjectiveReview } from "../objective_review";
+import { Button, Heading } from "../ui";
 import { Evidence } from "./evidence";
 
 export const Form = ({
@@ -39,6 +40,17 @@ export const Form = ({
                     )}
                 </div>
             )}
+            <Heading
+                level={3}
+                as="h4"
+                className={`mb-4 mt-4 flex items-center${locked ? "" : " mb-0 mt-0"}`}
+            >
+                Evidence
+            </Heading>
+            <ObjectiveReview
+                requirementId={requirement.element_identifier}
+                locked={locked}
+            />
             <Evidence
                 requirementId={requirement.element_identifier}
                 locked={locked}

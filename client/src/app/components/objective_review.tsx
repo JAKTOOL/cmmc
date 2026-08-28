@@ -4,11 +4,7 @@
 // objectives and a local model is available (aiReviewAvailable) — the free
 // web build never registers a model, so the panel is desktop-only for now.
 
-import {
-    LocalModel,
-    MODEL_CHANGED_EVENT,
-    getLocalModel,
-} from "@/app/ai/model";
+import { LocalModel, MODEL_CHANGED_EVENT, getLocalModel } from "@/app/ai/model";
 import { ReviewObjective, objectivesForRequirement } from "@/app/ai/objectives";
 import { ReviewProgress, reviewRequirement } from "@/app/ai/review";
 import { useRevisionContext } from "@/app/context/revision";
@@ -65,9 +61,7 @@ const ObjectiveRow = ({
                 <a href={`#${objective.anchorId}`}>
                     <Badge variant="neutral">{objective.citation}</Badge>
                 </a>
-                {badge && (
-                    <Badge variant={badge.variant}>{badge.label}</Badge>
-                )}
+                {badge && <Badge variant={badge.variant}>{badge.label}</Badge>}
                 <span className="text-sm leading-relaxed text-foreground">
                     {objective.text}
                 </span>
@@ -209,9 +203,7 @@ export const ObjectiveReview = ({
             });
         } catch (runError) {
             setError(
-                runError instanceof Error
-                    ? runError.message
-                    : String(runError),
+                runError instanceof Error ? runError.message : String(runError),
             );
         } finally {
             abortRef.current = null;
@@ -223,12 +215,10 @@ export const ObjectiveReview = ({
     const met = objectives.filter(
         (objective) => reviews.get(objective.id)?.verdict === "met",
     ).length;
-    const reviewed = objectives.some((objective) =>
-        reviews.has(objective.id),
-    );
+    const reviewed = objectives.some((objective) => reviews.has(objective.id));
 
     return (
-        <details className="mt-6 w-full rounded-lg border border-border bg-card text-card-foreground shadow-sm">
+        <details className="mb-6 w-full rounded-lg border border-border bg-card text-card-foreground shadow-sm">
             <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg px-4 py-3 font-semibold tracking-tight marker:content-none hover:bg-secondary">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -247,13 +237,18 @@ export const ObjectiveReview = ({
                 </svg>
                 <span className="flex-1">Evidence Review (AI)</span>
                 {stale && (
-                    <Badge variant="warning" className="font-normal normal-case">
+                    <Badge
+                        variant="warning"
+                        className="font-normal normal-case"
+                    >
                         Stale
                     </Badge>
                 )}
                 {reviewed && (
                     <Badge
-                        variant={met === objectives.length ? "success" : "neutral"}
+                        variant={
+                            met === objectives.length ? "success" : "neutral"
+                        }
                         className="font-normal normal-case"
                     >
                         Met {met}/{objectives.length}
@@ -319,8 +314,8 @@ export const ObjectiveReview = ({
                 {unreadable > 0 && (
                     <p className="mb-3 text-xs italic text-muted-foreground">
                         {unreadable} linked file{unreadable === 1 ? "" : "s"}{" "}
-                        had no extractable text and {unreadable === 1 ? "was" : "were"}{" "}
-                        not reviewed.
+                        had no extractable text and{" "}
+                        {unreadable === 1 ? "was" : "were"} not reviewed.
                     </p>
                 )}
 
