@@ -1,6 +1,13 @@
 # Plan: native inference on Linux desktop (llama.cpp behind the LocalModel seam)
 
-Status: planned, not implemented (2026-08-28).
+Status: implemented, pending verification (2026-08-28). All code and build
+changes are in place. Still open: pin the GGUF entries
+(`node scripts/sync-models.mjs --id llama-3.2-1b-instruct-gguf` and
+`--id llama-3.2-3b-instruct-gguf`), compile the Rust feature on a machine
+with cmake (`nix develop -c cargo check --features native-llm` — the
+llama-cpp-2 0.1.154 API calls in native.rs are written from documentation
+and are unverified against the compiler), and run the verification list at
+the bottom.
 
 ## Context
 

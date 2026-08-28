@@ -4,6 +4,7 @@ use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_opener::OpenerExt;
 
 mod license;
+mod native;
 mod update;
 
 // File bytes cross the IPC bridge base64-encoded: serde parses one string
@@ -320,6 +321,12 @@ pub fn run() {
     builder
         .invoke_handler(tauri::generate_handler![
             ai_debug_log,
+            native::native_probe,
+            native::native_load,
+            native::native_generate,
+            native::native_poll,
+            native::native_abort,
+            native::native_unload,
             open_external,
             open_evidence,
             open_json_file,

@@ -23,6 +23,7 @@ import {
     usableDevice,
 } from "./config";
 import { getDeviceCapabilities } from "./capabilities";
+import { NativeWorker, WorkerLike } from "./native_worker";
 import type { ChatMessage, FromWorker, ToWorker } from "./protocol";
 
 /** Where this build keeps the weights: "origin" = fetchable from the app's
@@ -31,6 +32,17 @@ import type { ChatMessage, FromWorker, ToWorker } from "./protocol";
 type WeightSource = "origin" | "ipc" | null;
 
 const resolveWeightSource = async (model: LlmModel): Promise<WeightSource> => {
+    if (model.format === "gguf") {
+        // GGUF weights are desktop resources the Rust engine reads
+        // directly; probe a 64-byte slice over the same IPC command the
+        // ONNX path uses (the file is gigabytes — never read it whole).
+        const path = model.files[0]?.path;
+        return path &&
+            isTauri() &&
+            (await readModelFile(`${model.repo}/${path}`, 0, 64))
+            ? "ipc"
+            : null;
+    }
     if (await hasBundledWeights(model)) {
         return "origin";
     }
@@ -86,7 +98,10 @@ export const subscribeLlmStatus = (listener: Listener): (() => void) => {
     };
 };
 
-let worker: Worker | undefined;
+let worker: WorkerLike | undefined;
+/** Device the current model resolved to; picks the transport in getWorker
+ *  ("native" = NativeWorker over Tauri IPC, else the in-webview Worker). */
+let activeDevice: LlmDevice | undefined;
 let loadedModelId: string | undefined;
 let loadPromise: Promise<void> | undefined;
 let requestCounter = 0;
@@ -143,6 +158,7 @@ const readResourceFile = async (
 const disposeWorker = () => {
     worker?.terminate();
     worker = undefined;
+    activeDevice = undefined;
     loadedModelId = undefined;
     currentModel = undefined;
     loadPromise = undefined;
@@ -169,11 +185,14 @@ const pending = new Map<number, PendingRequest>();
 let onWorkerReady: (() => void) | undefined;
 let onWorkerLoadError: ((error: Error) => void) | undefined;
 
-const getWorker = (): Worker => {
+const getWorker = (): WorkerLike => {
     if (!worker) {
-        worker = new Worker(new URL("./worker.ts", import.meta.url), {
-            type: "module",
-        });
+        worker =
+            activeDevice === "native" && currentModel
+                ? new NativeWorker(currentModel, activeContextTokens)
+                : new Worker(new URL("./worker.ts", import.meta.url), {
+                      type: "module",
+                  });
         // Fires when the worker script itself dies (load failure, uncaught
         // throw) — distinct from a whole-web-process crash, which kills this
         // handler too. Either way the breadcrumb trail on stderr tells the
@@ -368,24 +387,25 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
         ...capabilities,
         device,
     });
-    // Size breadcrumb for OOM reports: the adapter limits the window was
-    // derived from, and the worst-case prefill logits buffer that window
-    // implies (input budget x vocab x 4 bytes fp32).
+    // Size breadcrumb for OOM reports. The logits/buffer numbers only mean
+    // anything on WebGPU (the prefill logits tensor is a GPU buffer there);
+    // WASM and native loads log the window alone.
     const inputBudget = activeContextTokens - MAX_NEW_TOKENS;
-    const logitsMiB = Math.round(
-        (inputBudget * logitBytesPerToken(model)) / 2 ** 20,
-    );
     const limits = capabilities.bufferLimits;
+    const webgpuSizes =
+        device === "webgpu"
+            ? ` (input ${inputBudget}, max prefill logits ~${Math.round(
+                  (inputBudget * logitBytesPerToken(model)) / 2 ** 20,
+              )} MiB) ` +
+              `maxBufferSize=${limits?.maxBufferSize ?? "?"} ` +
+              `maxStorageBufferBindingSize=${limits?.maxStorageBufferBindingSize ?? "?"}`
+            : "";
     aiDebugLog(
         `engine: ensureLoaded ${model.id} device=${device}` +
             (device === capabilities.device
                 ? ""
                 : ` (probe said ${capabilities.device})`) +
-            ` source=${source} ` +
-            `context=${activeContextTokens} (input ${inputBudget}, ` +
-            `max prefill logits ~${logitsMiB} MiB) ` +
-            `maxBufferSize=${limits?.maxBufferSize ?? "?"} ` +
-            `maxStorageBufferBindingSize=${limits?.maxStorageBufferBindingSize ?? "?"}`,
+            ` source=${source} context=${activeContextTokens}${webgpuSizes}`,
     );
     if (!source) {
         throw new Error(
@@ -395,6 +415,7 @@ export const ensureLoaded = async (model: LlmModel): Promise<void> => {
 
     loadedModelId = model.id;
     currentModel = model;
+    activeDevice = device;
     ipcReadBytes = 0;
     setStatus({ phase: "loading", modelId: model.id, device, progress: 0 });
 

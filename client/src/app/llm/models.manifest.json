@@ -1,5 +1,5 @@
 {
-    "note": "Pinned model-weight manifest. Every file is identified by URL, revision, size, and sha256. Weights are a build-time input only: flake.nix fetches these as fixed-output derivations, and scripts/fetch-model-weights.mjs does the same (with sha256 verification) for non-Nix desktop builds. The app never downloads weights at runtime. Regenerate an entry with: node scripts/update-model-manifest.mjs --id <id>. Empty sha256 values mean the entry is not yet pinned and is excluded from builds. bundlePlatforms limits which desktop bundles include a model's weights (Node process.platform values; absent = all platforms) — fetch-model-weights.mjs skips and prunes excluded models, the runtime just sees missing weights.",
+    "note": "Pinned model-weight manifest. Every file is identified by URL, revision, size, and sha256. Weights are a build-time input only: flake.nix fetches these as fixed-output derivations, and scripts/fetch-model-weights.mjs does the same (with sha256 verification) for non-Nix desktop builds. The app never downloads weights at runtime. Regenerate an entry with: node scripts/update-model-manifest.mjs --id <id>. Empty sha256 values mean the entry is not yet pinned and is excluded from builds. bundlePlatforms limits which desktop bundles include a model's weights (Node process.platform values; absent = all platforms) — fetch-model-weights.mjs skips and prunes excluded models (override with MODELS_PLATFORM=all for local dev), the runtime just sees missing weights. format \"gguf\" marks single-file llama.cpp models for the native desktop path (minDevice \"native\"); dtype then names the quantization (for example Q4_K_M) instead of a transformers.js dtype key.",
     "models": [
         {
             "id": "llama-3.2-1b-instruct",
@@ -8,6 +8,7 @@
             "revision": "14007543b6dc92de88daf96a9aa85d2f95ace6ef",
             "dtype": "q4f16",
             "minDevice": "webgpu",
+            "bundlePlatforms": ["darwin", "win32"],
             "license": "Llama 3.2 Community License",
             "licenseNotice": "Built with Llama",
             "licenseUrl": "https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct",
@@ -109,8 +110,7 @@
             "dtype": "q4f16",
             "minDevice": "webgpu",
             "bundlePlatforms": [
-                "darwin",
-                "linux"
+                "darwin"
             ],
             "license": "Llama 3.2 Community License",
             "licenseNotice": "Built with Llama",
@@ -160,6 +160,36 @@
                     "sha256": "63b1b82298ad66f940b4f918f81c386fbe4e15a4e178efb14bc558d127185113"
                 }
             ]
+        },
+        {
+            "id": "llama-3.2-1b-instruct-gguf",
+            "label": "Llama 3.2 1B Instruct (desktop native)",
+            "repo": "bartowski/Llama-3.2-1B-Instruct-GGUF",
+            "revision": "",
+            "dtype": "Q4_K_M",
+            "format": "gguf",
+            "minDevice": "native",
+            "bundlePlatforms": ["linux"],
+            "license": "Llama 3.2 Community License",
+            "licenseNotice": "Built with Llama",
+            "licenseUrl": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF",
+            "totalBytes": 0,
+            "files": []
+        },
+        {
+            "id": "llama-3.2-3b-instruct-gguf",
+            "label": "Llama 3.2 3B Instruct (large, desktop native)",
+            "repo": "bartowski/Llama-3.2-3B-Instruct-GGUF",
+            "revision": "",
+            "dtype": "Q4_K_M",
+            "format": "gguf",
+            "minDevice": "native",
+            "bundlePlatforms": ["linux"],
+            "license": "Llama 3.2 Community License",
+            "licenseNotice": "Built with Llama",
+            "licenseUrl": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF",
+            "totalBytes": 0,
+            "files": []
         }
     ]
 }

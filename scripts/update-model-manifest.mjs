@@ -73,15 +73,41 @@ const listOnnxFiles = async (repo, revision, dtype) => {
     return files;
 };
 
-// The exact file set transformers.js requests for a text-generation model:
-// tokenizer + config + the quantized ONNX graph and its external data.
-const requiredFiles = async (repo, revision, dtype) => [
-    "config.json",
-    "generation_config.json",
-    "tokenizer.json",
-    "tokenizer_config.json",
-    ...(await listOnnxFiles(repo, revision, dtype)),
-];
+// GGUF models (format: "gguf", the native llama.cpp path) are one
+// self-contained file: weights, tokenizer, and chat template travel
+// together. Quantizer repos name it <Model>-<dtype>.gguf with dtype like
+// "Q4_K_M". Exactly one file must match, or the entry is ambiguous.
+const listGgufFiles = async (repo, revision, dtype) => {
+    const response = await fetchOk(
+        `https://huggingface.co/api/models/${repo}/tree/${revision}`,
+    );
+    const entries = await response.json();
+    const files = entries
+        .map((entry) => entry.path)
+        .filter((path) => path.endsWith(`-${dtype}.gguf`));
+    if (files.length !== 1) {
+        const available = entries.map((entry) => entry.path).join(", ");
+        throw new Error(
+            `Expected exactly one *-${dtype}.gguf in ${repo}@${revision}, ` +
+                `found ${files.length}. Available: ${available}`,
+        );
+    }
+    return files;
+};
+
+// The exact file set the runtime requests. ONNX (transformers.js):
+// tokenizer + config + the quantized graph and its external data. GGUF
+// (native llama.cpp): the single .gguf file.
+const requiredFiles = async (repo, revision, dtype, format) =>
+    format === "gguf"
+        ? listGgufFiles(repo, revision, dtype)
+        : [
+              "config.json",
+              "generation_config.json",
+              "tokenizer.json",
+              "tokenizer_config.json",
+              ...(await listOnnxFiles(repo, revision, dtype)),
+          ];
 
 const resolveUrl = (repo, revision, path) =>
     `https://huggingface.co/${repo}/resolve/${revision}/${path}`;
@@ -158,7 +184,12 @@ const updateModel = async (id) => {
     console.log(`${model.repo} @ ${revision}`);
 
     const files = [];
-    for (const path of await requiredFiles(model.repo, revision, model.dtype)) {
+    for (const path of await requiredFiles(
+        model.repo,
+        revision,
+        model.dtype,
+        model.format,
+    )) {
         const url = resolveUrl(model.repo, revision, path);
         process.stdout.write(`  ${path} ... `);
         const { size, sha256 } = await hashRemote(url);

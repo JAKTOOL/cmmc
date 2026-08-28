@@ -110,6 +110,49 @@ export const readModelFile = async (
     }
 };
 
+/** Native llama.cpp engine in the Rust process (Linux desktop). */
+export interface NativeProbe {
+    available: boolean;
+    /** What llama.cpp compiled in: "vulkan" (GPU) or "cpu". */
+    backend: "vulkan" | "cpu";
+}
+
+/**
+ * Probe the native inference engine. Resolves `null` in the browser build
+ * and on desktop builds without the native module (older shells, other
+ * platforms) — callers treat null as "no native path".
+ */
+export const nativeProbe = async (): Promise<NativeProbe | null> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return null;
+    }
+    try {
+        return await internals.invoke<NativeProbe>("native_probe");
+    } catch {
+        return null;
+    }
+};
+
+/**
+ * Invoke a native inference command (native_load, native_generate,
+ * native_poll, native_abort, native_unload). Unlike the probe, failures
+ * here are real errors — the caller is the native transport, which only
+ * runs after a successful probe.
+ */
+export const nativeInvoke = async <T>(
+    cmd: string,
+    args?: Record<string, unknown>,
+): Promise<T> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        throw new Error("Native inference requires the desktop shell.");
+    }
+    return internals.invoke<T>(cmd, args);
+};
+
 /** Current license state, or `null` in the browser build. Offline and fast. */
 export const licenseStatus = async (): Promise<LicenseInfo | null> => {
     const internals =

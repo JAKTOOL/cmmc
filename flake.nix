@@ -56,12 +56,22 @@
           webkitgtk_4_1
           openssl
           dbus
+          # Native inference (llama.cpp, src-tauri feature native-llm-vulkan):
+          # the Vulkan loader links into the app; headers feed the build.
+          vulkan-loader
+          vulkan-headers
         ];
 
         linuxNativeTools = with pkgs; [
           pkg-config
           gobject-introspection
           wrapGAppsHook4
+          # llama-cpp-sys-2 builds llama.cpp with cmake, runs bindgen for
+          # the FFI (libclang via bindgenHook), and shaderc's glslc
+          # compiles the Vulkan shaders.
+          cmake
+          shaderc
+          rustPlatform.bindgenHook
         ];
 
         # rustToolchain provides cargo + rustc; cargo-tauri orchestrates them.
@@ -101,7 +111,7 @@
 
         # Laid out as {repo}/{path} — exactly what transformers.js requests
         # under env.localModelPath ("/models/") in the bundled desktop app.
-        modelWeights = pkgs.runCommand "cmmc-model-weights-${appVersion}" { } ''
+        weightsTree = name: models: pkgs.runCommand name { } ''
           mkdir -p $out
           ${lib.concatMapStrings (model:
             lib.concatMapStrings (file: ''
@@ -111,8 +121,25 @@
                   sha256 = file.sha256;
                 }
               } "$out/${model.repo}/${file.path}"
-            '') model.files) pinnedModels}
+            '') model.files) models}
         '';
+        # Every pinned model: the .#model-weights cache that CI and
+        # fetch-model-weights.mjs copy from — deliberately unfiltered, so a
+        # macOS machine with Nix still gets its files from the store.
+        modelWeights = weightsTree "cmmc-model-weights-${appVersion}" pinnedModels;
+        # What the Linux desktop package actually bundles: bundlePlatforms
+        # absent or containing "linux". The ONNX llama entries exclude
+        # linux (the native GGUF path replaces them; see
+        # docs/native-inference-plan.md), which keeps the installer from
+        # carrying two copies of every Llama.
+        linuxBundledModels = builtins.filter
+          (model:
+            !(model ? bundlePlatforms)
+            || builtins.elem "linux" model.bundlePlatforms)
+          pinnedModels;
+        linuxModelWeights =
+          weightsTree "cmmc-model-weights-linux-${appVersion}"
+            linuxBundledModels;
 
         # WebKitGTK on NixOS: avoid GPU-compositing crashes and make TLS modules
         # resolvable so the Tauri webview can render and reach the network.
@@ -218,9 +245,20 @@
               pkgs.pkg-config
               pkgs.gobject-introspection
               pkgs.wrapGAppsHook3 # webkitgtk_4_1 is GTK3-based
+              # llama.cpp (native-llm-vulkan) builds through cmake, runs
+              # bindgen (libclang via bindgenHook), and glslc compiles its
+              # Vulkan shaders.
+              pkgs.cmake
+              pkgs.shaderc
+              pkgs.rustPlatform.bindgenHook
             ];
 
             buildInputs = linuxLibs ++ [ pkgs.glib-networking ];
+
+            # The native inference engine (src-tauri native.rs) is opt-in at
+            # compile time; the Linux package is exactly the build that wants
+            # it. cargo-tauri.hook forwards these to `cargo tauri build`.
+            tauriBuildFlags = [ "--features" "native-llm-vulkan" ];
 
             env = {
               NEXT_TELEMETRY_DISABLED = "1";
@@ -244,13 +282,13 @@
             # not store symlinks, so the tree stays writable.
             # The hook may have entered src-tauri/ by preBuild time, so find
             # the frontend root (where public/ lives) relative to either cwd.
-            preBuild = lib.optionalString (pinnedModels != [ ]) ''
+            preBuild = lib.optionalString (linuxBundledModels != [ ]) ''
               frontend=.
               if [ ! -d "$frontend/public" ] && [ -d ../public ]; then
                 frontend=..
               fi
               mkdir -p "$frontend/public/models"
-              cp -r ${modelWeights}/. "$frontend/public/models/"
+              cp -r ${linuxModelWeights}/. "$frontend/public/models/"
               chmod -R u+w "$frontend/public/models"
             '';
 

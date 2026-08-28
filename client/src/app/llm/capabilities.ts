@@ -1,7 +1,10 @@
-// WebGPU detection for model-device policy. Chromium (web, WebView2) and
-// recent WKWebView expose navigator.gpu; Linux webkitgtk does not, so those
-// machines fall back to WASM and are limited to the lite model.
+// Device detection for model-device policy. Two independent probes:
+// WebGPU in the webview (Chromium, WebView2, recent WKWebView expose
+// navigator.gpu; Linux webkitgtk does not or caps buffers at 1 GiB), and
+// the native llama.cpp engine in the Rust process (desktop shells that
+// compile it in — the Linux answer to the webkitgtk ceiling).
 
+import { nativeProbe } from "@/app/utils/tauri";
 import type { LlmDevice } from "./config";
 
 interface NavigatorGpu {
@@ -35,19 +38,29 @@ export interface DeviceCapabilities {
         maxBufferSize: number;
         maxStorageBufferBindingSize: number;
     };
+    /** True when the Rust process offers the llama.cpp engine (GGUF
+     *  models, minDevice "native"). Independent of the webview probe —
+     *  `device` still describes what the webview itself can run. */
+    native?: boolean;
+    /** What llama.cpp compiled in ("vulkan" or "cpu"); settings badge. */
+    nativeBackend?: string;
 }
 
 let cached: Promise<DeviceCapabilities> | undefined;
 
 const detect = async (): Promise<DeviceCapabilities> => {
+    const probe = await nativeProbe();
+    const native = probe?.available
+        ? { native: true, nativeBackend: probe.backend }
+        : {};
     try {
         const gpu = (navigator as NavigatorGpu).gpu;
         if (!gpu) {
-            return { device: "wasm", shaderF16: false };
+            return { device: "wasm", shaderF16: false, ...native };
         }
         const adapter = await gpu.requestAdapter();
         if (!adapter) {
-            return { device: "wasm", shaderF16: false };
+            return { device: "wasm", shaderF16: false, ...native };
         }
         const { maxBufferSize, maxStorageBufferBindingSize } =
             adapter.limits ?? {};
@@ -65,9 +78,10 @@ const detect = async (): Promise<DeviceCapabilities> => {
                   )
                 : undefined,
             bufferLimits,
+            ...native,
         };
     } catch {
-        return { device: "wasm", shaderF16: false };
+        return { device: "wasm", shaderF16: false, ...native };
     }
 };
 

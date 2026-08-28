@@ -42,6 +42,15 @@ time = { version = "0.3", features = ["parsing", "formatting", "macros"] }
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
 tauri-plugin-updater = "2"
 
+# Native inference (llama.cpp in-process) — Linux only, behind the
+# native-llm feature so default builds and other platforms never compile
+# llama.cpp (it needs cmake and, for the vulkan feature, Vulkan headers).
+# The Nix package builds with --features native-llm-vulkan.
+[target.'cfg(target_os = "linux")'.dependencies]
+llama-cpp-2 = { version = "0.1.154", optional = true }
+
 [features]
 # Used by `tauri dev` for faster, debuggable builds.
 custom-protocol = ["tauri/custom-protocol"]
+native-llm = ["dep:llama-cpp-2"]
+native-llm-vulkan = ["native-llm", "llama-cpp-2/vulkan"]

@@ -5,7 +5,11 @@
 
 import manifest from "./models.manifest.json";
 
-export type LlmDevice = "webgpu" | "wasm";
+/** Where a model runs: WebGPU or WASM inside the webview, or "native" —
+ *  llama.cpp in the Rust process (desktop only), reached over Tauri IPC.
+ *  The native path exists because Linux webkitgtk caps WebGPU below a
+ *  usable window; see docs/native-inference-plan.md. */
+export type LlmDevice = "webgpu" | "wasm" | "native";
 
 export interface ManifestFile {
     path: string;
@@ -19,8 +23,13 @@ export interface LlmModel {
     label: string;
     repo: string;
     revision: string;
-    /** transformers.js dtype key; also names the ONNX file (model_<dtype>.onnx). */
+    /** transformers.js dtype key; also names the ONNX file
+     *  (model_<dtype>.onnx). For format "gguf" it is the quantization name
+     *  (for example Q4_K_M) and names the .gguf file instead. */
     dtype: string;
+    /** "gguf" = single-file llama.cpp model for the native desktop path.
+     *  Absent = ONNX for the in-webview runtime. */
+    format?: string;
     /** Weakest device this model is usable on. "webgpu" bars slow WASM-only
      *  machines from a model that would generate at unusable speed. */
     minDevice: LlmDevice;
@@ -40,6 +49,9 @@ export const MODELS: LlmModel[] = manifest.models;
 
 export const DEFAULT_MODEL_ID = "llama-3.2-1b-instruct";
 export const LITE_MODEL_ID = "gemma-3-270m-it";
+/** First fallback on devices with the native path (Linux desktop): the 1B
+ *  as a GGUF, tried before the ONNX default in resolveUsableModel. */
+export const NATIVE_DEFAULT_MODEL_ID = "llama-3.2-1b-instruct-gguf";
 
 export const getModel = (id: string): LlmModel | undefined =>
     MODELS.find((model) => model.id === id);
@@ -59,12 +71,6 @@ export const isPinned = (model: LlmModel): boolean =>
 export const externalDataChunks = (model: LlmModel): number =>
     model.files.filter((file) => file.path.includes(".onnx_data")).length;
 
-/** Models eligible on a device, pinned entries only. */
-export const availableModels = (device: LlmDevice): LlmModel[] =>
-    MODELS.filter(
-        (model) =>
-            isPinned(model) && (device === "webgpu" || model.minDevice === "wasm"),
-    );
 
 // Weights live in client/public/models/. The dev server serves them from
 // the app origin at this path; production desktop builds instead strip them
@@ -159,6 +165,13 @@ export const contextTokensFor = (
     model: LlmModel,
     capabilities: { device: LlmDevice; maxBufferBytes?: number },
 ): number => {
+    if (capabilities.device === "native") {
+        // No adapter-limit math applies: llama.cpp allocates from real
+        // device memory, and the binding cost is the KV cache (~700 MB for
+        // the 3B at this window), not a logits buffer. The cap doubles as
+        // n_ctx.
+        return MAX_CONTEXT_TOKENS;
+    }
     if (capabilities.device !== "webgpu" || !capabilities.maxBufferBytes) {
         return CONTEXT_TOKENS;
     }
@@ -192,8 +205,17 @@ export const contextTokensFor = (
  *  gates share this so they agree. */
 export const usableDevice = (
     model: LlmModel,
-    capabilities: { device: LlmDevice; maxBufferBytes?: number },
+    capabilities: {
+        device: LlmDevice;
+        maxBufferBytes?: number;
+        native?: boolean;
+    },
 ): LlmDevice | null => {
+    if (model.minDevice === "native") {
+        // GGUF models run only in the Rust process. llama.cpp's CPU
+        // backend counts: it still beats WASM in the webview.
+        return capabilities.native ? "native" : null;
+    }
     if (
         capabilities.device === "webgpu" &&
         contextTokensFor(model, capabilities) >= MIN_CONTEXT_TOKENS
@@ -204,17 +226,27 @@ export const usableDevice = (
 };
 
 /** The model this device will actually run: the user's selection when it
- *  is pinned and usable here, else the default model, else the pinned lite
- *  model. Null when nothing fits — only then do the AI features hide. The
- *  stored preference is never rewritten, so a later session on stronger
- *  hardware honors it again. Every feature gate and load path must resolve
- *  through this, or a device that cannot run the selected model loses the
- *  feature instead of falling back. */
+ *  is pinned and usable here, else the native 1B (Linux desktop), else the
+ *  default model, else the pinned lite model. Null when nothing fits —
+ *  only then do the AI features hide. The stored preference is never
+ *  rewritten, so a later session on stronger hardware honors it again.
+ *  Every feature gate and load path must resolve through this, or a
+ *  device that cannot run the selected model loses the feature instead of
+ *  falling back. */
 export const resolveUsableModel = (
     selectedId: string,
-    capabilities: { device: LlmDevice; maxBufferBytes?: number },
+    capabilities: {
+        device: LlmDevice;
+        maxBufferBytes?: number;
+        native?: boolean;
+    },
 ): LlmModel | null => {
-    for (const id of [selectedId, DEFAULT_MODEL_ID, LITE_MODEL_ID]) {
+    for (const id of [
+        selectedId,
+        NATIVE_DEFAULT_MODEL_ID,
+        DEFAULT_MODEL_ID,
+        LITE_MODEL_ID,
+    ]) {
         const model = getModel(id);
         if (model && isPinned(model) && usableDevice(model, capabilities)) {
             return model;

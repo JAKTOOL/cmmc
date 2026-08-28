@@ -36,8 +36,12 @@
         "active": true,
         "targets": "all",
         "linux": {
+            "deb": {
+                "depends": ["libvulkan1"]
+            },
             "rpm": {
-                "compression": { "type": "none" }
+                "compression": { "type": "none" },
+                "depends": ["vulkan-loader"]
             }
         },
         "resources": {

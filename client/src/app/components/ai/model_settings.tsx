@@ -211,9 +211,11 @@ export const AiSettingsModal = () => {
                                         ? " (not available in this build)"
                                         : !unusable
                                           ? ""
-                                          : capabilities?.device === "webgpu"
-                                            ? " (needs more GPU memory)"
-                                            : " (needs WebGPU)"}
+                                          : candidate.minDevice === "native"
+                                            ? " (desktop app only)"
+                                            : capabilities?.device === "webgpu"
+                                              ? " (needs more GPU memory)"
+                                              : " (needs WebGPU)"}
                                 </option>
                             );
                         })}

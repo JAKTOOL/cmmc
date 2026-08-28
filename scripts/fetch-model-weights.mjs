@@ -51,14 +51,18 @@ const sha256File = async (path) => {
 // Platform-excluded models (bundlePlatforms) count as unlisted here, so
 // the prune step below removes their weights from machines that fetched
 // them before. Tauri builds run on the target OS, so process.platform is
-// the right signal.
+// the right signal. Local dev is the exception: browser testing of ONNX
+// models on Linux needs weights the Linux bundle excludes — set
+// MODELS_PLATFORM=all (or another platform name) to override.
+const platform = process.env.MODELS_PLATFORM || process.platform;
 const pinned = manifest.models.filter(
     (model) =>
         model.revision !== "" &&
         model.files.length > 0 &&
         model.files.every((file) => file.sha256 !== "") &&
-        (!model.bundlePlatforms ||
-            model.bundlePlatforms.includes(process.platform)),
+        (platform === "all" ||
+            !model.bundlePlatforms ||
+            model.bundlePlatforms.includes(platform)),
 );
 if (!pinned.length) {
     console.log("fetch-model-weights: no pinned models in the manifest, skipping");

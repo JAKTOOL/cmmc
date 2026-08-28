@@ -4,7 +4,7 @@
 
 The app can draft a control narrative from the evidence that is attached to a requirement. A small language model runs fully on the user's device. The models are US-developed (Meta Llama, Google Gemma). Evidence and notes never leave the machine.
 
-Three models ship: Llama 3.2 1B (default, WebGPU), Gemma 3 270M (lite, WASM fallback), and Llama 3.2 3B (opt-in large model, WebGPU). The 3B improves draft quality on machines with enough GPU memory. macOS and Linux bundles include it. Windows bundles exclude it (`bundlePlatforms` in the manifest) because the NSIS installer tops out near 2 GB.
+Three models ship: Llama 3.2 1B (default, WebGPU), Gemma 3 270M (lite, WASM fallback), and Llama 3.2 3B (opt-in large model, WebGPU). The 3B improves draft quality on machines with enough GPU memory. macOS and Windows bundles carry the ONNX builds (`bundlePlatforms` in the manifest; the Windows NSIS installer tops out near 2 GB, so it excludes the 3B). Linux desktop bundles carry GGUF builds of the same Llamas instead and run them natively — see "Native inference (Linux desktop)" below.
 
 Model weights are a build-time input only. Builds that include the AI feature ship the weights as static assets. The app never downloads weights at runtime. A build without bundled weights shows the feature as unavailable. The free web tier does not include the feature at all.
 
@@ -61,8 +61,18 @@ Build note: `onnxruntime-node` (a transformers.js dependency, Linux x64 only) tr
 - The 1B and 3B models require WebGPU. Chromium, WebView2, and recent WKWebView provide it.
 - The context window is adaptive (`contextTokensFor` in `client/src/app/llm/config.ts`). It scales with the adapter's reported buffer limit and the model's vocabulary: floor 2,560 tokens, cap 6,144. The prefill logits tensor (sequence x vocab, fp32) is the binding allocation. The 1B and 3B share a 128k vocabulary, so they get the same window on any adapter.
 - The buffer limit is per browser engine, not per GPU. The same AMD 780M reports 1 GiB in webkitgtk and 4 GiB−4 in Chromium with Vulkan enabled. An adapter whose limit cannot hold a working window (below `MIN_CONTEXT_TOKENS`) marks WebGPU models unusable there.
-- When the selected model cannot run, `resolveUsableModel` falls back: selection, then the 1B default, then the lite model. The settings modal names the substitution. Only a device with no usable model hides the AI features.
-- Linux webkitgtk reports no WebGPU or a 1 GiB limit. Those machines run the lite model on WASM.
+- When the selected model cannot run, `resolveUsableModel` falls back: selection, then the native 1B (desktop), then the ONNX 1B default, then the lite model. The settings modal names the substitution. Only a device with no usable model hides the AI features.
+- Linux webkitgtk reports no WebGPU or a 1 GiB limit. In the browser those machines run the lite model on WASM; the Linux desktop app runs the native path instead.
+
+## Native inference (Linux desktop)
+
+The Linux desktop app runs Llama through llama.cpp inside the Rust process (`src-tauri/src/native.rs`), not the webview — the webview only renders UI. This sidesteps webkitgtk's WebGPU limits entirely: llama.cpp reaches the GPU through Vulkan, with a CPU fallback that still beats WASM. Design and rationale: `docs/native-inference-plan.md`.
+
+- Models: GGUF entries in the manifest (`format: "gguf"`, `minDevice: "native"`, `bundlePlatforms: ["linux"]`). One file per model; tokenizer and chat template ship inside it.
+- Transport: `client/src/app/llm/native_worker.ts` speaks the worker protocol over Tauri invoke commands (`native_probe/load/generate/poll/abort/unload`), polling for streamed tokens. The engine picks it per resolved device; everything above the transport is shared with the webview path.
+- Window: `MAX_CONTEXT_TOKENS` (6,144) as `n_ctx`. No adapter-limit math applies.
+- Build: the Rust feature `native-llm-vulkan` (Cargo.toml), enabled by the Nix package via `tauriBuildFlags`. Default builds compile stubs, so `cargo check` needs no cmake/Vulkan. The .deb/.rpm declare the Vulkan loader dependency.
+- Dev note: `npm run models` filters weights by platform (`bundlePlatforms`), so a Linux machine fetches GGUF and prunes the ONNX Llamas. Browser testing of the ONNX path on Linux needs `MODELS_PLATFORM=all npm run models`.
 - Linux memory: webkitgtk's memory-pressure monitor kills the web process at conservative thresholds, which model loading trips. The app sets `WEBKIT_DISABLE_MEMORY_PRESSURE_MONITOR=1` at startup (src-tauri `run()`), and the desktop IPC path streams one weight file at a time so peak memory stays near a single copy per file plus the ONNX Runtime heap.
 - IPC transport: `read_model_file` returns base64 strings in 32 MB binary slices (`offset`/`len`), the same pattern as the app's other large payloads. A raw-bytes `tauri::ipc::Response` of a 300 MB weight file crashed the webkitgtk web process outright — do not switch back without testing that exact case on Linux.
 

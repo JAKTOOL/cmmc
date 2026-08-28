@@ -277,7 +277,9 @@ const load = async (message: Extract<ToWorker, { type: "load" }>) => {
     const model = await AutoModelForCausalLM.from_pretrained(message.repo, {
         ...options,
         dtype: message.dtype,
-        device: message.device,
+        // "native" never reaches this worker — the engine routes it to the
+        // NativeWorker transport — so narrow to what transformers.js takes.
+        device: message.device as "webgpu" | "wasm",
         // The manifest is authoritative on external weight data: a count
         // (possibly 0) always overrides whatever the repo config claims, so
         // the runtime only ever requests files the build actually bundled.
