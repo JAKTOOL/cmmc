@@ -230,7 +230,9 @@ Add a "Summary" section between the type/file fields and the "Attached as" secti
 
 - Gating mirrors `SummarizeButton`: render nothing on `FREE_TIER`, when `isAiEnabled()` is false, or when no usable model resolves. When weights are missing, the click opens `openAiSettings()`.
 - Readability: look up the `IDB.evidenceText` row for `artifact.id`. When the row is missing or `status !== "ok"`, disable the button with the title "No readable text in this file". URL evidence falls out through the same check — extraction stores no "ok" text for it.
-- Freshness: resolve the model, compute `summaryFingerprint(artifact.id, model.id)` (exported in Part 2 step 2), and read `IDB.evidenceSummaries.get(artifact.id)`. When the cached row matches, is complete, and has a summary, render the button as "Summarized ✓", disabled. Re-check when `TABLE_CHANGED_EVENT` fires for the evidenceSummaries table, so the label flips without reopening the modal.
+- Freshness: resolve the model, compute `summaryFingerprint(artifact.id, model.id)` (exported in Part 2 step 2), and read the `IDB.evidenceSummaries` row for `artifact.id`. Re-check when `TABLE_CHANGED_EVENT` fires for the evidenceSummaries table, so the section updates without reopening the modal.
+- Display: when a complete summary exists, show its text in the section. When its fingerprint no longer matches (file replaced, model switched, pipeline bumped), label it outdated.
+- Re-summarize: a fresh summary renders the button as "Re-summarize", enabled. The click deletes the cached row, then queues the manual pass — the fingerprint skip would otherwise return the cache. Stale and partial rows queue without a delete, so partial chunk summaries resume instead of restarting.
 - In progress: subscribe with `useSyncExternalStore(subscribeSummarySync, getSummarySync, getSummarySync)`. When `sync.evidenceId === artifact.id`, render "Summarizing… ({chunkDone + 1}/{chunkTotal})", disabled. When a pass runs on other files, the button stays enabled — a click unions this id into the pending set.
 - On click: `void ensureSummarySynced({ manual: true, ids: [artifact.id] })`. The pass is independent of the auto toggle, and progress shows in the shared bottom chip.
 - Replacing the file through this modal changes the evidence id (content hash), so a stale summary cannot be shown for new content: the fresh id has no summary row, and the button offers to summarize again after the save. No extra handling is needed.
@@ -260,6 +262,6 @@ Part 3:
 
 Part 4:
 
-13. Edit a readable file and click "Summarize". Confirm the button shows chunk progress, then flips to "Summarized ✓" without a reopen. Confirm that a URL artifact shows the button disabled with "No readable text in this file". Click "Summarize" on a second file while a pass runs. Confirm that the id joins the same pass.
+13. Edit a readable file and click "Summarize". Confirm the button shows chunk progress, and that the summary text appears in the section without a reopen. Click "Re-summarize". Confirm the old text disappears, a new pass runs, and new text lands. Confirm that a URL artifact shows the button disabled with "No readable text in this file". Click "Summarize" on a second file while a pass runs. Confirm that the id joins the same pass. Switch the model and reopen the modal. Confirm the summary shows with the outdated label.
 
 Static checks: run `npm run lint` and `npx tsc --noEmit` in `client/`. Confirm that a free-tier build shows no toggle, no button, no chip, and registers no timers.

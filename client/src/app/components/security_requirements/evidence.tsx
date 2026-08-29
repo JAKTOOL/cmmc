@@ -298,18 +298,28 @@ const splitSuffix = (filename: string): [string, string] => {
 // Rendered through a portal so the fixed overlay (and its inputs) escapes any
 // surrounding <form> — otherwise Enter and button clicks inside the modal
 // would trigger the form's submit action.
-/** Per-file summarization state for the edit modal's Summary section. */
-type SummaryState = "checking" | "unreadable" | "stale" | "fresh";
+/** Per-file summarization state for the edit modal's Summary section.
+ *  "stale" = a complete summary exists but its fingerprint no longer
+ *  matches (file replaced, model switched, pipeline bumped) — it is shown,
+ *  labeled outdated. "none" covers missing and incomplete rows. */
+interface SummaryCheck {
+    state: "checking" | "unreadable" | "none" | "stale" | "fresh";
+    /** The last complete document summary, for "fresh" and "stale". */
+    text?: string;
+}
 
 /** On-demand summarization of one file (Part 4 of
  *  docs/background-summarization-plan.md): a manual single-id pass through
  *  the summary_sync reconciler, independent of the auto-summarize toggle.
- *  Progress shows in the shared bottom chip; renders nothing when the AI
- *  feature is unavailable. */
+ *  Shows the cached document summary and lets the user summarize or
+ *  re-summarize; progress shows in the shared bottom chip. Renders nothing
+ *  when the AI feature is unavailable. */
 const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
     const [supported, setSupported] = useState(false);
     const [weightsReady, setWeightsReady] = useState(false);
-    const [summary, setSummary] = useState<SummaryState>("checking");
+    const [summary, setSummary] = useState<SummaryCheck>({
+        state: "checking",
+    });
     const sync = useSyncExternalStore(
         subscribeSummarySync,
         getSummarySync,
@@ -353,7 +363,7 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
             );
             if (text?.status !== "ok" || !text.text.trim()) {
                 if (!cancelled) {
-                    setSummary("unreadable");
+                    setSummary({ state: "unreadable" });
                 }
                 return;
             }
@@ -364,15 +374,22 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
             const [cached] = await IDB.evidenceSummaries.getAll(
                 IDBKeyRange.only(artifact.id),
             );
+            const complete =
+                !!cached && cached.complete !== false && !!cached.summary;
             const fresh =
+                complete &&
                 !!model &&
-                !!cached &&
                 cached.fingerprint ===
-                    (await summaryFingerprint(artifact.id, model.id)) &&
-                cached.complete !== false &&
-                !!cached.summary;
+                    (await summaryFingerprint(artifact.id, model.id));
             if (!cancelled) {
-                setSummary(fresh ? "fresh" : "stale");
+                setSummary(
+                    complete
+                        ? {
+                              state: fresh ? "fresh" : "stale",
+                              text: cached.summary,
+                          }
+                        : { state: "none" },
+                );
             }
         };
         check();
@@ -395,16 +412,43 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
 
     const summarizing = sync.evidenceId === artifact.id;
     const disabled =
-        summarizing || summary !== "stale";
+        summarizing ||
+        summary.state === "checking" ||
+        summary.state === "unreadable";
     const label = summarizing
         ? `Summarizing… (${(sync.chunkDone ?? 0) + 1}/${sync.chunkTotal ?? "?"})`
-        : summary === "fresh"
-          ? "Summarized ✓"
+        : summary.state === "fresh"
+          ? "Re-summarize"
           : "Summarize";
+
+    const summarize = async () => {
+        if (!weightsReady) {
+            openAiSettings();
+            return;
+        }
+        // A fresh row is skipped by fingerprint; re-summarizing means
+        // dropping it first. Stale and partial rows queue as they are —
+        // partial chunk summaries resume instead of restarting.
+        if (summary.state === "fresh") {
+            await IDB.evidenceSummaries.delete(artifact.id);
+        }
+        void ensureSummarySynced({ manual: true, ids: [artifact.id] });
+    };
 
     return (
         <div className="flex flex-col gap-1 border-t border-border pt-4 font-medium">
             Summary
+            {summary.text && (
+                <p className="whitespace-pre-wrap rounded-md border border-input bg-surface px-3 py-2 text-sm font-normal">
+                    {summary.text}
+                </p>
+            )}
+            {summary.state === "stale" && (
+                <span className="text-xs font-normal text-amber-700">
+                    This summary is outdated — the file, the model, or the
+                    pipeline changed since it was written.
+                </span>
+            )}
             <div>
                 <Button
                     type="button"
@@ -412,18 +456,13 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
                     size="sm"
                     disabled={disabled}
                     title={
-                        summary === "unreadable"
+                        summary.state === "unreadable"
                             ? "No readable text in this file"
-                            : "Summarize this file for AI drafting"
+                            : summary.state === "fresh"
+                              ? "Discard this summary and write a new one"
+                              : "Summarize this file for AI drafting"
                     }
-                    onClick={() =>
-                        weightsReady
-                            ? void ensureSummarySynced({
-                                  manual: true,
-                                  ids: [artifact.id],
-                              })
-                            : openAiSettings()
-                    }
+                    onClick={() => void summarize()}
                 >
                     {label}
                 </Button>
