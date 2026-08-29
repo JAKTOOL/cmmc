@@ -24,6 +24,7 @@ import {
 import {
     LlmStatus,
     subscribeLlmStatus,
+    unloadModel,
     weightsAvailable,
 } from "@/app/llm/engine";
 import {
@@ -41,6 +42,7 @@ import {
 } from "@/app/llm/summary_sync";
 import { confirm } from "../confirm";
 import { InfoModal } from "../modal";
+import { closeDraftJob } from "./draft_job";
 import {
     isTauri,
     modelDelete,
@@ -293,8 +295,19 @@ export const AiSettingsModal = () => {
                         type="checkbox"
                         checked={enabled}
                         onChange={(event) => {
-                            setEnabled(event.target.checked);
-                            setAiEnabled(event.target.checked);
+                            const on = event.target.checked;
+                            setEnabled(on);
+                            setAiEnabled(on);
+                            if (!on) {
+                                // Disabling stops everything and frees the
+                                // model's memory. Order matters: the draft
+                                // job must abort while its worker is alive
+                                // — an abort sent after disposal would
+                                // spawn a fresh worker.
+                                cancelSummarySync();
+                                closeDraftJob();
+                                unloadModel();
+                            }
                         }}
                     />
                 </label>

@@ -359,6 +359,20 @@ const getWorker = (): WorkerLike => {
 const send = (message: ToWorker, transfer: Transferable[] = []) =>
     getWorker().postMessage(message, transfer);
 
+/** Tear down the worker and release the model's memory (GPU buffers, WASM
+ *  heap, or the native llama context — NativeWorker.terminate sends
+ *  native_unload). Pending generations reject and the LocalModel
+ *  unregisters, which also halts an in-flight objective review at its next
+ *  objective. Safe to call any time; the next ensureLoaded starts a fresh
+ *  worker. Used when the user disables the AI features. */
+export const unloadModel = (): void => {
+    if (!worker) {
+        return;
+    }
+    disposeWorker();
+    setStatus({ phase: "idle" });
+};
+
 /** Load the model into the worker (idempotent). Requires the weights to
  *  exist locally — bundled under /models/, or added through the verified
  *  model store; this function never fetches them. */

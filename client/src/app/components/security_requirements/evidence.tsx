@@ -382,10 +382,12 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
                 cached.fingerprint ===
                     (await summaryFingerprint(artifact.id, model.id));
             if (!cancelled) {
+                // Without a resolvable model the fingerprint cannot be
+                // judged — show the summary without the outdated label.
                 setSummary(
                     complete
                         ? {
-                              state: fresh ? "fresh" : "stale",
+                              state: !model || fresh ? "fresh" : "stale",
                               text: cached.summary,
                           }
                         : { state: "none" },
@@ -406,7 +408,10 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
         };
     }, [artifact.id]);
 
-    if (FREE_TIER || !isAiEnabled() || !supported) {
+    // A generated summary stays visible with the AI feature off or no
+    // usable model; only the generate actions are gated.
+    const actionable = isAiEnabled() && supported;
+    if (FREE_TIER || (!actionable && !summary.text)) {
         return null;
     }
 
@@ -449,29 +454,33 @@ const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
                     pipeline changed since it was written.
                 </span>
             )}
-            <div>
-                <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    disabled={disabled}
-                    title={
-                        summary.state === "unreadable"
-                            ? "No readable text in this file"
-                            : summary.state === "fresh"
-                              ? "Discard this summary and write a new one"
-                              : "Summarize this file for AI drafting"
-                    }
-                    onClick={() => void summarize()}
-                >
-                    {label}
-                </Button>
-            </div>
-            <span className="text-xs font-normal text-muted-foreground">
-                A cached document summary makes AI drafts and reviews of the
-                linked controls start immediately. Progress shows in the
-                bottom-left chip.
-            </span>
+            {actionable && (
+                <>
+                    <div>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            disabled={disabled}
+                            title={
+                                summary.state === "unreadable"
+                                    ? "No readable text in this file"
+                                    : summary.state === "fresh"
+                                      ? "Discard this summary and write a new one"
+                                      : "Summarize this file for AI drafting"
+                            }
+                            onClick={() => void summarize()}
+                        >
+                            {label}
+                        </Button>
+                    </div>
+                    <span className="text-xs font-normal text-muted-foreground">
+                        A cached document summary makes AI drafts and reviews
+                        of the linked controls start immediately. Progress
+                        shows in the bottom-left chip.
+                    </span>
+                </>
+            )}
         </div>
     );
 };

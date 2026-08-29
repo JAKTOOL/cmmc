@@ -1,8 +1,9 @@
 "use client";
 // Per-objective AI evidence review panel on the requirement page, modeled on
-// assessment_guidance.tsx. Renders only when the requirement has assessment
-// objectives and a local model is available (aiReviewAvailable) — the free
-// web build never registers a model, so the panel is desktop-only for now.
+// assessment_guidance.tsx. Renders when the requirement has assessment
+// objectives and either stored verdicts exist (shown even with the AI
+// feature off) or a local model is available to run one — the free web
+// build never registers a model, so the panel is desktop-only for now.
 
 import { LocalModel, MODEL_CHANGED_EVENT, getLocalModel } from "@/app/ai/model";
 import { ReviewObjective, objectivesForRequirement } from "@/app/ai/objectives";
@@ -174,10 +175,16 @@ export const ObjectiveReview = ({
         [],
     );
 
+    const reviewed = objectives.some((objective) => reviews.has(objective.id));
+    // Runnable = the feature is on and an engine is (or can be) loaded.
+    // Stored verdicts render either way — generated artifacts stay visible
+    // when the AI feature is off; only generating anew is gated.
+    const runnable =
+        isAiEnabled() && (model !== undefined || weightsReady);
     if (
         !objectives.length ||
         !isUnlocked(requirementId) ||
-        (model === undefined && !(isAiEnabled() && weightsReady))
+        (!runnable && !reviewed)
     ) {
         return null;
     }
@@ -219,7 +226,6 @@ export const ObjectiveReview = ({
     const met = objectives.filter(
         (objective) => reviews.get(objective.id)?.verdict === "met",
     ).length;
-    const reviewed = objectives.some((objective) => reviews.has(objective.id));
 
     return (
         <details
@@ -281,11 +287,13 @@ export const ObjectiveReview = ({
                         type="button"
                         variant="outline"
                         size="sm"
-                        disabled={locked || running}
+                        disabled={locked || running || !runnable}
                         title={
                             locked
                                 ? "Not available for locked requirements"
-                                : undefined
+                                : !runnable
+                                  ? "Enable AI features in the AI Assistant settings to run a review"
+                                  : undefined
                         }
                         onClick={run}
                     >
