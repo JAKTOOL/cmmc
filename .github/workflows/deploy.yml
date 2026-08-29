@@ -221,6 +221,14 @@ jobs:
       # Non-empty => also produce Tauri updater artifacts (signed .sig files)
       # for auto-updates via Keygen. Empty (forks) => plain installers only.
       TAURI_SIGNING_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      # Short cargo target dir, needed for MAX_PATH: the llama-cpp-sys cmake
+      # build nests vulkan-shaders-gen ~120 characters below OUT_DIR, and with
+      # the default client/src-tauri/target prefix its object-file paths pass
+      # the ~250-character Windows limit ("CMAKE_OBJECT_PATH_MAX" warnings,
+      # then the compiler ABI check fails). Tauri and tauri-action resolve the
+      # target dir through `cargo metadata`, which honors this variable, so
+      # the bundles land in C:\ct\release\bundle and upload as before.
+      CARGO_TARGET_DIR: C:\ct
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
@@ -288,7 +296,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            client/src-tauri/target
+            C:\ct
           key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('client/src-tauri/Cargo.lock') }}
           restore-keys: |
             cargo-${{ runner.os }}-${{ runner.arch }}-
