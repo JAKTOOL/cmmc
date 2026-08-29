@@ -4,6 +4,7 @@ use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_opener::OpenerExt;
 
 mod license;
+mod model_store;
 mod native;
 mod update;
 
@@ -268,12 +269,23 @@ async fn read_model_file(
     if !valid {
         return Err(format!("invalid model path: {path}"));
     }
-    let file = app
+    let resource = app
         .path()
         .resource_dir()
         .map_err(|err| err.to_string())?
         .join("models")
         .join(&path);
+    // Imported models (model_store.rs, docs/model-download-plan.md) live
+    // in app-data; bundle resources win when both exist.
+    let file = if resource.exists() {
+        resource
+    } else {
+        app.path()
+            .app_data_dir()
+            .map_err(|err| err.to_string())?
+            .join("models")
+            .join(&path)
+    };
     let data = match (offset, len) {
         (Some(offset), Some(len)) => {
             use std::io::{Read, Seek, SeekFrom};
@@ -321,6 +333,9 @@ pub fn run() {
     builder
         .invoke_handler(tauri::generate_handler![
             ai_debug_log,
+            model_store::model_import,
+            model_store::model_store_status,
+            model_store::model_delete,
             native::native_probe,
             native::native_load,
             native::native_generate,

@@ -387,9 +387,20 @@ fn resolve_model_path(
     if !valid {
         return Err(format!("invalid model path: {path}"));
     }
-    Ok(app
+    let resource = app
         .path()
         .resource_dir()
+        .map_err(|err| err.to_string())?
+        .join("models")
+        .join(path);
+    // Imported models (model_store.rs) live in app-data; bundle resources
+    // win when both exist.
+    if resource.exists() {
+        return Ok(resource);
+    }
+    Ok(app
+        .path()
+        .app_data_dir()
         .map_err(|err| err.to_string())?
         .join("models")
         .join(path))

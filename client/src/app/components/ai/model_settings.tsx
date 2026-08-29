@@ -33,7 +33,12 @@ import {
     setSelectedModelId,
 } from "@/app/llm/settings";
 import { InfoModal } from "../modal";
-import { Badge, Label, Select, menuItemClasses } from "../ui";
+import {
+    modelDelete,
+    modelImport,
+    modelStoreStatus,
+} from "@/app/utils/tauri";
+import { Badge, Button, Label, Select, menuItemClasses } from "../ui";
 
 export const AI_SETTINGS_OPEN_EVENT = "ai-settings-open";
 
@@ -92,6 +97,11 @@ export const AiSettingsModal = () => {
     const [enabled, setEnabled] = useState(true);
     const [modelId, setModelId] = useState(DEFAULT_MODEL_ID);
     const [weights, setWeights] = useState<WeightState>("checking");
+    /** True when the weights came from the app-data store (user import)
+     *  rather than the bundle — drives the Remove row. */
+    const [imported, setImported] = useState(false);
+    const [importing, setImporting] = useState(false);
+    const [importError, setImportError] = useState<string | null>(null);
     const [status, setStatus] = useState<LlmStatus>({ phase: "idle" });
 
     const model = useMemo(() => getModel(modelId) ?? MODELS[0], [modelId]);
@@ -121,8 +131,11 @@ export const AiSettingsModal = () => {
             }
             setCapabilities(detected);
             const bundled = await weightsAvailable(model);
+            const stored = await modelStoreStatus(model.repo);
             if (!cancelled) {
                 setWeights(bundled ? "bundled" : "missing");
+                setImported(!!stored);
+                setImportError(null);
             }
         })();
         return () => {
@@ -137,6 +150,49 @@ export const AiSettingsModal = () => {
     const loadedHere =
         status.modelId === model.id &&
         (status.phase === "ready" || status.phase === "generating");
+
+    // Import is offered for pinned native-format models this build did not
+    // bundle (the 3B on Windows). The file is verified byte-for-byte
+    // against the manifest before it becomes loadable.
+    const importable =
+        model.format === "gguf" &&
+        !!capabilities?.native &&
+        model.files.length > 0;
+
+    const runImport = async () => {
+        const file = model.files[0];
+        if (!file) {
+            return;
+        }
+        setImportError(null);
+        setImporting(true);
+        try {
+            const result = await modelImport({
+                repo: model.repo,
+                path: file.path,
+                sha256: file.sha256,
+                size: file.size,
+            });
+            if (result) {
+                setImported(true);
+                setWeights(
+                    (await weightsAvailable(model)) ? "bundled" : "missing",
+                );
+            }
+        } catch (error) {
+            setImportError(
+                error instanceof Error ? error.message : String(error),
+            );
+        } finally {
+            setImporting(false);
+        }
+    };
+
+    const removeImport = async () => {
+        await modelDelete(model.repo);
+        setImported(false);
+        setWeights((await weightsAvailable(model)) ? "bundled" : "missing");
+    };
 
     return (
         <InfoModal
@@ -245,22 +301,66 @@ export const AiSettingsModal = () => {
                     {weights === "bundled" && (
                         <div className="flex items-center justify-between gap-4">
                             <span>
-                                Bundled with this app (
-                                {formatBytes(model.totalBytes)}).
+                                {imported
+                                    ? "Imported and verified"
+                                    : "Bundled with this app"}{" "}
+                                ({formatBytes(model.totalBytes)}).
                             </span>
-                            {loadedHere && (
-                                <Badge variant="success">Loaded</Badge>
-                            )}
+                            <div className="flex items-center gap-2">
+                                {imported && (
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        disabled={loadedHere}
+                                        onClick={removeImport}
+                                    >
+                                        Remove
+                                    </Button>
+                                )}
+                                {loadedHere && (
+                                    <Badge variant="success">Loaded</Badge>
+                                )}
+                            </div>
                         </div>
                     )}
-                    {weights === "missing" && (
-                        <p>
-                            This build does not include the model weights, so
-                            the AI feature is unavailable. Desktop builds
-                            bundle them automatically — see{" "}
-                            <code>docs/local-ai.md</code>.
-                        </p>
-                    )}
+                    {weights === "missing" &&
+                        (importable ? (
+                            <div className="flex flex-col gap-2">
+                                <p>
+                                    This installer does not include the model
+                                    ({formatBytes(model.totalBytes)}). Obtain
+                                    the exact pinned file and import it — the
+                                    app verifies every byte against the
+                                    manifest before use, fully offline.
+                                </p>
+                                <div>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        disabled={importing}
+                                        onClick={runImport}
+                                    >
+                                        {importing
+                                            ? "Verifying…"
+                                            : "Import model file…"}
+                                    </Button>
+                                </div>
+                                {importError && (
+                                    <p role="alert" className="text-red-600">
+                                        {importError}
+                                    </p>
+                                )}
+                            </div>
+                        ) : (
+                            <p>
+                                This build does not include the model weights,
+                                so the AI feature is unavailable. Desktop
+                                builds bundle them automatically — see{" "}
+                                <code>docs/local-ai.md</code>.
+                            </p>
+                        ))}
                     {status.phase === "error" &&
                         status.modelId === model.id && (
                             <p role="alert" className="text-red-600">

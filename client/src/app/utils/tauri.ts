@@ -153,6 +153,62 @@ export const nativeInvoke = async <T>(
     return internals.invoke<T>(cmd, args);
 };
 
+/**
+ * Import a user-supplied model file into the app-data store, verified
+ * byte-for-byte against the pinned manifest entry before it becomes
+ * loadable (docs/model-download-plan.md). Fully offline. Resolves `true`
+ * on a verified import, `false` when the user cancels the picker, `null`
+ * in the browser build; throws with a message on any mismatch.
+ */
+export const modelImport = async (entry: {
+    repo: string;
+    path: string;
+    sha256: string;
+    size: number;
+}): Promise<boolean | null> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return null;
+    }
+    try {
+        return await internals.invoke<boolean>("model_import", entry);
+    } catch (error) {
+        throw new Error(String(error));
+    }
+};
+
+/** True when an imported copy of the repo exists; `null` in the browser. */
+export const modelStoreStatus = async (
+    repo: string,
+): Promise<boolean | null> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return null;
+    }
+    try {
+        return await internals.invoke<boolean>("model_store_status", { repo });
+    } catch {
+        return null;
+    }
+};
+
+/** Remove an imported model from the app-data store (bundled resources
+ *  are untouched). No-op in the browser build. */
+export const modelDelete = async (repo: string): Promise<void> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return;
+    }
+    try {
+        await internals.invoke("model_delete", { repo });
+    } catch (error) {
+        console.error("Failed to delete imported model", error);
+    }
+};
+
 /** Current license state, or `null` in the browser build. Offline and fast. */
 export const licenseStatus = async (): Promise<LicenseInfo | null> => {
     const internals =
