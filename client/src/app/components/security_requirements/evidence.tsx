@@ -27,10 +27,22 @@ import {
     IDBEvidenceWithData,
     putEvidence,
     removeEvidenceExamineTags,
+    TABLE_CHANGED_EVENT,
 } from "@/app/db";
+import { getDeviceCapabilities } from "@/app/llm/capabilities";
+import { resolveUsableModel } from "@/app/llm/config";
+import { weightsAvailable } from "@/app/llm/engine";
+import { getSelectedModelId, isAiEnabled } from "@/app/llm/settings";
+import { summaryFingerprint } from "@/app/llm/summarize";
+import {
+    ensureSummarySynced,
+    getSummarySync,
+    subscribeSummarySync,
+} from "@/app/llm/summary_sync";
 import { searchEvidence } from "@/app/search/evidence_index";
 import { startEvidenceTextSync } from "@/app/search/evidence_text_store";
 import { isImage } from "@/app/utils/file";
+import { FREE_TIER } from "@/app/utils/tier";
 import {
     ChangeEvent,
     Dispatch,
@@ -43,7 +55,9 @@ import {
     useMemo,
     useRef,
     useState,
+    useSyncExternalStore,
 } from "react";
+import { openAiSettings } from "../ai/model_settings";
 import { createPortal } from "react-dom";
 import { confirm, ModalShell } from "../confirm";
 import {
@@ -284,6 +298,145 @@ const splitSuffix = (filename: string): [string, string] => {
 // Rendered through a portal so the fixed overlay (and its inputs) escapes any
 // surrounding <form> — otherwise Enter and button clicks inside the modal
 // would trigger the form's submit action.
+/** Per-file summarization state for the edit modal's Summary section. */
+type SummaryState = "checking" | "unreadable" | "stale" | "fresh";
+
+/** On-demand summarization of one file (Part 4 of
+ *  docs/background-summarization-plan.md): a manual single-id pass through
+ *  the summary_sync reconciler, independent of the auto-summarize toggle.
+ *  Progress shows in the shared bottom chip; renders nothing when the AI
+ *  feature is unavailable. */
+const SummarySection = ({ artifact }: { artifact: IDBEvidenceV3 }) => {
+    const [supported, setSupported] = useState(false);
+    const [weightsReady, setWeightsReady] = useState(false);
+    const [summary, setSummary] = useState<SummaryState>("checking");
+    const sync = useSyncExternalStore(
+        subscribeSummarySync,
+        getSummarySync,
+        getSummarySync,
+    );
+
+    useEffect(() => {
+        if (FREE_TIER) {
+            return;
+        }
+        let cancelled = false;
+        (async () => {
+            const model = resolveUsableModel(
+                getSelectedModelId(),
+                await getDeviceCapabilities(),
+            );
+            if (!model) {
+                return;
+            }
+            const ready = await weightsAvailable(model);
+            if (!cancelled) {
+                setSupported(true);
+                setWeightsReady(ready);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    // Readability + freshness; re-checked when a summary row lands so the
+    // label flips to "Summarized" without reopening the modal.
+    useEffect(() => {
+        if (FREE_TIER) {
+            return;
+        }
+        let cancelled = false;
+        const check = async () => {
+            const [text] = await IDB.evidenceText.getAll(
+                IDBKeyRange.only(artifact.id),
+            );
+            if (text?.status !== "ok" || !text.text.trim()) {
+                if (!cancelled) {
+                    setSummary("unreadable");
+                }
+                return;
+            }
+            const model = resolveUsableModel(
+                getSelectedModelId(),
+                await getDeviceCapabilities(),
+            );
+            const [cached] = await IDB.evidenceSummaries.getAll(
+                IDBKeyRange.only(artifact.id),
+            );
+            const fresh =
+                !!model &&
+                !!cached &&
+                cached.fingerprint ===
+                    (await summaryFingerprint(artifact.id, model.id)) &&
+                cached.complete !== false &&
+                !!cached.summary;
+            if (!cancelled) {
+                setSummary(fresh ? "fresh" : "stale");
+            }
+        };
+        check();
+        const onTableChanged = (event: Event) => {
+            const detail = (event as CustomEvent<{ table?: string }>).detail;
+            if (detail?.table === IDB.evidenceSummaries.table) {
+                check();
+            }
+        };
+        window.addEventListener(TABLE_CHANGED_EVENT, onTableChanged);
+        return () => {
+            cancelled = true;
+            window.removeEventListener(TABLE_CHANGED_EVENT, onTableChanged);
+        };
+    }, [artifact.id]);
+
+    if (FREE_TIER || !isAiEnabled() || !supported) {
+        return null;
+    }
+
+    const summarizing = sync.evidenceId === artifact.id;
+    const disabled =
+        summarizing || summary !== "stale";
+    const label = summarizing
+        ? `Summarizing… (${(sync.chunkDone ?? 0) + 1}/${sync.chunkTotal ?? "?"})`
+        : summary === "fresh"
+          ? "Summarized ✓"
+          : "Summarize";
+
+    return (
+        <div className="flex flex-col gap-1 border-t border-border pt-4 font-medium">
+            Summary
+            <div>
+                <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={disabled}
+                    title={
+                        summary === "unreadable"
+                            ? "No readable text in this file"
+                            : "Summarize this file for AI drafting"
+                    }
+                    onClick={() =>
+                        weightsReady
+                            ? void ensureSummarySynced({
+                                  manual: true,
+                                  ids: [artifact.id],
+                              })
+                            : openAiSettings()
+                    }
+                >
+                    {label}
+                </Button>
+            </div>
+            <span className="text-xs font-normal text-muted-foreground">
+                A cached document summary makes AI drafts and reviews of the
+                linked controls start immediately. Progress shows in the
+                bottom-left chip.
+            </span>
+        </div>
+    );
+};
+
 export const EditEvidenceModal = ({
     artifact,
     requirementId,
@@ -644,6 +797,8 @@ export const EditEvidenceModal = ({
                                     )}
                                 </div>
                             )}
+
+                            <SummarySection artifact={artifact} />
 
                             {!!attachedAs.length && (
                                 <div className="flex flex-col gap-1 border-t border-border pt-4 font-medium">

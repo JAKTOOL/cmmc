@@ -222,18 +222,24 @@ jobs:
       # Native inference (llama.cpp/Vulkan, --features native-llm-vulkan):
       # ggml-vulkan needs the Vulkan headers/loader, glslc, and the SPIR-V
       # cmake packages at build time. The LunarG SDK (pinned version,
-      # silent install) carries all of them. Runtime needs none of this:
-      # vulkan-1.dll is delay-loaded (src-tauri build.rs) and comes from
-      # the user's GPU driver; driverless machines fall back to CPU.
+      # silent install) carries all of them, but only 1.4.x SDKs ship the
+      # SPIRV-Headers cmake config that ggml-vulkan find_package()s — 1.3.x
+      # fails with "Could not find SPIRV-Headers". The pin matches the SDK
+      # that llama.cpp's own Windows Vulkan CI uses. CMAKE_PREFIX_PATH makes
+      # the SDK's cmake configs findable regardless of PATH-prefix inference.
+      # Runtime needs none of this: vulkan-1.dll is delay-loaded (src-tauri
+      # build.rs) and comes from the user's GPU driver; driverless machines
+      # fall back to CPU.
       - name: Install Vulkan SDK
         shell: pwsh
         run: |
-          $ver = "1.3.296.0"
-          $url = "https://sdk.lunarg.com/sdk/download/$ver/windows/VulkanSDK-$ver-Installer.exe"
+          $ver = "1.4.357.0"
+          $url = "https://sdk.lunarg.com/sdk/download/$ver/windows/vulkansdk-windows-X64-$ver.exe"
           Invoke-WebRequest -Uri $url -OutFile "$env:RUNNER_TEMP\vulkan-sdk.exe"
           Start-Process -Wait -FilePath "$env:RUNNER_TEMP\vulkan-sdk.exe" `
             -ArgumentList "--accept-licenses --default-answer --confirm-command install"
           Add-Content $env:GITHUB_ENV "VULKAN_SDK=C:\VulkanSDK\$ver"
+          Add-Content $env:GITHUB_ENV "CMAKE_PREFIX_PATH=C:\VulkanSDK\$ver"
           Add-Content $env:GITHUB_PATH "C:\VulkanSDK\$ver\Bin"
 
       # Azure Artifact Signing (formerly Trusted Signing). Only runs when the

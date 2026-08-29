@@ -1,9 +1,7 @@
 # Plan: background evidence summarization and a minimizable draft panel
 
-Status: implemented (2026-08-29) on branch ai-ux-improvements — Parts 1-3.
-The fourth part (a per-file summarize control in the evidence edit modal)
-has no specification section in this document. The `ids` option of
-`ensureSummarySynced` is in place for it.
+Status: implemented (2026-08-29) on branch ai-ux-improvements — all four
+parts. Interactive verification (steps 1-13) still requires a GPU session.
 
 ## Context
 
@@ -259,5 +257,9 @@ Part 2:
 Part 3:
 
 12. On the View Evidence page with the toggle off, click "Summarize all". Confirm the pass runs, the button shows progress and disables, the chip ✕ cancels, and a second click on a warm corpus finishes immediately.
+
+Part 4:
+
+13. Edit a readable file and click "Summarize". Confirm the button shows chunk progress, then flips to "Summarized ✓" without a reopen. Confirm that a URL artifact shows the button disabled with "No readable text in this file". Click "Summarize" on a second file while a pass runs. Confirm that the id joins the same pass.
 
 Static checks: run `npm run lint` and `npx tsc --noEmit` in `client/`. Confirm that a free-tier build shows no toggle, no button, no chip, and registers no timers.
