@@ -1,6 +1,9 @@
 # Plan: background evidence summarization and a minimizable draft panel
 
-Status: planned (2026-08-28). Not implemented.
+Status: implemented (2026-08-29) on branch ai-ux-improvements — Parts 1-3.
+The fourth part (a per-file summarize control in the evidence edit modal)
+has no specification section in this document. The `ids` option of
+`ensureSummarySynced` is in place for it.
 
 ## Context
 
@@ -220,6 +223,19 @@ In the `draft_job.ts` pipeline and in `review.ts` `run()`: `const resume = await
 - On click: `void ensureSummarySynced({ manual: true })` — one pass over all readable evidence, independent of the auto toggle. Fresh summaries are skipped by fingerprint, so a warm corpus finishes immediately.
 - Button state: subscribe with `useSyncExternalStore(subscribeSummarySync, getSummarySync, getSummarySync)`. While `phase !== "idle"`, render it disabled as "Summarizing… {fileDone}/{fileTotal}". Progress and cancel live in the shared bottom chip.
 - When an interactive draft or review runs, the pass waits in `reconcile()` step 6. The click is still accepted; the chip shows "paused" until the worker frees up.
+
+## Part 4: Summarize button in the evidence edit modal
+
+`EditEvidenceModal` (`client/src/app/components/security_requirements/evidence.tsx:287`) serves both the requirement page and the View Evidence table, so one change covers both entry points.
+
+Add a "Summary" section between the type/file fields and the "Attached as" section, following the modal's existing section pattern (`border-t border-border pt-4`, muted helper text):
+
+- Gating mirrors `SummarizeButton`: render nothing on `FREE_TIER`, when `isAiEnabled()` is false, or when no usable model resolves. When weights are missing, the click opens `openAiSettings()`.
+- Readability: look up the `IDB.evidenceText` row for `artifact.id`. When the row is missing or `status !== "ok"`, disable the button with the title "No readable text in this file". URL evidence falls out through the same check — extraction stores no "ok" text for it.
+- Freshness: resolve the model, compute `summaryFingerprint(artifact.id, model.id)` (exported in Part 2 step 2), and read `IDB.evidenceSummaries.get(artifact.id)`. When the cached row matches, is complete, and has a summary, render the button as "Summarized ✓", disabled. Re-check when `TABLE_CHANGED_EVENT` fires for the evidenceSummaries table, so the label flips without reopening the modal.
+- In progress: subscribe with `useSyncExternalStore(subscribeSummarySync, getSummarySync, getSummarySync)`. When `sync.evidenceId === artifact.id`, render "Summarizing… ({chunkDone + 1}/{chunkTotal})", disabled. When a pass runs on other files, the button stays enabled — a click unions this id into the pending set.
+- On click: `void ensureSummarySynced({ manual: true, ids: [artifact.id] })`. The pass is independent of the auto toggle, and progress shows in the shared bottom chip.
+- Replacing the file through this modal changes the evidence id (content hash), so a stale summary cannot be shown for new content: the fresh id has no summary row, and the button offers to summarize again after the save. No extra handling is needed.
 
 ## Verification
 

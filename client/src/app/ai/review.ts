@@ -11,6 +11,7 @@ import { resolveUsableModel } from "@/app/llm/config";
 import { EvidenceDoc, gatherEvidence } from "@/app/llm/prompt";
 import { getSelectedModelId } from "@/app/llm/settings";
 import { DocSummary, freshDocSummaries } from "@/app/llm/summarize";
+import { pauseSummarySync } from "@/app/llm/summary_sync";
 import { ensureEvidenceTextSynced } from "@/app/search/evidence_text_store";
 import { EXTRACTOR_VERSION } from "@/app/search/extract_text";
 import { sha256Hex } from "@/app/utils/hash";
@@ -129,6 +130,26 @@ const run = async (
         return;
     }
 
+    // Interactive work excludes the background summarizer for the whole
+    // run — the idle gaps between per-objective generations must not be
+    // filled by background chunks.
+    const resume = await pauseSummarySync();
+    try {
+        await reviewObjectives(requirementId, objectives, model, {
+            signal,
+            onProgress,
+        });
+    } finally {
+        resume();
+    }
+};
+
+const reviewObjectives = async (
+    requirementId: string,
+    objectives: ReturnType<typeof objectivesForRequirement>,
+    model: NonNullable<ReturnType<typeof getLocalModel>>,
+    { signal, onProgress }: ReviewOptions,
+): Promise<void> => {
     await ensureEvidenceTextSynced();
     const { docs, unreadable } = await gatherEvidence(requirementId);
     const progress: ReviewProgress = {

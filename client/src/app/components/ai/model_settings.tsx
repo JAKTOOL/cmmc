@@ -29,9 +29,16 @@ import {
 import {
     getSelectedModelId,
     isAiEnabled,
+    isAutoSummarizeEnabled,
     setAiEnabled,
+    setAutoSummarizeEnabled,
     setSelectedModelId,
 } from "@/app/llm/settings";
+import {
+    cancelSummarySync,
+    ensureSummarySynced,
+    startSummarySync,
+} from "@/app/llm/summary_sync";
 import { InfoModal } from "../modal";
 import {
     modelDelete,
@@ -95,6 +102,7 @@ export const AiSettingsModal = () => {
     const [open, setOpen] = useState(false);
     const [capabilities, setCapabilities] = useState<DeviceCapabilities>();
     const [enabled, setEnabled] = useState(true);
+    const [autoSummarize, setAutoSummarize] = useState(false);
     const [modelId, setModelId] = useState(DEFAULT_MODEL_ID);
     const [weights, setWeights] = useState<WeightState>("checking");
     /** True when the weights came from the app-data store (user import)
@@ -109,6 +117,7 @@ export const AiSettingsModal = () => {
     useEffect(() => {
         const onOpen = () => {
             setEnabled(isAiEnabled());
+            setAutoSummarize(isAutoSummarizeEnabled());
             setModelId(getSelectedModelId());
             setOpen(true);
         };
@@ -229,6 +238,35 @@ export const AiSettingsModal = () => {
                     />
                 </label>
 
+                <div className="flex flex-col gap-1">
+                    <label className="flex items-center justify-between gap-4">
+                        <span className="text-muted-foreground">
+                            Summarize evidence in the background
+                        </span>
+                        <input
+                            type="checkbox"
+                            checked={autoSummarize}
+                            disabled={!enabled || weights === "missing"}
+                            onChange={(event) => {
+                                const on = event.target.checked;
+                                setAutoSummarize(on);
+                                setAutoSummarizeEnabled(on);
+                                if (on) {
+                                    startSummarySync();
+                                    void ensureSummarySynced();
+                                } else {
+                                    cancelSummarySync();
+                                }
+                            }}
+                        />
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                        Pre-summarizes evidence files whenever they change, so
+                        drafts start almost immediately. Loads the model and
+                        uses GPU and battery in the background.
+                    </p>
+                </div>
+
                 <div className="flex items-center justify-between gap-4">
                     <span className="text-muted-foreground">Engine</span>
                     {capabilities === undefined ? (
@@ -250,6 +288,9 @@ export const AiSettingsModal = () => {
                         onChange={(event) => {
                             setModelId(event.target.value);
                             setSelectedModelId(event.target.value);
+                            // A model switch changes summary fingerprints; a
+                            // no-op when the auto toggle is off.
+                            void ensureSummarySynced();
                         }}
                     >
                         {MODELS.map((candidate: LlmModel) => {

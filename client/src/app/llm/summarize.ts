@@ -128,7 +128,7 @@ const reduceSummaries = async (
     );
 };
 
-const summaryFingerprint = (evidenceId: string, modelId: string) =>
+export const summaryFingerprint = (evidenceId: string, modelId: string) =>
     sha256Hex(
         [
             evidenceId,

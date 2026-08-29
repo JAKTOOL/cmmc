@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { DraftHost } from "./components/ai/draft_host";
 import { AiSettingsModal } from "./components/ai/model_settings";
 import { CommandPalette } from "./components/command_palette";
 import { ExternalLinkHandler } from "./components/external_link_handler";
@@ -71,6 +72,7 @@ export default function RootLayout({
                 <UpgradePrompt />
                 <CommandPalette />
                 <AiSettingsModal />
+                <DraftHost />
             </body>
         </html>
     );

@@ -20,14 +20,33 @@ import {
     TABLE_CHANGED_EVENT,
 } from "@/app/db";
 import { useHoverCard } from "@/app/hooks/hoverCard";
+import { getDeviceCapabilities } from "@/app/llm/capabilities";
+import { resolveUsableModel } from "@/app/llm/config";
+import { weightsAvailable } from "@/app/llm/engine";
+import { getSelectedModelId, isAiEnabled } from "@/app/llm/settings";
+import {
+    ensureSummarySynced,
+    getSummarySync,
+    startSummarySync,
+    subscribeSummarySync,
+} from "@/app/llm/summary_sync";
 import { evidenceMatchIds } from "@/app/search/evidence_index";
 import { startEvidenceTextSync } from "@/app/search/evidence_text_store";
 import { hashType, mimeLabel } from "@/app/utils/file";
+import { FREE_TIER } from "@/app/utils/tier";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import {
+    ReactNode,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+    useSyncExternalStore,
+} from "react";
 import { createPortal } from "react-dom";
-import { Input } from "./ui";
+import { openAiSettings } from "./ai/model_settings";
+import { Button, Input } from "./ui";
 
 interface Requirements {
     requirements: string[];
@@ -123,6 +142,69 @@ const HoverCard = ({
     );
 };
 
+/** Pre-summarize the whole corpus on demand: one manual reconcile pass over
+ *  all readable evidence, independent of the auto-summarize toggle. Fresh
+ *  summaries are skipped by fingerprint, so a warm corpus finishes
+ *  immediately. Hidden with the same gating as SummarizeButton; when
+ *  weights are missing the click opens the AI settings instead. Progress
+ *  and cancel live in the shared bottom chip (DraftHost). */
+const SummarizeAllButton = () => {
+    const [supported, setSupported] = useState(false);
+    const [weightsReady, setWeightsReady] = useState(false);
+    const sync = useSyncExternalStore(
+        subscribeSummarySync,
+        getSummarySync,
+        getSummarySync,
+    );
+
+    useEffect(() => {
+        if (FREE_TIER) {
+            return;
+        }
+        let cancelled = false;
+        (async () => {
+            const model = resolveUsableModel(
+                getSelectedModelId(),
+                await getDeviceCapabilities(),
+            );
+            if (!model) {
+                return;
+            }
+            const ready = await weightsAvailable(model);
+            if (!cancelled) {
+                setSupported(true);
+                setWeightsReady(ready);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    if (FREE_TIER || !isAiEnabled() || !supported) {
+        return null;
+    }
+    const running = sync.phase !== "idle";
+    return (
+        <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={running}
+            title="Summarize every readable evidence file so AI drafts start immediately"
+            onClick={() =>
+                weightsReady
+                    ? void ensureSummarySynced({ manual: true })
+                    : openAiSettings()
+            }
+        >
+            {running
+                ? `Summarizing… ${sync.fileDone}/${sync.fileTotal}`
+                : "Summarize all"}
+        </Button>
+    );
+};
+
 // Requirements shown inline before the rest collapse into a hover card.
 const MAX_REQUIREMENT_LINKS = 3;
 
@@ -169,6 +251,7 @@ export const EvidenceTable = () => {
     useEffect(() => {
         refresh();
         startEvidenceTextSync();
+        startSummarySync();
     }, []);
 
     // Seed from ?q= — evidence hits in the global search and the Ctrl+K
@@ -470,13 +553,14 @@ export const EvidenceTable = () => {
         >
             <section className="w-full flex flex-col">
                 <Stats stats={stats} />
-                <div className="mb-3">
+                <div className="mb-3 flex items-center gap-2">
                     <Input
                         value={contentQuery}
                         onChange={(e) => setContentQuery(e.target.value)}
                         placeholder="Search evidence content, filenames, and linked requirements…"
                         aria-label="Search evidence content"
                     />
+                    <SummarizeAllButton />
                 </div>
                 {/* The table manages its own bounded scroll viewport (both
                     axes); this wrapper just draws the frame and clips the
