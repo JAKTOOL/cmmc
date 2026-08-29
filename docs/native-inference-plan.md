@@ -62,8 +62,7 @@ Macs (it needs simdgroup features the AMD/Intel GPUs' Metal drivers lack),
 so the `x86_64-apple-darwin` bundle keeps the ONNX/WKWebView path.
 
 - Feature: `native-llm-metal` (`llama-cpp-2/metal`). The `native.rs` cfg
-  gates cover `any(target_os = "linux", target_os = "macos")`; Windows
-  still compiles stubs.
+  gates are feature-only (Phase 3 removed the `target_os` conditions).
 - Weights: `bundlePlatforms` accepts arch-qualified tags
   (`<platform>-<arch>`). GGUF entries carry `["linux", "darwin-arm64"]`;
   ONNX Llamas carry `["darwin-x64", "win32"]` (1B) and `["darwin-x64"]`
@@ -74,15 +73,38 @@ so the `x86_64-apple-darwin` bundle keeps the ONNX/WKWebView path.
 
 Why not Vulkan everywhere: on macOS Vulkan means MoltenVK (a translation
 layer onto Metal) — slower and less complete than llama.cpp's first-class
-Metal backend. On Windows, Vulkan is native but second-class: the
-platform's best-supported driver API is D3D12, which is exactly what the
-current WebView2/WebGPU path already rides (Dawn on D3D12), and llama.cpp
-has no D3D12 backend. Combined with the heaviest CI toolchain (MSVC +
-cmake + Vulkan SDK) and no installer-size win (GGUF still cannot fit the
-3B under the NSIS ~2 GB cap), Windows stays on the webview path. CUDA is
-an NVIDIA-only optimization on top of that, with a heavy runtime closure —
-revisit only if NVIDIA-user feedback shows Vulkan-on-Linux
+Metal backend. CUDA remains rejected: an NVIDIA-only optimization with a
+heavy runtime closure — revisit only if NVIDIA-user feedback shows Vulkan
 underperforming.
+
+## Phase 3: Windows (Vulkan)
+
+Windows was originally deferred: WebView2's WebGPU rides Dawn-on-D3D12
+(the platform's first-class driver API, which llama.cpp lacks), Vulkan
+there is the second-class path, and the CI toolchain is the heaviest of
+the three. The decision flipped (2026-08-29) for desktop convergence: one
+inference stack, one model format, one performance profile across every
+desktop build — and a large installer win once the webview models leave
+the bundle (Windows: 1.67 GB of ONNX → 0.81 GB of GGUF). The 3B still
+cannot ship on Windows: its 2.0 GB GGUF bursts the NSIS ~2 GB cap.
+
+Specifics:
+
+- Feature: the same `native-llm-vulkan`. `native.rs` gates are now purely
+  on the feature (no `target_os`); Intel macOS is the only remaining
+  webview desktop build.
+- Runtime: `vulkan-1.dll` ships with GPU drivers, not Windows. The build
+  delay-loads it (`/DELAYLOAD` in src-tauri build.rs) so driverless
+  machines (VMs, remote desktop) still launch; llama.cpp then runs on
+  CPU.
+- CI: the desktop-windows job installs a pinned LunarG Vulkan SDK
+  (headers, loader, glslc, SPIR-V cmake packages) and appends
+  `--features native-llm-vulkan` to the tauri-action args. First run
+  verifies that the SDK carries the SPIRV-Headers cmake config the Linux
+  build needed from nixpkgs.
+- The Windows-specific webview machinery (WebGPU adapter policy in the
+  window heuristics) stays: the hosted-web build and Intel macOS still
+  use it.
 
 ## Risks
 

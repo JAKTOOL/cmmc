@@ -36,20 +36,18 @@ sha2 = "0.10"
 machine-uid = "0.5"
 gethostname = "0.4"
 time = { version = "0.3", features = ["parsing", "formatting", "macros"] }
+# Native inference (llama.cpp in-process), behind the native-llm feature
+# so default builds never compile llama.cpp (it needs cmake and, for the
+# vulkan feature, the Vulkan SDK). Enabled per platform build: the Nix
+# package and the Windows CI leg use --features native-llm-vulkan; the
+# aarch64 macOS CI leg uses --features native-llm-metal (Metal is Apple
+# Silicon only — Intel Macs stay on the webview path).
+llama-cpp-2 = { version = "0.1.154", optional = true }
 
 # Self-update via Keygen's Tauri engine — only on platforms where the updater
 # can install in place. Linux ships .deb/.rpm and is notify-only.
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
 tauri-plugin-updater = "2"
-
-# Native inference (llama.cpp in-process) — Linux and macOS, behind the
-# native-llm feature so default builds and Windows never compile llama.cpp
-# (it needs cmake and, for the vulkan feature, Vulkan headers). The Nix
-# package builds with --features native-llm-vulkan; the aarch64 macOS CI
-# leg builds with --features native-llm-metal (Metal is Apple Silicon
-# only — Intel Macs stay on the webview path).
-[target.'cfg(any(target_os = "linux", target_os = "macos"))'.dependencies]
-llama-cpp-2 = { version = "0.1.154", optional = true }
 
 [features]
 # Used by `tauri dev` for faster, debuggable builds.

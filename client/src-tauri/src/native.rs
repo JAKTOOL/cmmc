@@ -1,8 +1,8 @@
 // Native inference engine: llama.cpp in the Rust process, behind the same
 // message shapes the in-webview worker speaks (docs/native-inference-plan.md).
 // This exists because Linux webkitgtk caps WebGPU below a usable window;
-// running inference here reaches the GPU directly — Vulkan on Linux, Metal
-// on Apple Silicon.
+// running inference here reaches the GPU directly — Vulkan on Linux and
+// Windows, Metal on Apple Silicon.
 //
 // Transport contract (client/src/app/llm/native_worker.ts polls, no events):
 //   native_probe               -> { available, backend } (never fails)
@@ -15,12 +15,13 @@
 //                                 completes normally with partial text
 //   native_unload              -> frees the model and context
 //
-// The llama.cpp dependency is optional (feature "native-llm", Linux and
-// macOS): default builds compile the stub bodies, so `cargo check` and
-// Windows never build llama.cpp. The Nix package enables
-// "native-llm-vulkan"; the aarch64 macOS CI leg enables
-// "native-llm-metal" (Apple Silicon only — ggml-metal does not support
-// Intel Macs, which stay on the webview path).
+// The llama.cpp dependency is optional (feature "native-llm"): default
+// builds compile the stub bodies, so `cargo check` never builds llama.cpp.
+// The Nix package and the Windows CI leg enable "native-llm-vulkan"; the
+// aarch64 macOS CI leg enables "native-llm-metal" (Apple Silicon only —
+// ggml-metal does not support Intel Macs, which stay on the webview
+// path). On Windows, vulkan-1.dll is delay-loaded (build.rs) so machines
+// without GPU drivers still launch the app; llama.cpp then runs on CPU.
 
 use serde::Serialize;
 
@@ -56,7 +57,7 @@ pub struct NativeError {
     pub fatal: bool,
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 mod imp {
     use super::{NativeError, NativeGenerated};
     use std::num::NonZeroU32;
@@ -369,7 +370,7 @@ mod imp {
     }
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 fn resolve_model_path(
     app: &tauri::AppHandle,
     path: &str,
@@ -396,7 +397,7 @@ fn resolve_model_path(
 
 #[tauri::command]
 pub async fn native_probe() -> NativeProbe {
-    #[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+    #[cfg(feature = "native-llm")]
     {
         // Touch the engine thread so backend-init failures surface here
         // (probe stays infallible; a dead thread means no native path).
@@ -412,7 +413,7 @@ pub async fn native_probe() -> NativeProbe {
             },
         }
     }
-    #[cfg(not(all(feature = "native-llm", any(target_os = "linux", target_os = "macos"))))]
+    #[cfg(not(feature = "native-llm"))]
     {
         NativeProbe {
             available: false,
@@ -421,7 +422,7 @@ pub async fn native_probe() -> NativeProbe {
     }
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 #[tauri::command]
 pub async fn native_load(
     app: tauri::AppHandle,
@@ -449,7 +450,7 @@ pub async fn native_load(
     .map_err(|err| err.to_string())?
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 #[tauri::command]
 pub async fn native_generate(
     request_id: i64,
@@ -493,7 +494,7 @@ pub async fn native_generate(
     })?
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 #[tauri::command]
 pub async fn native_poll(request_id: i64) -> NativePoll {
     let shared = &imp::handle().shared;
@@ -515,7 +516,7 @@ pub async fn native_poll(request_id: i64) -> NativePoll {
     }
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 #[tauri::command]
 pub async fn native_abort(request_id: i64) {
     let shared = &imp::handle().shared;
@@ -530,7 +531,7 @@ pub async fn native_abort(request_id: i64) {
     }
 }
 
-#[cfg(all(feature = "native-llm", any(target_os = "linux", target_os = "macos")))]
+#[cfg(feature = "native-llm")]
 #[tauri::command]
 pub async fn native_unload() {
     let _ = imp::handle().tx.send(imp::Cmd::Unload);
@@ -539,13 +540,13 @@ pub async fn native_unload() {
 // Stubs so the invoke handlers exist on every build; the frontend probes
 // first and never calls these when available is false, but a stray call
 // must fail cleanly instead of panicking on a missing command.
-#[cfg(not(all(feature = "native-llm", any(target_os = "linux", target_os = "macos"))))]
+#[cfg(not(feature = "native-llm"))]
 #[tauri::command]
 pub async fn native_load(_path: String, _n_ctx: u32) -> Result<(), String> {
     Err("native inference is not available in this build".into())
 }
 
-#[cfg(not(all(feature = "native-llm", any(target_os = "linux", target_os = "macos"))))]
+#[cfg(not(feature = "native-llm"))]
 #[tauri::command]
 pub async fn native_generate(
     _request_id: i64,
@@ -556,7 +557,7 @@ pub async fn native_generate(
     })
 }
 
-#[cfg(not(all(feature = "native-llm", any(target_os = "linux", target_os = "macos"))))]
+#[cfg(not(feature = "native-llm"))]
 #[tauri::command]
 pub async fn native_poll(_request_id: i64) -> NativePoll {
     NativePoll {
@@ -565,10 +566,10 @@ pub async fn native_poll(_request_id: i64) -> NativePoll {
     }
 }
 
-#[cfg(not(all(feature = "native-llm", any(target_os = "linux", target_os = "macos"))))]
+#[cfg(not(feature = "native-llm"))]
 #[tauri::command]
 pub async fn native_abort(_request_id: i64) {}
 
-#[cfg(not(all(feature = "native-llm", any(target_os = "linux", target_os = "macos"))))]
+#[cfg(not(feature = "native-llm"))]
 #[tauri::command]
 pub async fn native_unload() {}

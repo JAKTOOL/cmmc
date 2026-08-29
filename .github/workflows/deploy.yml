@@ -219,6 +219,23 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable branch, pinned
 
+      # Native inference (llama.cpp/Vulkan, --features native-llm-vulkan):
+      # ggml-vulkan needs the Vulkan headers/loader, glslc, and the SPIR-V
+      # cmake packages at build time. The LunarG SDK (pinned version,
+      # silent install) carries all of them. Runtime needs none of this:
+      # vulkan-1.dll is delay-loaded (src-tauri build.rs) and comes from
+      # the user's GPU driver; driverless machines fall back to CPU.
+      - name: Install Vulkan SDK
+        shell: pwsh
+        run: |
+          $ver = "1.3.296.0"
+          $url = "https://sdk.lunarg.com/sdk/download/$ver/windows/VulkanSDK-$ver-Installer.exe"
+          Invoke-WebRequest -Uri $url -OutFile "$env:RUNNER_TEMP\vulkan-sdk.exe"
+          Start-Process -Wait -FilePath "$env:RUNNER_TEMP\vulkan-sdk.exe" `
+            -ArgumentList "--accept-licenses --default-answer --confirm-command install"
+          Add-Content $env:GITHUB_ENV "VULKAN_SDK=C:\VulkanSDK\$ver"
+          Add-Content $env:GITHUB_PATH "C:\VulkanSDK\$ver\Bin"
+
       # Azure Artifact Signing (formerly Trusted Signing). Only runs when the
       # endpoint secret is present, so unsigned builds keep working. Tauri calls
       # artifact-signing-cli per bundled binary/installer via signCommand below.
@@ -320,7 +337,8 @@ jobs:
           projectPath: client
           tauriScript: "npm tauri:win"
           # Config path is resolved relative to projectPath (client).
-          args: "--config version-override.json"
+          # native-llm-vulkan enables llama.cpp in the Rust process.
+          args: "--config version-override.json --features native-llm-vulkan"
           # Upload to the release create-release already made, rather than
           # creating/finalizing it here (which would race the other jobs).
           releaseId: ${{ needs.create-release.outputs.release_id }}
