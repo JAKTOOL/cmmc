@@ -3,11 +3,12 @@
 // status store for React. Lazy singleton, following utils/pdf.ts — nothing
 // loads until the feature is first used.
 //
-// Weights are a build-time input only. Every build that has the AI feature
-// ships them as static assets under /models/ (flake.nix for the Nix desktop
-// package, scripts/fetch-model-weights.mjs for non-Nix desktop builds). The
-// app never fetches weights at runtime; a build without the bundled tree
-// simply reports the feature as unavailable.
+// Bundled weights are a build-time input (flake.nix for the Nix desktop
+// package, scripts/fetch-model-weights.mjs for non-Nix desktop builds);
+// installers carry only the lite model. Desktop builds can add a pinned
+// model through the verified store (model_store.rs: explicit download or
+// offline import, sha256-checked) — this module never fetches anything
+// itself and just probes for whichever weights exist.
 
 import { registerLocalModel } from "@/app/ai/model";
 import { aiDebugLog, isTauri, readModelFile } from "@/app/utils/tauri";
@@ -358,8 +359,9 @@ const getWorker = (): WorkerLike => {
 const send = (message: ToWorker, transfer: Transferable[] = []) =>
     getWorker().postMessage(message, transfer);
 
-/** Load the model into the worker (idempotent). Requires the build to have
- *  bundled the weights under /models/ — there is no download path. */
+/** Load the model into the worker (idempotent). Requires the weights to
+ *  exist locally — bundled under /models/, or added through the verified
+ *  model store; this function never fetches them. */
 export const ensureLoaded = async (model: LlmModel): Promise<void> => {
     if (loadedModelId === model.id) {
         return loadPromise;

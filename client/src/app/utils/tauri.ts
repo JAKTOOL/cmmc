@@ -178,6 +178,73 @@ export const modelImport = async (entry: {
     }
 };
 
+/**
+ * Download one pinned manifest file into the verified model store
+ * (docs/model-download-plan.md increment 2). Rust streams the transfer,
+ * hashes in flight, and only renames verified bytes into place. Resolves
+ * on completion, `null` in the browser build; throws with a message on
+ * cancel, mismatch, or network failure. One transfer runs at a time —
+ * poll modelStorePoll for progress.
+ */
+export const modelDownload = async (entry: {
+    repo: string;
+    path: string;
+    url: string;
+    sha256: string;
+    size: number;
+}): Promise<void | null> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return null;
+    }
+    try {
+        await internals.invoke("model_download", entry);
+    } catch (error) {
+        throw new Error(String(error));
+    }
+};
+
+export interface ModelStoreProgress {
+    bytes: number;
+    total: number;
+    active: boolean;
+}
+
+/** Progress of the running download (zeros when idle); `null` in the
+ *  browser build. */
+export const modelStorePoll =
+    async (): Promise<ModelStoreProgress | null> => {
+        const internals =
+            typeof window !== "undefined"
+                ? window.__TAURI_INTERNALS__
+                : undefined;
+        if (!internals?.invoke) {
+            return null;
+        }
+        try {
+            return await internals.invoke<ModelStoreProgress>(
+                "model_store_poll",
+            );
+        } catch {
+            return null;
+        }
+    };
+
+/** Abort the running download; Rust removes the partial file. */
+export const modelStoreCancel = async (): Promise<void> => {
+    const internals =
+        typeof window !== "undefined" ? window.__TAURI_INTERNALS__ : undefined;
+    if (!internals?.invoke) {
+        return;
+    }
+    try {
+        await internals.invoke("model_store_cancel");
+    } catch {
+        // The transfer ends on its own; cancel is best-effort.
+    }
+};
+
 /** True when an imported copy of the repo exists; `null` in the browser. */
 export const modelStoreStatus = async (
     repo: string,

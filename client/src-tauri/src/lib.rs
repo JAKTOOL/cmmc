@@ -334,6 +334,9 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             ai_debug_log,
             model_store::model_import,
+            model_store::model_download,
+            model_store::model_store_poll,
+            model_store::model_store_cancel,
             model_store::model_store_status,
             model_store::model_delete,
             native::native_probe,

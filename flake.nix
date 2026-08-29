@@ -133,10 +133,10 @@
         # macOS machine with Nix still gets its files from the store.
         modelWeights = weightsTree "cmmc-model-weights-${appVersion}" pinnedModels;
         # What the Linux desktop package actually bundles: bundlePlatforms
-        # absent or containing "linux". The ONNX llama entries exclude
-        # linux (the native GGUF path replaces them; see
-        # docs/native-inference-plan.md), which keeps the installer from
-        # carrying two copies of every Llama.
+        # absent or containing "linux". Every Llama entry carries an empty
+        # list — installers ship only the lite model (GitHub caps release
+        # assets below 2 GiB), and users add a Llama through the verified
+        # download/import (docs/model-download-plan.md).
         linuxBundledModels = builtins.filter
           (model:
             !(model ? bundlePlatforms)

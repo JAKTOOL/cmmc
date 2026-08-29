@@ -1,11 +1,16 @@
 # Plan: user-initiated model import and download (verified against the manifest)
 
-Status: increment 1 (import) implemented (2026-08-29) — `model_store.rs`
-(import/status/delete, verify-on-copy), the app-data fallback in
-`read_model_file`/`resolve_model_path`, and the settings UI. The optional
-downloader (increment 2) is not implemented; "Changes, in order" below
-covers both. The "never downloads at runtime" claim is still fully true —
-import is offline.
+Status: both increments implemented (2026-08-29). Increment 1 (import):
+`model_store.rs` (import/status/delete, verify-on-copy), the app-data
+fallback in `read_model_file`/`resolve_model_path`, and the settings UI.
+Increment 2 (download): `model_download`/`model_store_poll`/
+`model_store_cancel` in `model_store.rs`, wrappers in `utils/tauri.ts`,
+and the Download button with confirmation, progress, and cancel in the
+settings. Scope grew beyond this plan: after GitHub's 2 GiB release-asset
+cap broke the 1.13.1-0 release, installers bundle only the lite model and
+every Llama (GGUF and ONNX, all platforms) goes through this store.
+Multi-file ONNX models download file by file; import stays GGUF-only.
+The claim change in "Changes, in order" step 4 is applied.
 
 ## Context
 

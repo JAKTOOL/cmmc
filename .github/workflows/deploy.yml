@@ -185,6 +185,17 @@ jobs:
             client/src-tauri/target/release/bundle/rpm/*.rpm
             # client/src-tauri/target/release/bundle/appimage/*.AppImage
           )
+          # GitHub rejects release assets of 2 GiB or more (HTTP 422:
+          # "size must be less than 2147483648"). Fail here with the cause
+          # instead: an oversized bundle means a model that must not ride
+          # in installers — trim bundlePlatforms in models.manifest.json.
+          for file in "${files[@]}"; do
+            size=$(stat -c%s "$file")
+            if [ "$size" -ge 2147483648 ]; then
+              echo "::error::$file is $size bytes; GitHub caps release assets below 2 GiB. Remove a model from bundlePlatforms in client/src/app/llm/models.manifest.json."
+              exit 1
+            fi
+          done
           gh release upload "${{ github.ref_name }}" "${files[@]}" --clobber
 
   # ---------------------------------------------------------------------------
@@ -218,6 +229,13 @@ jobs:
           node-version: "20"
 
       - uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable branch, pinned
+
+      # Exports the MSVC toolchain environment (cl.exe on PATH, INCLUDE/LIB)
+      # to every later step. Needed because the llama-cpp-sys cmake build runs
+      # under the Ninja generator (CMAKE_GENERATOR on the bundle step below),
+      # and Ninja — unlike the Visual Studio generator — does not locate the
+      # compiler itself.
+      - uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1.13.0
 
       # Native inference (llama.cpp/Vulkan, --features native-llm-vulkan):
       # ggml-vulkan needs the Vulkan headers/loader, glslc, and the SPIR-V
@@ -339,6 +357,14 @@ jobs:
           # (no-ops when the secrets are unset).
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          # Build llama-cpp-sys with Ninja (preinstalled on the runner; the
+          # cmake crate honors this env var). Under the default Visual Studio
+          # generator, MSBuild races the vulkan-shaders-gen ExternalProject
+          # steps — the install step runs before the build step finishes and
+          # fails with "Not a file: .../cmake_install.cmake". llama.cpp's own
+          # Windows Vulkan CI builds with Ninja for the same reason. Requires
+          # the MSVC env from the msvc-dev-cmd step above.
+          CMAKE_GENERATOR: Ninja
         with:
           projectPath: client
           tauriScript: "npm tauri:win"

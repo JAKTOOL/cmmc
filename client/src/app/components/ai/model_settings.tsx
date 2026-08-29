@@ -39,10 +39,15 @@ import {
     ensureSummarySynced,
     startSummarySync,
 } from "@/app/llm/summary_sync";
+import { confirm } from "../confirm";
 import { InfoModal } from "../modal";
 import {
+    isTauri,
     modelDelete,
+    modelDownload,
     modelImport,
+    modelStoreCancel,
+    modelStorePoll,
     modelStoreStatus,
 } from "@/app/utils/tauri";
 import { Badge, Button, Label, Select, menuItemClasses } from "../ui";
@@ -109,6 +114,9 @@ export const AiSettingsModal = () => {
      *  rather than the bundle — drives the Remove row. */
     const [imported, setImported] = useState(false);
     const [importing, setImporting] = useState(false);
+    const [downloading, setDownloading] = useState(false);
+    /** Bytes landed across all of the model's files (multi-file ONNX). */
+    const [downloadedBytes, setDownloadedBytes] = useState(0);
     const [importError, setImportError] = useState<string | null>(null);
     const [status, setStatus] = useState<LlmStatus>({ phase: "idle" });
 
@@ -160,13 +168,15 @@ export const AiSettingsModal = () => {
         status.modelId === model.id &&
         (status.phase === "ready" || status.phase === "generating");
 
-    // Import is offered for pinned native-format models this build did not
-    // bundle (the 3B on Windows). The file is verified byte-for-byte
-    // against the manifest before it becomes loadable.
+    // Installers bundle only the lite model; the Llamas arrive through the
+    // verified store. Download works for any pinned model on a desktop
+    // build (multi-file ONNX downloads file by file); the offline import
+    // picker stays single-file, so it is offered for GGUF models only.
     const importable =
         model.format === "gguf" &&
         !!capabilities?.native &&
         model.files.length > 0;
+    const downloadable = isTauri() && model.files.length > 0;
 
     const runImport = async () => {
         const file = model.files[0];
@@ -203,6 +213,55 @@ export const AiSettingsModal = () => {
         setWeights((await weightsAvailable(model)) ? "bundled" : "missing");
     };
 
+    const runDownload = async () => {
+        const proceed = await confirm({
+            title: "Download model",
+            message: `Download ${model.label} (${formatBytes(model.totalBytes)}) from huggingface.co? This is the only time the app downloads anything, and every file is verified against the pinned checksum before use.`,
+            confirmLabel: "Download",
+        });
+        if (!proceed) {
+            return;
+        }
+        setImportError(null);
+        setDownloading(true);
+        setDownloadedBytes(0);
+        // Overall progress = completed files + the in-flight transfer.
+        let landed = 0;
+        const poll = window.setInterval(async () => {
+            const progress = await modelStorePoll();
+            if (progress?.active) {
+                setDownloadedBytes(landed + progress.bytes);
+            }
+        }, 500);
+        try {
+            for (const file of model.files) {
+                await modelDownload({
+                    repo: model.repo,
+                    path: file.path,
+                    url: file.url,
+                    sha256: file.sha256,
+                    size: file.size,
+                });
+                landed += file.size;
+                setDownloadedBytes(landed);
+            }
+            setImported(true);
+            setWeights(
+                (await weightsAvailable(model)) ? "bundled" : "missing",
+            );
+        } catch (error) {
+            const message =
+                error instanceof Error ? error.message : String(error);
+            // A user cancel is not an error state.
+            if (!message.includes("cancelled")) {
+                setImportError(message);
+            }
+        } finally {
+            window.clearInterval(poll);
+            setDownloading(false);
+        }
+    };
+
     return (
         <InfoModal
             open={open}
@@ -212,10 +271,12 @@ export const AiSettingsModal = () => {
             <div className="flex flex-col gap-4">
                 <p>
                     Drafts control narratives from your attached evidence and
-                    reviews it against the assessment objectives. The model
-                    ships with the app and runs entirely on this device — your
-                    evidence and notes are never uploaded anywhere, and
-                    nothing is downloaded at runtime.
+                    reviews it against the assessment objectives. Every model
+                    runs entirely on this device — your evidence and notes are
+                    never uploaded anywhere. The lite model ships with the
+                    app; a larger model downloads only when you request it
+                    here, and is verified against a pinned checksum before
+                    use.
                 </p>
                 <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
                     These features are in beta. A small on-device model can
@@ -343,7 +404,7 @@ export const AiSettingsModal = () => {
                         <div className="flex items-center justify-between gap-4">
                             <span>
                                 {imported
-                                    ? "Imported and verified"
+                                    ? "Added and verified"
                                     : "Bundled with this app"}{" "}
                                 ({formatBytes(model.totalBytes)}).
                             </span>
@@ -366,28 +427,64 @@ export const AiSettingsModal = () => {
                         </div>
                     )}
                     {weights === "missing" &&
-                        (importable ? (
+                        (downloadable ? (
                             <div className="flex flex-col gap-2">
                                 <p>
-                                    This installer does not include the model
-                                    ({formatBytes(model.totalBytes)}). Obtain
-                                    the exact pinned file and import it — the
-                                    app verifies every byte against the
-                                    manifest before use, fully offline.
+                                    The installer keeps its size down by not
+                                    including this model (
+                                    {formatBytes(model.totalBytes)}). Download
+                                    it once
+                                    {importable
+                                        ? ", or import the exact pinned file offline"
+                                        : ""}{" "}
+                                    — the app verifies every byte against the
+                                    pinned manifest before use.
                                 </p>
-                                <div>
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        size="sm"
-                                        disabled={importing}
-                                        onClick={runImport}
-                                    >
-                                        {importing
-                                            ? "Verifying…"
-                                            : "Import model file…"}
-                                    </Button>
-                                </div>
+                                {downloading ? (
+                                    <div className="flex items-center gap-2">
+                                        <span aria-live="polite">
+                                            Downloading…{" "}
+                                            {formatBytes(downloadedBytes)} of{" "}
+                                            {formatBytes(model.totalBytes)}
+                                        </span>
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={() =>
+                                                void modelStoreCancel()
+                                            }
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <div className="flex gap-2">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            disabled={importing}
+                                            onClick={runDownload}
+                                        >
+                                            Download (
+                                            {formatBytes(model.totalBytes)})
+                                        </Button>
+                                        {importable && (
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                disabled={importing}
+                                                onClick={runImport}
+                                            >
+                                                {importing
+                                                    ? "Verifying…"
+                                                    : "Import model file…"}
+                                            </Button>
+                                        )}
+                                    </div>
+                                )}
                                 {importError && (
                                     <p role="alert" className="text-red-600">
                                         {importError}
@@ -396,9 +493,8 @@ export const AiSettingsModal = () => {
                             </div>
                         ) : (
                             <p>
-                                This build does not include the model weights,
-                                so the AI feature is unavailable. Desktop
-                                builds bundle them automatically — see{" "}
+                                This build does not include this model&apos;s
+                                weights, so it is unavailable here — see{" "}
                                 <code>docs/local-ai.md</code>.
                             </p>
                         ))}
