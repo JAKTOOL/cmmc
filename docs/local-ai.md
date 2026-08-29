@@ -4,7 +4,7 @@
 
 The app can draft a control narrative from the evidence that is attached to a requirement. A small language model runs fully on the user's device. The models are US-developed (Meta Llama, Google Gemma). Evidence and notes never leave the machine.
 
-Three models ship: Llama 3.2 1B (default), Gemma 3 270M (lite, WASM fallback), and Llama 3.2 3B (opt-in large model). Which build of the Llamas a bundle carries depends on the platform (`bundlePlatforms` in the manifest, arch-qualified tags like `darwin-arm64`): Linux and Apple Silicon macOS bundle GGUF builds and run them natively; Intel macOS and Windows bundle the ONNX builds for the in-webview runtime (the Windows NSIS installer tops out near 2 GB, so it excludes the 3B). See "Native inference (desktop)" below.
+Three models exist: Llama 3.2 1B (default), Gemma 3 270M (lite, WASM fallback), and Llama 3.2 3B (opt-in large model). What a bundle carries depends on the platform (`bundlePlatforms` in the manifest, arch-qualified tags like `darwin-arm64`): Linux and Apple Silicon macOS bundle only GGUF builds of the two Llamas and run them natively (llama.cpp's CPU backend replaces the lite fallback there); Intel macOS and Windows bundle the ONNX builds plus the lite model for the in-webview runtime (the Windows NSIS installer tops out near 2 GB, so it excludes the 3B). See "Native inference (desktop)" below.
 
 Model weights are a build-time input only. Builds that include the AI feature ship the weights as static assets. The app never downloads weights at runtime. A build without bundled weights shows the feature as unavailable. The free web tier does not include the feature at all.
 
@@ -109,4 +109,4 @@ Case history (2026-08-27): session creation aborted with a messageless C++ excep
 - The summarizer reads extracted text only. Image-only evidence appears in the panel as "no readable text".
 - A stopped generation keeps the partial draft. The user can still insert or regenerate.
 - One generation runs at a time. The engine rejects a second concurrent request.
-- Desktop installers grow by the bundled weight size (roughly the manifest's `totalBytes` per included model). The 3B adds ~2.4 GB to macOS and Linux bundles. Windows builds exclude it, and the picker there shows "(not available in this build)".
+- Desktop installers grow by the bundled weight size (roughly the manifest's `totalBytes` per included model). Current totals: ~2.8 GB of GGUF on native bundles (Linux, Apple Silicon — no webview models there, so no lite fallback either), ~4.1 GB of ONNX on Intel macOS, ~1.7 GB on Windows (the NSIS installer cap excludes the 3B, and the picker shows "(not available in this build)").

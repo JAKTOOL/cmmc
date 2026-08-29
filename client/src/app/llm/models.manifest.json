@@ -103,6 +103,10 @@
                     "size": 545028608,
                     "sha256": "7ea038442b555b1782786da8be96d2805f04b7b94b21e553f6eda74e7d62bfff"
                 }
+            ],
+            "bundlePlatforms": [
+                "darwin-x64",
+                "win32"
             ]
         },
         {
