@@ -352,7 +352,14 @@ jobs:
       matrix:
         include:
           - target: aarch64-apple-darwin # Apple Silicon
+            # Native inference (llama.cpp/Metal) is Apple Silicon only:
+            # ggml-metal does not support Intel Macs. The arm64 bundle
+            # carries GGUF weights; Intel keeps the ONNX/webview path.
+            modelsPlatform: darwin-arm64
+            nativeFeatures: "--features native-llm-metal"
           - target: x86_64-apple-darwin # Intel
+            modelsPlatform: darwin-x64
+            nativeFeatures: ""
     # Presence of these secrets gates the cert import / API key steps below.
     env:
       APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
@@ -394,7 +401,11 @@ jobs:
 
       # Same pinned weights the Nix build bundles; verified by sha256 against
       # models.manifest.json before they enter the desktop bundle.
+      # MODELS_PLATFORM is explicit because this job cross-compiles x86_64
+      # on arm64 runners — process.arch would pick the wrong bundle set.
       - name: Fetch model weights
+        env:
+          MODELS_PLATFORM: ${{ matrix.modelsPlatform }}
         run: node scripts/fetch-model-weights.mjs
 
       # App version = release tag (leading "v" stripped), shared by the bundle
@@ -458,7 +469,8 @@ jobs:
           projectPath: client
           tauriScript: "npm tauri:mac"
           # Config path is resolved relative to projectPath (client).
-          args: "--target ${{ matrix.target }} --config version-override.json"
+          # nativeFeatures enables llama.cpp/Metal on the arm64 leg only.
+          args: "--target ${{ matrix.target }} --config version-override.json ${{ matrix.nativeFeatures }}"
           # Upload to the release create-release already made, rather than
           # creating/finalizing it here (which would race the other jobs).
           releaseId: ${{ needs.create-release.outputs.release_id }}

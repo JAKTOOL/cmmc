@@ -1,13 +1,10 @@
 # Plan: native inference on Linux desktop (llama.cpp behind the LocalModel seam)
 
-Status: implemented, pending verification (2026-08-28). All code and build
-changes are in place. Still open: pin the GGUF entries
-(`node scripts/sync-models.mjs --id llama-3.2-1b-instruct-gguf` and
-`--id llama-3.2-3b-instruct-gguf`), compile the Rust feature on a machine
-with cmake (`nix develop -c cargo check --features native-llm` — the
-llama-cpp-2 0.1.154 API calls in native.rs are written from documentation
-and are unverified against the compiler), and run the verification list at
-the bottom.
+Status: Linux implemented and verified (2026-08-29): `nix build .#cmmc`
+compiles the `native-llm-vulkan` feature and the app runs the native path.
+The 1B GGUF is pinned; the 3B GGUF pin is still open
+(`node scripts/sync-models.mjs --id llama-3.2-3b-instruct-gguf`). Phase 2
+(macOS/Metal, below) is implemented, pending its first CI run.
 
 ## Context
 
@@ -55,6 +52,37 @@ Dependencies: `llama-cpp-2` in `Cargo.toml`; llama.cpp with Vulkan from nixpkgs 
 ### 5. Docs
 
 Update `docs/local-ai.md`: the Linux row of the build-path table, the device-policy section (native path, CPU fallback, window), and the privacy checklist (the audit now also covers the Rust process — llama.cpp makes no network calls; verify behind mitmproxy as usual).
+
+## Phase 2: macOS (Metal, Apple Silicon only)
+
+llama.cpp's Metal backend is its best-supported target (unified memory,
+Apple Silicon as a primary development platform), so macOS gets the native
+path next — but only on Apple Silicon. ggml-metal does not support Intel
+Macs (it needs simdgroup features the AMD/Intel GPUs' Metal drivers lack),
+so the `x86_64-apple-darwin` bundle keeps the ONNX/WKWebView path.
+
+- Feature: `native-llm-metal` (`llama-cpp-2/metal`). The `native.rs` cfg
+  gates cover `any(target_os = "linux", target_os = "macos")`; Windows
+  still compiles stubs.
+- Weights: `bundlePlatforms` accepts arch-qualified tags
+  (`<platform>-<arch>`). GGUF entries carry `["linux", "darwin-arm64"]`;
+  ONNX Llamas carry `["darwin-x64", "win32"]` (1B) and `["darwin-x64"]`
+  (3B). The mac CI job sets `MODELS_PLATFORM` per matrix leg because it
+  cross-compiles x86_64 on arm64 runners.
+- CI: the aarch64 leg appends `--features native-llm-metal` to the
+  tauri-action args. GitHub macOS runners ship cmake and Xcode.
+
+Why not Vulkan everywhere: on macOS Vulkan means MoltenVK (a translation
+layer onto Metal) — slower and less complete than llama.cpp's first-class
+Metal backend. On Windows, Vulkan is native but second-class: the
+platform's best-supported driver API is D3D12, which is exactly what the
+current WebView2/WebGPU path already rides (Dawn on D3D12), and llama.cpp
+has no D3D12 backend. Combined with the heaviest CI toolchain (MSVC +
+cmake + Vulkan SDK) and no installer-size win (GGUF still cannot fit the
+3B under the NSIS ~2 GB cap), Windows stays on the webview path. CUDA is
+an NVIDIA-only optimization on top of that, with a heavy runtime closure —
+revisit only if NVIDIA-user feedback shows Vulkan-on-Linux
+underperforming.
 
 ## Risks
 

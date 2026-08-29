@@ -133,6 +133,8 @@ Mirror `evidence_text_store.ts` structurally and the `subscribeLlmStatus` listen
 ```ts
 export interface SummarySyncState {
     phase: "idle" | "running" | "paused";
+    /** Evidence id of the file in progress — Part 4 keys its button state on it. */
+    evidenceId?: string;
     filename?: string;
     fileDone: number;   // files completed / queued in this pass
     fileTotal: number;
@@ -147,7 +149,7 @@ Keep `IDLE` a stable module constant. `getSummarySync` doubles as the `useSyncEx
 Exports:
 
 - `startSummarySync()` — idempotent: deferred startup pass (`requestIdleCallback`, fallback 2 s timeout) + `TABLE_CHANGED_EVENT` listener filtered to `detail.table === IDB.evidenceText.table`, 1 s debounce. The evidenceText filter is sufficient — evidence writes flow through extraction, which writes evidenceText — and it prevents self-retriggering, because this module writes only evidenceSummaries.
-- `ensureSummarySynced(opts?: { manual?: boolean })` — the `inFlight`/`rerun` coalescer around `reconcile()`. `manual: true` makes the next pass skip the auto-toggle gate (Part 3). Tier, AI-enabled, model, and weight gates still apply.
+- `ensureSummarySynced(opts?: { manual?: boolean; ids?: string[] })` — the `inFlight`/`rerun` coalescer around `reconcile()`. `manual: true` makes the next pass skip the auto-toggle gate (Parts 3 and 4). Tier, AI-enabled, model, and weight gates still apply. `ids` restricts the manual pass to those evidence ids (Part 4). Track requests in a module-level `pendingManualIds: Set<string> | null`, where null means all: a request without `ids` sets null; a request with `ids` unions into the set unless it is already null; `reconcile()` consumes and clears it. This makes overlapping requests coalesce into one correct pass.
 - `cancelSummarySync()` — set a cancel flag, abort the current controller; stay idle until the next trigger.
 - `pauseSummarySync()` — increment a pause counter, abort the current file's controller, await the tracked `ensureDocSummary` promise, return a once-only release. Fast no-op when idle.
 - `getSummarySync()` / `subscribeSummarySync(listener)`.

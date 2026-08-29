@@ -50,19 +50,26 @@ const sha256File = async (path) => {
 
 // Platform-excluded models (bundlePlatforms) count as unlisted here, so
 // the prune step below removes their weights from machines that fetched
-// them before. Tauri builds run on the target OS, so process.platform is
-// the right signal. Local dev is the exception: browser testing of ONNX
-// models on Linux needs weights the Linux bundle excludes — set
-// MODELS_PLATFORM=all (or another platform name) to override.
-const platform = process.env.MODELS_PLATFORM || process.platform;
+// them before. Tags are Node process.platform values, optionally
+// arch-qualified as "<platform>-<arch>" (darwin-arm64) — the macOS bundles
+// differ per arch because llama.cpp's Metal backend is Apple Silicon only.
+// Tauri builds run on the target OS, so the local platform/arch are the
+// right default signals. Two exceptions use MODELS_PLATFORM: local dev
+// ("all" — browser testing of ONNX models on Linux needs weights the
+// Linux bundle excludes), and mac CI (one exact tag — it cross-compiles
+// x86_64 on arm64 runners, so process.arch lies about the target).
+const override = process.env.MODELS_PLATFORM;
+const tags = override
+    ? [override]
+    : [process.platform, `${process.platform}-${process.arch}`];
 const pinned = manifest.models.filter(
     (model) =>
         model.revision !== "" &&
         model.files.length > 0 &&
         model.files.every((file) => file.sha256 !== "") &&
-        (platform === "all" ||
+        (override === "all" ||
             !model.bundlePlatforms ||
-            model.bundlePlatforms.includes(platform)),
+            model.bundlePlatforms.some((tag) => tags.includes(tag))),
 );
 if (!pinned.length) {
     console.log("fetch-model-weights: no pinned models in the manifest, skipping");
