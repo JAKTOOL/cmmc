@@ -6,8 +6,13 @@ import type { ReactNode } from "react";
 import { IconInfo, IconLock } from "./icons";
 import { Badge, buttonClasses } from "./ui";
 
+// Points at /purchase/, not /download/: /purchase/ is the single checkout
+// entry point for both the 14-day trial and a paid license, and it links on
+// to the installers. Sending upgrade traffic to /download/ first costs an
+// extra hop before checkout. Keep the trailing slash — the site serves
+// directory URLs, so /purchase would redirect.
 export const marketingUrl = (medium: string) =>
-    `https://getcmmc.consulting/download?utm_source=cmmc-app&utm_medium=${medium}`;
+    `https://getcmmc.consulting/purchase/?utm_source=cmmc-app&utm_medium=${medium}`;
 
 export const MARKETING_URL = marketingUrl("upgrade");
 
